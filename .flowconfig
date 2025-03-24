@@ -1,0 +1,16 @@
+[ignore]
+dist
+
+[include]
+src
+
+[libs]
+
+[lints]
+untyped-type-import=error
+internal-type=error
+deprecated-type-bool=error
+
+[options]
+
+[strict]
