@@ -24,7 +24,7 @@
     "prettier": "^3.4.2"
   },
   "scripts": {
-    "build": "babel src/ -d dist/",
+    "build": "yarn pretty && babel src/ -d dist/",
     "flow": "flow",
     "go": "yarn build && yarn generate && yarn pretty_output",
     "lint": "yarn eslint src",
