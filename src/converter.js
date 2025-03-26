@@ -79,84 +79,6 @@ function compareProductions(a: IDLProduction, b: IDLProduction): number {
   return aPrecedence - bPrecedence;
 }
 
-export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
-  const sorted = idl.toSorted(compareProductions);
-  const interfaceToMixins = ({}: {[string]: Array<string>});
-  const mixinToConsts = ({}: {[string]: Array<IDLProduction>});
-
-  for (const production of sorted) {
-    if (production.type === 'includes') {
-      const {target, includes} = production;
-      if (interfaceToMixins[target] == null) {
-        interfaceToMixins[target] = [];
-      }
-      interfaceToMixins[target].push(includes);
-    } else if (production.type === 'interface mixin') {
-      const {members, name} = production;
-      const [consts, nonConsts] = partition(
-        members,
-        (member) => member.type === 'const',
-      );
-
-      if (consts.length > 0) {
-        mixinToConsts[name] = consts;
-        production.members = nonConsts;
-      }
-    }
-  }
-
-  let out = '';
-  for (const production of sorted) {
-    const {type, name} = production;
-
-    switch (type) {
-      case 'interface':
-        const mixins = interfaceToMixins[name];
-        const consts = mixins?.flatMap((mixin) => mixinToConsts[mixin] ?? []);
-        out += convertInterface(production, mixins, consts);
-        break;
-
-      case 'dictionary':
-        out += convertDictionary(production);
-        break;
-
-      case 'interface mixin':
-        out += convertInterfaceMixin(production);
-        break;
-
-      case 'callback':
-        out += convertCallback(production);
-        break;
-
-      case 'callback interface':
-        out += convertCallbackInterface(production);
-        break;
-
-      case 'enum':
-        out += convertEnum(production);
-        break;
-
-      case 'typedef':
-        out += convertTypedef(production);
-        break;
-
-      case 'includes':
-        // Converted to mixins
-        break;
-
-      default:
-        process.stderr.write(
-          `Unhandled IDL production ${type}:\n${JSON.stringify(production, null, 2)}\n\n`,
-        );
-        continue;
-    }
-
-    out += '\n';
-  }
-
-  return out;
-}
-
 function convertEnum(production: IDLProduction): string {
   const {name, values} = production;
   let out = `type ${name} = `;
@@ -459,5 +381,83 @@ function convertArgument(production: IDLProduction): string {
 
   let out = `${maybeReplaceKeyword(name)}${optional ? '?' : ''}: `;
   out += convertIDLType(idlType);
+  return out;
+}
+
+export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
+  const sorted = idl.toSorted(compareProductions);
+  const interfaceToMixins = ({}: {[string]: Array<string>});
+  const mixinToConsts = ({}: {[string]: Array<IDLProduction>});
+
+  for (const production of sorted) {
+    if (production.type === 'includes') {
+      const {target, includes} = production;
+      if (interfaceToMixins[target] == null) {
+        interfaceToMixins[target] = [];
+      }
+      interfaceToMixins[target].push(includes);
+    } else if (production.type === 'interface mixin') {
+      const {members, name} = production;
+      const [consts, nonConsts] = partition(
+        members,
+        (member) => member.type === 'const',
+      );
+
+      if (consts.length > 0) {
+        mixinToConsts[name] = consts;
+        production.members = nonConsts;
+      }
+    }
+  }
+
+  let out = '';
+  for (const production of sorted) {
+    const {type, name} = production;
+
+    switch (type) {
+      case 'interface':
+        const mixins = interfaceToMixins[name];
+        const consts = mixins?.flatMap((mixin) => mixinToConsts[mixin] ?? []);
+        out += convertInterface(production, mixins, consts);
+        break;
+
+      case 'dictionary':
+        out += convertDictionary(production);
+        break;
+
+      case 'interface mixin':
+        out += convertInterfaceMixin(production);
+        break;
+
+      case 'callback':
+        out += convertCallback(production);
+        break;
+
+      case 'callback interface':
+        out += convertCallbackInterface(production);
+        break;
+
+      case 'enum':
+        out += convertEnum(production);
+        break;
+
+      case 'typedef':
+        out += convertTypedef(production);
+        break;
+
+      case 'includes':
+        // Converted to mixins
+        break;
+
+      default:
+        process.stderr.write(
+          `Unhandled IDL production ${type}:\n${JSON.stringify(production, null, 2)}\n\n`,
+        );
+        continue;
+    }
+
+    out += '\n';
+  }
+
   return out;
 }
