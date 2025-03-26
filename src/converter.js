@@ -10,6 +10,7 @@ const KEYWORD_REPLACEMENTS = ({
 }: {[string]: string});
 
 const TYPE_MAP = ({
+  CSSOMString: 'string',
   DOMHighResTimeStamp: 'number',
   DOMString: 'string',
   'long long': 'number',
@@ -98,6 +99,49 @@ function convertTypedef(production: IDLProduction): string {
   let out = `type ${name} = `;
   out += convertIDLType(idlType);
   out += '\n';
+  return out;
+}
+
+function convertNamespace(production: IDLProduction): string {
+  const {name, partial} = production;
+  let {members} = production;
+  const sorted = members.toSorted(compareProductions);
+
+  let out = '';
+  if (partial) {
+    out += '/* partial */';
+  }
+  out += `declare namespace ${name} {\n`;
+
+  let lastType = null;
+  for (const member of sorted) {
+    if (member.type !== lastType && lastType != null) {
+      out += '\n';
+    }
+
+    lastType = member.type;
+    switch (member.type) {
+      case 'attribute':
+        out += 'declare ' + convertAttribute(member);
+        continue;
+
+      case 'operation':
+        out += 'declare function ' + convertOperation(member);
+        continue;
+
+      case 'const':
+        out += 'declare ' + convertConstant(member);
+        continue;
+
+      default:
+        process.stderr.write(
+          `Unhandled IDL production ${member.type}:\n${JSON.stringify(member, null, 2)}\n\n`,
+        );
+        continue;
+    }
+  }
+
+  out += '}\n';
   return out;
 }
 
@@ -442,6 +486,10 @@ export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
 
       case 'typedef':
         out += convertTypedef(production);
+        break;
+
+      case 'namespace':
+        out += convertNamespace(production);
         break;
 
       case 'includes':
