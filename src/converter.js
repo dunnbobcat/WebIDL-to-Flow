@@ -196,10 +196,6 @@ function convertInterface(
   mixinConsts: ?Array<IDLProduction>,
 ): string {
   const {extAttrs, inheritance, name, partial} = production;
-  if (partial) {
-    return '';
-  }
-
   let {members} = production;
   if (
     members.length > 0 &&
@@ -221,6 +217,9 @@ function convertInterface(
   if (hasMixins || isExposed) {
     out += 'declare class ';
   } else {
+    if (partial) {
+      out += '/* partial */';
+    }
     out += 'interface ';
   }
 

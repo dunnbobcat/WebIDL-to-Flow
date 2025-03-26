@@ -603,6 +603,10 @@ interface CanvasUserInterface {
   drawFocusIfNeeded(path: Path2D, element: Element): void;
 }
 
+/* partial */ interface DocumentOrShadowRoot {
+  +activeElement: Element | null;
+}
+
 interface ElementContentEditable {
   contentEditable: string;
   enterKeyHint: string;
@@ -741,6 +745,12 @@ interface NavigatorID {
   +userAgent: string;
   +vendor: string;
   +vendorSub: string;
+}
+
+/* partial */ interface NavigatorID {
+  +oscpu: string;
+
+  taintEnabled(): boolean;
 }
 
 interface NavigatorLanguage {
@@ -966,6 +976,63 @@ declare class DedicatedWorkerGlobalScope
   postMessage(message: any, options?: StructuredSerializeOptions): void;
 }
 
+declare class Document mixins GlobalEventHandlers {
+  body: HTMLElement | null;
+  cookie: string;
+  +currentScript: HTMLOrSVGScriptElement | null;
+  +defaultView: WindowProxy | null;
+  designMode: string;
+  dir: string;
+  domain: string;
+  +embeds: HTMLCollection;
+  +forms: HTMLCollection;
+  +head: HTMLHeadElement | null;
+  +hidden: boolean;
+  +images: HTMLCollection;
+  +lastModified: string;
+  +links: HTMLCollection;
+  +location: Location | null;
+  onreadystatechange: EventHandler;
+  onvisibilitychange: EventHandler;
+  +plugins: HTMLCollection;
+  +readyState: DocumentReadyState;
+  +referrer: string;
+  +scripts: HTMLCollection;
+  title: string;
+  +visibilityState: DocumentVisibilityState;
+
+  static parseHTMLUnsafe(html: TrustedHTML | string): Document;
+  (name: string): object;
+  close(): void;
+  execCommand(commandId: string, showUI?: boolean, value?: string): boolean;
+  getElementsByName(elementName: string): NodeList;
+  hasFocus(): boolean;
+  open(unused1?: string, unused2?: string): Document;
+  open(url: string, name: string, features: string): WindowProxy | null;
+  queryCommandEnabled(commandId: string): boolean;
+  queryCommandIndeterm(commandId: string): boolean;
+  queryCommandState(commandId: string): boolean;
+  queryCommandSupported(commandId: string): boolean;
+  queryCommandValue(commandId: string): string;
+  write(text: TrustedHTML | string): void;
+  writeln(text: TrustedHTML | string): void;
+}
+
+declare class Document mixins GlobalEventHandlers {
+  alinkColor: string;
+  +all: HTMLAllCollection;
+  +anchors: HTMLCollection;
+  +applets: HTMLCollection;
+  bgColor: string;
+  fgColor: string;
+  linkColor: string;
+  vlinkColor: string;
+
+  captureEvents(): void;
+  clear(): void;
+  releaseEvents(): void;
+}
+
 declare class DOMParser {
   constructor(): void;
 
@@ -992,6 +1059,15 @@ declare class DragEvent extends MouseEvent {
   +dataTransfer: DataTransfer | null;
 
   constructor(type: string, eventInitDict?: DragEventInit): void;
+}
+
+/* partial */ interface Element {
+  innerHTML: TrustedHTML | string;
+  outerHTML: TrustedHTML | string;
+
+  getHTML(options?: GetHTMLOptions): string;
+  insertAdjacentHTML(position: string, string: TrustedHTML | string): void;
+  setHTMLUnsafe(html: TrustedHTML | string): void;
 }
 
 declare class ElementInternals mixins ARIAMixin {
@@ -1102,6 +1178,14 @@ declare class HTMLAnchorElement
   constructor(): void;
 }
 
+declare class HTMLAnchorElement mixins HTMLHyperlinkElementUtils {
+  charset: string;
+  coords: string;
+  name: string;
+  rev: string;
+  shape: string;
+}
+
 declare class HTMLAreaElement
   extends HTMLElement
   mixins HTMLHyperlinkElementUtils
@@ -1119,6 +1203,10 @@ declare class HTMLAreaElement
   constructor(): void;
 }
 
+declare class HTMLAreaElement mixins HTMLHyperlinkElementUtils {
+  noHref: boolean;
+}
+
 declare class HTMLAudioElement extends HTMLMediaElement {
   constructor(): void;
 }
@@ -1134,8 +1222,21 @@ declare class HTMLBodyElement extends HTMLElement mixins WindowEventHandlers {
   constructor(): void;
 }
 
+declare class HTMLBodyElement mixins WindowEventHandlers {
+  aLink: string;
+  background: string;
+  bgColor: string;
+  link: string;
+  text: string;
+  vLink: string;
+}
+
 declare class HTMLBRElement extends HTMLElement {
   constructor(): void;
+}
+
+/* partial */ interface HTMLBRElement {
+  clear: string;
 }
 
 declare class HTMLButtonElement
@@ -1220,8 +1321,16 @@ declare class HTMLDivElement extends HTMLElement {
   constructor(): void;
 }
 
+/* partial */ interface HTMLDivElement {
+  align: string;
+}
+
 declare class HTMLDListElement extends HTMLElement {
   constructor(): void;
+}
+
+/* partial */ interface HTMLDListElement {
+  compact: boolean;
 }
 
 declare class HTMLElement
@@ -1263,6 +1372,11 @@ declare class HTMLEmbedElement extends HTMLElement {
   constructor(): void;
 
   getSVGDocument(): Document | null;
+}
+
+/* partial */ interface HTMLEmbedElement {
+  align: string;
+  name: string;
 }
 
 declare class HTMLFieldSetElement extends HTMLElement {
@@ -1353,12 +1467,28 @@ declare class HTMLHeadingElement extends HTMLElement {
   constructor(): void;
 }
 
+/* partial */ interface HTMLHeadingElement {
+  align: string;
+}
+
 declare class HTMLHRElement extends HTMLElement {
   constructor(): void;
 }
 
+/* partial */ interface HTMLHRElement {
+  align: string;
+  color: string;
+  noShade: boolean;
+  size: string;
+  width: string;
+}
+
 declare class HTMLHtmlElement extends HTMLElement {
   constructor(): void;
+}
+
+/* partial */ interface HTMLHtmlElement {
+  version: string;
 }
 
 declare class HTMLIFrameElement extends HTMLElement {
@@ -1378,6 +1508,15 @@ declare class HTMLIFrameElement extends HTMLElement {
   constructor(): void;
 
   getSVGDocument(): Document | null;
+}
+
+/* partial */ interface HTMLIFrameElement {
+  align: string;
+  frameBorder: string;
+  longDesc: string;
+  marginHeight: string;
+  marginWidth: string;
+  scrolling: string;
 }
 
 declare class HTMLImageElement extends HTMLElement {
@@ -1402,6 +1541,16 @@ declare class HTMLImageElement extends HTMLElement {
   constructor(): void;
 
   decode(): void;
+}
+
+/* partial */ interface HTMLImageElement {
+  align: string;
+  border: string;
+  hspace: number;
+  longDesc: string;
+  lowsrc: string;
+  name: string;
+  vspace: number;
 }
 
 declare class HTMLInputElement
@@ -1473,6 +1622,11 @@ declare class HTMLInputElement
   stepUp(n?: number): void;
 }
 
+declare class HTMLInputElement mixins PopoverInvokerElement {
+  align: string;
+  useMap: string;
+}
+
 declare class HTMLLabelElement extends HTMLElement {
   +control: HTMLElement | null;
   +form: HTMLFormElement | null;
@@ -1487,10 +1641,18 @@ declare class HTMLLegendElement extends HTMLElement {
   constructor(): void;
 }
 
+/* partial */ interface HTMLLegendElement {
+  align: string;
+}
+
 declare class HTMLLIElement extends HTMLElement {
   value: number;
 
   constructor(): void;
+}
+
+/* partial */ interface HTMLLIElement {
+  type: string;
 }
 
 declare class HTMLLinkElement extends HTMLElement mixins LinkStyle {
@@ -1512,6 +1674,12 @@ declare class HTMLLinkElement extends HTMLElement mixins LinkStyle {
   type: string;
 
   constructor(): void;
+}
+
+declare class HTMLLinkElement mixins LinkStyle {
+  charset: string;
+  rev: string;
+  target: string;
 }
 
 declare class HTMLMapElement extends HTMLElement {
@@ -1597,6 +1765,10 @@ declare class HTMLMenuElement extends HTMLElement {
   constructor(): void;
 }
 
+/* partial */ interface HTMLMenuElement {
+  compact: boolean;
+}
+
 declare class HTMLMetaElement extends HTMLElement {
   content: string;
   httpEquiv: string;
@@ -1604,6 +1776,10 @@ declare class HTMLMetaElement extends HTMLElement {
   name: string;
 
   constructor(): void;
+}
+
+/* partial */ interface HTMLMetaElement {
+  scheme: string;
 }
 
 declare class HTMLMeterElement extends HTMLElement {
@@ -1646,12 +1822,30 @@ declare class HTMLObjectElement extends HTMLElement {
   setCustomValidity(error: string): void;
 }
 
+/* partial */ interface HTMLObjectElement {
+  align: string;
+  archive: string;
+  border: string;
+  code: string;
+  codeBase: string;
+  codeType: string;
+  declare: boolean;
+  hspace: number;
+  standby: string;
+  useMap: string;
+  vspace: number;
+}
+
 declare class HTMLOListElement extends HTMLElement {
   reversed: boolean;
   start: number;
   type: string;
 
   constructor(): void;
+}
+
+/* partial */ interface HTMLOListElement {
+  compact: boolean;
 }
 
 declare class HTMLOptGroupElement extends HTMLElement {
@@ -1709,6 +1903,10 @@ declare class HTMLParagraphElement extends HTMLElement {
   constructor(): void;
 }
 
+/* partial */ interface HTMLParagraphElement {
+  align: string;
+}
+
 declare class HTMLParamElement extends HTMLElement {
   name: string;
   type: string;
@@ -1724,6 +1922,10 @@ declare class HTMLPictureElement extends HTMLElement {
 
 declare class HTMLPreElement extends HTMLElement {
   constructor(): void;
+}
+
+/* partial */ interface HTMLPreElement {
+  width: number;
 }
 
 declare class HTMLProgressElement extends HTMLElement {
@@ -1757,6 +1959,12 @@ declare class HTMLScriptElement extends HTMLElement {
   constructor(): void;
 
   static supports(type: string): boolean;
+}
+
+/* partial */ interface HTMLScriptElement {
+  charset: string;
+  event: string;
+  htmlFor: string;
 }
 
 declare class HTMLSelectElement extends HTMLElement {
@@ -1829,8 +2037,16 @@ declare class HTMLStyleElement extends HTMLElement mixins LinkStyle {
   constructor(): void;
 }
 
+declare class HTMLStyleElement mixins LinkStyle {
+  type: string;
+}
+
 declare class HTMLTableCaptionElement extends HTMLElement {
   constructor(): void;
+}
+
+/* partial */ interface HTMLTableCaptionElement {
+  align: string;
 }
 
 declare class HTMLTableCellElement extends HTMLElement {
@@ -1844,10 +2060,30 @@ declare class HTMLTableCellElement extends HTMLElement {
   constructor(): void;
 }
 
+/* partial */ interface HTMLTableCellElement {
+  align: string;
+  axis: string;
+  bgColor: string;
+  ch: string;
+  chOff: string;
+  height: string;
+  noWrap: boolean;
+  vAlign: string;
+  width: string;
+}
+
 declare class HTMLTableColElement extends HTMLElement {
   span: number;
 
   constructor(): void;
+}
+
+/* partial */ interface HTMLTableColElement {
+  align: string;
+  ch: string;
+  chOff: string;
+  vAlign: string;
+  width: string;
 }
 
 declare class HTMLTableElement extends HTMLElement {
@@ -1870,6 +2106,18 @@ declare class HTMLTableElement extends HTMLElement {
   insertRow(index?: number): HTMLTableRowElement;
 }
 
+/* partial */ interface HTMLTableElement {
+  align: string;
+  bgColor: string;
+  border: string;
+  cellPadding: string;
+  cellSpacing: string;
+  frame: string;
+  rules: string;
+  summary: string;
+  width: string;
+}
+
 declare class HTMLTableRowElement extends HTMLElement {
   +cells: HTMLCollection;
   +rowIndex: number;
@@ -1881,6 +2129,14 @@ declare class HTMLTableRowElement extends HTMLElement {
   insertCell(index?: number): HTMLTableCellElement;
 }
 
+/* partial */ interface HTMLTableRowElement {
+  align: string;
+  bgColor: string;
+  ch: string;
+  chOff: string;
+  vAlign: string;
+}
+
 declare class HTMLTableSectionElement extends HTMLElement {
   +rows: HTMLCollection;
 
@@ -1888,6 +2144,13 @@ declare class HTMLTableSectionElement extends HTMLElement {
 
   deleteRow(index: number): void;
   insertRow(index?: number): HTMLTableRowElement;
+}
+
+/* partial */ interface HTMLTableSectionElement {
+  align: string;
+  ch: string;
+  chOff: string;
+  vAlign: string;
 }
 
 declare class HTMLTemplateElement extends HTMLElement {
@@ -1973,6 +2236,11 @@ declare class HTMLTrackElement extends HTMLElement {
 
 declare class HTMLUListElement extends HTMLElement {
   constructor(): void;
+}
+
+/* partial */ interface HTMLUListElement {
+  compact: boolean;
+  type: string;
 }
 
 declare class HTMLUnknownElement extends HTMLElement {}
@@ -2184,6 +2452,19 @@ declare class Navigator
     NavigatorContentUtils,
     NavigatorCookies,
     NavigatorPlugins,
+    NavigatorConcurrentHardware
+{
+  +userActivation: UserActivation;
+}
+
+declare class Navigator
+  mixins
+    NavigatorID,
+    NavigatorLanguage,
+    NavigatorOnLine,
+    NavigatorContentUtils,
+    NavigatorCookies,
+    NavigatorPlugins,
     NavigatorConcurrentHardware {}
 
 declare class NotRestoredReasonDetails {
@@ -2300,6 +2581,17 @@ declare class PromiseRejectionEvent extends Event {
 
 declare class RadioNodeList extends NodeList {
   value: string;
+}
+
+/* partial */ interface Range {
+  createContextualFragment(string: TrustedHTML | string): DocumentFragment;
+}
+
+/* partial */ interface ShadowRoot {
+  innerHTML: TrustedHTML | string;
+
+  getHTML(options?: GetHTMLOptions): string;
+  setHTMLUnsafe(html: TrustedHTML | string): void;
 }
 
 declare class SharedWorker extends EventTarget mixins AbstractWorker {
@@ -2530,6 +2822,34 @@ declare class Window
   prompt(message?: string, default_?: string): string | null;
   stop(): void;
   (name: string): object;
+}
+
+declare class Window
+  mixins
+    GlobalEventHandlers,
+    WindowEventHandlers,
+    WindowOrWorkerGlobalScope,
+    AnimationFrameProvider,
+    WindowSessionStorage,
+    WindowLocalStorage
+{
+  +fakeWorklet1: Worklet;
+  +fakeWorklet2: Worklet;
+}
+
+declare class Window
+  mixins
+    GlobalEventHandlers,
+    WindowEventHandlers,
+    WindowOrWorkerGlobalScope,
+    AnimationFrameProvider,
+    WindowSessionStorage,
+    WindowLocalStorage
+{
+  +external: External;
+
+  captureEvents(): void;
+  releaseEvents(): void;
 }
 
 declare class Worker

@@ -1,0 +1,6 @@
+// https://www.w3.org/TR/mathml-core/
+
+[Exposed=Window]
+interface MathMLElement : Element { };
+MathMLElement includes GlobalEventHandlers;
+MathMLElement includes HTMLOrForeignElement;

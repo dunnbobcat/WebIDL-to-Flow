@@ -96,6 +96,10 @@ interface Body {
   text(): string;
 }
 
+/* partial */ interface WindowOrWorkerGlobalScope {
+  fetch(input: RequestInfo, init?: RequestInit): Response;
+}
+
 declare class Headers {
   constructor(init?: HeadersInit): void;
 
