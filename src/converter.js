@@ -3,7 +3,7 @@
 import type {IDLTree, IDLProduction} from 'webidl2';
 import group from './group.js';
 import partition from './partition.js';
-
+import {compareProductions, compareTypes} from './sorting.js';
 import {read} from 'fs';
 
 const KEYWORD_REPLACEMENTS = ({
@@ -27,21 +27,6 @@ const TYPE_MAP = ({
   USVString: 'string',
 }: {[string]: string});
 
-const PRODUCTION_ORDER = ([
-  'typedef',
-  'enum',
-  'dictionary',
-  'interface mixin',
-  'callback interface',
-  'interface',
-  'const',
-  'attribute',
-  'constructor',
-  'iterable',
-  'operation',
-  'callback',
-]: Array<string>);
-
 function maybeReplaceKeyword(name: string): string {
   const replacement = KEYWORD_REPLACEMENTS[name];
   if (replacement != null) {
@@ -49,40 +34,6 @@ function maybeReplaceKeyword(name: string): string {
   }
 
   return name;
-}
-
-function getPrecedence(type: string): number {
-  let precedence = PRODUCTION_ORDER.indexOf(type);
-  if (precedence > -1) {
-    return precedence;
-  }
-
-  return PRODUCTION_ORDER.length;
-}
-
-function compareTypes(aType: string, bType: string): number {
-  return getPrecedence(aType) - getPrecedence(bType);
-}
-
-function compareProductions(a: IDLProduction, b: IDLProduction): number {
-  const typeCompare = compareTypes(a.type, b.type);
-  if (typeCompare !== 0) {
-    return typeCompare;
-  }
-
-  if (
-    a.type === 'operation' &&
-    b.type === 'operation' &&
-    a.special !== b.special
-  ) {
-    return a.special === 'static' ? -1 : b.special === 'static' ? 1 : 0;
-  }
-
-  if (a.name != null && b.name != null) {
-    return a.name.localeCompare(b.name);
-  }
-
-  return 0;
 }
 
 function convertEnum(production: IDLProduction): string {
