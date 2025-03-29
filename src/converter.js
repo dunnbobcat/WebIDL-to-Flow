@@ -3,6 +3,7 @@
 import type {IDLTree, IDLProduction} from 'webidl2';
 import group from './group.js';
 import partition from './partition.js';
+import {productionError} from './logging.js';
 import {compareProductions, compareTypes} from './sorting.js';
 import {read} from 'fs';
 
@@ -77,10 +78,10 @@ function convertNamespaceMember(production: IDLProduction): string {
       return `declare ${convertConstant(production)}`;
 
     default:
-      process.stderr.write(
-        `Unhandled IDL production ${production.type}:\n${JSON.stringify(production, null, 2)}\n\n`,
+      return productionError(
+        `Unhandled IDL production ${production.type}`,
+        production,
       );
-      return '';
   }
 }
 
@@ -102,8 +103,7 @@ function convertDictionary(production: IDLProduction): string {
   const {partial, members, name} = production;
 
   if (partial) {
-    process.stderr.write(`Partial dictionaries not yet handled`);
-    return '';
+    return productionError('Partial dictionaries not yet handled', production);
   }
 
   const fields = members.map(convertField).join(',\n');
@@ -115,6 +115,14 @@ function convertField(production: IDLProduction): string {
   return `${name}: ${convertIDLType(idlType)}`;
 }
 
+function convertPrimitiveType(type: string): string {
+  return TYPE_MAP[type] != null ? TYPE_MAP[type] : type;
+}
+
+function convertUnionType(type: Array<IDLProduction>): string {
+  return type.map(convertIDLType).join(' | ');
+}
+
 function convertIDLType(production: IDLProduction): string {
   const idlType = production.idlType;
   const generic = production.generic;
@@ -123,14 +131,14 @@ function convertIDLType(production: IDLProduction): string {
 
   let type;
   if (typeof idlType === 'string') {
-    type = TYPE_MAP[idlType] != null ? TYPE_MAP[idlType] : idlType;
+    type = convertPrimitiveType(idlType);
   } else if (Array.isArray(idlType)) {
-    type = idlType.map(convertIDLType).join(' | ');
+    type = convertUnionType(idlType);
   } else {
-    process.stderr.write(
-      `Unhandled IDL type ${idlType} in production ${production.name}\n`,
+    return productionError(
+      `Unhandled IDL type ${idlType} in production ${production.name}`,
+      idlType,
     );
-    return '';
   }
 
   if (generic === 'sequence') {
@@ -162,10 +170,10 @@ function convertInterfaceMember(production: IDLProduction): string {
       return '';
 
     default:
-      process.stderr.write(
-        `Unhandled IDL production ${production.type}:\n${JSON.stringify(production, null, 2)}\n\n`,
+      return productionError(
+        `Unhandled IDL production ${production.type}`,
+        production,
       );
-      return '';
   }
 }
 
@@ -252,8 +260,7 @@ function convertConstant(production: IDLProduction): string {
       break;
 
     default:
-      process.stderr.write(`Unhandled constant type ${value.type}\n`);
-      return '';
+      return productionError(`Unhandled constant type ${value.type}`, value);
   }
 
   return `static +${name}: ${valueString};\n`;
@@ -266,7 +273,7 @@ function convertSetlike(production: IDLProduction): string {
 }
 
 function convertArgument(production: IDLProduction): string {
-  const {idlType, name, variadic} = production;
+  const {idlType, name} = production;
   const optional = production.optional ? '?' : '';
   return `${maybeReplaceKeyword(name)}${optional}: ${convertIDLType(idlType)}`;
 }
@@ -310,10 +317,7 @@ function convertTopLevelProduction(
       return '';
 
     default:
-      process.stderr.write(
-        `Unhandled IDL production ${type}:\n${JSON.stringify(production, null, 2)}\n\n`,
-      );
-      return '';
+      return productionError(`Unhandled IDL production ${type}`, production);
   }
 }
 
