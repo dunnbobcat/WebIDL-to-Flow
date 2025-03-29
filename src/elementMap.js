@@ -118,6 +118,10 @@ export const HTML_TAG_TO_ELEMENT = ({
   wbr: 'HTMLElement',
 }: $ReadOnly<{[string]: string}>);
 
+// https://www.w3.org/TR/SVG2/
+// https://svgwg.org/specs/animations/
+// https://drafts.fxtf.org/filter-effects/
+
 const SVG_TAG_TO_ELEMENT = ({
   a: 'SVGAElement',
   animate: 'SVGAnimateElement',

@@ -464,20 +464,24 @@ export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
         out += convertInterface(production, mixins, consts);
         break;
 
-      case 'dictionary':
-        out += convertDictionary(production);
-        break;
-
       case 'interface mixin':
         out += convertInterfaceMixin(production);
+        break;
+
+      case 'callback interface':
+        out += convertCallbackInterface(production);
+        break;
+
+      case 'namespace':
+        out += convertNamespace(production);
         break;
 
       case 'callback':
         out += convertCallback(production);
         break;
 
-      case 'callback interface':
-        out += convertCallbackInterface(production);
+      case 'dictionary':
+        out += convertDictionary(production);
         break;
 
       case 'enum':
@@ -486,10 +490,6 @@ export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
 
       case 'typedef':
         out += convertTypedef(production);
-        break;
-
-      case 'namespace':
-        out += convertNamespace(production);
         break;
 
       case 'includes':
