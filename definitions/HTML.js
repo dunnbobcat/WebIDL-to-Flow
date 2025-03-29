@@ -976,7 +976,7 @@ declare class DedicatedWorkerGlobalScope
   postMessage(message: any, options?: StructuredSerializeOptions): void;
 }
 
-declare class Document mixins GlobalEventHandlers {
+/* partial */ declare class Document mixins GlobalEventHandlers {
   body: HTMLElement | null;
   cookie: string;
   +currentScript: HTMLOrSVGScriptElement | null;
@@ -1018,7 +1018,7 @@ declare class Document mixins GlobalEventHandlers {
   writeln(text: TrustedHTML | string): void;
 }
 
-declare class Document mixins GlobalEventHandlers {
+/* partial */ declare class Document mixins GlobalEventHandlers {
   alinkColor: string;
   +all: HTMLAllCollection;
   +anchors: HTMLCollection;
@@ -1178,7 +1178,7 @@ declare class HTMLAnchorElement
   constructor(): void;
 }
 
-declare class HTMLAnchorElement mixins HTMLHyperlinkElementUtils {
+/* partial */ declare class HTMLAnchorElement mixins HTMLHyperlinkElementUtils {
   charset: string;
   coords: string;
   name: string;
@@ -1203,7 +1203,7 @@ declare class HTMLAreaElement
   constructor(): void;
 }
 
-declare class HTMLAreaElement mixins HTMLHyperlinkElementUtils {
+/* partial */ declare class HTMLAreaElement mixins HTMLHyperlinkElementUtils {
   noHref: boolean;
 }
 
@@ -1222,7 +1222,7 @@ declare class HTMLBodyElement extends HTMLElement mixins WindowEventHandlers {
   constructor(): void;
 }
 
-declare class HTMLBodyElement mixins WindowEventHandlers {
+/* partial */ declare class HTMLBodyElement mixins WindowEventHandlers {
   aLink: string;
   background: string;
   bgColor: string;
@@ -1622,7 +1622,7 @@ declare class HTMLInputElement
   stepUp(n?: number): void;
 }
 
-declare class HTMLInputElement mixins PopoverInvokerElement {
+/* partial */ declare class HTMLInputElement mixins PopoverInvokerElement {
   align: string;
   useMap: string;
 }
@@ -1676,7 +1676,7 @@ declare class HTMLLinkElement extends HTMLElement mixins LinkStyle {
   constructor(): void;
 }
 
-declare class HTMLLinkElement mixins LinkStyle {
+/* partial */ declare class HTMLLinkElement mixins LinkStyle {
   charset: string;
   rev: string;
   target: string;
@@ -2037,7 +2037,7 @@ declare class HTMLStyleElement extends HTMLElement mixins LinkStyle {
   constructor(): void;
 }
 
-declare class HTMLStyleElement mixins LinkStyle {
+/* partial */ declare class HTMLStyleElement mixins LinkStyle {
   type: string;
 }
 
@@ -2444,7 +2444,7 @@ declare class NavigationTransition {
   +navigationType: NavigationType;
 }
 
-declare class Navigator
+/* partial */ declare class Navigator
   mixins
     NavigatorID,
     NavigatorLanguage,
@@ -2824,7 +2824,7 @@ declare class Window
   (name: string): object;
 }
 
-declare class Window
+/* partial */ declare class Window
   mixins
     GlobalEventHandlers,
     WindowEventHandlers,
@@ -2837,7 +2837,7 @@ declare class Window
   +fakeWorklet2: Worklet;
 }
 
-declare class Window
+/* partial */ declare class Window
   mixins
     GlobalEventHandlers,
     WindowEventHandlers,

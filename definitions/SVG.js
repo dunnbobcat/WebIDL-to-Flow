@@ -241,10 +241,10 @@ declare class SVGLengthList {
   +length: number;
   +numberOfItems: number;
 
+  appendItem(newItem: SVGLength): SVGLength;
   clear(): void;
   initialize(newItem: SVGLength): SVGLength;
   getItem(index: number): SVGLength;
-  appendItem(newItem: SVGLength): SVGLength;
   insertItemBefore(newItem: SVGLength, index: number): SVGLength;
   removeItem(index: number): SVGLength;
   replaceItem(newItem: SVGLength, index: number): SVGLength;
@@ -296,10 +296,10 @@ declare class SVGNumberList {
   +length: number;
   +numberOfItems: number;
 
+  appendItem(newItem: SVGNumber): SVGNumber;
   clear(): void;
   initialize(newItem: SVGNumber): SVGNumber;
   getItem(index: number): SVGNumber;
-  appendItem(newItem: SVGNumber): SVGNumber;
   insertItemBefore(newItem: SVGNumber, index: number): SVGNumber;
   removeItem(index: number): SVGNumber;
   replaceItem(newItem: SVGNumber, index: number): SVGNumber;
@@ -325,10 +325,10 @@ declare class SVGPointList {
   +length: number;
   +numberOfItems: number;
 
+  appendItem(newItem: DOMPoint): DOMPoint;
   clear(): void;
   initialize(newItem: DOMPoint): DOMPoint;
   getItem(index: number): DOMPoint;
-  appendItem(newItem: DOMPoint): DOMPoint;
   insertItemBefore(newItem: DOMPoint, index: number): DOMPoint;
   removeItem(index: number): DOMPoint;
   replaceItem(newItem: DOMPoint, index: number): DOMPoint;
@@ -394,10 +394,10 @@ declare class SVGStringList {
   +length: number;
   +numberOfItems: number;
 
+  appendItem(newItem: string): string;
   clear(): void;
   initialize(newItem: string): string;
   getItem(index: number): string;
-  appendItem(newItem: string): string;
   insertItemBefore(newItem: string, index: number): string;
   removeItem(index: number): string;
   replaceItem(newItem: string, index: number): string;
@@ -529,12 +529,12 @@ declare class SVGTransformList {
   +length: number;
   +numberOfItems: number;
 
+  appendItem(newItem: SVGTransform): SVGTransform;
   clear(): void;
+  createSVGTransformFromMatrix(matrix: DOMMatrixReadOnly): SVGTransform;
   initialize(newItem: SVGTransform): SVGTransform;
   getItem(index: number): SVGTransform;
-  appendItem(newItem: SVGTransform): SVGTransform;
   consolidate(): SVGTransform | null;
-  createSVGTransformFromMatrix(matrix: DOMMatrixReadOnly): SVGTransform;
   insertItemBefore(newItem: SVGTransform, index: number): SVGTransform;
   removeItem(index: number): SVGTransform;
   replaceItem(newItem: SVGTransform, index: number): SVGTransform;

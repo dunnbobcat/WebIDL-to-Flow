@@ -1,7 +1,10 @@
 // @flow
 
 import type {IDLTree, IDLProduction} from 'webidl2';
+import group from './group.js';
 import partition from './partition.js';
+
+import {read} from 'fs';
 
 const KEYWORD_REPLACEMENTS = ({
   interface: 'interface_',
@@ -57,109 +60,83 @@ function getPrecedence(type: string): number {
   return PRODUCTION_ORDER.length;
 }
 
+function compareTypes(aType: string, bType: string): number {
+  return getPrecedence(aType) - getPrecedence(bType);
+}
+
 function compareProductions(a: IDLProduction, b: IDLProduction): number {
-  let aPrecedence = getPrecedence(a.type);
-  let bPrecedence = getPrecedence(b.type);
-
-  if (aPrecedence === bPrecedence) {
-    if (
-      a.type === 'operation' &&
-      b.type === 'operation' &&
-      a.special !== b.special
-    ) {
-      return a.special === 'static' ? -1 : b.special === 'static' ? 1 : 0;
-    }
-
-    if (a.name != null && b.name != null) {
-      return a.name.localeCompare(b.name);
-    }
-
-    return 0;
+  const typeCompare = compareTypes(a.type, b.type);
+  if (typeCompare !== 0) {
+    return typeCompare;
   }
 
-  return aPrecedence - bPrecedence;
+  if (
+    a.type === 'operation' &&
+    b.type === 'operation' &&
+    a.special !== b.special
+  ) {
+    return a.special === 'static' ? -1 : b.special === 'static' ? 1 : 0;
+  }
+
+  if (a.name != null && b.name != null) {
+    return a.name.localeCompare(b.name);
+  }
+
+  return 0;
 }
 
 function convertEnum(production: IDLProduction): string {
   const {name, values} = production;
-  let out = `type ${name} = `;
-  for (let idx = 0; idx < values.length; idx++) {
-    const {value} = values[idx];
-    out += `'${value}'`;
-    if (idx < values.length - 1) {
-      out += ' | ';
-    }
-  }
-  out += '\n';
-  return out;
+  const stringValues = values.map(({value}) => `'${value}'`).join(' | ');
+  return `type ${name} = ${stringValues};\n`;
 }
 
 function convertTypedef(production: IDLProduction): string {
   const {name, idlType} = production;
-  let out = `type ${name} = `;
-  out += convertIDLType(idlType);
-  out += '\n';
-  return out;
+  return `type ${name} = ${convertIDLType(idlType)};\n`;
 }
 
 function convertNamespace(production: IDLProduction): string {
-  const {name, partial} = production;
-  let {members} = production;
-  const sorted = members.toSorted(compareProductions);
+  const {name, members} = production;
+  const partial = production.partial ? '/* partial */ ' : '';
 
-  let out = '';
-  if (partial) {
-    out += '/* partial */';
+  const grouped = group(members, (member) => member.type);
+  const namespaceMembers = Object.keys(grouped)
+    .sort(compareTypes)
+    .map((key) =>
+      grouped[key]
+        .toSorted(compareProductions)
+        .map(convertNamespaceMember)
+        .join(''),
+    )
+    .join('');
+
+  return `${partial}declare namespace ${name} {${namespaceMembers}}`;
+}
+
+function convertNamespaceMember(production: IDLProduction): string {
+  switch (production.type) {
+    case 'attribute':
+      return `declare ${convertAttribute(production)}`;
+
+    case 'operation':
+      return `declare function ${convertOperation(production)}`;
+
+    case 'const':
+      return `declare ${convertConstant(production)}`;
+
+    default:
+      process.stderr.write(
+        `Unhandled IDL production ${production.type}:\n${JSON.stringify(production, null, 2)}\n\n`,
+      );
+      return '';
   }
-  out += `declare namespace ${name} {\n`;
-
-  let lastType = null;
-  for (const member of sorted) {
-    if (member.type !== lastType && lastType != null) {
-      out += '\n';
-    }
-
-    lastType = member.type;
-    switch (member.type) {
-      case 'attribute':
-        out += 'declare ' + convertAttribute(member);
-        continue;
-
-      case 'operation':
-        out += 'declare function ' + convertOperation(member);
-        continue;
-
-      case 'const':
-        out += 'declare ' + convertConstant(member);
-        continue;
-
-      default:
-        process.stderr.write(
-          `Unhandled IDL production ${member.type}:\n${JSON.stringify(member, null, 2)}\n\n`,
-        );
-        continue;
-    }
-  }
-
-  out += '}\n';
-  return out;
 }
 
 function convertCallback(production: IDLProduction): string {
   let {arguments: args, name, idlType} = production;
-
-  let out = `type ${name} = (`;
-  for (let idx = 0; idx < args.length; idx++) {
-    const arg = args[idx];
-    out += convertArgument(arg);
-    if (idx < args.length - 1) {
-      out += ', ';
-    }
-  }
-  out += ') => ';
-  out += convertIDLType(idlType);
-  out += ';\n';
-  return out;
+  const argString = args.map(convertArgument).join(', ');
+  return `type ${name} = (${argString}) => ${convertIDLType(idlType)};\n`;
 }
 
 function convertCallbackInterface(production: IDLProduction): string {
@@ -178,39 +155,26 @@ function convertDictionary(production: IDLProduction): string {
     return '';
   }
 
-  let out = `type ${name} = {\n`;
-  for (const member of members) {
-    out += convertField(member);
-  }
-  out += '}\n';
-  return out;
+  const fields = members.map(convertField).join(',\n');
+  return `type ${name} = {\n${fields}};\n`;
 }
 
 function convertField(production: IDLProduction): string {
   const {idlType, name} = production;
-
-  let out = `${name}: `;
-  out += convertIDLType(idlType);
-  out += ',\n';
-  return out;
+  return `${name}: ${convertIDLType(idlType)}`;
 }
 
 function convertIDLType(production: IDLProduction): string {
   const idlType = production.idlType;
-  const nullable = production.nullable;
   const generic = production.generic;
 
-  let out = '';
+  let orNull = production.nullable ? ' | null' : '';
+
+  let type;
   if (typeof idlType === 'string') {
-    out += TYPE_MAP[idlType] != null ? TYPE_MAP[idlType] : idlType;
+    type = TYPE_MAP[idlType] != null ? TYPE_MAP[idlType] : idlType;
   } else if (Array.isArray(idlType)) {
-    for (let idx = 0; idx < idlType.length; idx++) {
-      const inner = idlType[idx];
-      if (idx > 0) {
-        out += ' | ';
-      }
-      out += convertIDLType(inner);
-    }
+    type = idlType.map(convertIDLType).join(' | ');
   } else {
     process.stderr.write(
       `Unhandled IDL type ${idlType} in production ${production.name}\n`,
@@ -219,19 +183,39 @@ function convertIDLType(production: IDLProduction): string {
   }
 
   if (generic === 'sequence') {
-    out = `Array<${out}>`;
+    return `Array<${type}>${orNull}`;
   }
 
-  if (nullable) {
-    out += ' | null';
-  }
-
-  return out;
+  return `${type}${orNull}`;
 }
 
-function convertDefault(production: IDLProduction): string {
-  const {value} = production;
-  return ` = ${value}`;
+function convertInterfaceMember(production: IDLProduction): string {
+  switch (production.type) {
+    case 'constructor':
+      return convertConstructor(production);
+
+    case 'iterable':
+      return convertIterable(production);
+
+    case 'attribute':
+      return convertAttribute(production);
+
+    case 'operation':
+      return convertOperation(production);
+
+    case 'const':
+      return convertConstant(production);
+
+    case 'setlike':
+      // Handled separately
+      return '';
+
+    default:
+      process.stderr.write(
+        `Unhandled IDL production ${production.type}:\n${JSON.stringify(production, null, 2)}\n\n`,
+      );
+      return '';
+  }
 }
 
 function convertInterface(
@@ -239,7 +223,7 @@ function convertInterface(
   mixins: ?Array<string>,
   mixinConsts: ?Array<IDLProduction>,
 ): string {
-  const {extAttrs, inheritance, name, partial} = production;
+  const {extAttrs, inheritance, name} = production;
   let {members} = production;
   if (
     members.length > 0 &&
@@ -252,193 +236,148 @@ function convertInterface(
     members = [...members, ...mixinConsts];
   }
 
-  const sorted = members.toSorted(compareProductions);
   const hasMixins = mixins != null && mixins.length > 0;
   const isExposed =
     extAttrs != null && extAttrs.some((attr) => attr.name === 'Exposed');
 
-  let out = '';
-  if (hasMixins || isExposed) {
-    out += 'declare class ';
-  } else {
-    if (partial) {
-      out += '/* partial */';
-    }
-    out += 'interface ';
-  }
+  const partial = production.partial ? '/* partial */ ' : '';
+  const declare = hasMixins || isExposed ? 'declare ' : '';
+  const classOrInterface = hasMixins || isExposed ? 'class' : 'interface';
+  const extendsDecl = inheritance != null ? `extends ${inheritance} ` : '';
+  const mixinDecl =
+    mixins != null && mixins.length > 0 ? `mixins ${mixins.join(', ')} ` : '';
 
-  out += `${name} `;
-  if (inheritance != null) {
-    out += `extends ${inheritance} `;
-  }
+  const grouped = group(members, (member) => member.type);
+  const interfaceMembers = Object.keys(grouped)
+    .sort(compareTypes)
+    .map((key) =>
+      grouped[key]
+        .toSorted(compareProductions)
+        .map(convertInterfaceMember)
+        .join(''),
+    )
+    .join('\n');
 
-  if (mixins != null && mixins.length > 0) {
-    out += `mixins ${mixins.join(', ')} `;
-  }
-
-  let lastType = null;
-  out += '{\n';
-  for (const member of sorted) {
-    if (member.type !== lastType && lastType != null) {
-      out += '\n';
-    }
-
-    lastType = member.type;
-    switch (member.type) {
-      case 'constructor':
-        out += convertConstructor(member);
-        continue;
-
-      case 'iterable':
-        out += convertIterable(member);
-        continue;
-
-      case 'attribute':
-        out += convertAttribute(member);
-        continue;
-
-      case 'operation':
-        out += convertOperation(member);
-        continue;
-
-      case 'const':
-        out += convertConstant(member);
-        continue;
-
-      case 'setlike':
-        // Handled separately
-        continue;
-
-      default:
-        process.stderr.write(
-          `Unhandled IDL production ${member.type}:\n${JSON.stringify(member, null, 2)}\n\n`,
-        );
-        continue;
-    }
-  }
-
-  out += '}\n';
-  return out;
+  return `${partial}${declare}${classOrInterface} ${name} ${extendsDecl}${mixinDecl}{${interfaceMembers}}\n`;
 }
 
 function convertConstructor(production: IDLProduction): string {
   const {arguments: args} = production;
-
-  let out = 'constructor(';
-  for (let idx = 0; idx < args.length; idx++) {
-    const arg = args[idx];
-    out += convertArgument(arg);
-    if (idx < args.length - 1) {
-      out += ', ';
-    }
-  }
-  out += '): void;\n';
-  return out;
+  const argString = args.map(convertArgument).join(', ');
+  return `constructor(${argString}): void;\n`;
 }
 
 function convertIterable(production: IDLProduction): string {
   const {idlType: types} = production;
-
-  let out = '@@iterator(): Iterator<';
-  for (let idx = 0; idx < types.length; idx++) {
-    const idlType = types[idx];
-    out += convertIDLType(idlType);
-    if (idx < types.length - 1) {
-      out += ', ';
-    }
-  }
-  out += '>;\n';
-  return out;
+  const typeStr = types.map(convertIDLType).join(', ');
+  return `@@iterator(): Iterator<${typeStr}>;\n`;
 }
 
 function convertAttribute(production: IDLProduction): string {
   const {idlType, name, readonly} = production;
-  let out = '';
-  if (readonly) {
-    out += '+';
-  }
-
-  out += `${name}: `;
-  out += convertIDLType(idlType);
-  out += ';\n';
-
-  return out;
+  const plus = readonly ? '+' : '';
+  return `${plus}${name}: ${convertIDLType(idlType)};\n`;
 }
 
 function convertOperation(production: IDLProduction): string {
   const {idlType, name, arguments: args, special} = production;
 
   if (special === 'stringifier' && name === '') {
-    return 'toString(): string;';
+    return 'toString(): string;\n';
   }
 
-  let out = '';
-  if (special === 'static') {
-    out += 'static ';
-  }
-
-  out += `${name}(`;
-  for (let idx = 0; idx < args.length; idx++) {
-    const arg = args[idx];
-    out += convertArgument(arg);
-    if (idx < args.length - 1) {
-      out += ', ';
-    }
-  }
-  out += '): ';
-  out += convertIDLType(idlType);
-  out += ';\n';
-  return out;
+  const staticString = special === 'static' ? 'static ' : '';
+  const argString = args.map(convertArgument).join(', ');
+  return `${staticString}${name}(${argString}): ${convertIDLType(idlType)};\n`;
 }
 
 function convertConstant(production: IDLProduction): string {
-  const {idlType, name, value} = production;
+  const {name, value} = production;
 
-  let out = `static +${name}: `;
+  let valueString;
   switch (value.type) {
     case 'number':
-      out += value.value;
+      valueString = value.value;
       break;
 
     default:
       process.stderr.write(`Unhandled constant type ${value.type}\n`);
-      break;
+      return '';
   }
 
-  out += ';\n';
-  return out;
+  return `static +${name}: ${valueString};\n`;
 }
 
 function convertSetlike(production: IDLProduction): string {
-  const {name, value, members} = production;
+  const {name, members} = production;
   const idlType = members[0].idlType[0];
-
-  let out = `type ${name} = Set<`;
-  out += convertIDLType(idlType);
-  out += '>;\n';
-  return out;
+  return `type ${name} = Set<${convertIDLType(idlType)}>;\n`;
 }
 
 function convertArgument(production: IDLProduction): string {
-  const {idlType, name, optional, variadic} = production;
+  const {idlType, name, variadic} = production;
+  const optional = production.optional ? '?' : '';
+  return `${maybeReplaceKeyword(name)}${optional}: ${convertIDLType(idlType)}`;
+}
 
-  let out = `${maybeReplaceKeyword(name)}${optional ? '?' : ''}: `;
-  out += convertIDLType(idlType);
-  return out;
+function convertTopLevelProduction(
+  production: IDLProduction,
+  interfaceMixins: {[string]: Array<string>},
+  mixinConsts: {[string]: Array<IDLProduction>},
+): string {
+  const {type, name} = production;
+
+  switch (type) {
+    case 'interface':
+      const mixins = interfaceMixins[name];
+      const consts = mixins?.flatMap((mixin) => mixinConsts[mixin] ?? []);
+      return convertInterface(production, mixins, consts);
+
+    case 'interface mixin':
+      return convertInterfaceMixin(production);
+
+    case 'callback interface':
+      return convertCallbackInterface(production);
+
+    case 'namespace':
+      return convertNamespace(production);
+
+    case 'callback':
+      return convertCallback(production);
+
+    case 'dictionary':
+      return convertDictionary(production);
+
+    case 'enum':
+      return convertEnum(production);
+
+    case 'typedef':
+      return convertTypedef(production);
+
+    case 'includes':
+      // Converted to mixins
+      return '';
+
+    default:
+      process.stderr.write(
+        `Unhandled IDL production ${type}:\n${JSON.stringify(production, null, 2)}\n\n`,
+      );
+      return '';
+  }
 }
 
 export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
   const sorted = idl.toSorted(compareProductions);
-  const interfaceToMixins = ({}: {[string]: Array<string>});
-  const mixinToConsts = ({}: {[string]: Array<IDLProduction>});
+  const interfaceMixins = ({}: {[string]: Array<string>});
+  const mixinConsts = ({}: {[string]: Array<IDLProduction>});
 
   for (const production of sorted) {
     if (production.type === 'includes') {
       const {target, includes} = production;
-      if (interfaceToMixins[target] == null) {
-        interfaceToMixins[target] = [];
+      if (interfaceMixins[target] == null) {
+        interfaceMixins[target] = [];
       }
-      interfaceToMixins[target].push(includes);
+      interfaceMixins[target].push(includes);
     } else if (production.type === 'interface mixin') {
       const {members, name} = production;
       const [consts, nonConsts] = partition(
@@ -447,64 +386,15 @@ export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
       );
 
       if (consts.length > 0) {
-        mixinToConsts[name] = consts;
+        mixinConsts[name] = consts;
         production.members = nonConsts;
       }
     }
   }
 
-  let out = '';
-  for (const production of sorted) {
-    const {type, name} = production;
-
-    switch (type) {
-      case 'interface':
-        const mixins = interfaceToMixins[name];
-        const consts = mixins?.flatMap((mixin) => mixinToConsts[mixin] ?? []);
-        out += convertInterface(production, mixins, consts);
-        break;
-
-      case 'interface mixin':
-        out += convertInterfaceMixin(production);
-        break;
-
-      case 'callback interface':
-        out += convertCallbackInterface(production);
-        break;
-
-      case 'namespace':
-        out += convertNamespace(production);
-        break;
-
-      case 'callback':
-        out += convertCallback(production);
-        break;
-
-      case 'dictionary':
-        out += convertDictionary(production);
-        break;
-
-      case 'enum':
-        out += convertEnum(production);
-        break;
-
-      case 'typedef':
-        out += convertTypedef(production);
-        break;
-
-      case 'includes':
-        // Converted to mixins
-        break;
-
-      default:
-        process.stderr.write(
-          `Unhandled IDL production ${type}:\n${JSON.stringify(production, null, 2)}\n\n`,
-        );
-        continue;
-    }
-
-    out += '\n';
-  }
-
-  return out;
+  return sorted
+    .map((production) =>
+      convertTopLevelProduction(production, interfaceMixins, mixinConsts),
+    )
+    .join('\n');
 }
