@@ -14,9 +14,15 @@ interface SVGAnimatedPoints {
   +points: SVGPointList;
 }
 
+interface SVGCSSRule {}
+
 interface SVGElementInstance {
   +correspondingElement: SVGElement | null;
   +correspondingUseElement: SVGUseElement | null;
+}
+
+interface SVGExternalResourcesRequired {
+  +externalResourcesRequired: SVGAnimatedBoolean;
 }
 
 interface SVGFitToViewBox {
@@ -24,13 +30,53 @@ interface SVGFitToViewBox {
   +viewBox: SVGAnimatedRect;
 }
 
+interface SVGLangSpace {
+  xmllang: string;
+  xmlspace: string;
+}
+
+interface SVGLocatable {
+  +farthestViewportElement: SVGElement;
+  +nearestViewportElement: SVGElement;
+
+  getBBox(): SVGRect;
+  getCTM(): SVGMatrix;
+  getScreenCTM(): SVGMatrix;
+  getTransformToElement(element: SVGElement): SVGMatrix;
+}
+
+interface SVGRenderingIntent {}
+
+interface SVGStylable {
+  +className: SVGAnimatedString;
+  +style: CSSStyleDeclaration;
+
+  getPresentationAttribute(name: string): CSSValue;
+}
+
 interface SVGTests {
   +requiredExtensions: SVGStringList;
+  +requiredFeatures: SVGStringList;
   +systemLanguage: SVGStringList;
+
+  hasExtension(extension: string): boolean;
+}
+
+interface SVGTransformable {
+  +transform: SVGAnimatedTransformList;
 }
 
 interface SVGURIReference {
   +href: SVGAnimatedString;
+}
+
+interface SVGViewSpec {
+  +preserveAspectRatioString: string;
+  +transform: SVGTransformList;
+  +transformString: string;
+  +viewBoxString: string;
+  +viewTarget: SVGElement;
+  +viewTargetString: string;
 }
 
 interface SVGZoomAndPan {
@@ -68,12 +114,12 @@ declare class SVGAngle {
   static +SVG_ANGLETYPE_UNSPECIFIED: 1;
 
   +unitType: number;
-  value: float;
+  value: number;
   valueAsString: string;
-  valueInSpecifiedUnits: float;
+  valueInSpecifiedUnits: number;
 
   convertToSpecifiedUnits(unitType: number): void;
-  newValueSpecifiedUnits(unitType: number, valueInSpecifiedUnits: float): void;
+  newValueSpecifiedUnits(unitType: number, valueInSpecifiedUnits: number): void;
 }
 
 declare class SVGAnimatedAngle {
@@ -107,8 +153,8 @@ declare class SVGAnimatedLengthList {
 }
 
 declare class SVGAnimatedNumber {
-  +animVal: float;
-  baseVal: float;
+  +animVal: number;
+  baseVal: number;
 }
 
 declare class SVGAnimatedNumberList {
@@ -178,8 +224,8 @@ declare class SVGGElement extends SVGGraphicsElement {}
 declare class SVGGeometryElement extends SVGGraphicsElement {
   +pathLength: SVGAnimatedNumber;
 
-  getPointAtLength(distance: float): DOMPoint;
-  getTotalLength(): float;
+  getPointAtLength(distance: number): DOMPoint;
+  getTotalLength(): number;
   isPointInFill(point?: DOMPointInit): boolean;
   isPointInStroke(point?: DOMPointInit): boolean;
 }
@@ -229,12 +275,12 @@ declare class SVGLength {
   static +SVG_LENGTHTYPE_UNKNOWN: 0;
 
   +unitType: number;
-  value: float;
+  value: number;
   valueAsString: string;
-  valueInSpecifiedUnits: float;
+  valueInSpecifiedUnits: number;
 
   convertToSpecifiedUnits(unitType: number): void;
-  newValueSpecifiedUnits(unitType: number, valueInSpecifiedUnits: float): void;
+  newValueSpecifiedUnits(unitType: number, valueInSpecifiedUnits: number): void;
 }
 
 declare class SVGLengthList {
@@ -289,7 +335,7 @@ declare class SVGMarkerElement extends SVGElement mixins SVGFitToViewBox {
 declare class SVGMetadataElement extends SVGElement {}
 
 declare class SVGNumber {
-  value: float;
+  value: number;
 }
 
 declare class SVGNumberList {
@@ -418,7 +464,7 @@ declare class SVGSVGElement
   static +SVG_ZOOMANDPAN_MAGNIFY: 2;
   static +SVG_ZOOMANDPAN_UNKNOWN: 0;
 
-  currentScale: float;
+  currentScale: number;
   +currentTranslate: DOMPointReadOnly;
   +height: SVGAnimatedLength;
   +width: SVGAnimatedLength;
@@ -466,13 +512,13 @@ declare class SVGTextContentElement extends SVGGraphicsElement {
   +textLength: SVGAnimatedLength;
 
   getCharNumAtPosition(point?: DOMPointInit): number;
-  getComputedTextLength(): float;
+  getComputedTextLength(): number;
   getEndPositionOfChar(charnum: number): DOMPoint;
   getExtentOfChar(charnum: number): DOMRect;
   getNumberOfChars(): number;
-  getRotationOfChar(charnum: number): float;
+  getRotationOfChar(charnum: number): number;
   getStartPositionOfChar(charnum: number): DOMPoint;
-  getSubStringLength(charnum: number, nchars: number): float;
+  getSubStringLength(charnum: number, nchars: number): number;
   selectSubString(charnum: number, nchars: number): void;
 }
 
@@ -513,16 +559,16 @@ declare class SVGTransform {
   static +SVG_TRANSFORM_TRANSLATE: 2;
   static +SVG_TRANSFORM_UNKNOWN: 0;
 
-  +angle: float;
+  +angle: number;
   +matrix: DOMMatrix;
   +type: number;
 
   setMatrix(matrix: DOMMatrixReadOnly): void;
-  setRotate(angle: float, cx: float, cy: float): void;
-  setScale(sx: float, sy: float): void;
-  setSkewX(angle: float): void;
-  setSkewY(angle: float): void;
-  setTranslate(tx: float, ty: float): void;
+  setRotate(angle: number, cx: number, cy: number): void;
+  setScale(sx: number, sy: number): void;
+  setSkewX(angle: number): void;
+  setSkewY(angle: number): void;
+  setTranslate(tx: number, ty: number): void;
 }
 
 declare class SVGTransformList {

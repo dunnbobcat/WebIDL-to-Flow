@@ -206,9 +206,44 @@ interface SVGUnitTypes {
   const unsigned short SVG_UNIT_TYPE_OBJECTBOUNDINGBOX = 2;
 };
 
+interface mixin SVGStylable {
+  readonly attribute SVGAnimatedString className;
+  readonly attribute CSSStyleDeclaration style;
+
+  CSSValue getPresentationAttribute(DOMString name);
+};
+
+interface mixin SVGLocatable {
+
+  readonly attribute SVGElement nearestViewportElement;
+  readonly attribute SVGElement farthestViewportElement;
+
+  SVGRect getBBox();
+  SVGMatrix getCTM();
+  SVGMatrix getScreenCTM();
+  SVGMatrix getTransformToElement(SVGElement element);
+};
+
+interface mixin SVGTransformable {
+  readonly attribute SVGAnimatedTransformList transform;
+};
+
+SVGTransformable includes SVGLocatable;
+
 interface mixin SVGTests {
+  [SameObject] readonly attribute SVGStringList requiredFeatures;
   [SameObject] readonly attribute SVGStringList requiredExtensions;
   [SameObject] readonly attribute SVGStringList systemLanguage;
+  boolean hasExtension(DOMString extension);
+};
+
+interface mixin SVGLangSpace {
+  attribute DOMString xmllang;
+  attribute DOMString xmlspace;
+};
+
+interface mixin SVGExternalResourcesRequired {
+  readonly attribute SVGAnimatedBoolean externalResourcesRequired;
 };
 
 interface mixin SVGFitToViewBox {
@@ -226,9 +261,27 @@ interface mixin SVGZoomAndPan {
   attribute unsigned short zoomAndPan;
 };
 
+interface mixin SVGViewSpec {
+  readonly attribute SVGTransformList transform;
+  readonly attribute SVGElement viewTarget;
+  readonly attribute DOMString viewBoxString;
+  readonly attribute DOMString preserveAspectRatioString;
+  readonly attribute DOMString transformString;
+  readonly attribute DOMString viewTargetString;
+};
+
+SVGViewSpec includes SVGZoomAndPan;
+SVGViewSpec includes SVGFitToViewBox;
+
 interface mixin SVGURIReference {
   [SameObject] readonly attribute SVGAnimatedString href;
 };
+
+interface mixin SVGCSSRule {
+  const unsigned short COLOR_PROFILE_RULE = 7;
+};
+
+SVGCSSRule includes CSSRule;
 
 partial interface Document {
   readonly attribute SVGSVGElement? rootElement;

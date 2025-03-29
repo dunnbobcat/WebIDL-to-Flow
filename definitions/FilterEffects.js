@@ -159,7 +159,7 @@ declare class SVGFEDropShadowElement
   +stdDeviationX: SVGAnimatedNumber;
   +stdDeviationY: SVGAnimatedNumber;
 
-  setStdDeviation(stdDeviationX: float, stdDeviationY: float): void;
+  setStdDeviation(stdDeviationX: number, stdDeviationY: number): void;
 }
 
 declare class SVGFEFloodElement
@@ -188,7 +188,7 @@ declare class SVGFEGaussianBlurElement
   +stdDeviationX: SVGAnimatedNumber;
   +stdDeviationY: SVGAnimatedNumber;
 
-  setStdDeviation(stdDeviationX: float, stdDeviationY: float): void;
+  setStdDeviation(stdDeviationX: number, stdDeviationY: number): void;
 }
 
 declare class SVGFEImageElement

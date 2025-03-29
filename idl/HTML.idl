@@ -3049,3 +3049,6 @@ interface External {
   undefined AddSearchProvider();
   undefined IsSearchProviderInstalled();
 };
+
+[LegacyTreatNonObjectAsNull]
+callback EventHandler = any (Event event);

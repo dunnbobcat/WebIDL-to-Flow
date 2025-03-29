@@ -17,6 +17,7 @@ const TYPE_MAP = ({
   CSSOMString: 'string',
   DOMHighResTimeStamp: 'number',
   DOMString: 'string',
+  float: 'number',
   'long long': 'number',
   long: 'number',
   short: 'number',

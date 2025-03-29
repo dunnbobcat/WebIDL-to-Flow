@@ -1,0 +1,59 @@
+// https://www.w3.org/TR/SVG11/animate.html
+
+interface ElementTimeControl {
+  void beginElement();
+  void beginElementAt(float offset);
+  void endElement();
+  void endElementAt(float offset);
+};
+
+interface TimeEvent : Event {
+
+  readonly attribute AbstractView view;
+  readonly attribute long detail;
+
+  void initTimeEvent(DOMString typeArg, AbstractView viewArg, long detailArg);
+};
+
+[Exposed=Window]
+interface SVGAnimationElement : SVGElement {
+
+  readonly attribute SVGElement targetElement;
+
+  float getStartTime();
+  float getCurrentTime();
+  float getSimpleDuration();
+};
+
+SVGAnimationElement includes SVGTests;
+SVGAnimationElement includes SVGExternalResourcesRequired;
+SVGAnimationElement includes ElementTimeControl;
+
+[Exposed=Window]
+interface SVGAnimateElement : SVGAnimationElement {
+};
+
+SVGAnimateElement includes SVGStylable;
+
+[Exposed=Window]
+interface SVGSetElement : SVGAnimationElement {
+};
+
+[Exposed=Window]
+interface SVGAnimateMotionElement : SVGAnimationElement {
+};
+
+[Exposed=Window]
+interface SVGMPathElement : SVGElement {
+};
+
+SVGMPathElement includes SVGURIReference;
+SVGMPathElement includes SVGExternalResourcesRequired;
+
+interface SVGAnimateColorElement : SVGAnimationElement {
+};
+
+SVGAnimateColorElement includes SVGStylable;
+
+interface SVGAnimateTransformElement : SVGAnimationElement {
+};
