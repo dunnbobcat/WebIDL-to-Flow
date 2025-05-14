@@ -12,13 +12,13 @@ type TextEncoderEncodeIntoResult = {
   written: number,
 };
 
-interface TextDecoderCommon {
+/* mixin */ class TextDecoderCommon {
   +encoding: string;
   +fatal: boolean;
   +ignoreBOM: boolean;
 }
 
-interface TextEncoderCommon {
+/* mixin */ class TextEncoderCommon {
   +encoding: string;
 }
 

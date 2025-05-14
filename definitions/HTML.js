@@ -361,29 +361,29 @@ type WorkletOptions = {
   credentials: RequestCredentials,
 };
 
-interface AbstractWorker {
+/* mixin */ class AbstractWorker {
   onerror: EventHandler;
 }
 
-interface AnimationFrameProvider {
-  cancelAnimationFrame(handle: number): void;
-  requestAnimationFrame(callback: FrameRequestCallback): number;
+/* mixin */ class AnimationFrameProvider {
+  cancelAnimationFrame(handle: number): void {}
+  requestAnimationFrame(callback: FrameRequestCallback): number {}
 }
 
-interface CanvasCompositing {
+/* mixin */ class CanvasCompositing {
   globalAlpha: number;
   globalCompositeOperation: string;
 }
 
-interface CanvasDrawImage {
-  drawImage(image: CanvasImageSource, dx: number, dy: number): void;
+/* mixin */ class CanvasDrawImage {
+  drawImage(image: CanvasImageSource, dx: number, dy: number): void {}
   drawImage(
     image: CanvasImageSource,
     dx: number,
     dy: number,
     dw: number,
     dh: number,
-  ): void;
+  ): void {}
   drawImage(
     image: CanvasImageSource,
     sx: number,
@@ -394,43 +394,47 @@ interface CanvasDrawImage {
     dy: number,
     dw: number,
     dh: number,
-  ): void;
+  ): void {}
 }
 
-interface CanvasDrawPath {
-  beginPath(): void;
-  clip(fillRule?: CanvasFillRule): void;
-  clip(path: Path2D, fillRule?: CanvasFillRule): void;
-  fill(fillRule?: CanvasFillRule): void;
-  fill(path: Path2D, fillRule?: CanvasFillRule): void;
-  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
+/* mixin */ class CanvasDrawPath {
+  beginPath(): void {}
+  clip(fillRule?: CanvasFillRule): void {}
+  clip(path: Path2D, fillRule?: CanvasFillRule): void {}
+  fill(fillRule?: CanvasFillRule): void {}
+  fill(path: Path2D, fillRule?: CanvasFillRule): void {}
+  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean {}
   isPointInPath(
     path: Path2D,
     x: number,
     y: number,
     fillRule?: CanvasFillRule,
-  ): boolean;
-  isPointInStroke(x: number, y: number): boolean;
-  isPointInStroke(path: Path2D, x: number, y: number): boolean;
-  stroke(): void;
-  stroke(path: Path2D): void;
+  ): boolean {}
+  isPointInStroke(x: number, y: number): boolean {}
+  isPointInStroke(path: Path2D, x: number, y: number): boolean {}
+  stroke(): void {}
+  stroke(path: Path2D): void {}
 }
 
-interface CanvasFillStrokeStyles {
+/* mixin */ class CanvasFillStrokeStyles {
   fillStyle: string | CanvasGradient | CanvasPattern;
   strokeStyle: string | CanvasGradient | CanvasPattern;
 
-  createConicGradient(startAngle: double, x: double, y: double): CanvasGradient;
+  createConicGradient(
+    startAngle: double,
+    x: double,
+    y: double,
+  ): CanvasGradient {}
   createLinearGradient(
     x0: double,
     y0: double,
     x1: double,
     y1: double,
-  ): CanvasGradient;
+  ): CanvasGradient {}
   createPattern(
     image: CanvasImageSource,
     repetition: string,
-  ): CanvasPattern | null;
+  ): CanvasPattern | null {}
   createRadialGradient(
     x0: double,
     y0: double,
@@ -438,28 +442,28 @@ interface CanvasFillStrokeStyles {
     x1: double,
     y1: double,
     r1: double,
-  ): CanvasGradient;
+  ): CanvasGradient {}
 }
 
-interface CanvasFilters {
+/* mixin */ class CanvasFilters {
   filter: string;
 }
 
-interface CanvasImageData {
+/* mixin */ class CanvasImageData {
   createImageData(
     sw: number,
     sh: number,
     settings?: ImageDataSettings,
-  ): ImageData;
-  createImageData(imageData: ImageData): ImageData;
+  ): ImageData {}
+  createImageData(imageData: ImageData): ImageData {}
   getImageData(
     sx: number,
     sy: number,
     sw: number,
     sh: number,
     settings?: ImageDataSettings,
-  ): ImageData;
-  putImageData(imageData: ImageData, dx: number, dy: number): void;
+  ): ImageData {}
+  putImageData(imageData: ImageData, dx: number, dy: number): void {}
   putImageData(
     imageData: ImageData,
     dx: number,
@@ -468,15 +472,15 @@ interface CanvasImageData {
     dirtyY: number,
     dirtyWidth: number,
     dirtyHeight: number,
-  ): void;
+  ): void {}
 }
 
-interface CanvasImageSmoothing {
+/* mixin */ class CanvasImageSmoothing {
   imageSmoothingEnabled: boolean;
   imageSmoothingQuality: ImageSmoothingQuality;
 }
 
-interface CanvasPath {
+/* mixin */ class CanvasPath {
   arc(
     x: number,
     y: number,
@@ -484,8 +488,8 @@ interface CanvasPath {
     startAngle: number,
     endAngle: number,
     counterclockwise?: boolean,
-  ): void;
-  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+  ): void {}
+  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void {}
   bezierCurveTo(
     cp1x: number,
     cp1y: number,
@@ -493,8 +497,8 @@ interface CanvasPath {
     cp2y: number,
     x: number,
     y: number,
-  ): void;
-  closePath(): void;
+  ): void {}
+  closePath(): void {}
   ellipse(
     x: number,
     y: number,
@@ -504,62 +508,62 @@ interface CanvasPath {
     startAngle: number,
     endAngle: number,
     counterclockwise?: boolean,
-  ): void;
-  lineTo(x: number, y: number): void;
-  moveTo(x: number, y: number): void;
-  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
-  rect(x: number, y: number, w: number, h: number): void;
+  ): void {}
+  lineTo(x: number, y: number): void {}
+  moveTo(x: number, y: number): void {}
+  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void {}
+  rect(x: number, y: number, w: number, h: number): void {}
   roundRect(
     x: number,
     y: number,
     w: number,
     h: number,
     radii?: number | DOMPointInit | Array<number | DOMPointInit>,
-  ): void;
+  ): void {}
 }
 
-interface CanvasPathDrawingStyles {
+/* mixin */ class CanvasPathDrawingStyles {
   lineCap: CanvasLineCap;
   lineDashOffset: number;
   lineJoin: CanvasLineJoin;
   lineWidth: number;
   miterLimit: number;
 
-  getLineDash(): Array<number>;
-  setLineDash(segments: Array<number>): void;
+  getLineDash(): Array<number> {}
+  setLineDash(segments: Array<number>): void {}
 }
 
-interface CanvasRect {
-  clearRect(x: number, y: number, w: number, h: number): void;
-  fillRect(x: number, y: number, w: number, h: number): void;
-  strokeRect(x: number, y: number, w: number, h: number): void;
+/* mixin */ class CanvasRect {
+  clearRect(x: number, y: number, w: number, h: number): void {}
+  fillRect(x: number, y: number, w: number, h: number): void {}
+  strokeRect(x: number, y: number, w: number, h: number): void {}
 }
 
-interface CanvasSettings {
-  getContextAttributes(): CanvasRenderingContext2DSettings;
+/* mixin */ class CanvasSettings {
+  getContextAttributes(): CanvasRenderingContext2DSettings {}
 }
 
-interface CanvasShadowStyles {
+/* mixin */ class CanvasShadowStyles {
   shadowBlur: number;
   shadowColor: string;
   shadowOffsetX: number;
   shadowOffsetY: number;
 }
 
-interface CanvasState {
-  isContextLost(): boolean;
-  reset(): void;
-  restore(): void;
-  save(): void;
+/* mixin */ class CanvasState {
+  isContextLost(): boolean {}
+  reset(): void {}
+  restore(): void {}
+  save(): void {}
 }
 
-interface CanvasText {
-  fillText(text: string, x: number, y: number, maxWidth?: number): void;
-  measureText(text: string): TextMetrics;
-  strokeText(text: string, x: number, y: number, maxWidth?: number): void;
+/* mixin */ class CanvasText {
+  fillText(text: string, x: number, y: number, maxWidth?: number): void {}
+  measureText(text: string): TextMetrics {}
+  strokeText(text: string, x: number, y: number, maxWidth?: number): void {}
 }
 
-interface CanvasTextDrawingStyles {
+/* mixin */ class CanvasTextDrawingStyles {
   direction: CanvasDirection;
   font: string;
   fontKerning: CanvasFontKerning;
@@ -573,11 +577,11 @@ interface CanvasTextDrawingStyles {
   wordSpacing: string;
 }
 
-interface CanvasTransform {
-  getTransform(): DOMMatrix;
-  resetTransform(): void;
-  rotate(angle: number): void;
-  scale(x: number, y: number): void;
+/* mixin */ class CanvasTransform {
+  getTransform(): DOMMatrix {}
+  resetTransform(): void {}
+  rotate(angle: number): void {}
+  scale(x: number, y: number): void {}
   setTransform(
     a: number,
     b: number,
@@ -585,8 +589,8 @@ interface CanvasTransform {
     d: number,
     e: number,
     f: number,
-  ): void;
-  setTransform(transform?: DOMMatrix2DInit): void;
+  ): void {}
+  setTransform(transform?: DOMMatrix2DInit): void {}
   transform(
     a: number,
     b: number,
@@ -594,27 +598,27 @@ interface CanvasTransform {
     d: number,
     e: number,
     f: number,
-  ): void;
-  translate(x: number, y: number): void;
+  ): void {}
+  translate(x: number, y: number): void {}
 }
 
-interface CanvasUserInterface {
-  drawFocusIfNeeded(element: Element): void;
-  drawFocusIfNeeded(path: Path2D, element: Element): void;
+/* mixin */ class CanvasUserInterface {
+  drawFocusIfNeeded(element: Element): void {}
+  drawFocusIfNeeded(path: Path2D, element: Element): void {}
 }
 
-/* partial */ interface DocumentOrShadowRoot {
+/* mixin */ class DocumentOrShadowRoot {
   +activeElement: Element | null;
 }
 
-interface ElementContentEditable {
+/* mixin */ class ElementContentEditable {
   contentEditable: string;
   enterKeyHint: string;
   inputMode: string;
   +isContentEditable: boolean;
 }
 
-interface GlobalEventHandlers {
+/* mixin */ class GlobalEventHandlers {
   onabort: EventHandler;
   onauxclick: EventHandler;
   onbeforeinput: EventHandler;
@@ -693,7 +697,7 @@ interface GlobalEventHandlers {
   onwheel: EventHandler;
 }
 
-interface HTMLHyperlinkElementUtils {
+/* mixin */ class HTMLHyperlinkElementUtils {
   hash: string;
   host: string;
   hostname: string;
@@ -707,35 +711,35 @@ interface HTMLHyperlinkElementUtils {
   username: string;
 }
 
-interface HTMLOrSVGElement {
+/* mixin */ class HTMLOrSVGElement {
   autofocus: boolean;
   +dataset: DOMStringMap;
   nonce: string;
   tabIndex: number;
 
-  blur(): void;
-  focus(options?: FocusOptions): void;
+  blur(): void {}
+  focus(options?: FocusOptions): void {}
 }
 
-interface MessageEventTarget {
+/* mixin */ class MessageEventTarget {
   onmessage: EventHandler;
   onmessageerror: EventHandler;
 }
 
-interface NavigatorConcurrentHardware {
+/* mixin */ class NavigatorConcurrentHardware {
   +hardwareConcurrency: number;
 }
 
-interface NavigatorContentUtils {
-  registerProtocolHandler(scheme: string, url: string): void;
-  unregisterProtocolHandler(scheme: string, url: string): void;
+/* mixin */ class NavigatorContentUtils {
+  registerProtocolHandler(scheme: string, url: string): void {}
+  unregisterProtocolHandler(scheme: string, url: string): void {}
 }
 
-interface NavigatorCookies {
+/* mixin */ class NavigatorCookies {
   +cookieEnabled: boolean;
 }
 
-interface NavigatorID {
+/* mixin */ class NavigatorID {
   +appCodeName: string;
   +appName: string;
   +appVersion: string;
@@ -747,35 +751,35 @@ interface NavigatorID {
   +vendorSub: string;
 }
 
-/* partial */ interface NavigatorID {
+/* mixin */ class NavigatorID {
   +oscpu: string;
 
-  taintEnabled(): boolean;
+  taintEnabled(): boolean {}
 }
 
-interface NavigatorLanguage {
+/* mixin */ class NavigatorLanguage {
   +language: string;
   +languages: string;
 }
 
-interface NavigatorOnLine {
+/* mixin */ class NavigatorOnLine {
   +onLine: boolean;
 }
 
-interface NavigatorPlugins {
+/* mixin */ class NavigatorPlugins {
   +mimeTypes: MimeTypeArray;
   +pdfViewerEnabled: boolean;
   +plugins: PluginArray;
 
-  javaEnabled(): boolean;
+  javaEnabled(): boolean {}
 }
 
-interface PopoverInvokerElement {
+/* mixin */ class PopoverInvokerElement {
   popoverTargetAction: string;
   popoverTargetElement: Element | null;
 }
 
-interface WindowEventHandlers {
+/* mixin */ class WindowEventHandlers {
   onafterprint: EventHandler;
   onbeforeprint: EventHandler;
   onbeforeunload: OnBeforeUnloadEventHandler;
@@ -796,23 +800,23 @@ interface WindowEventHandlers {
   onunload: EventHandler;
 }
 
-interface WindowLocalStorage {
+/* mixin */ class WindowLocalStorage {
   +localStorage: Storage;
 }
 
-interface WindowOrWorkerGlobalScope {
+/* mixin */ class WindowOrWorkerGlobalScope {
   +crossOriginIsolated: boolean;
   +isSecureContext: boolean;
   +origin: string;
 
-  atob(data: string): ByteString;
-  btoa(data: string): string;
-  clearInterval(id?: number): void;
-  clearTimeout(id?: number): void;
+  atob(data: string): ByteString {}
+  btoa(data: string): string {}
+  clearInterval(id?: number): void {}
+  clearTimeout(id?: number): void {}
   createImageBitmap(
     image: ImageBitmapSource,
     options?: ImageBitmapOptions,
-  ): ImageBitmap;
+  ): ImageBitmap {}
   createImageBitmap(
     image: ImageBitmapSource,
     sx: number,
@@ -820,15 +824,23 @@ interface WindowOrWorkerGlobalScope {
     sw: number,
     sh: number,
     options?: ImageBitmapOptions,
-  ): ImageBitmap;
-  queueMicrotask(callback: VoidFunction): void;
-  reportError(e: any): void;
-  setInterval(handler: TimerHandler, timeout?: number, arguments: any): number;
-  setTimeout(handler: TimerHandler, timeout?: number, arguments: any): number;
-  structuredClone(value: any, options?: StructuredSerializeOptions): any;
+  ): ImageBitmap {}
+  queueMicrotask(callback: VoidFunction): void {}
+  reportError(e: any): void {}
+  setInterval(
+    handler: TimerHandler,
+    timeout?: number,
+    arguments_: any,
+  ): number {}
+  setTimeout(
+    handler: TimerHandler,
+    timeout?: number,
+    arguments_: any,
+  ): number {}
+  structuredClone(value: any, options?: StructuredSerializeOptions): any {}
 }
 
-interface WindowSessionStorage {
+/* mixin */ class WindowSessionStorage {
   +sessionStorage: Storage;
 }
 

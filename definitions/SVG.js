@@ -5,70 +5,70 @@ type SVGBoundingBoxOptions = {
   clipped: boolean,
 };
 
-interface GetSVGDocument {
-  getSVGDocument(): Document;
+/* mixin */ class GetSVGDocument {
+  getSVGDocument(): Document {}
 }
 
-interface SVGAnimatedPoints {
+/* mixin */ class SVGAnimatedPoints {
   +animatedPoints: SVGPointList;
   +points: SVGPointList;
 }
 
-interface SVGCSSRule {}
+/* mixin */ class SVGCSSRule {}
 
-interface SVGElementInstance {
+/* mixin */ class SVGElementInstance {
   +correspondingElement: SVGElement | null;
   +correspondingUseElement: SVGUseElement | null;
 }
 
-interface SVGExternalResourcesRequired {
+/* mixin */ class SVGExternalResourcesRequired {
   +externalResourcesRequired: SVGAnimatedBoolean;
 }
 
-interface SVGFitToViewBox {
+/* mixin */ class SVGFitToViewBox {
   +preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
   +viewBox: SVGAnimatedRect;
 }
 
-interface SVGLangSpace {
+/* mixin */ class SVGLangSpace {
   xmllang: string;
   xmlspace: string;
 }
 
-interface SVGLocatable {
+/* mixin */ class SVGLocatable {
   +farthestViewportElement: SVGElement;
   +nearestViewportElement: SVGElement;
 
-  getBBox(): SVGRect;
-  getCTM(): SVGMatrix;
-  getScreenCTM(): SVGMatrix;
-  getTransformToElement(element: SVGElement): SVGMatrix;
+  getBBox(): SVGRect {}
+  getCTM(): SVGMatrix {}
+  getScreenCTM(): SVGMatrix {}
+  getTransformToElement(element: SVGElement): SVGMatrix {}
 }
 
-interface SVGStylable {
+/* mixin */ class SVGStylable {
   +className: SVGAnimatedString;
   +style: CSSStyleDeclaration;
 
-  getPresentationAttribute(name: string): CSSValue;
+  getPresentationAttribute(name: string): CSSValue {}
 }
 
-interface SVGTests {
+/* mixin */ class SVGTests {
   +requiredExtensions: SVGStringList;
   +requiredFeatures: SVGStringList;
   +systemLanguage: SVGStringList;
 
-  hasExtension(extension: string): boolean;
+  hasExtension(extension: string): boolean {}
 }
 
-interface SVGTransformable {
+/* mixin */ class SVGTransformable {
   +transform: SVGAnimatedTransformList;
 }
 
-interface SVGURIReference {
+/* mixin */ class SVGURIReference {
   +href: SVGAnimatedString;
 }
 
-interface SVGViewSpec {
+/* mixin */ class SVGViewSpec {
   +preserveAspectRatioString: string;
   +transform: SVGTransformList;
   +transformString: string;
@@ -77,7 +77,7 @@ interface SVGViewSpec {
   +viewTargetString: string;
 }
 
-interface SVGZoomAndPan {
+/* mixin */ class SVGZoomAndPan {
   zoomAndPan: number;
 }
 

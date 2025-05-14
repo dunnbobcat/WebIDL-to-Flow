@@ -8,6 +8,7 @@ import {compareProductions, compareTypes} from './sorting.js';
 import {read} from 'fs';
 
 const KEYWORD_REPLACEMENTS = ({
+  arguments: 'arguments_',
   interface: 'interface_',
   default: 'default_',
   constructor: 'constructor_',
@@ -97,10 +98,6 @@ function convertCallbackInterface(production: IDLProduction): string {
   return convertInterface(production);
 }
 
-function convertInterfaceMixin(production: IDLProduction): string {
-  return convertInterface(production);
-}
-
 function convertDictionary(production: IDLProduction): string {
   const {partial, members, name} = production;
 
@@ -179,6 +176,35 @@ function convertInterfaceMember(production: IDLProduction): string {
   }
 }
 
+function convertMixinMember(production: IDLProduction): string {
+  switch (production.type) {
+    case 'constructor':
+      return convertConstructor(production, true);
+
+    case 'iterable':
+      return convertIterable(production, true);
+
+    case 'attribute':
+      return convertAttribute(production);
+
+    case 'operation':
+      return convertOperation(production, true);
+
+    case 'const':
+      return convertConstant(production);
+
+    case 'setlike':
+      // Handled separately
+      return '';
+
+    default:
+      return productionError(
+        `Unhandled IDL production ${production.type}`,
+        production,
+      );
+  }
+}
+
 function convertInterface(
   production: IDLProduction,
   mixins: ?Array<string>,
@@ -222,16 +248,38 @@ function convertInterface(
   return `${partial}${declare}${classOrInterface} ${name} ${extendsDecl}${mixinDecl}{${interfaceMembers}}\n`;
 }
 
-function convertConstructor(production: IDLProduction): string {
-  const {arguments: args} = production;
-  const argString = args.map(convertArgument).join(', ');
-  return `constructor(${argString}): void;\n`;
+function convertInterfaceMixin(production: IDLProduction): string {
+  const {name, members} = production;
+
+  const grouped = group(members, (member) => member.type);
+  const interfaceMembers = Object.keys(grouped)
+    .sort(compareTypes)
+    .map((key) =>
+      grouped[key]
+        .toSorted(compareProductions)
+        .map(convertMixinMember)
+        .join(''),
+    )
+    .join('\n');
+
+  return `/* mixin */ class ${name} {${interfaceMembers}}\n`;
 }
 
-function convertIterable(production: IDLProduction): string {
+function convertConstructor(
+  production: IDLProduction,
+  mixin?: boolean,
+): string {
+  const {arguments: args} = production;
+  const argString = args.map(convertArgument).join(', ');
+  const body = mixin === true ? ' {}' : ';';
+  return `constructor(${argString}): void${body}\n`;
+}
+
+function convertIterable(production: IDLProduction, mixin?: boolean): string {
   const {idlType: types} = production;
   const typeStr = types.map(convertIDLType).join(', ');
-  return `@@iterator(): Iterator<${typeStr}>;\n`;
+  const body = mixin === true ? ' {}' : ';';
+  return `@@iterator(): Iterator<${typeStr}>${body}\n`;
 }
 
 function convertAttribute(production: IDLProduction): string {
@@ -240,7 +288,7 @@ function convertAttribute(production: IDLProduction): string {
   return `${plus}${name}: ${convertIDLType(idlType)};\n`;
 }
 
-function convertOperation(production: IDLProduction): string {
+function convertOperation(production: IDLProduction, mixin?: boolean): string {
   const {idlType, name, arguments: args, special} = production;
 
   if (special === 'stringifier' && name === '') {
@@ -249,7 +297,8 @@ function convertOperation(production: IDLProduction): string {
 
   const staticString = special === 'static' ? 'static ' : '';
   const argString = args.map(convertArgument).join(', ');
-  return `${staticString}${name}(${argString}): ${convertIDLType(idlType)};\n`;
+  const body = mixin === true ? ' {}' : ';';
+  return `${staticString}${name}(${argString}): ${convertIDLType(idlType)}${body}\n`;
 }
 
 function convertConstant(production: IDLProduction): string {

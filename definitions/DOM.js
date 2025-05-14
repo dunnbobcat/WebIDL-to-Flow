@@ -55,55 +55,55 @@ type StaticRangeInit = {
   endOffset: number,
 };
 
-interface ChildNode {
-  after(nodes: Node | string): void;
-  before(nodes: Node | string): void;
-  remove(): void;
-  replaceWith(nodes: Node | string): void;
+/* mixin */ class ChildNode {
+  after(nodes: Node | string): void {}
+  before(nodes: Node | string): void {}
+  remove(): void {}
+  replaceWith(nodes: Node | string): void {}
 }
 
-interface DocumentOrShadowRoot {}
+/* mixin */ class DocumentOrShadowRoot {}
 
-interface NonDocumentTypeChildNode {
+/* mixin */ class NonDocumentTypeChildNode {
   +nextElementSibling: Element | null;
   +previousElementSibling: Element | null;
 }
 
-interface NonElementParentNode {
-  getElementById(elementId: string): Element | null;
+/* mixin */ class NonElementParentNode {
+  getElementById(elementId: string): Element | null {}
 }
 
-interface ParentNode {
+/* mixin */ class ParentNode {
   +childElementCount: number;
   +children: HTMLCollection;
   +firstElementChild: Element | null;
   +lastElementChild: Element | null;
 
-  append(nodes: Node | string): void;
-  moveBefore(node: Node, child: Node | null): void;
-  prepend(nodes: Node | string): void;
-  querySelector(selectors: string): Element | null;
-  querySelectorAll(selectors: string): NodeList;
-  replaceChildren(nodes: Node | string): void;
+  append(nodes: Node | string): void {}
+  moveBefore(node: Node, child: Node | null): void {}
+  prepend(nodes: Node | string): void {}
+  querySelector(selectors: string): Element | null {}
+  querySelectorAll(selectors: string): NodeList {}
+  replaceChildren(nodes: Node | string): void {}
 }
 
-interface Slottable {
+/* mixin */ class Slottable {
   +assignedSlot: HTMLSlotElement | null;
 }
 
-interface XPathEvaluatorBase {
+/* mixin */ class XPathEvaluatorBase {
   createExpression(
     expression: string,
     resolver?: XPathNSResolver | null,
-  ): XPathExpression;
-  createNSResolver(nodeResolver: Node): Node;
+  ): XPathExpression {}
+  createNSResolver(nodeResolver: Node): Node {}
   evaluate(
     expression: string,
     contextNode: Node,
     resolver?: XPathNSResolver | null,
     type?: number,
     result?: XPathResult | null,
-  ): XPathResult;
+  ): XPathResult {}
 }
 
 interface EventListener {

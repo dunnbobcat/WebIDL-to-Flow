@@ -73,15 +73,15 @@ type UnderlyingSource = {
   autoAllocateChunkSize: number,
 };
 
-interface GenericTransformStream {
+/* mixin */ class GenericTransformStream {
   +readable: ReadableStream;
   +writable: WritableStream;
 }
 
-interface ReadableStreamGenericReader {
+/* mixin */ class ReadableStreamGenericReader {
   +closed: void;
 
-  cancel(reason?: any): void;
+  cancel(reason?: any): void {}
 }
 
 declare class ByteLengthQueuingStrategy {

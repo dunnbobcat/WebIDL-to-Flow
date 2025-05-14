@@ -4,16 +4,16 @@ type CSSStyleSheetInit = {
   disabled: boolean,
 };
 
-/* partial */ interface DocumentOrShadowRoot {
+/* mixin */ class DocumentOrShadowRoot {
   adoptedStyleSheets: CSSStyleSheet;
   +styleSheets: StyleSheetList;
 }
 
-interface ElementCSSInlineStyle {
+/* mixin */ class ElementCSSInlineStyle {
   +style: CSSStyleDeclaration;
 }
 
-interface LinkStyle {
+/* mixin */ class LinkStyle {
   +sheet: CSSStyleSheet | null;
 }
 

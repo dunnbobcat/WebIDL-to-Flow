@@ -84,20 +84,20 @@ type ResponseInit = {
   headers: HeadersInit,
 };
 
-interface Body {
+/* mixin */ class Body {
   +body: ReadableStream | null;
   +bodyUsed: boolean;
 
-  arrayBuffer(): ArrayBuffer;
-  blob(): Blob;
-  bytes(): Uint8Array;
-  formData(): FormData;
-  json(): any;
-  text(): string;
+  arrayBuffer(): ArrayBuffer {}
+  blob(): Blob {}
+  bytes(): Uint8Array {}
+  formData(): FormData {}
+  json(): any {}
+  text(): string {}
 }
 
-/* partial */ interface WindowOrWorkerGlobalScope {
-  fetch(input: RequestInfo, init?: RequestInit): Response;
+/* mixin */ class WindowOrWorkerGlobalScope {
+  fetch(input: RequestInfo, init?: RequestInit): Response {}
 }
 
 declare class Headers {

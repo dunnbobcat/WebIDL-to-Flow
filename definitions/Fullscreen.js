@@ -4,7 +4,7 @@ type FullscreenOptions = {
   navigationUI: FullscreenNavigationUI,
 };
 
-/* partial */ interface DocumentOrShadowRoot {
+/* mixin */ class DocumentOrShadowRoot {
   +fullscreenElement: Element | null;
 }
 

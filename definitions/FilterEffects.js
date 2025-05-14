@@ -1,4 +1,4 @@
-interface SVGFilterPrimitiveStandardAttributes {
+/* mixin */ class SVGFilterPrimitiveStandardAttributes {
   +height: SVGAnimatedLength;
   +result: SVGAnimatedString;
   +width: SVGAnimatedLength;
