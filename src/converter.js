@@ -22,6 +22,7 @@ const TYPE_MAP = ({
   long: 'number',
   short: 'number',
   undefined: 'void',
+  'unrestricted float': 'number',
   'unrestricted double': 'number',
   'unsigned long long': 'number',
   'unsigned long': 'number',

@@ -2918,6 +2918,8 @@ type BlobCallback = (blob: Blob | null) => void;
 
 type CustomElementConstructor = () => HTMLElement;
 
+type EventHandler = (event: Event) => any;
+
 type EventHandlerNonNull = (event: Event) => any;
 
 type FrameRequestCallback = (time: number) => void;

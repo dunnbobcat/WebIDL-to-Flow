@@ -45,8 +45,6 @@ interface SVGLocatable {
   getTransformToElement(element: SVGElement): SVGMatrix;
 }
 
-interface SVGRenderingIntent {}
-
 interface SVGStylable {
   +className: SVGAnimatedString;
   +style: CSSStyleDeclaration;
