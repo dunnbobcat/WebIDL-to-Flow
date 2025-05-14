@@ -110,7 +110,7 @@ declare class ReadableByteStreamController {
 declare class ReadableStream {
   +locked: boolean;
 
-  constructor(underlyingSource?: object, strategy?: QueuingStrategy): void;
+  constructor(underlyingSource?: Object, strategy?: QueuingStrategy): void;
 
   @@iterator(): Iterator<any>;
 
@@ -162,7 +162,7 @@ declare class TransformStream {
   +writable: WritableStream;
 
   constructor(
-    transformer?: object,
+    transformer?: Object,
     writableStrategy?: QueuingStrategy,
     readableStrategy?: QueuingStrategy,
   ): void;
@@ -179,7 +179,7 @@ declare class TransformStreamDefaultController {
 declare class WritableStream {
   +locked: boolean;
 
-  constructor(underlyingSink?: object, strategy?: QueuingStrategy): void;
+  constructor(underlyingSink?: Object, strategy?: QueuingStrategy): void;
 
   abort(reason?: any): void;
   close(): void;

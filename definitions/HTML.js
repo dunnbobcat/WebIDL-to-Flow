@@ -297,7 +297,7 @@ type PopStateEventInit = {
 };
 
 type PromiseRejectionEventInit = {
-  promise: object,
+  promise: Object,
   reason: any,
 };
 
@@ -314,7 +314,7 @@ type StorageEventInit = {
 };
 
 type StructuredSerializeOptions = {
-  transfer: Array<object>,
+  transfer: Array<Object>,
 };
 
 type SubmitEventInit = {
@@ -984,7 +984,7 @@ declare class DedicatedWorkerGlobalScope
   +name: string;
 
   close(): void;
-  postMessage(message: any, transfer: Array<object>): void;
+  postMessage(message: any, transfer: Array<Object>): void;
   postMessage(message: any, options?: StructuredSerializeOptions): void;
 }
 
@@ -1014,7 +1014,7 @@ declare class DedicatedWorkerGlobalScope
   +visibilityState: DocumentVisibilityState;
 
   static parseHTMLUnsafe(html: TrustedHTML | string): Document;
-  (name: string): object;
+  (name: string): Object;
   close(): void;
   execCommand(commandId: string, showUI?: boolean, value?: string): boolean;
   getElementsByName(elementName: string): NodeList;
@@ -1610,7 +1610,7 @@ declare class HTMLInputElement
   +validationMessage: string;
   +validity: ValidityState;
   value: string;
-  valueAsDate: object | null;
+  valueAsDate: Object | null;
   valueAsNumber: number;
   width: number;
   +willValidate: boolean;
@@ -1767,7 +1767,7 @@ declare class HTMLMediaElement extends HTMLElement {
   ): TextTrack;
   canPlayType(type: string): CanPlayTypeResult;
   fastSeek(time: double): void;
-  getStartDate(): object;
+  getStartDate(): Object;
   load(): void;
   pause(): void;
   play(): void;
@@ -2355,7 +2355,7 @@ declare class MessagePort extends EventTarget mixins MessageEventTarget {
   onclose: EventHandler;
 
   close(): void;
-  postMessage(message: any, transfer: Array<object>): void;
+  postMessage(message: any, transfer: Array<Object>): void;
   postMessage(message: any, options?: StructuredSerializeOptions): void;
   start(): void;
 }
@@ -2482,7 +2482,7 @@ declare class Navigator
 declare class NotRestoredReasonDetails {
   +reason: string;
 
-  toJSON(): object;
+  toJSON(): Object;
 }
 
 declare class NotRestoredReasons {
@@ -2493,7 +2493,7 @@ declare class NotRestoredReasons {
   +src: string | null;
   +url: string | null;
 
-  toJSON(): object;
+  toJSON(): Object;
 }
 
 declare class OffscreenCanvas extends EventTarget {
@@ -2585,7 +2585,7 @@ declare class PopStateEvent extends Event {
 }
 
 declare class PromiseRejectionEvent extends Event {
-  +promise: object;
+  +promise: Object;
   +reason: any;
 
   constructor(type: string, eventInitDict: PromiseRejectionEventInit): void;
@@ -2827,13 +2827,13 @@ declare class Window
   postMessage(
     message: any,
     targetOrigin: string,
-    transfer?: Array<object>,
+    transfer?: Array<Object>,
   ): void;
   postMessage(message: any, options?: WindowPostMessageOptions): void;
   print(): void;
   prompt(message?: string, default_?: string): string | null;
   stop(): void;
-  (name: string): object;
+  (name: string): Object;
 }
 
 /* partial */ declare class Window
@@ -2873,7 +2873,7 @@ declare class Worker
     options?: WorkerOptions,
   ): void;
 
-  postMessage(message: any, transfer: Array<object>): void;
+  postMessage(message: any, transfer: Array<Object>): void;
   postMessage(message: any, options?: StructuredSerializeOptions): void;
   terminate(): void;
 }

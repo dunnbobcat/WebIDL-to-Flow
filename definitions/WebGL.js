@@ -194,7 +194,7 @@ type WebGLContextEventInit = {
   getBufferParameter(target: GLenum, pname: GLenum): any {}
   getContextAttributes(): WebGLContextAttributes | null {}
   getError(): GLenum {}
-  getExtension(name: string): object | null {}
+  getExtension(name: string): Object | null {}
   getFramebufferAttachmentParameter(
     target: GLenum,
     attachment: GLenum,

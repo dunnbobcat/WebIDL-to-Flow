@@ -21,6 +21,7 @@ const TYPE_MAP = ({
   float: 'number',
   'long long': 'number',
   long: 'number',
+  object: 'Object',
   short: 'number',
   undefined: 'void',
   'unrestricted float': 'number',
