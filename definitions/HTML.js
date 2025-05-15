@@ -263,6 +263,7 @@ type NavigationInterceptOptions = {
 
 type NavigationNavigateOptions = {
   history: NavigationHistoryBehavior,
+  info: any,
   state: any,
 };
 
@@ -271,6 +272,7 @@ type NavigationOptions = {
 };
 
 type NavigationReloadOptions = {
+  info: any,
   state: any,
 };
 
@@ -333,6 +335,7 @@ type ToggleEventInit = {
 
 type TogglePopoverOptions = {
   force: boolean,
+  source: HTMLElement,
 };
 
 type TrackEventInit = {
@@ -354,6 +357,7 @@ type ValidityStateFlags = {
 
 type WindowPostMessageOptions = {
   targetOrigin: string,
+  transfer: Array<Object>,
 };
 
 type WorkerOptions = {
@@ -720,12 +724,17 @@ declare class HTMLAnchorElement
   extends HTMLElement
   mixins mixin$HTMLHyperlinkElementUtils
 {
+  charset: string;
+  coords: string;
   download: string;
   hreflang: string;
+  name: string;
   ping: string;
   referrerPolicy: string;
   rel: string;
   +relList: DOMTokenList;
+  rev: string;
+  shape: string;
   target: string;
   text: string;
   type: string;
@@ -750,6 +759,7 @@ declare class HTMLAreaElement
   alt: string;
   coords: string;
   download: string;
+  noHref: boolean;
   ping: string;
   referrerPolicy: string;
   rel: string;
@@ -781,6 +791,13 @@ declare class HTMLBodyElement
   extends HTMLElement
   mixins mixin$WindowEventHandlers
 {
+  aLink: string;
+  background: string;
+  bgColor: string;
+  link: string;
+  text: string;
+  vLink: string;
+
   constructor(): void;
 }
 
@@ -794,6 +811,8 @@ declare class HTMLBodyElement
 }
 
 declare class HTMLBRElement extends HTMLElement {
+  clear: string;
+
   constructor(): void;
 }
 
@@ -880,6 +899,8 @@ declare class HTMLDirectoryElement extends HTMLElement {
 }
 
 declare class HTMLDivElement extends HTMLElement {
+  align: string;
+
   constructor(): void;
 }
 
@@ -888,6 +909,8 @@ declare class HTMLDivElement extends HTMLElement {
 }
 
 declare class HTMLDListElement extends HTMLElement {
+  compact: boolean;
+
   constructor(): void;
 }
 
@@ -929,7 +952,9 @@ declare class HTMLElement
 }
 
 declare class HTMLEmbedElement extends HTMLElement {
+  align: string;
   height: string;
+  name: string;
   src: string;
   type: string;
   width: string;
@@ -1029,6 +1054,8 @@ declare class HTMLHeadElement extends HTMLElement {
 }
 
 declare class HTMLHeadingElement extends HTMLElement {
+  align: string;
+
   constructor(): void;
 }
 
@@ -1037,6 +1064,12 @@ declare class HTMLHeadingElement extends HTMLElement {
 }
 
 declare class HTMLHRElement extends HTMLElement {
+  align: string;
+  color: string;
+  noShade: boolean;
+  size: string;
+  width: string;
+
   constructor(): void;
 }
 
@@ -1049,6 +1082,8 @@ declare class HTMLHRElement extends HTMLElement {
 }
 
 declare class HTMLHtmlElement extends HTMLElement {
+  version: string;
+
   constructor(): void;
 }
 
@@ -1057,15 +1092,21 @@ declare class HTMLHtmlElement extends HTMLElement {
 }
 
 declare class HTMLIFrameElement extends HTMLElement {
+  align: string;
   allow: string;
   allowFullscreen: boolean;
   +contentDocument: Document | null;
   +contentWindow: WindowProxy | null;
+  frameBorder: string;
   height: string;
   loading: string;
+  longDesc: string;
+  marginHeight: string;
+  marginWidth: string;
   name: string;
   referrerPolicy: string;
   +sandbox: DOMTokenList;
+  scrolling: string;
   src: string;
   srcdoc: TrustedHTML | string;
   width: string;
@@ -1085,15 +1126,21 @@ declare class HTMLIFrameElement extends HTMLElement {
 }
 
 declare class HTMLImageElement extends HTMLElement {
+  align: string;
   alt: string;
+  border: string;
   +complete: boolean;
   crossOrigin: string | null;
   +currentSrc: string;
   decoding: string;
   fetchPriority: string;
   height: number;
+  hspace: number;
   isMap: boolean;
   loading: string;
+  longDesc: string;
+  lowsrc: string;
+  name: string;
   +naturalHeight: number;
   +naturalWidth: number;
   referrerPolicy: string;
@@ -1101,6 +1148,7 @@ declare class HTMLImageElement extends HTMLElement {
   src: string;
   srcset: string;
   useMap: string;
+  vspace: number;
   width: number;
 
   constructor(): void;
@@ -1123,6 +1171,7 @@ declare class HTMLInputElement
   mixins mixin$PopoverInvokerElement
 {
   accept: string;
+  align: string;
   alpha: boolean;
   alt: string;
   autocomplete: string;
@@ -1160,6 +1209,7 @@ declare class HTMLInputElement
   src: string;
   step: string;
   type: string;
+  useMap: string;
   +validationMessage: string;
   +validity: ValidityState;
   value: string;
@@ -1203,6 +1253,7 @@ declare class HTMLLabelElement extends HTMLElement {
 }
 
 declare class HTMLLegendElement extends HTMLElement {
+  align: string;
   +form: HTMLFormElement | null;
 
   constructor(): void;
@@ -1213,6 +1264,7 @@ declare class HTMLLegendElement extends HTMLElement {
 }
 
 declare class HTMLLIElement extends HTMLElement {
+  type: string;
   value: number;
 
   constructor(): void;
@@ -1225,6 +1277,7 @@ declare class HTMLLIElement extends HTMLElement {
 declare class HTMLLinkElement extends HTMLElement mixins mixin$LinkStyle {
   as: string;
   +blocking: DOMTokenList;
+  charset: string;
   crossOrigin: string | null;
   disabled: boolean;
   fetchPriority: string;
@@ -1237,7 +1290,9 @@ declare class HTMLLinkElement extends HTMLElement mixins mixin$LinkStyle {
   referrerPolicy: string;
   rel: string;
   +relList: DOMTokenList;
+  rev: string;
   +sizes: DOMTokenList;
+  target: string;
   type: string;
 
   constructor(): void;
@@ -1329,6 +1384,8 @@ declare class HTMLMediaElement extends HTMLElement {
 }
 
 declare class HTMLMenuElement extends HTMLElement {
+  compact: boolean;
+
   constructor(): void;
 }
 
@@ -1341,6 +1398,7 @@ declare class HTMLMetaElement extends HTMLElement {
   httpEquiv: string;
   media: string;
   name: string;
+  scheme: string;
 
   constructor(): void;
 }
@@ -1369,15 +1427,26 @@ declare class HTMLModElement extends HTMLElement {
 }
 
 declare class HTMLObjectElement extends HTMLElement {
+  align: string;
+  archive: string;
+  border: string;
+  code: string;
+  codeBase: string;
+  codeType: string;
   +contentDocument: Document | null;
   +contentWindow: WindowProxy | null;
   data: string;
+  declare: boolean;
   +form: HTMLFormElement | null;
   height: string;
+  hspace: number;
   name: string;
+  standby: string;
   type: string;
+  useMap: string;
   +validationMessage: string;
   +validity: ValidityState;
+  vspace: number;
   width: string;
   +willValidate: boolean;
 
@@ -1404,6 +1473,7 @@ declare class HTMLObjectElement extends HTMLElement {
 }
 
 declare class HTMLOListElement extends HTMLElement {
+  compact: boolean;
   reversed: boolean;
   start: number;
   type: string;
@@ -1467,6 +1537,8 @@ declare class HTMLOutputElement extends HTMLElement {
 }
 
 declare class HTMLParagraphElement extends HTMLElement {
+  align: string;
+
   constructor(): void;
 }
 
@@ -1488,6 +1560,8 @@ declare class HTMLPictureElement extends HTMLElement {
 }
 
 declare class HTMLPreElement extends HTMLElement {
+  width: number;
+
   constructor(): void;
 }
 
@@ -1513,9 +1587,12 @@ declare class HTMLQuoteElement extends HTMLElement {
 declare class HTMLScriptElement extends HTMLElement {
   async: boolean;
   +blocking: DOMTokenList;
+  charset: string;
   crossOrigin: string | null;
   defer: boolean;
+  event: string;
   fetchPriority: string;
+  htmlFor: string;
   integrity: string;
   noModule: boolean;
   referrerPolicy: string;
@@ -1600,6 +1677,7 @@ declare class HTMLStyleElement extends HTMLElement mixins mixin$LinkStyle {
   +blocking: DOMTokenList;
   disabled: boolean;
   media: string;
+  type: string;
 
   constructor(): void;
 }
@@ -1609,6 +1687,8 @@ declare class HTMLStyleElement extends HTMLElement mixins mixin$LinkStyle {
 }
 
 declare class HTMLTableCaptionElement extends HTMLElement {
+  align: string;
+
   constructor(): void;
 }
 
@@ -1618,11 +1698,20 @@ declare class HTMLTableCaptionElement extends HTMLElement {
 
 declare class HTMLTableCellElement extends HTMLElement {
   abbr: string;
+  align: string;
+  axis: string;
+  bgColor: string;
   +cellIndex: number;
+  ch: string;
+  chOff: string;
   colSpan: number;
   headers: string;
+  height: string;
+  noWrap: boolean;
   rowSpan: number;
   scope: string;
+  vAlign: string;
+  width: string;
 
   constructor(): void;
 }
@@ -1640,7 +1729,12 @@ declare class HTMLTableCellElement extends HTMLElement {
 }
 
 declare class HTMLTableColElement extends HTMLElement {
+  align: string;
+  ch: string;
+  chOff: string;
   span: number;
+  vAlign: string;
+  width: string;
 
   constructor(): void;
 }
@@ -1654,11 +1748,20 @@ declare class HTMLTableColElement extends HTMLElement {
 }
 
 declare class HTMLTableElement extends HTMLElement {
+  align: string;
+  bgColor: string;
+  border: string;
   caption: HTMLTableCaptionElement | null;
+  cellPadding: string;
+  cellSpacing: string;
+  frame: string;
   +rows: HTMLCollection;
+  rules: string;
+  summary: string;
   +tBodies: HTMLCollection;
   tFoot: HTMLTableSectionElement | null;
   tHead: HTMLTableSectionElement | null;
+  width: string;
 
   constructor(): void;
 
@@ -1686,9 +1789,14 @@ declare class HTMLTableElement extends HTMLElement {
 }
 
 declare class HTMLTableRowElement extends HTMLElement {
+  align: string;
+  bgColor: string;
   +cells: HTMLCollection;
+  ch: string;
+  chOff: string;
   +rowIndex: number;
   +sectionRowIndex: number;
+  vAlign: string;
 
   constructor(): void;
 
@@ -1705,7 +1813,11 @@ declare class HTMLTableRowElement extends HTMLElement {
 }
 
 declare class HTMLTableSectionElement extends HTMLElement {
+  align: string;
+  ch: string;
+  chOff: string;
   +rows: HTMLCollection;
+  vAlign: string;
 
   constructor(): void;
 
@@ -1803,6 +1915,9 @@ declare class HTMLTrackElement extends HTMLElement {
 }
 
 declare class HTMLUListElement extends HTMLElement {
+  compact: boolean;
+  type: string;
+
   constructor(): void;
 }
 
@@ -2034,7 +2149,10 @@ declare class Navigator
     mixin$NavigatorContentUtils,
     mixin$NavigatorCookies,
     mixin$NavigatorPlugins,
-    mixin$NavigatorConcurrentHardware {}
+    mixin$NavigatorConcurrentHardware
+{
+  +userActivation: UserActivation;
+}
 
 declare class NotRestoredReasonDetails {
   +reason: string;
@@ -2352,6 +2470,7 @@ declare class Window
   +closed: boolean;
   +customElements: CustomElementRegistry;
   +document: Document;
+  +external: External;
   +frameElement: Element | null;
   +frames: WindowProxy;
   +history: History;
@@ -2377,6 +2496,7 @@ declare class Window
   alert(): void;
   alert(message: string): void;
   blur(): void;
+  captureEvents(): void;
   close(): void;
   confirm(message?: string): boolean;
   focus(): void;
@@ -2391,6 +2511,7 @@ declare class Window
   prompt(message?: string, default_?: string): string | null;
   stop(): void;
   (name: string): Object;
+  releaseEvents(): void;
 }
 
 /* partial */ declare class Window
@@ -2848,12 +2969,15 @@ declare class mixin$NavigatorID {
   +appCodeName: string;
   +appName: string;
   +appVersion: string;
+  +oscpu: string;
   +platform: string;
   +product: string;
   +productSub: string;
   +userAgent: string;
   +vendor: string;
   +vendorSub: string;
+
+  taintEnabled(): boolean;
 }
 
 /* partial */ declare class mixin$NavigatorID {

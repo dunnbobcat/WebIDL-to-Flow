@@ -1,6 +1,6 @@
 // @flow
 
-import type {IDLTree} from 'webidl2';
+import type {IDLProduction, IDLTree} from 'webidl2';
 
 import group from './group.js';
 import partition from './partition.js';
@@ -15,12 +15,13 @@ export async function coalesceIDLs(
   const groups = group(idl, (production) => production.type);
 
   // Merge interface mixins
-  const interfaceMixins = groups['interface mixin'] ?? [];
+  const allInterfaceMixins = groups['interface mixin'] ?? [];
   const [partialInterfaceMixins, wholeInterfaceMixins] = partition(
-    interfaceMixins,
+    allInterfaceMixins,
     (mixin) => mixin.partial,
   );
 
+  const interfaceMixins = wholeInterfaceMixins;
   const interfaceMixinsByName = pull(wholeInterfaceMixins, (int) => int.name);
   for (const partialInterfaceMixin of partialInterfaceMixins) {
     const {members, name} = partialInterfaceMixin;
@@ -29,6 +30,7 @@ export async function coalesceIDLs(
       process.stderr.write(
         `No root found for partial interface mixin ${name}\n`,
       );
+      interfaceMixins.push(partialInterfaceMixin);
       continue;
     }
 
@@ -36,18 +38,20 @@ export async function coalesceIDLs(
   }
 
   // Merge interfaces
-  const interfaces = groups['interface'] ?? [];
+  const allInterfaces = groups['interface'] ?? [];
   const [partialInterfaces, wholeInterfaces] = partition(
-    interfaces,
+    allInterfaces,
     (int) => int.partial,
   );
 
+  const interfaces = wholeInterfaces;
   const interfacesByName = pull(wholeInterfaces, (int) => int.name);
   for (const partialInterface of partialInterfaces) {
     const {members, name} = partialInterface;
     const wholeInterface = interfacesByName[name];
     if (wholeInterface == null) {
       process.stderr.write(`No root found for partial interface ${name}\n`);
+      interfaces.push(partialInterface);
       continue;
     }
 
@@ -55,18 +59,20 @@ export async function coalesceIDLs(
   }
 
   // Merge dictionaries
-  const dictionaries = groups['dictionary'] ?? [];
+  const allDictionaries = groups['dictionary'] ?? [];
   const [partialDictionaries, wholeDictionaries] = partition(
-    dictionaries,
+    allDictionaries,
     (dict) => dict.partial,
   );
 
+  const dictionaries = wholeDictionaries;
   const dictionariesByName = pull(wholeDictionaries, (dict) => dict.name);
   for (const partialDictionary of partialDictionaries) {
     const {members, name} = partialDictionary;
     const wholeDictionary = dictionariesByName[name];
     if (wholeDictionary == null) {
       process.stderr.write(`No root found for partial dictionary ${name}\n`);
+      dictionaries.push(partialDictionary);
       continue;
     }
 

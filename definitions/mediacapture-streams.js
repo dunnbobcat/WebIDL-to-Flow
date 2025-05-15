@@ -31,11 +31,15 @@ type ConstrainDOMStringParameters = {
 type ConstrainDoubleRange = {
   exact: number,
   ideal: number,
+  max: number,
+  min: number,
 };
 
 type ConstrainULongRange = {
   exact: number,
   ideal: number,
+  max: number,
+  min: number,
 };
 
 type DeviceChangeEventInit = {
@@ -77,6 +81,22 @@ type MediaTrackCapabilities = {
 
 type MediaTrackConstraints = {
   advanced: Array<MediaTrackConstraintSet>,
+  aspectRatio: ConstrainDouble,
+  autoGainControl: ConstrainBoolean,
+  backgroundBlur: ConstrainBoolean,
+  channelCount: ConstrainULong,
+  deviceId: ConstrainDOMString,
+  echoCancellation: ConstrainBoolean,
+  facingMode: ConstrainDOMString,
+  frameRate: ConstrainDouble,
+  groupId: ConstrainDOMString,
+  height: ConstrainULong,
+  latency: ConstrainDouble,
+  noiseSuppression: ConstrainBoolean,
+  resizeMode: ConstrainDOMString,
+  sampleRate: ConstrainULong,
+  sampleSize: ConstrainULong,
+  width: ConstrainULong,
 };
 
 type MediaTrackConstraintSet = {
@@ -165,6 +185,8 @@ declare class MediaDevices extends EventTarget {
   ondevicechange: EventHandler;
 
   enumerateDevices(): Array<MediaDeviceInfo>;
+  getSupportedConstraints(): MediaTrackSupportedConstraints;
+  getUserMedia(constraints?: MediaStreamConstraints): MediaStream;
 }
 
 /* partial */ interface MediaDevices {

@@ -65,6 +65,8 @@ type WebTransportSendOptions = {
 };
 
 type WebTransportSendStreamOptions = {
+  sendGroup: WebTransportSendGroup | null,
+  sendOrder: number,
   waitUntilAvailable: boolean,
 };
 

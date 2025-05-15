@@ -30,6 +30,8 @@ type SanitizerElementNamespace = {
 
 type SanitizerElementNamespaceWithAttributes = {
   attributes: Array<SanitizerAttribute>,
+  name: string,
+  namespace: string | null,
   removeAttributes: Array<SanitizerAttribute>,
 };
 

@@ -54,6 +54,9 @@ type FetchEventInit = {
 
 type MultiCacheQueryOptions = {
   cacheName: string,
+  ignoreMethod: boolean,
+  ignoreSearch: boolean,
+  ignoreVary: boolean,
 };
 
 type NavigationPreloadState = {

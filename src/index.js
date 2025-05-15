@@ -49,22 +49,11 @@ async function createOutputDirectory(outputDir: ?string): Promise<string> {
 async function generateFlowDefinitions(outputDir: ?string): Promise<void> {
   const dir = await createOutputDirectory(outputDir);
 
-  // const rl = readline.createInterface({
-  //   input: process.stdin,
-  //   output: process.stdout,
-  //   terminal: false,
-  // });
-
   const parsedFiles = await idl.parseAll();
   for (const [shortname, ast] of Object.entries(parsedFiles)) {
-    //   // do something with the ast
-    // }
-
-    // for await (const file of rl) {
     try {
       process.stdout.write(`Converting IDL file: ${shortname}...\n`);
-      // const idl = await parseIDLFile(file);
-      // const combinedIDL = await coalesceIDLs([ast]);
+      const combinedIDL = await coalesceIDLs([ast]);
       const lib = await convertIDLToLibrary(ast);
       const name = path.basename(shortname, '.idl');
       await fs.promises.writeFile(`${dir}/${name}.js`, lib);

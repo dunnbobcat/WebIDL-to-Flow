@@ -19,7 +19,10 @@ type PresentationConnectionCloseEventInit = {
   +presentation: Presentation;
 }
 
-declare class Presentation {}
+declare class Presentation {
+  defaultRequest: PresentationRequest | null;
+  +receiver: PresentationReceiver | null;
+}
 
 /* partial */ interface Presentation {
   defaultRequest: PresentationRequest | null;

@@ -24,13 +24,16 @@ declare class FontFace {
   descentOverride: string;
   display: string;
   family: string;
+  +features: FontFaceFeatures;
   featureSettings: string;
   lineGapOverride: string;
   +loaded: FontFace;
+  +palettes: FontFacePalettes;
   +status: FontFaceLoadStatus;
   stretch: string;
   style: string;
   unicodeRange: string;
+  +variations: FontFaceVariations;
   variationSettings: string;
   weight: string;
 

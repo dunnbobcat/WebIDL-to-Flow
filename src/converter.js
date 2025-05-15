@@ -77,13 +77,13 @@ function convertNamespace(production: IDLProduction): string {
 function convertNamespaceMember(production: IDLProduction): string {
   switch (production.type) {
     case 'attribute':
-      return `declare ${convertAttribute(production)}`;
+      return convertNamespaceAttribute(production);
 
     case 'operation':
       return `declare function ${convertOperation(production)}`;
 
     case 'const':
-      return `declare ${convertNamespaceConstant(production)}`;
+      return convertNamespaceConstant(production);
 
     default:
       return productionError(
@@ -106,19 +106,21 @@ function convertCallbackInterface(production: IDLProduction): string {
 function convertDictionary(production: IDLProduction): string {
   const {partial, members, name} = production;
 
-  if (partial) {
-    return productionError('Partial dictionaries not yet handled', production);
-  }
-
   const fields = members
     .toSorted(compareProductions)
     .map(convertField)
     .join(',\n');
-  return `type ${name} = {\n${fields}};\n`;
+
+  const comment = partial ? '/* partial */ ' : '';
+  return `${comment}type ${name} = {\n${fields}};\n`;
 }
 
 function convertField(production: IDLProduction): string {
-  const {idlType, name} = production;
+  const {idlType} = production;
+  let {name} = production;
+  if (name.includes('-')) {
+    name = `'${name}'`;
+  }
   return `${name}: ${convertIDLType(idlType)}`;
 }
 
@@ -173,6 +175,7 @@ function convertInterfaceMember(production: IDLProduction): string {
       return convertConstant(production);
 
     case 'setlike':
+    case 'maplike':
       // Handled separately
       return '';
 
@@ -198,6 +201,13 @@ function convertInterface(
     return convertSetlike(production);
   }
 
+  if (
+    members.length > 0 &&
+    members.every((member) => member.type === 'maplike')
+  ) {
+    return convertMaplike(production);
+  }
+
   if (mixinConsts != null && mixinConsts.length > 0) {
     members = [...members, ...mixinConsts];
   }
@@ -205,10 +215,12 @@ function convertInterface(
   const hasMixins = mixins != null && mixins.length > 0;
   const isExposed =
     extAttrs != null && extAttrs.some((attr) => attr.name === 'Exposed');
+  const hasConsts = members.some((member) => member.type === 'const');
 
   const partial = production.partial ? '/* partial */ ' : '';
-  const declare = hasMixins || isExposed ? 'declare ' : '';
-  const classOrInterface = hasMixins || isExposed ? 'class' : 'interface';
+  const declare = hasMixins || isExposed || hasConsts ? 'declare ' : '';
+  const classOrInterface =
+    hasMixins || isExposed || hasConsts ? 'class' : 'interface';
   const extendsDecl = inheritance != null ? `extends ${inheritance} ` : '';
   const mixinDecl =
     mixins != null && mixins.length > 0
@@ -260,9 +272,18 @@ function convertIterable(production: IDLProduction): string {
 }
 
 function convertAttribute(production: IDLProduction): string {
-  const {idlType, name, readonly} = production;
+  const {idlType, readonly} = production;
+  let {name} = production;
   const plus = readonly ? '+' : '';
+  if (name.includes('-')) {
+    name = `'${name}'`;
+  }
   return `${plus}${name}: ${convertIDLType(idlType)};\n`;
+}
+
+function convertNamespaceAttribute(production: IDLProduction): string {
+  const {idlType, name} = production;
+  return `declare const ${name}: ${convertIDLType(idlType)};\n`;
 }
 
 function convertOperation(production: IDLProduction): string {
@@ -306,13 +327,20 @@ function convertNamespaceConstant(production: IDLProduction): string {
       return productionError(`Unhandled constant type ${value.type}`, value);
   }
 
-  return `const ${name}: ${valueString};\n`;
+  return `declare const ${name}: ${valueString};\n`;
 }
 
 function convertSetlike(production: IDLProduction): string {
   const {name, members} = production;
   const idlType = members[0].idlType[0];
   return `type ${name} = Set<${convertIDLType(idlType)}>;\n`;
+}
+
+function convertMaplike(production: IDLProduction): string {
+  const {name, members} = production;
+  const keyType = members[0].idlType[0];
+  const valType = members[0].idlType[1];
+  return `type ${name} = Map<${convertIDLType(keyType)}, ${convertIDLType(valType)}>;\n`;
 }
 
 function convertArgument(production: IDLProduction): string {

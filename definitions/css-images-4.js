@@ -1,2 +1,3 @@
-/* partial */ declare namespace CSS {declare +elementSources: any;
+/* partial */ declare namespace CSS {
+  declare const elementSources: any;
 }

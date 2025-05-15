@@ -36,6 +36,7 @@ type MediaQueryListEventInit = {
 };
 
 type ScrollIntoViewOptions = {
+  behavior: ScrollBehavior,
   block: ScrollLogicalPosition,
   container: ScrollIntoViewContainer,
   inline: ScrollLogicalPosition,
@@ -46,6 +47,7 @@ type ScrollOptions = {
 };
 
 type ScrollToOptions = {
+  behavior: ScrollBehavior,
   left: number,
   top: number,
 };

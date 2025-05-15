@@ -37,7 +37,10 @@ type PaymentDetailsBase = {
 };
 
 type PaymentDetailsInit = {
+  displayItems: Array<PaymentItem>,
   id: string,
+  modifiers: Array<PaymentDetailsModifier>,
+  shippingOptions: Array<PaymentShippingOption>,
   total: PaymentItem,
 };
 
@@ -49,10 +52,13 @@ type PaymentDetailsModifier = {
 };
 
 type PaymentDetailsUpdate = {
+  displayItems: Array<PaymentItem>,
   error: string,
+  modifiers: Array<PaymentDetailsModifier>,
   payerErrors: PayerErrors,
   paymentMethodErrors: Object,
   shippingAddressErrors: AddressErrors,
+  shippingOptions: Array<PaymentShippingOption>,
   total: PaymentItem,
 };
 

@@ -8,7 +8,9 @@ type BlobPropertyBag = {
 };
 
 type FilePropertyBag = {
+  endings: EndingType,
   lastModified: number,
+  type: string,
 };
 
 declare class Blob {

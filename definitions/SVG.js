@@ -20,14 +20,24 @@ declare class SVGAElement
   mixins mixin$SVGURIReference
 {
   download: string;
+  hash: string;
+  host: string;
+  hostname: string;
   hreflang: string;
+  +origin: string;
+  password: string;
+  pathname: string;
   ping: string;
+  port: string;
+  protocol: string;
   referrerPolicy: string;
   rel: string;
   +relList: DOMTokenList;
+  search: string;
   +target: SVGAnimatedString;
   text: string;
   type: string;
+  username: string;
 }
 
 /* partial */ declare class SVGAElement mixins mixin$SVGURIReference {
