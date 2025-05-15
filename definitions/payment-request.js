@@ -37,10 +37,8 @@ type PaymentDetailsBase = {
 };
 
 type PaymentDetailsInit = {
-  displayItems: Array<PaymentItem>,
+  ...PaymentDetailsBase,
   id: string,
-  modifiers: Array<PaymentDetailsModifier>,
-  shippingOptions: Array<PaymentShippingOption>,
   total: PaymentItem,
 };
 
@@ -52,13 +50,11 @@ type PaymentDetailsModifier = {
 };
 
 type PaymentDetailsUpdate = {
-  displayItems: Array<PaymentItem>,
+  ...PaymentDetailsBase,
   error: string,
-  modifiers: Array<PaymentDetailsModifier>,
   payerErrors: PayerErrors,
   paymentMethodErrors: Object,
   shippingAddressErrors: AddressErrors,
-  shippingOptions: Array<PaymentShippingOption>,
   total: PaymentItem,
 };
 
@@ -69,6 +65,7 @@ type PaymentItem = {
 };
 
 type PaymentMethodChangeEventInit = {
+  ...PaymentRequestUpdateEventInit,
   methodDetails: Object | null,
   methodName: string,
 };

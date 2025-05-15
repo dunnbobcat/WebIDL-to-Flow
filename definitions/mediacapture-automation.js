@@ -1,11 +1,9 @@
 type MockCapturePromptResult = 'granted' | 'denied';
 
 type MockCameraConfiguration = {
+  ...MockCaptureDeviceConfiguration,
   defaultFrameRate: number,
-  deviceId: string,
   facingMode: string,
-  groupId: string,
-  label: string,
 };
 
 type MockCaptureDeviceConfiguration = {
@@ -20,8 +18,6 @@ type MockCapturePromptResultConfiguration = {
 };
 
 type MockMicrophoneConfiguration = {
+  ...MockCaptureDeviceConfiguration,
   defaultSampleRate: number,
-  deviceId: string,
-  groupId: string,
-  label: string,
 };

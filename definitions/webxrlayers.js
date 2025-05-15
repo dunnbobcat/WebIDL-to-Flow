@@ -10,51 +10,27 @@ type XRLayerQuality = 'default' | 'text-optimized' | 'graphics-optimized';
 type XRTextureType = 'texture' | 'texture-array';
 
 type XRCubeLayerInit = {
-  clearOnAccess: boolean,
-  colorFormat: GLenum,
-  depthFormat: GLenum | null,
-  isStatic: boolean,
-  layout: XRLayerLayout,
-  mipLevels: number,
+  ...XRLayerInit,
   orientation: DOMPointReadOnly | null,
-  space: XRSpace,
-  viewPixelHeight: number,
-  viewPixelWidth: number,
 };
 
 type XRCylinderLayerInit = {
+  ...XRLayerInit,
   aspectRatio: number,
   centralAngle: number,
-  clearOnAccess: boolean,
-  colorFormat: GLenum,
-  depthFormat: GLenum | null,
-  isStatic: boolean,
-  layout: XRLayerLayout,
-  mipLevels: number,
   radius: number,
-  space: XRSpace,
   textureType: XRTextureType,
   transform: XRRigidTransform | null,
-  viewPixelHeight: number,
-  viewPixelWidth: number,
 };
 
 type XREquirectLayerInit = {
+  ...XRLayerInit,
   centralHorizontalAngle: number,
-  clearOnAccess: boolean,
-  colorFormat: GLenum,
-  depthFormat: GLenum | null,
-  isStatic: boolean,
-  layout: XRLayerLayout,
   lowerVerticalAngle: number,
-  mipLevels: number,
   radius: number,
-  space: XRSpace,
   textureType: XRTextureType,
   transform: XRRigidTransform | null,
   upperVerticalAngle: number,
-  viewPixelHeight: number,
-  viewPixelWidth: number,
 };
 
 type XRLayerEventInit = {
@@ -74,22 +50,18 @@ type XRLayerInit = {
 };
 
 type XRMediaCylinderLayerInit = {
+  ...XRMediaLayerInit,
   aspectRatio: number | null,
   centralAngle: number,
-  invertStereo: boolean,
-  layout: XRLayerLayout,
   radius: number,
-  space: XRSpace,
   transform: XRRigidTransform | null,
 };
 
 type XRMediaEquirectLayerInit = {
+  ...XRMediaLayerInit,
   centralHorizontalAngle: number,
-  invertStereo: boolean,
-  layout: XRLayerLayout,
   lowerVerticalAngle: number,
   radius: number,
-  space: XRSpace,
   transform: XRRigidTransform | null,
   upperVerticalAngle: number,
 };
@@ -101,10 +73,8 @@ type XRMediaLayerInit = {
 };
 
 type XRMediaQuadLayerInit = {
+  ...XRMediaLayerInit,
   height: number | null,
-  invertStereo: boolean,
-  layout: XRLayerLayout,
-  space: XRSpace,
   transform: XRRigidTransform | null,
   width: number | null,
 };
@@ -118,18 +88,10 @@ type XRProjectionLayerInit = {
 };
 
 type XRQuadLayerInit = {
-  clearOnAccess: boolean,
-  colorFormat: GLenum,
-  depthFormat: GLenum | null,
+  ...XRLayerInit,
   height: number,
-  isStatic: boolean,
-  layout: XRLayerLayout,
-  mipLevels: number,
-  space: XRSpace,
   textureType: XRTextureType,
   transform: XRRigidTransform | null,
-  viewPixelHeight: number,
-  viewPixelWidth: number,
   width: number,
 };
 

@@ -34,12 +34,8 @@ type BasePropertyIndexedKeyframe = {
 };
 
 type ComputedEffectTiming = {
+  ...EffectTiming,
   currentIteration: number | null,
-  direction: PlaybackDirection,
-  easing: string,
-  fill: FillMode,
-  iterations: number,
-  iterationStart: number,
   progress: number | null,
 };
 
@@ -61,24 +57,14 @@ type GetAnimationsOptions = {
 };
 
 type KeyframeAnimationOptions = {
-  composite: CompositeOperation,
-  direction: PlaybackDirection,
-  easing: string,
-  fill: FillMode,
+  ...KeyframeEffectOptions,
   id: string,
-  iterations: number,
-  iterationStart: number,
-  pseudoElement: string | null,
   timeline: AnimationTimeline | null,
 };
 
 type KeyframeEffectOptions = {
+  ...EffectTiming,
   composite: CompositeOperation,
-  direction: PlaybackDirection,
-  easing: string,
-  fill: FillMode,
-  iterations: number,
-  iterationStart: number,
   pseudoElement: string | null,
 };
 

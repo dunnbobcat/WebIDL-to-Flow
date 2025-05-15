@@ -36,7 +36,7 @@ type MediaQueryListEventInit = {
 };
 
 type ScrollIntoViewOptions = {
-  behavior: ScrollBehavior,
+  ...ScrollOptions,
   block: ScrollLogicalPosition,
   container: ScrollIntoViewContainer,
   inline: ScrollLogicalPosition,
@@ -47,7 +47,7 @@ type ScrollOptions = {
 };
 
 type ScrollToOptions = {
-  behavior: ScrollBehavior,
+  ...ScrollOptions,
   left: number,
   top: number,
 };
@@ -59,7 +59,7 @@ declare class CaretPosition {
   getClientRect(): DOMRect | null;
 }
 
-/* partial */ declare class Document mixins mixin$GeometryUtils {
+/* partial */ declare class Document {
   +scrollingElement: Element | null;
 
   caretPositionFromPoint(
@@ -71,7 +71,7 @@ declare class CaretPosition {
   elementsFromPoint(x: number, y: number): Array<Element>;
 }
 
-/* partial */ declare class Element mixins mixin$GeometryUtils {
+/* partial */ declare class Element {
   +clientHeight: number;
   +clientLeft: number;
   +clientTop: number;

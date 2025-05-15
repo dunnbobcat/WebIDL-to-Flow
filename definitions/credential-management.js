@@ -25,8 +25,8 @@ type CredentialRequestOptions = {
 };
 
 type FederatedCredentialInit = {
+  ...CredentialData,
   iconURL: string,
-  id: string,
   name: string,
   origin: string,
   protocol: string,
@@ -39,8 +39,8 @@ type FederatedCredentialRequestOptions = {
 };
 
 type PasswordCredentialData = {
+  ...CredentialData,
   iconURL: string,
-  id: string,
   name: string,
   origin: string,
   password: string,

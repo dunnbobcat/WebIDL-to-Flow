@@ -98,30 +98,12 @@ type AuctionAdConfig = {
 };
 
 type AuctionAdInterestGroup = {
-  adComponents: Array<AuctionAd>,
+  ...GenerateBidInterestGroup,
   additionalBidKey: string,
-  ads: Array<AuctionAd>,
-  adSizes: {[string]: AuctionAdInterestGroupSize},
-  biddingLogicURL: string,
-  biddingWasmHelperURL: string,
-  enableBiddingSignalsPrioritization: boolean,
-  executionMode: string,
   lifetimeMs: number,
-  maxTrustedBiddingSignalsURLLength: number,
-  name: string,
-  owner: string,
   priority: number,
   prioritySignalsOverrides: {[string]: number},
-  priorityVector: {[string]: number},
   privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
-  sellerCapabilities: {[string]: Array<string>},
-  sizeGroups: {[string]: Array<string>},
-  trustedBiddingSignalsCoordinator: string,
-  trustedBiddingSignalsKeys: Array<string>,
-  trustedBiddingSignalsSlotSizeMode: string,
-  trustedBiddingSignalsURL: string,
-  updateURL: string,
-  userBiddingSignals: any,
 };
 
 type AuctionAdInterestGroupKey = {
@@ -248,43 +230,23 @@ type ReportingBrowserSignals = {
 };
 
 type ReportResultBrowserSignals = {
-  bid: number,
-  bidCurrency: string,
-  buyerAndSellerReportingId: string,
-  componentSeller: string,
+  ...ReportingBrowserSignals,
   dataVersion: number,
   desirability: number,
-  highestScoringOtherBid: number,
-  highestScoringOtherBidCurrency: string,
-  interestGroupOwner: string,
   modifiedBid: number,
-  renderURL: string,
-  selectedBuyerAndSellerReportingId: string,
-  topLevelSeller: string,
   topLevelSellerSignals: string,
-  topWindowHostname: string,
 };
 
 type ReportWinBrowserSignals = {
+  ...ReportingBrowserSignals,
   adCost: number,
-  bid: number,
-  bidCurrency: string,
-  buyerAndSellerReportingId: string,
   buyerReportingId: string,
-  componentSeller: string,
   dataVersion: number,
-  highestScoringOtherBid: number,
-  highestScoringOtherBidCurrency: string,
   interestGroupName: string,
-  interestGroupOwner: string,
   kAnonStatus: KAnonStatus,
   madeHighestScoringOtherBid: boolean,
   modelingSignals: number,
-  renderURL: string,
-  selectedBuyerAndSellerReportingId: string,
   seller: string,
-  topLevelSeller: string,
-  topWindowHostname: string,
 };
 
 /* partial */ type RequestInit = {
@@ -315,39 +277,16 @@ type ScoringBrowserSignals = {
 };
 
 type StorageInterestGroup = {
-  adComponents: Array<AuctionAd>,
-  additionalBidKey: string,
-  ads: Array<AuctionAd>,
-  adSizes: {[string]: AuctionAdInterestGroupSize},
+  ...AuctionAdInterestGroup,
   bidCount: number,
-  biddingLogicURL: string,
-  biddingWasmHelperURL: string,
-  enableBiddingSignalsPrioritization: boolean,
   estimatedSize: number,
-  executionMode: string,
   joinCount: number,
   joiningOrigin: string,
-  lifetimeMs: number,
   lifetimeRemainingMs: number,
-  maxTrustedBiddingSignalsURLLength: number,
-  name: string,
-  owner: string,
   prevWinsMs: Array<PreviousWin>,
-  priority: number,
-  prioritySignalsOverrides: {[string]: number},
-  priorityVector: {[string]: number},
-  privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
-  sellerCapabilities: {[string]: Array<string>},
-  sizeGroups: {[string]: Array<string>},
   timeSinceGroupJoinedMs: number,
   timeSinceLastUpdateMs: number,
   timeUntilNextUpdateMs: number,
-  trustedBiddingSignalsCoordinator: string,
-  trustedBiddingSignalsKeys: Array<string>,
-  trustedBiddingSignalsSlotSizeMode: string,
-  trustedBiddingSignalsURL: string,
-  updateURL: string,
-  userBiddingSignals: any,
 };
 
 declare class ForDebuggingOnly {

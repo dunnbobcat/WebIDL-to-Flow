@@ -20,9 +20,8 @@ type IdentityAssertionResponse = {
 };
 
 type IdentityCredentialDisconnectOptions = {
+  ...IdentityProviderConfig,
   accountHint: string,
-  clientId: string,
-  configURL: string,
 };
 
 type IdentityCredentialRequestOptions = {
@@ -82,8 +81,7 @@ type IdentityProviderIcon = {
 };
 
 type IdentityProviderRequestOptions = {
-  clientId: string,
-  configURL: string,
+  ...IdentityProviderConfig,
   domainHint: string,
   fields: Array<string>,
   loginHint: string,

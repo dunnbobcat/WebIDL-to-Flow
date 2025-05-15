@@ -22,18 +22,14 @@ type KeySystemTrackConfiguration = {
 };
 
 type MediaCapabilitiesDecodingInfo = {
+  ...MediaCapabilitiesInfo,
   configuration: MediaDecodingConfiguration,
   keySystemAccess: MediaKeySystemAccess | null,
-  powerEfficient: boolean,
-  smooth: boolean,
-  supported: boolean,
 };
 
 type MediaCapabilitiesEncodingInfo = {
+  ...MediaCapabilitiesInfo,
   configuration: MediaEncodingConfiguration,
-  powerEfficient: boolean,
-  smooth: boolean,
-  supported: boolean,
 };
 
 type MediaCapabilitiesInfo = {
@@ -58,16 +54,14 @@ type MediaConfiguration = {
 };
 
 type MediaDecodingConfiguration = {
-  audio: AudioConfiguration,
+  ...MediaConfiguration,
   keySystemConfiguration: MediaCapabilitiesKeySystemConfiguration,
   type: MediaDecodingType,
-  video: VideoConfiguration,
 };
 
 type MediaEncodingConfiguration = {
-  audio: AudioConfiguration,
+  ...MediaConfiguration,
   type: MediaEncodingType,
-  video: VideoConfiguration,
 };
 
 type VideoConfiguration = {

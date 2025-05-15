@@ -7,12 +7,13 @@ import path from 'path';
 import readline from 'readline';
 import * as webidl2 from 'webidl2';
 import {convertIDLToLibrary} from './converter.js';
-import {mergePartialSpecs, mergePartialSpecsMulti} from './coalesce.js';
+import {mergePartialSpecs} from './coalesce.js';
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
 import idl from '@webref/idl';
 import pull from './pull.js';
 import {WEB_SPECS} from './envs.js';
+import partition from './partition.js';
 
 const __dirname = dirname(
   // $FlowExpectedError
@@ -55,8 +56,9 @@ async function generateFlowDefinitions(outputDir: ?string): Promise<void> {
   for (const [shortname, ast] of Object.entries(parsedFiles)) {
     try {
       process.stdout.write(`Converting IDL file: ${shortname}...\n`);
-      const mergedIDL = await mergePartialSpecs(ast);
-      const lib = await convertIDLToLibrary(mergedIDL);
+      const mergedIDLs = await mergePartialSpecs({[shortname]: ast});
+      const idl = mergedIDLs[shortname];
+      const lib = await convertIDLToLibrary(idl);
       const name = path.basename(shortname, '.idl');
       await fs.promises.writeFile(`${dir}/${name}.js`, lib);
     } catch (e) {
@@ -93,11 +95,21 @@ async function generateSingleFlowDefinition(
     idls[input] = idl;
   }
 
-  idls = await mergePartialSpecsMulti(idls);
+  const mergedIDLs = await mergePartialSpecs(idls);
   let lib = '// @flow\n\n';
-  for (const name in idls) {
-    const idl = idls[name];
+  for (const name in mergedIDLs) {
+    const idl = mergedIDLs[name];
+    let [partials] = partition(idls[name], (production) => production.partial);
+    partials = partials.map((partial) => partial.name);
+
     lib += `/*---------- ${name} ----------*/\n\n`;
+    if (partials.length > 0) {
+      lib += '// Contributes to:\n';
+      for (const partial of new Set(partials)) {
+        lib += `//   - ${partial.name}\n`;
+      }
+      lib += '\n';
+    }
     lib += await convertIDLToLibrary(idl);
     lib += '\n';
   }

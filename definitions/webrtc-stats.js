@@ -35,13 +35,12 @@ type RTCAudioPlayoutStats = {
 };
 
 type RTCAudioSourceStats = {
+  ...RTCMediaSourceStats,
   audioLevel: number,
   echoReturnLoss: number,
   echoReturnLossEnhancement: number,
-  kind: string,
   totalAudioEnergy: number,
   totalSamplesDuration: number,
-  trackIdentifier: string,
 };
 
 type RTCCertificateStats = {
@@ -113,9 +112,9 @@ type RTCIceCandidateStats = {
 };
 
 type RTCInboundRtpStreamStats = {
+  ...RTCReceivedRtpStreamStats,
   audioLevel: number,
   bytesReceived: number,
-  codecId: string,
   concealedSamples: number,
   concealmentEvents: number,
   corruptionMeasurements: number,
@@ -137,23 +136,15 @@ type RTCInboundRtpStreamStats = {
   freezeCount: number,
   headerBytesReceived: number,
   insertedSamplesForDeceleration: number,
-  jitter: number,
   jitterBufferDelay: number,
   jitterBufferEmittedCount: number,
   jitterBufferMinimumDelay: number,
   jitterBufferTargetDelay: number,
   keyFramesDecoded: number,
-  kind: string,
   lastPacketReceivedTimestamp: number,
   mid: string,
   nackCount: number,
   packetsDiscarded: number,
-  packetsLost: number,
-  packetsReceived: number,
-  packetsReceivedWithCe: number,
-  packetsReceivedWithEct1: number,
-  packetsReportedAsLost: number,
-  packetsReportedAsLostButRecovered: number,
   pauseCount: number,
   playoutId: string,
   pliCount: number,
@@ -165,7 +156,6 @@ type RTCInboundRtpStreamStats = {
   retransmittedPacketsReceived: number,
   rtxSsrc: number,
   silentConcealedSamples: number,
-  ssrc: number,
   totalAssemblyTime: number,
   totalAudioEnergy: number,
   totalCorruptionProbability: number,
@@ -179,7 +169,6 @@ type RTCInboundRtpStreamStats = {
   totalSquaredCorruptionProbability: number,
   totalSquaredInterFrameDelay: number,
   trackIdentifier: string,
-  transportId: string,
 };
 
 type RTCMediaSourceStats = {
@@ -188,9 +177,8 @@ type RTCMediaSourceStats = {
 };
 
 type RTCOutboundRtpStreamStats = {
+  ...RTCSentRtpStreamStats,
   active: boolean,
-  bytesSent: number,
-  codecId: string,
   encoderImplementation: string,
   encodingIndex: number,
   firCount: number,
@@ -202,12 +190,9 @@ type RTCOutboundRtpStreamStats = {
   headerBytesSent: number,
   hugeFramesSent: number,
   keyFramesEncoded: number,
-  kind: string,
   mediaSourceId: string,
   mid: string,
   nackCount: number,
-  packetsSent: number,
-  packetsSentWithEct1: number,
   pliCount: number,
   powerEfficientEncoder: boolean,
   qpSum: number,
@@ -220,12 +205,10 @@ type RTCOutboundRtpStreamStats = {
   rid: string,
   rtxSsrc: number,
   scalabilityMode: string,
-  ssrc: number,
   targetBitrate: number,
   totalEncodedBytesTarget: number,
   totalEncodeTime: number,
   totalPacketSendDelay: number,
-  transportId: string,
 };
 
 type RTCPeerConnectionStats = {
@@ -234,53 +217,34 @@ type RTCPeerConnectionStats = {
 };
 
 type RTCReceivedRtpStreamStats = {
-  codecId: string,
+  ...RTCRtpStreamStats,
   jitter: number,
-  kind: string,
   packetsLost: number,
   packetsReceived: number,
   packetsReceivedWithCe: number,
   packetsReceivedWithEct1: number,
   packetsReportedAsLost: number,
   packetsReportedAsLostButRecovered: number,
-  ssrc: number,
-  transportId: string,
 };
 
 type RTCRemoteInboundRtpStreamStats = {
-  codecId: string,
+  ...RTCReceivedRtpStreamStats,
   fractionLost: number,
-  jitter: number,
-  kind: string,
   localId: string,
-  packetsLost: number,
-  packetsReceived: number,
-  packetsReceivedWithCe: number,
-  packetsReceivedWithEct1: number,
-  packetsReportedAsLost: number,
-  packetsReportedAsLostButRecovered: number,
   packetsWithBleachedEct1Marking: number,
   roundTripTime: number,
   roundTripTimeMeasurements: number,
-  ssrc: number,
   totalRoundTripTime: number,
-  transportId: string,
 };
 
 type RTCRemoteOutboundRtpStreamStats = {
-  bytesSent: number,
-  codecId: string,
-  kind: string,
+  ...RTCSentRtpStreamStats,
   localId: string,
-  packetsSent: number,
-  packetsSentWithEct1: number,
   remoteTimestamp: number,
   reportsSent: number,
   roundTripTime: number,
   roundTripTimeMeasurements: number,
-  ssrc: number,
   totalRoundTripTime: number,
-  transportId: string,
 };
 
 type RTCRtpStreamStats = {
@@ -291,13 +255,10 @@ type RTCRtpStreamStats = {
 };
 
 type RTCSentRtpStreamStats = {
+  ...RTCRtpStreamStats,
   bytesSent: number,
-  codecId: string,
-  kind: string,
   packetsSent: number,
   packetsSentWithEct1: number,
-  ssrc: number,
-  transportId: string,
 };
 
 type RTCTransportStats = {
@@ -322,10 +283,9 @@ type RTCTransportStats = {
 };
 
 type RTCVideoSourceStats = {
+  ...RTCMediaSourceStats,
   frames: number,
   framesPerSecond: number,
   height: number,
-  kind: string,
-  trackIdentifier: string,
   width: number,
 };

@@ -24,8 +24,8 @@ type SharedStorageRunOperationMethodOptions = {
 };
 
 type SharedStorageSetMethodOptions = {
+  ...SharedStorageModifierMethodOptions,
   ignoreIfPresent: boolean,
-  withLock: string,
 };
 
 type SharedStorageUrlWithMetadata = {

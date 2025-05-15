@@ -38,9 +38,8 @@ type BluetoothLEScanFilterInit = {
 };
 
 type BluetoothManufacturerDataFilterInit = {
+  ...BluetoothDataFilterInit,
   companyIdentifier: number,
-  dataPrefix: BufferSource,
-  mask: BufferSource,
 };
 
 type BluetoothPermissionDescriptor = {
@@ -56,8 +55,7 @@ type BluetoothPermissionStorage = {
 };
 
 type BluetoothServiceDataFilterInit = {
-  dataPrefix: BufferSource,
-  mask: BufferSource,
+  ...BluetoothDataFilterInit,
   service: BluetoothServiceUUID,
 };
 

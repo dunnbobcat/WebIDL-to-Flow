@@ -32,15 +32,10 @@ type RewriterCreateCoreOptions = {
 };
 
 type RewriterCreateOptions = {
-  expectedContextLanguages: Array<string>,
-  expectedInputLanguages: Array<string>,
-  format: RewriterFormat,
-  length: RewriterLength,
+  ...RewriterCreateCoreOptions,
   monitor: CreateMonitorCallback,
-  outputLanguage: string,
   sharedContext: string,
   signal: AbortSignal,
-  tone: RewriterTone,
 };
 
 type RewriterRewriteOptions = {
@@ -58,15 +53,10 @@ type SummarizerCreateCoreOptions = {
 };
 
 type SummarizerCreateOptions = {
-  expectedContextLanguages: Array<string>,
-  expectedInputLanguages: Array<string>,
-  format: SummarizerFormat,
-  length: SummarizerLength,
+  ...SummarizerCreateCoreOptions,
   monitor: CreateMonitorCallback,
-  outputLanguage: string,
   sharedContext: string,
   signal: AbortSignal,
-  type: SummarizerType,
 };
 
 type SummarizerSummarizeOptions = {
@@ -84,15 +74,10 @@ type WriterCreateCoreOptions = {
 };
 
 type WriterCreateOptions = {
-  expectedContextLanguages: Array<string>,
-  expectedInputLanguages: Array<string>,
-  format: WriterFormat,
-  length: WriterLength,
+  ...WriterCreateCoreOptions,
   monitor: CreateMonitorCallback,
-  outputLanguage: string,
   sharedContext: string,
   signal: AbortSignal,
-  tone: WriterTone,
 };
 
 type WriterWriteOptions = {

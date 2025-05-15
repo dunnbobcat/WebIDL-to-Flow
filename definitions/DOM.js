@@ -3,16 +3,14 @@ type ShadowRootMode = 'open' | 'closed';
 type SlotAssignmentMode = 'manual' | 'named';
 
 type AddEventListenerOptions = {
-  capture: boolean,
+  ...EventListenerOptions,
   once: boolean,
   passive: boolean,
   signal: AbortSignal,
 };
 
 type CustomEventInit = {
-  bubbles: boolean,
-  cancelable: boolean,
-  composed: boolean,
+  ...EventInit,
   detail: any,
 };
 

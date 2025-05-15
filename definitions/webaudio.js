@@ -31,9 +31,7 @@ type OverSampleType = 'none' | '2x' | '4x';
 type PanningModelType = 'equalpower' | 'HRTF';
 
 type AnalyserOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   fftSize: number,
   maxDecibels: number,
   minDecibels: number,
@@ -92,9 +90,7 @@ type AudioTimestamp = {
 };
 
 type AudioWorkletNodeOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   numberOfInputs: number,
   numberOfOutputs: number,
   outputChannelCount: Array<number>,
@@ -103,9 +99,7 @@ type AudioWorkletNodeOptions = {
 };
 
 type BiquadFilterOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   detune: number,
   frequency: number,
   gain: number,
@@ -114,16 +108,12 @@ type BiquadFilterOptions = {
 };
 
 type ChannelMergerOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   numberOfInputs: number,
 };
 
 type ChannelSplitterOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   numberOfOutputs: number,
 };
 
@@ -132,26 +122,20 @@ type ConstantSourceOptions = {
 };
 
 type ConvolverOptions = {
+  ...AudioNodeOptions,
   buffer: AudioBuffer | null,
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
   disableNormalization: boolean,
 };
 
 type DelayOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   delayTime: number,
   maxDelayTime: number,
 };
 
 type DynamicsCompressorOptions = {
+  ...AudioNodeOptions,
   attack: number,
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
   knee: number,
   ratio: number,
   release: number,
@@ -159,16 +143,12 @@ type DynamicsCompressorOptions = {
 };
 
 type GainOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   gain: number,
 };
 
 type IIRFilterOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   feedback: Array<number>,
   feedforward: Array<number>,
 };
@@ -197,9 +177,7 @@ type OfflineAudioContextOptions = {
 };
 
 type OscillatorOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   detune: number,
   frequency: number,
   periodicWave: PeriodicWave,
@@ -207,9 +185,7 @@ type OscillatorOptions = {
 };
 
 type PannerOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   coneInnerAngle: number,
   coneOuterAngle: number,
   coneOuterGain: number,
@@ -231,22 +207,18 @@ type PeriodicWaveConstraints = {
 };
 
 type PeriodicWaveOptions = {
-  disableNormalization: boolean,
+  ...PeriodicWaveConstraints,
   imag: Array<number>,
   real: Array<number>,
 };
 
 type StereoPannerOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   pan: number,
 };
 
 type WaveShaperOptions = {
-  channelCount: number,
-  channelCountMode: ChannelCountMode,
-  channelInterpretation: ChannelInterpretation,
+  ...AudioNodeOptions,
   curve: Array<number>,
   oversample: OverSampleType,
 };

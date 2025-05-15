@@ -39,16 +39,16 @@ type MLRecurrentNetworkDirection = 'forward' | 'backward' | 'both';
 type MLRoundingType = 'floor' | 'ceil';
 
 type MLArgMinMaxOptions = {
+  ...MLOperatorOptions,
   keepDimensions: boolean,
-  label: string,
   outputDataType: MLOperandDataType,
 };
 
 type MLBatchNormalizationOptions = {
+  ...MLOperatorOptions,
   axis: number,
   bias: MLOperand,
   epsilon: number,
-  label: string,
   scale: MLOperand,
 };
 
@@ -68,7 +68,7 @@ type MLBinarySupportLimits = {
 };
 
 type MLClampOptions = {
-  label: string,
+  ...MLOperatorOptions,
   maxValue: MLNumber,
   minValue: MLNumber,
 };
@@ -87,12 +87,12 @@ type MLContextOptions = {
 };
 
 type MLConv2dOptions = {
+  ...MLOperatorOptions,
   bias: MLOperand,
   dilations: Array<number>,
   filterLayout: MLConv2dFilterOperandLayout,
   groups: number,
   inputLayout: MLInputOperandLayout,
-  label: string,
   padding: Array<number>,
   strides: Array<number>,
 };
@@ -105,12 +105,12 @@ type MLConv2dSupportLimits = {
 };
 
 type MLConvTranspose2dOptions = {
+  ...MLOperatorOptions,
   bias: MLOperand,
   dilations: Array<number>,
   filterLayout: MLConvTranspose2dFilterOperandLayout,
   groups: number,
   inputLayout: MLInputOperandLayout,
-  label: string,
   outputPadding: Array<number>,
   outputSizes: Array<number>,
   padding: Array<number>,
@@ -118,8 +118,8 @@ type MLConvTranspose2dOptions = {
 };
 
 type MLCumulativeSumOptions = {
+  ...MLOperatorOptions,
   exclusive: boolean,
-  label: string,
   reversed: boolean,
 };
 
@@ -128,13 +128,13 @@ type MLDataTypeLimits = {
 };
 
 type MLEluOptions = {
+  ...MLOperatorOptions,
   alpha: number,
-  label: string,
 };
 
 type MLGatherOptions = {
+  ...MLOperatorOptions,
   axis: number,
-  label: string,
 };
 
 type MLGatherSupportLimits = {
@@ -144,12 +144,12 @@ type MLGatherSupportLimits = {
 };
 
 type MLGemmOptions = {
+  ...MLOperatorOptions,
   alpha: number,
   aTranspose: boolean,
   beta: number,
   bTranspose: boolean,
   c: MLOperand,
-  label: string,
 };
 
 type MLGemmSupportLimits = {
@@ -160,9 +160,9 @@ type MLGemmSupportLimits = {
 };
 
 type MLGruCellOptions = {
+  ...MLOperatorOptions,
   activations: Array<MLRecurrentNetworkActivation>,
   bias: MLOperand,
-  label: string,
   layout: MLGruWeightLayout,
   recurrentBias: MLOperand,
   resetAfter: boolean,
@@ -179,11 +179,11 @@ type MLGruCellSupportLimits = {
 };
 
 type MLGruOptions = {
+  ...MLOperatorOptions,
   activations: Array<MLRecurrentNetworkActivation>,
   bias: MLOperand,
   direction: MLRecurrentNetworkDirection,
   initialHiddenState: MLOperand,
-  label: string,
   layout: MLGruWeightLayout,
   recurrentBias: MLOperand,
   resetAfter: boolean,
@@ -201,36 +201,36 @@ type MLGruSupportLimits = {
 };
 
 type MLHardSigmoidOptions = {
+  ...MLOperatorOptions,
   alpha: number,
   beta: number,
-  label: string,
 };
 
 type MLInstanceNormalizationOptions = {
+  ...MLOperatorOptions,
   bias: MLOperand,
   epsilon: number,
-  label: string,
   layout: MLInputOperandLayout,
   scale: MLOperand,
 };
 
 type MLLayerNormalizationOptions = {
+  ...MLOperatorOptions,
   axes: Array<number>,
   bias: MLOperand,
   epsilon: number,
-  label: string,
   scale: MLOperand,
 };
 
 type MLLeakyReluOptions = {
+  ...MLOperatorOptions,
   alpha: number,
-  label: string,
 };
 
 type MLLinearOptions = {
+  ...MLOperatorOptions,
   alpha: number,
   beta: number,
-  label: string,
 };
 
 type MLLogicalNotSupportLimits = {
@@ -239,9 +239,9 @@ type MLLogicalNotSupportLimits = {
 };
 
 type MLLstmCellOptions = {
+  ...MLOperatorOptions,
   activations: Array<MLRecurrentNetworkActivation>,
   bias: MLOperand,
-  label: string,
   layout: MLLstmWeightLayout,
   peepholeWeight: MLOperand,
   recurrentBias: MLOperand,
@@ -260,12 +260,12 @@ type MLLstmCellSupportLimits = {
 };
 
 type MLLstmOptions = {
+  ...MLOperatorOptions,
   activations: Array<MLRecurrentNetworkActivation>,
   bias: MLOperand,
   direction: MLRecurrentNetworkDirection,
   initialCellState: MLOperand,
   initialHiddenState: MLOperand,
-  label: string,
   layout: MLLstmWeightLayout,
   peepholeWeight: MLOperand,
   recurrentBias: MLOperand,
@@ -401,14 +401,14 @@ type MLOpSupportLimits = {
 };
 
 type MLPadOptions = {
-  label: string,
+  ...MLOperatorOptions,
   mode: MLPaddingMode,
   value: MLNumber,
 };
 
 type MLPool2dOptions = {
+  ...MLOperatorOptions,
   dilations: Array<number>,
-  label: string,
   layout: MLInputOperandLayout,
   outputSizes: Array<number>,
   padding: Array<number>,
@@ -436,27 +436,27 @@ type MLRankRange = {
 };
 
 type MLReduceOptions = {
+  ...MLOperatorOptions,
   axes: Array<number>,
   keepDimensions: boolean,
-  label: string,
 };
 
 type MLResample2dOptions = {
+  ...MLOperatorOptions,
   axes: Array<number>,
-  label: string,
   mode: MLInterpolationMode,
   scales: Array<number>,
   sizes: Array<number>,
 };
 
 type MLReverseOptions = {
+  ...MLOperatorOptions,
   axes: Array<number>,
-  label: string,
 };
 
 type MLScatterOptions = {
+  ...MLOperatorOptions,
   axis: number,
-  label: string,
 };
 
 type MLScatterSupportLimits = {
@@ -472,13 +472,13 @@ type MLSingleInputSupportLimits = {
 };
 
 type MLSliceOptions = {
-  label: string,
+  ...MLOperatorOptions,
   strides: Array<number>,
 };
 
 type MLSplitOptions = {
+  ...MLOperatorOptions,
   axis: number,
-  label: string,
 };
 
 type MLSplitSupportLimits = {
@@ -487,9 +487,8 @@ type MLSplitSupportLimits = {
 };
 
 type MLTensorDescriptor = {
-  dataType: MLOperandDataType,
+  ...MLOperandDescriptor,
   readable: boolean,
-  shape: Array<number>,
   writable: boolean,
 };
 
@@ -499,13 +498,13 @@ type MLTensorLimits = {
 };
 
 type MLTransposeOptions = {
-  label: string,
+  ...MLOperatorOptions,
   permutation: Array<number>,
 };
 
 type MLTriangularOptions = {
+  ...MLOperatorOptions,
   diagonal: number,
-  label: string,
   upper: boolean,
 };
 

@@ -38,19 +38,13 @@ type FileSystemPermissionDescriptor = {
 };
 
 type OpenFilePickerOptions = {
-  excludeAcceptAllOption: boolean,
-  id: string,
+  ...FilePickerOptions,
   multiple: boolean,
-  startIn: StartInDirectory,
-  types: Array<FilePickerAcceptType>,
 };
 
 type SaveFilePickerOptions = {
-  excludeAcceptAllOption: boolean,
-  id: string,
-  startIn: StartInDirectory,
+  ...FilePickerOptions,
   suggestedName: string | null,
-  types: Array<FilePickerAcceptType>,
 };
 
 /* partial */ declare class DataTransferItem {

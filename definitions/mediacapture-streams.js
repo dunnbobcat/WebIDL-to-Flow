@@ -29,17 +29,15 @@ type ConstrainDOMStringParameters = {
 };
 
 type ConstrainDoubleRange = {
+  ...DoubleRange,
   exact: number,
   ideal: number,
-  max: number,
-  min: number,
 };
 
 type ConstrainULongRange = {
+  ...ULongRange,
   exact: number,
   ideal: number,
-  max: number,
-  min: number,
 };
 
 type DeviceChangeEventInit = {
@@ -80,23 +78,8 @@ type MediaTrackCapabilities = {
 };
 
 type MediaTrackConstraints = {
+  ...MediaTrackConstraintSet,
   advanced: Array<MediaTrackConstraintSet>,
-  aspectRatio: ConstrainDouble,
-  autoGainControl: ConstrainBoolean,
-  backgroundBlur: ConstrainBoolean,
-  channelCount: ConstrainULong,
-  deviceId: ConstrainDOMString,
-  echoCancellation: ConstrainBoolean,
-  facingMode: ConstrainDOMString,
-  frameRate: ConstrainDouble,
-  groupId: ConstrainDOMString,
-  height: ConstrainULong,
-  latency: ConstrainDouble,
-  noiseSuppression: ConstrainBoolean,
-  resizeMode: ConstrainDOMString,
-  sampleRate: ConstrainULong,
-  sampleSize: ConstrainULong,
-  width: ConstrainULong,
 };
 
 type MediaTrackConstraintSet = {

@@ -29,9 +29,8 @@ type SanitizerElementNamespace = {
 };
 
 type SanitizerElementNamespaceWithAttributes = {
+  ...SanitizerElementNamespace,
   attributes: Array<SanitizerAttribute>,
-  name: string,
-  namespace: string | null,
   removeAttributes: Array<SanitizerAttribute>,
 };
 

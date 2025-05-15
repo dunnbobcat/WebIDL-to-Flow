@@ -21,36 +21,36 @@ type KeyUsage =
   | 'unwrapKey';
 
 type AesCbcParams = {
+  ...Algorithm,
   iv: BufferSource,
-  name: string,
 };
 
 type AesCtrParams = {
+  ...Algorithm,
   counter: BufferSource,
   length: number,
-  name: string,
 };
 
 type AesDerivedKeyParams = {
+  ...Algorithm,
   length: number,
-  name: string,
 };
 
 type AesGcmParams = {
+  ...Algorithm,
   additionalData: BufferSource,
   iv: BufferSource,
-  name: string,
   tagLength: number,
 };
 
 type AesKeyAlgorithm = {
+  ...KeyAlgorithm,
   length: number,
-  name: string,
 };
 
 type AesKeyGenParams = {
+  ...Algorithm,
   length: number,
-  name: string,
 };
 
 type Algorithm = {
@@ -63,53 +63,53 @@ type CryptoKeyPair = {
 };
 
 type EcdhKeyDeriveParams = {
-  name: string,
+  ...Algorithm,
   public: CryptoKey,
 };
 
 type EcdsaParams = {
+  ...Algorithm,
   hash: HashAlgorithmIdentifier,
-  name: string,
 };
 
 type EcKeyAlgorithm = {
-  name: string,
+  ...KeyAlgorithm,
   namedCurve: NamedCurve,
 };
 
 type EcKeyGenParams = {
-  name: string,
+  ...Algorithm,
   namedCurve: NamedCurve,
 };
 
 type EcKeyImportParams = {
-  name: string,
+  ...Algorithm,
   namedCurve: NamedCurve,
 };
 
 type HkdfParams = {
+  ...Algorithm,
   hash: HashAlgorithmIdentifier,
   info: BufferSource,
-  name: string,
   salt: BufferSource,
 };
 
 type HmacImportParams = {
+  ...Algorithm,
   hash: HashAlgorithmIdentifier,
   length: number,
-  name: string,
 };
 
 type HmacKeyAlgorithm = {
+  ...KeyAlgorithm,
   hash: KeyAlgorithm,
   length: number,
-  name: string,
 };
 
 type HmacKeyGenParams = {
+  ...Algorithm,
   hash: HashAlgorithmIdentifier,
   length: number,
-  name: string,
 };
 
 type JsonWebKey = {
@@ -138,46 +138,42 @@ type KeyAlgorithm = {
 };
 
 type Pbkdf2Params = {
+  ...Algorithm,
   hash: HashAlgorithmIdentifier,
   iterations: number,
-  name: string,
   salt: BufferSource,
 };
 
 type RsaHashedImportParams = {
+  ...Algorithm,
   hash: HashAlgorithmIdentifier,
-  name: string,
 };
 
 type RsaHashedKeyAlgorithm = {
+  ...RsaKeyAlgorithm,
   hash: KeyAlgorithm,
-  modulusLength: number,
-  name: string,
-  publicExponent: BigInteger,
 };
 
 type RsaHashedKeyGenParams = {
+  ...RsaKeyGenParams,
   hash: HashAlgorithmIdentifier,
-  modulusLength: number,
-  name: string,
-  publicExponent: BigInteger,
 };
 
 type RsaKeyAlgorithm = {
+  ...KeyAlgorithm,
   modulusLength: number,
-  name: string,
   publicExponent: BigInteger,
 };
 
 type RsaKeyGenParams = {
+  ...Algorithm,
   modulusLength: number,
-  name: string,
   publicExponent: BigInteger,
 };
 
 type RsaOaepParams = {
+  ...Algorithm,
   label: BufferSource,
-  name: string,
 };
 
 type RsaOtherPrimesInfo = {
@@ -187,7 +183,7 @@ type RsaOtherPrimesInfo = {
 };
 
 type RsaPssParams = {
-  name: string,
+  ...Algorithm,
   saltLength: number,
 };
 

@@ -8,7 +8,7 @@ type LanguageDetectorCreateCoreOptions = {
 };
 
 type LanguageDetectorCreateOptions = {
-  expectedInputLanguages: Array<string>,
+  ...LanguageDetectorCreateCoreOptions,
   monitor: CreateMonitorCallback,
   signal: AbortSignal,
 };
@@ -23,10 +23,9 @@ type TranslatorCreateCoreOptions = {
 };
 
 type TranslatorCreateOptions = {
+  ...TranslatorCreateCoreOptions,
   monitor: CreateMonitorCallback,
   signal: AbortSignal,
-  sourceLanguage: string,
-  targetLanguage: string,
 };
 
 type TranslatorTranslateOptions = {

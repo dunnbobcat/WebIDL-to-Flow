@@ -44,12 +44,8 @@ type SpeechRecognitionEventInit = {
 };
 
 type SpeechSynthesisErrorEventInit = {
-  charIndex: number,
-  charLength: number,
-  elapsedTime: number,
+  ...SpeechSynthesisEventInit,
   error: SpeechSynthesisErrorCode,
-  name: string,
-  utterance: SpeechSynthesisUtterance,
 };
 
 type SpeechSynthesisEventInit = {

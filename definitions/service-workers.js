@@ -36,6 +36,7 @@ type ClientQueryOptions = {
 type ExtendableEventInit = {};
 
 type ExtendableMessageEventInit = {
+  ...ExtendableEventInit,
   data: any,
   lastEventId: string,
   origin: string,
@@ -44,6 +45,7 @@ type ExtendableMessageEventInit = {
 };
 
 type FetchEventInit = {
+  ...ExtendableEventInit,
   clientId: string,
   handled: Promise<void>,
   preloadResponse: Promise<any>,
@@ -53,10 +55,8 @@ type FetchEventInit = {
 };
 
 type MultiCacheQueryOptions = {
+  ...CacheQueryOptions,
   cacheName: string,
-  ignoreMethod: boolean,
-  ignoreSearch: boolean,
-  ignoreVary: boolean,
 };
 
 type NavigationPreloadState = {

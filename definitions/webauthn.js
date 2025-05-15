@@ -266,14 +266,14 @@ type PublicKeyCredentialRequestOptionsJSON = {
 };
 
 type PublicKeyCredentialRpEntity = {
+  ...PublicKeyCredentialEntity,
   id: string,
-  name: string,
 };
 
 type PublicKeyCredentialUserEntity = {
+  ...PublicKeyCredentialEntity,
   displayName: string,
   id: BufferSource,
-  name: string,
 };
 
 type PublicKeyCredentialUserEntityJSON = {

@@ -83,7 +83,9 @@ type RTCSignalingState =
   | 'have-remote-pranswer'
   | 'closed';
 
-type RTCAnswerOptions = {};
+type RTCAnswerOptions = {
+  ...RTCOfferAnswerOptions,
+};
 
 type RTCCertificateExpiration = {
   expires: number,
@@ -151,12 +153,9 @@ type RTCIceServer = {
 };
 
 type RTCLocalIceCandidateInit = {
-  candidate: string,
+  ...RTCIceCandidateInit,
   relayProtocol: RTCIceServerTransportProtocol | null,
-  sdpMid: string | null,
-  sdpMLineIndex: number | null,
   url: string | null,
-  usernameFragment: string | null,
 };
 
 type RTCLocalSessionDescriptionInit = {
@@ -167,6 +166,7 @@ type RTCLocalSessionDescriptionInit = {
 type RTCOfferAnswerOptions = {};
 
 type RTCOfferOptions = {
+  ...RTCOfferAnswerOptions,
   iceRestart: boolean,
   offerToReceiveAudio: boolean,
   offerToReceiveVideo: boolean,
@@ -203,11 +203,8 @@ type RTCRtpCodec = {
 };
 
 type RTCRtpCodecParameters = {
-  channels: number,
-  clockRate: number,
-  mimeType: string,
+  ...RTCRtpCodec,
   payloadType: number,
-  sdpFmtpLine: string,
 };
 
 type RTCRtpCodingParameters = {
@@ -222,11 +219,11 @@ type RTCRtpContributingSource = {
 };
 
 type RTCRtpEncodingParameters = {
+  ...RTCRtpCodingParameters,
   active: boolean,
   codec: RTCRtpCodec,
   maxBitrate: number,
   maxFramerate: number,
-  rid: string,
   scaleResolutionDownBy: number,
 };
 
@@ -247,24 +244,17 @@ type RTCRtpParameters = {
 };
 
 type RTCRtpReceiveParameters = {
-  codecs: Array<RTCRtpCodecParameters>,
-  headerExtensions: Array<RTCRtpHeaderExtensionParameters>,
-  rtcp: RTCRtcpParameters,
+  ...RTCRtpParameters,
 };
 
 type RTCRtpSendParameters = {
-  codecs: Array<RTCRtpCodecParameters>,
+  ...RTCRtpParameters,
   encodings: Array<RTCRtpEncodingParameters>,
-  headerExtensions: Array<RTCRtpHeaderExtensionParameters>,
-  rtcp: RTCRtcpParameters,
   transactionId: string,
 };
 
 type RTCRtpSynchronizationSource = {
-  audioLevel: number,
-  rtpTimestamp: number,
-  source: number,
-  timestamp: number,
+  ...RTCRtpContributingSource,
 };
 
 type RTCRtpTransceiverInit = {

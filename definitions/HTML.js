@@ -262,8 +262,8 @@ type NavigationInterceptOptions = {
 };
 
 type NavigationNavigateOptions = {
+  ...NavigationOptions,
   history: NavigationHistoryBehavior,
-  info: any,
   state: any,
 };
 
@@ -272,7 +272,7 @@ type NavigationOptions = {
 };
 
 type NavigationReloadOptions = {
-  info: any,
+  ...NavigationOptions,
   state: any,
 };
 
@@ -334,8 +334,8 @@ type ToggleEventInit = {
 };
 
 type TogglePopoverOptions = {
+  ...ShowPopoverOptions,
   force: boolean,
-  source: HTMLElement,
 };
 
 type TrackEventInit = {
@@ -356,8 +356,8 @@ type ValidityStateFlags = {
 };
 
 type WindowPostMessageOptions = {
+  ...StructuredSerializeOptions,
   targetOrigin: string,
-  transfer: Array<Object>,
 };
 
 type WorkerOptions = {
@@ -539,7 +539,7 @@ declare class DedicatedWorkerGlobalScope
   postMessage(message: any, options?: StructuredSerializeOptions): void;
 }
 
-/* partial */ declare class Document mixins mixin$GlobalEventHandlers {
+/* partial */ declare class Document {
   body: HTMLElement | null;
   cookie: string;
   +currentScript: HTMLOrSVGScriptElement | null;
@@ -581,7 +581,7 @@ declare class DedicatedWorkerGlobalScope
   writeln(text: TrustedHTML | string): void;
 }
 
-/* partial */ declare class Document mixins mixin$GlobalEventHandlers {
+/* partial */ declare class Document {
   alinkColor: string;
   +all: HTMLAllCollection;
   +anchors: HTMLCollection;

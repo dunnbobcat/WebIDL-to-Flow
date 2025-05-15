@@ -13,9 +13,8 @@ type BackgroundFetchEventInit = {
 };
 
 type BackgroundFetchOptions = {
+  ...BackgroundFetchUIOptions,
   downloadTotal: number,
-  icons: Array<ImageResource>,
-  title: string,
 };
 
 type BackgroundFetchUIOptions = {

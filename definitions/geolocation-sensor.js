@@ -12,6 +12,7 @@ type GeolocationSensorReading = {
 };
 
 type ReadOptions = {
+  ...GeolocationSensorOptions,
   signal: AbortSignal | null,
 };
 

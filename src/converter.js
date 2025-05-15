@@ -107,7 +107,13 @@ function convertCallbackInterface(production: IDLProduction): string {
 }
 
 function convertDictionary(production: IDLProduction): string {
-  const {partial, members, name} = production;
+  const {partial, members, name, spreads} = production;
+
+  let spreadFields = '';
+  if (spreads != null) {
+    spreadFields = spreads.map((spread) => `...${spread}`).join(',\n');
+    spreadFields += ',\n';
+  }
 
   const fields = members
     .toSorted(compareProductions)
@@ -115,7 +121,7 @@ function convertDictionary(production: IDLProduction): string {
     .join(',\n');
 
   const comment = partial ? '/* partial */ ' : '';
-  return `${comment}type ${name} = {\n${fields}};\n`;
+  return `${comment}type ${name} = {\n${spreadFields}${fields}};\n`;
 }
 
 function convertField(production: IDLProduction): string {
@@ -221,10 +227,10 @@ function convertInterfaceMember(production: IDLProduction): string {
 
 function convertInterface(
   production: IDLProduction,
-  mixins: ?Array<string>,
-  mixinConsts: ?Array<IDLProduction>,
+  // mixins: ?Array<string>,
+  // mixinConsts: ?Array<IDLProduction>,
 ): string {
-  const {extAttrs, inheritance, name} = production;
+  const {extAttrs, inheritance, mixins, name} = production;
   if (name === 'NotRestoredReasons') {
     debugger;
   }
@@ -244,7 +250,9 @@ function convertInterface(
     return convertMaplike(production);
   }
 
-  if (mixinConsts != null && mixinConsts.length > 0) {
+  let {mixinConsts} = production;
+  mixinConsts = new Set(mixinConsts);
+  if (mixinConsts != null && mixinConsts.size > 0) {
     members = [...members, ...mixinConsts];
   }
 
@@ -259,7 +267,7 @@ function convertInterface(
   const extendsDecl = inheritance != null ? `extends ${inheritance} ` : '';
   const mixinDecl =
     mixins != null && mixins.length > 0
-      ? `mixins ${mixins.map((mixin) => `mixin$${mixin}`).join(', ')} `
+      ? `mixins ${[...new Set(mixins)].map((mixin) => `mixin$${mixin}`).join(', ')} `
       : '';
 
   const grouped = group(members, (member) => member.type);
@@ -386,16 +394,16 @@ function convertArgument(production: IDLProduction): string {
 
 function convertTopLevelProduction(
   production: IDLProduction,
-  interfaceMixins: {[string]: Array<string>},
-  mixinConsts: {[string]: Array<IDLProduction>},
+  // interfaceMixins: {[string]: Array<string>},
+  // mixinConsts: {[string]: Array<IDLProduction>},
 ): string {
   const {type, name} = production;
 
   switch (type) {
     case 'interface':
-      const mixins = interfaceMixins[name];
-      const consts = mixins?.flatMap((mixin) => mixinConsts[mixin] ?? []);
-      return convertInterface(production, mixins, consts);
+      // const mixins = interfaceMixins[name];
+      // const consts = mixins?.flatMap((mixin) => mixinConsts[mixin] ?? []);
+      return convertInterface(production);
 
     case 'interface mixin':
       return convertInterfaceMixin(production);
@@ -429,32 +437,31 @@ function convertTopLevelProduction(
 
 export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
   const sorted = idl.toSorted(compareProductions);
-  const interfaceMixins = ({}: {[string]: Array<string>});
-  const mixinConsts = ({}: {[string]: Array<IDLProduction>});
+  // const mixinConsts = ({}: {[string]: Array<IDLProduction>});
 
-  for (const production of sorted) {
-    if (production.type === 'includes') {
-      const {target, includes} = production;
-      if (interfaceMixins[target] == null) {
-        interfaceMixins[target] = [];
-      }
-      interfaceMixins[target].push(includes);
-    } else if (production.type === 'interface mixin') {
-      const {members, name} = production;
-      const [consts, nonConsts] = partition(
-        members,
-        (member) => member.type === 'const',
-      );
+  // for (const production of sorted) {
+  //   if (production.type === 'includes') {
+  //     // const {target, includes} = production;
+  //     // if (interfaceMixins[target] == null) {
+  //     //   interfaceMixins[target] = [];
+  //     // }
+  //     // interfaceMixins[target].push(includes);
+  //   } else if (production.type === 'interface mixin') {
+  //     const {members, name} = production;
+  //     const [consts, nonConsts] = partition(
+  //       members,
+  //       (member) => member.type === 'const',
+  //     );
 
-      if (consts.length > 0) {
-        mixinConsts[name] = consts;
-        production.members = nonConsts;
-      }
-    }
-  }
+  //     if (consts.length > 0) {
+  //       mixinConsts[name] = consts;
+  //       production.members = nonConsts;
+  //     }
+  //   }
+  // }
 
   const lines = sorted.map((production) =>
-    convertTopLevelProduction(production, interfaceMixins, mixinConsts),
+    convertTopLevelProduction(production),
   );
 
   return lines.join('\n');
