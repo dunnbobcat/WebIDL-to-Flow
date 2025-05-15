@@ -1,0 +1,16 @@
+// https://www.w3.org/TR/hr-time-3/#idl-index
+
+typedef double DOMHighResTimeStamp;
+
+typedef unsigned long long EpochTimeStamp;
+
+[Exposed=(Window,Worker)]
+interface Performance : EventTarget {
+  DOMHighResTimeStamp now();
+  readonly attribute DOMHighResTimeStamp timeOrigin;
+  [Default] object toJSON();
+};
+
+partial interface mixin WindowOrWorkerGlobalScope {
+  [Replaceable] readonly attribute Performance performance;
+};

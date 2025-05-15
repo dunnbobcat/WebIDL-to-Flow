@@ -147,6 +147,7 @@ async function main(): Promise<void> {
           'FilterEffects',
           'Fullscreen',
           'Geometry',
+          'HighResolutionTime',
           'HTML',
           'MathMLCore',
           'MediaCaptureAndStreams',
