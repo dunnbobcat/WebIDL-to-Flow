@@ -217,6 +217,8 @@ type XMLHttpRequestBodyInit =
 
 type AlphaOption = 'keep' | 'discard';
 
+type AppendMode = 'segments' | 'sequence';
+
 type AudioSampleFormat =
   | 'u8'
   | 's16'
@@ -299,6 +301,8 @@ type EncodedAudioChunkType = 'key' | 'delta';
 type EncodedVideoChunkType = 'key' | 'delta';
 
 type EndingType = 'transparent' | 'native';
+
+type EndOfStreamError = 'network' | 'decode';
 
 type FullscreenNavigationUI = 'auto' | 'show' | 'hide';
 
@@ -620,6 +624,19 @@ type ReadableStreamReaderMode = 'byob';
 
 type ReadableStreamType = 'bytes';
 
+type ReadyState = 'closed' | 'open' | 'ended';
+
+type ReferrerPolicy =
+  | ''
+  | 'no-referrer'
+  | 'no-referrer-when-downgrade'
+  | 'same-origin'
+  | 'origin'
+  | 'strict-origin'
+  | 'origin-when-cross-origin'
+  | 'strict-origin-when-cross-origin'
+  | 'unsafe-url';
+
 type RequestCache =
   | 'default'
   | 'no-store'
@@ -818,6 +835,11 @@ type AudioEncoderSupport = {
 type BlobPropertyBag = {
   type: string,
   endings: EndingType,
+};
+
+type BufferedChangeEventInit = {
+  addedRanges: TimeRanges,
+  removedRanges: TimeRanges,
 };
 
 type CameraDevicePermissionDescriptor = {
@@ -2219,6 +2241,10 @@ declare class AudioTrack {
   +language: string;
 }
 
+/* partial */ declare class AudioTrack {
+  +sourceBuffer: SourceBuffer | null;
+}
+
 declare class AudioTrackList extends EventTarget {
   +length: number;
   onaddtrack: EventHandler;
@@ -2259,6 +2285,13 @@ declare class BroadcastChannel extends EventTarget {
 
   close(): void;
   postMessage(message: any): void;
+}
+
+declare class BufferedChangeEvent extends Event {
+  +addedRanges: TimeRanges;
+  +removedRanges: TimeRanges;
+
+  constructor(type: string, eventInitDict?: BufferedChangeEventInit): void;
 }
 
 declare class ByteLengthQueuingStrategy {
@@ -4860,6 +4893,18 @@ declare class Location {
   replace(url: string): void;
 }
 
+declare class ManagedMediaSource extends MediaSource {
+  onendstreaming: EventHandler;
+  onstartstreaming: EventHandler;
+  +streaming: boolean;
+
+  constructor(): void;
+}
+
+declare class ManagedSourceBuffer extends SourceBuffer {
+  onbufferedchange: EventHandler;
+}
+
 declare class MathMLElement
   extends Element
   mixins
@@ -4905,6 +4950,29 @@ declare class MediaList {
   appendMedium(medium: string): void;
   deleteMedium(medium: string): void;
 }
+
+declare class MediaSource extends EventTarget {
+  +activeSourceBuffers: SourceBufferList;
+  +canConstructInDedicatedWorker: boolean;
+  duration: number;
+  +handle: MediaSourceHandle;
+  onsourceclose: EventHandler;
+  onsourceended: EventHandler;
+  onsourceopen: EventHandler;
+  +readyState: ReadyState;
+  +sourceBuffers: SourceBufferList;
+
+  constructor(): void;
+
+  static isTypeSupported(type: string): boolean;
+  addSourceBuffer(type: string): SourceBuffer;
+  clearLiveSeekableRange(): void;
+  endOfStream(error?: EndOfStreamError): void;
+  removeSourceBuffer(sourceBuffer: SourceBuffer): void;
+  setLiveSeekableRange(start: number, end: number): void;
+}
+
+declare class MediaSourceHandle {}
 
 declare class MediaStream extends EventTarget {
   +active: boolean;
@@ -5628,6 +5696,36 @@ declare class SharedWorkerGlobalScope extends WorkerGlobalScope {
   onconnect: EventHandler;
 
   close(): void;
+}
+
+declare class SourceBuffer extends EventTarget {
+  appendWindowEnd: number;
+  appendWindowStart: number;
+  +audioTracks: AudioTrackList;
+  +buffered: TimeRanges;
+  mode: AppendMode;
+  onabort: EventHandler;
+  onerror: EventHandler;
+  onupdate: EventHandler;
+  onupdateend: EventHandler;
+  onupdatestart: EventHandler;
+  +textTracks: TextTrackList;
+  timestampOffset: number;
+  +updating: boolean;
+  +videoTracks: VideoTrackList;
+
+  abort(): void;
+  appendBuffer(data: BufferSource): void;
+  changeType(type: string): void;
+  remove(start: number, end: number): void;
+}
+
+declare class SourceBufferList extends EventTarget {
+  +length: number;
+  onaddsourcebuffer: EventHandler;
+  onremovesourcebuffer: EventHandler;
+
+  (index: number): SourceBuffer;
 }
 
 declare class StaticRange extends AbstractRange {
@@ -6606,6 +6704,10 @@ declare class TextTrack extends EventTarget {
   removeCue(cue: TextTrackCue): void;
 }
 
+/* partial */ declare class TextTrack {
+  +sourceBuffer: SourceBuffer | null;
+}
+
 declare class TextTrackCue extends EventTarget {
   endTime: number;
   id: string;
@@ -6856,6 +6958,10 @@ declare class VideoTrack {
   +label: string;
   +language: string;
   selected: boolean;
+}
+
+/* partial */ declare class VideoTrack {
+  +sourceBuffer: SourceBuffer | null;
 }
 
 declare class VideoTrackList extends EventTarget {
