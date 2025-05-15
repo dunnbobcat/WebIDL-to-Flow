@@ -44,6 +44,14 @@ type ComputedEffectTiming = {
   localTime: number | null,
   progress: number | null,
   currentIteration: number | null,
+  delay: number,
+  endDelay: number,
+  fill: FillMode,
+  iterationStart: number,
+  iterations: number,
+  duration: number | string,
+  direction: PlaybackDirection,
+  easing: string,
 };
 
 type DocumentTimelineOptions = {
@@ -68,11 +76,29 @@ type GetAnimationsOptions = {
 type KeyframeAnimationOptions = {
   id: string,
   timeline: AnimationTimeline | null,
+  composite: CompositeOperation,
+  pseudoElement: string | null,
+  delay: number,
+  endDelay: number,
+  fill: FillMode,
+  iterationStart: number,
+  iterations: number,
+  duration: number | string,
+  direction: PlaybackDirection,
+  easing: string,
 };
 
 type KeyframeEffectOptions = {
   composite: CompositeOperation,
   pseudoElement: string | null,
+  delay: number,
+  endDelay: number,
+  fill: FillMode,
+  iterationStart: number,
+  iterations: number,
+  duration: number | string,
+  direction: PlaybackDirection,
+  easing: string,
 };
 
 type OptionalEffectTiming = {
@@ -160,8 +186,4 @@ declare class KeyframeEffect extends AnimationEffect {
     options?: number | KeyframeAnimationOptions,
   ): Animation;
   getAnimations(options?: GetAnimationsOptions): Array<Animation>;
-}
-
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  getAnimations(): Array<Animation>;
 }

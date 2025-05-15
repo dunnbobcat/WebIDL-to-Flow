@@ -259,6 +259,7 @@ type NavigationInterceptOptions = {
 type NavigationNavigateOptions = {
   state: any,
   history: NavigationHistoryBehavior,
+  info: any,
 };
 
 type NavigationOptions = {
@@ -267,6 +268,7 @@ type NavigationOptions = {
 
 type NavigationReloadOptions = {
   state: any,
+  info: any,
 };
 
 type NavigationResult = {
@@ -328,6 +330,7 @@ type ToggleEventInit = {
 
 type TogglePopoverOptions = {
   force: boolean,
+  source: HTMLElement,
 };
 
 type TrackEventInit = {
@@ -349,6 +352,7 @@ type ValidityStateFlags = {
 
 type WindowPostMessageOptions = {
   targetOrigin: string,
+  transfer: Array<Object>,
 };
 
 type WorkerOptions = {
@@ -2526,10 +2530,6 @@ declare class XMLSerializer {
   drawFocusIfNeeded(path: Path2D, element: Element): void;
 }
 
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  +activeElement: Element | null;
-}
-
 /* mixin */ declare class mixin$ElementContentEditable {
   contentEditable: string;
   enterKeyHint: string;
@@ -2662,16 +2662,13 @@ declare class XMLSerializer {
   +appCodeName: string;
   +appName: string;
   +appVersion: string;
+  +oscpu: string;
   +platform: string;
   +product: string;
   +productSub: string;
   +userAgent: string;
   +vendor: string;
   +vendorSub: string;
-}
-
-/* partial mixin */ declare class mixin$NavigatorID {
-  +oscpu: string;
 
   taintEnabled(): boolean;
 }

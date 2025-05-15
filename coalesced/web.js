@@ -219,6 +219,10 @@ type XMLHttpRequestBodyInit =
 
 type AlphaOption = 'keep' | 'discard';
 
+type AnimationPlayState = 'idle' | 'running' | 'paused' | 'finished';
+
+type AnimationReplaceState = 'active' | 'removed' | 'persisted';
+
 type AppendMode = 'segments' | 'sequence';
 
 type AudioSampleFormat =
@@ -287,6 +291,10 @@ type CodecState = 'unconfigured' | 'configured' | 'closed';
 
 type ColorSpaceConversion = 'none' | 'default';
 
+type CompositeOperation = 'replace' | 'add' | 'accumulate';
+
+type CompositeOperationOrAuto = 'replace' | 'add' | 'accumulate' | 'auto';
+
 type DocumentReadyState = 'loading' | 'interactive' | 'complete';
 
 type DocumentVisibilityState = 'visible' | 'hidden';
@@ -305,6 +313,8 @@ type EncodedVideoChunkType = 'key' | 'delta';
 type EndingType = 'transparent' | 'native';
 
 type EndOfStreamError = 'network' | 'decode';
+
+type FillMode = 'none' | 'forwards' | 'backwards' | 'both' | 'auto';
 
 type FullscreenNavigationUI = 'auto' | 'show' | 'hide';
 
@@ -618,6 +628,12 @@ type OffscreenRenderingContextId =
   | 'webgl2'
   | 'webgpu';
 
+type PlaybackDirection =
+  | 'normal'
+  | 'reverse'
+  | 'alternate'
+  | 'alternate-reverse';
+
 type PredefinedColorSpace = 'srgb' | 'display-p3';
 
 type PremultiplyAlpha = 'none' | 'premultiply' | 'default';
@@ -776,6 +792,15 @@ type AddEventListenerOptions = {
   passive: boolean,
   once: boolean,
   signal: AbortSignal,
+  capture: boolean,
+};
+
+type AnimationPlaybackEventInit = {
+  currentTime: number | null,
+  timelineTime: number | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type AssignedNodesOptions = {
@@ -834,6 +859,25 @@ type AudioEncoderSupport = {
   config: AudioEncoderConfig,
 };
 
+type BaseComputedKeyframe = {
+  offset: number | null,
+  computedOffset: number,
+  easing: string,
+  composite: CompositeOperationOrAuto,
+};
+
+type BaseKeyframe = {
+  offset: number | null,
+  easing: string,
+  composite: CompositeOperationOrAuto,
+};
+
+type BasePropertyIndexedKeyframe = {
+  offset: number | null | Array<number | null>,
+  easing: string | Array<string>,
+  composite: CompositeOperationOrAuto | Array<CompositeOperationOrAuto>,
+};
+
 type BlobPropertyBag = {
   type: string,
   endings: EndingType,
@@ -842,6 +886,9 @@ type BlobPropertyBag = {
 type BufferedChangeEventInit = {
   addedRanges: TimeRanges,
   removedRanges: TimeRanges,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type CameraDevicePermissionDescriptor = {
@@ -865,10 +912,35 @@ type CloseWatcherOptions = {
 type CommandEventInit = {
   source: Element | null,
   command: string,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type CompositionEventInit = {
   data: string,
+  view: Window | null,
+  detail: number,
+  which: number,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
+};
+
+type ComputedEffectTiming = {
+  endTime: number,
+  activeDuration: number,
+  localTime: number | null,
+  progress: number | null,
+  currentIteration: number | null,
+  delay: number,
+  endDelay: number,
+  fill: FillMode,
+  iterationStart: number,
+  iterations: number,
+  duration: number | string,
+  direction: PlaybackDirection,
+  easing: string,
 };
 
 type ConstrainBooleanParameters = {
@@ -884,6 +956,8 @@ type ConstrainDOMStringParameters = {
 type ConstrainDoubleRange = {
   exact: number,
   ideal: number,
+  max: number,
+  min: number,
 };
 
 type Constraints = {
@@ -895,6 +969,8 @@ type ConstraintSet = {};
 type ConstrainULongRange = {
   exact: number,
   ideal: number,
+  max: number,
+  min: number,
 };
 
 type CSSStyleSheetInit = {
@@ -905,10 +981,20 @@ type CSSStyleSheetInit = {
 
 type CustomEventInit = {
   detail: any,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type DeviceChangeEventInit = {
   devices: Array<MediaDeviceInfo>,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
+};
+
+type DocumentTimelineOptions = {
+  originTime: number,
 };
 
 type DOMMatrix2DInit = {
@@ -938,6 +1024,18 @@ type DOMMatrixInit = {
   m43: number,
   m44: number,
   is2D: boolean,
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+  f: number,
+  m11: number,
+  m12: number,
+  m21: number,
+  m22: number,
+  m41: number,
+  m42: number,
 };
 
 type DOMPointInit = {
@@ -968,6 +1066,24 @@ type DoubleRange = {
 
 type DragEventInit = {
   dataTransfer: DataTransfer | null,
+  screenX: number,
+  screenY: number,
+  clientX: number,
+  clientY: number,
+  button: number,
+  buttons: number,
+  relatedTarget: EventTarget | null,
+};
+
+type EffectTiming = {
+  delay: number,
+  endDelay: number,
+  fill: FillMode,
+  iterationStart: number,
+  iterations: number,
+  duration: number | string,
+  direction: PlaybackDirection,
+  easing: string,
 };
 
 type ElementCreationOptions = {
@@ -1010,6 +1126,9 @@ type ErrorEventInit = {
   lineno: number,
   colno: number,
   error: any,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type EventInit = {
@@ -1037,6 +1156,12 @@ type EventModifierInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  view: Window | null,
+  detail: number,
+  which: number,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type EventSourceInit = {
@@ -1045,10 +1170,18 @@ type EventSourceInit = {
 
 type FilePropertyBag = {
   lastModified: number,
+  type: string,
+  endings: EndingType,
 };
 
 type FocusEventInit = {
   relatedTarget: EventTarget | null,
+  view: Window | null,
+  detail: number,
+  which: number,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type FocusOptions = {
@@ -1058,10 +1191,17 @@ type FocusOptions = {
 
 type FormDataEventInit = {
   formData: FormData,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type FullscreenOptions = {
   navigationUI: FullscreenNavigationUI,
+};
+
+type GetAnimationsOptions = {
+  subtree: boolean,
 };
 
 type GetHTMLOptions = {
@@ -1080,6 +1220,7 @@ type GetRootNodeOptions = {
 type GPUBindGroupDescriptor = {
   layout: GPUBindGroupLayout,
   entries: Array<GPUBindGroupEntry>,
+  label: string,
 };
 
 type GPUBindGroupEntry = {
@@ -1089,6 +1230,7 @@ type GPUBindGroupEntry = {
 
 type GPUBindGroupLayoutDescriptor = {
   entries: Array<GPUBindGroupLayoutEntry>,
+  label: string,
 };
 
 type GPUBindGroupLayoutEntry = {
@@ -1128,6 +1270,7 @@ type GPUBufferDescriptor = {
   size: GPUSize64,
   usage: GPUBufferUsageFlags,
   mappedAtCreation: boolean,
+  label: string,
 };
 
 type GPUCanvasConfiguration = {
@@ -1157,12 +1300,17 @@ type GPUColorTargetState = {
   writeMask: GPUColorWriteFlags,
 };
 
-type GPUCommandBufferDescriptor = {};
+type GPUCommandBufferDescriptor = {
+  label: string,
+};
 
-type GPUCommandEncoderDescriptor = {};
+type GPUCommandEncoderDescriptor = {
+  label: string,
+};
 
 type GPUComputePassDescriptor = {
   timestampWrites: GPUComputePassTimestampWrites,
+  label: string,
 };
 
 type GPUComputePassTimestampWrites = {
@@ -1173,11 +1321,17 @@ type GPUComputePassTimestampWrites = {
 
 type GPUComputePipelineDescriptor = {
   compute: GPUProgrammableStage,
+  layout: GPUPipelineLayout | GPUAutoLayoutMode,
+  label: string,
 };
 
 type GPUCopyExternalImageDestInfo = {
   colorSpace: PredefinedColorSpace,
   premultipliedAlpha: boolean,
+  texture: GPUTexture,
+  mipLevel: GPUIntegerCoordinate,
+  origin: GPUOrigin3D,
+  aspect: GPUTextureAspect,
 };
 
 type GPUCopyExternalImageSourceInfo = {
@@ -1203,6 +1357,7 @@ type GPUDeviceDescriptor = {
   requiredFeatures: Array<GPUFeatureName>,
   requiredLimits: string | GPUSize64 | void,
   defaultQueue: GPUQueueDescriptor,
+  label: string,
 };
 
 type GPUExtent3DDict = {
@@ -1216,10 +1371,14 @@ type GPUExternalTextureBindingLayout = {};
 type GPUExternalTextureDescriptor = {
   source: HTMLVideoElement | VideoFrame,
   colorSpace: PredefinedColorSpace,
+  label: string,
 };
 
 type GPUFragmentState = {
   targets: Array<GPUColorTargetState | null>,
+  module: GPUShaderModule,
+  entryPoint: string,
+  constants: string | GPUPipelineConstantValue,
 };
 
 type GPUMultisampleState = {
@@ -1245,6 +1404,7 @@ type GPUOrigin3DDict = {
 
 type GPUPipelineDescriptorBase = {
   layout: GPUPipelineLayout | GPUAutoLayoutMode,
+  label: string,
 };
 
 type GPUPipelineErrorInit = {
@@ -1253,6 +1413,7 @@ type GPUPipelineErrorInit = {
 
 type GPUPipelineLayoutDescriptor = {
   bindGroupLayouts: Array<GPUBindGroupLayout | null>,
+  label: string,
 };
 
 type GPUPrimitiveState = {
@@ -1272,15 +1433,24 @@ type GPUProgrammableStage = {
 type GPUQuerySetDescriptor = {
   type: GPUQueryType,
   count: GPUSize32,
+  label: string,
 };
 
-type GPUQueueDescriptor = {};
+type GPUQueueDescriptor = {
+  label: string,
+};
 
-type GPURenderBundleDescriptor = {};
+type GPURenderBundleDescriptor = {
+  label: string,
+};
 
 type GPURenderBundleEncoderDescriptor = {
   depthReadOnly: boolean,
   stencilReadOnly: boolean,
+  colorFormats: Array<GPUTextureFormat | null>,
+  depthStencilFormat: GPUTextureFormat,
+  sampleCount: GPUSize32,
+  label: string,
 };
 
 type GPURenderPassColorAttachment = {
@@ -1310,12 +1480,14 @@ type GPURenderPassDescriptor = {
   occlusionQuerySet: GPUQuerySet,
   timestampWrites: GPURenderPassTimestampWrites,
   maxDrawCount: GPUSize64,
+  label: string,
 };
 
 type GPURenderPassLayout = {
   colorFormats: Array<GPUTextureFormat | null>,
   depthStencilFormat: GPUTextureFormat,
   sampleCount: GPUSize32,
+  label: string,
 };
 
 type GPURenderPassTimestampWrites = {
@@ -1330,6 +1502,8 @@ type GPURenderPipelineDescriptor = {
   depthStencil: GPUDepthStencilState,
   multisample: GPUMultisampleState,
   fragment: GPUFragmentState,
+  layout: GPUPipelineLayout | GPUAutoLayoutMode,
+  label: string,
 };
 
 type GPURequestAdapterOptions = {
@@ -1354,6 +1528,7 @@ type GPUSamplerDescriptor = {
   lodMaxClamp: number,
   compare: GPUCompareFunction,
   maxAnisotropy: number,
+  label: string,
 };
 
 type GPUShaderModuleCompilationHint = {
@@ -1364,6 +1539,7 @@ type GPUShaderModuleCompilationHint = {
 type GPUShaderModuleDescriptor = {
   code: string,
   compilationHints: Array<GPUShaderModuleCompilationHint>,
+  label: string,
 };
 
 type GPUStencilFaceState = {
@@ -1381,6 +1557,9 @@ type GPUStorageTextureBindingLayout = {
 
 type GPUTexelCopyBufferInfo = {
   buffer: GPUBuffer,
+  offset: GPUSize64,
+  bytesPerRow: GPUSize32,
+  rowsPerImage: GPUSize32,
 };
 
 type GPUTexelCopyBufferLayout = {
@@ -1410,6 +1589,7 @@ type GPUTextureDescriptor = {
   format: GPUTextureFormat,
   usage: GPUTextureUsageFlags,
   viewFormats: Array<GPUTextureFormat>,
+  label: string,
 };
 
 type GPUTextureViewDescriptor = {
@@ -1421,10 +1601,14 @@ type GPUTextureViewDescriptor = {
   mipLevelCount: GPUIntegerCoordinate,
   baseArrayLayer: GPUIntegerCoordinate,
   arrayLayerCount: GPUIntegerCoordinate,
+  label: string,
 };
 
 type GPUUncapturedErrorEventInit = {
   error: GPUError,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type GPUVertexAttribute = {
@@ -1441,11 +1625,17 @@ type GPUVertexBufferLayout = {
 
 type GPUVertexState = {
   buffers: Array<GPUVertexBufferLayout | null>,
+  module: GPUShaderModule,
+  entryPoint: string,
+  constants: string | GPUPipelineConstantValue,
 };
 
 type HashChangeEventInit = {
   oldURL: string,
   newURL: string,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type ImageBitmapOptions = {
@@ -1494,6 +1684,12 @@ type InputEventInit = {
   data: string | null,
   isComposing: boolean,
   inputType: string,
+  view: Window | null,
+  detail: number,
+  which: number,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type KeyboardEventInit = {
@@ -1504,6 +1700,54 @@ type KeyboardEventInit = {
   isComposing: boolean,
   charCode: number,
   keyCode: number,
+  ctrlKey: boolean,
+  shiftKey: boolean,
+  altKey: boolean,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
+  view: Window | null,
+  detail: number,
+  which: number,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
+};
+
+type KeyframeAnimationOptions = {
+  id: string,
+  timeline: AnimationTimeline | null,
+  composite: CompositeOperation,
+  pseudoElement: string | null,
+  delay: number,
+  endDelay: number,
+  fill: FillMode,
+  iterationStart: number,
+  iterations: number,
+  duration: number | string,
+  direction: PlaybackDirection,
+  easing: string,
+};
+
+type KeyframeEffectOptions = {
+  composite: CompositeOperation,
+  pseudoElement: string | null,
+  delay: number,
+  endDelay: number,
+  fill: FillMode,
+  iterationStart: number,
+  iterations: number,
+  duration: number | string,
+  direction: PlaybackDirection,
+  easing: string,
 };
 
 type MediaStreamConstraints = {
@@ -1513,6 +1757,9 @@ type MediaStreamConstraints = {
 
 type MediaStreamTrackEventInit = {
   track: MediaStreamTrack,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type MediaTrackCapabilities = {
@@ -1536,6 +1783,22 @@ type MediaTrackCapabilities = {
 
 type MediaTrackConstraints = {
   advanced: Array<MediaTrackConstraintSet>,
+  width: ConstrainULong,
+  height: ConstrainULong,
+  aspectRatio: ConstrainDouble,
+  frameRate: ConstrainDouble,
+  facingMode: ConstrainDOMString,
+  resizeMode: ConstrainDOMString,
+  sampleRate: ConstrainULong,
+  sampleSize: ConstrainULong,
+  echoCancellation: ConstrainBoolean,
+  autoGainControl: ConstrainBoolean,
+  noiseSuppression: ConstrainBoolean,
+  latency: ConstrainDouble,
+  channelCount: ConstrainULong,
+  deviceId: ConstrainDOMString,
+  groupId: ConstrainDOMString,
+  backgroundBlur: ConstrainBoolean,
 };
 
 type MediaTrackConstraintSet = {
@@ -1601,6 +1864,9 @@ type MessageEventInit = {
   lastEventId: string,
   source: MessageEventSource | null,
   ports: Array<MessagePort>,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type MouseEventInit = {
@@ -1611,6 +1877,20 @@ type MouseEventInit = {
   button: number,
   buttons: number,
   relatedTarget: EventTarget | null,
+  ctrlKey: boolean,
+  shiftKey: boolean,
+  altKey: boolean,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
 };
 
 type MutationObserverInit = {
@@ -1635,11 +1915,17 @@ type NavigateEventInit = {
   info: any,
   hasUAVisualTransition: boolean,
   sourceElement: Element | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type NavigationCurrentEntryChangeEventInit = {
   navigationType: NavigationType | null,
   from: NavigationHistoryEntry,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type NavigationInterceptOptions = {
@@ -1651,6 +1937,7 @@ type NavigationInterceptOptions = {
 type NavigationNavigateOptions = {
   state: any,
   history: NavigationHistoryBehavior,
+  info: any,
 };
 
 type NavigationOptions = {
@@ -1659,6 +1946,7 @@ type NavigationOptions = {
 
 type NavigationReloadOptions = {
   state: any,
+  info: any,
 };
 
 type NavigationResult = {
@@ -1698,17 +1986,37 @@ type NotificationOptions = {
   actions: Array<NotificationAction>,
 };
 
+type OptionalEffectTiming = {
+  delay: number,
+  endDelay: number,
+  fill: FillMode,
+  iterationStart: number,
+  iterations: number,
+  duration: number | string,
+  direction: PlaybackDirection,
+  easing: string,
+};
+
 type PageRevealEventInit = {
   viewTransition: ViewTransition | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type PageSwapEventInit = {
   activation: NavigationActivation | null,
   viewTransition: ViewTransition | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type PageTransitionEventInit = {
   persisted: boolean,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type PlaneLayout = {
@@ -1719,17 +2027,26 @@ type PlaneLayout = {
 type PopStateEventInit = {
   state: any,
   hasUAVisualTransition: boolean,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type ProgressEventInit = {
   lengthComputable: boolean,
   loaded: number,
   total: number,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type PromiseRejectionEventInit = {
   promise: Object,
   reason: any,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type QueuingStrategy = {
@@ -1814,6 +2131,9 @@ type StorageEventInit = {
   newValue: string | null,
   url: string,
   storageArea: Storage | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type StreamPipeOptions = {
@@ -1829,6 +2149,9 @@ type StructuredSerializeOptions = {
 
 type SubmitEventInit = {
   submitter: HTMLElement | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type SvcOutputMetadata = {
@@ -1859,14 +2182,21 @@ type TextEncoderEncodeIntoResult = {
 type ToggleEventInit = {
   oldState: string,
   newState: string,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type TogglePopoverOptions = {
   force: boolean,
+  source: HTMLElement,
 };
 
 type TrackEventInit = {
   track: VideoTrack | AudioTrack | TextTrack | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type Transformer = {
@@ -1888,6 +2218,9 @@ type UIEventInit = {
   view: Window | null,
   detail: number,
   which: number,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type ULongRange = {
@@ -2070,6 +2403,9 @@ type WebGLContextAttributes = {
 
 type WebGLContextEventInit = {
   statusMessage: string,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type WheelEventInit = {
@@ -2077,10 +2413,32 @@ type WheelEventInit = {
   deltaY: number,
   deltaZ: number,
   deltaMode: number,
+  screenX: number,
+  screenY: number,
+  clientX: number,
+  clientY: number,
+  button: number,
+  buttons: number,
+  relatedTarget: EventTarget | null,
+  ctrlKey: boolean,
+  shiftKey: boolean,
+  altKey: boolean,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
 };
 
 type WindowPostMessageOptions = {
   targetOrigin: string,
+  transfer: Array<Object>,
 };
 
 type WorkerOptions = {
@@ -2253,6 +2611,54 @@ declare class AbstractRange {
   +endOffset: number;
   +startContainer: Node;
   +startOffset: number;
+}
+
+declare class Animation extends EventTarget {
+  currentTime: number | null;
+  effect: AnimationEffect | null;
+  +finished: Animation;
+  id: string;
+  oncancel: EventHandler;
+  onfinish: EventHandler;
+  onremove: EventHandler;
+  +pending: boolean;
+  playbackRate: number;
+  +playState: AnimationPlayState;
+  +ready: Animation;
+  +replaceState: AnimationReplaceState;
+  startTime: number | null;
+  timeline: AnimationTimeline | null;
+
+  constructor(
+    effect?: AnimationEffect | null,
+    timeline?: AnimationTimeline | null,
+  ): void;
+
+  cancel(): void;
+  commitStyles(): void;
+  finish(): void;
+  pause(): void;
+  persist(): void;
+  play(): void;
+  reverse(): void;
+  updatePlaybackRate(playbackRate: number): void;
+}
+
+declare class AnimationEffect {
+  getComputedTiming(): ComputedEffectTiming;
+  getTiming(): EffectTiming;
+  updateTiming(timing?: OptionalEffectTiming): void;
+}
+
+declare class AnimationPlaybackEvent extends Event {
+  +currentTime: number | null;
+  +timelineTime: number | null;
+
+  constructor(type: string, eventInitDict?: AnimationPlaybackEventInit): void;
+}
+
+declare class AnimationTimeline {
+  +currentTime: number | null;
 }
 
 declare class Attr extends Node {
@@ -2688,6 +3094,7 @@ declare class Document
   +referrer: string;
   +rootElement: SVGSVGElement | null;
   +scripts: HTMLCollection;
+  +timeline: DocumentTimeline;
   title: string;
   +URL: string;
   +visibilityState: DocumentVisibilityState;
@@ -2761,6 +3168,10 @@ declare class DocumentFragment
   mixins mixin$NonElementParentNode, mixin$ParentNode
 {
   constructor(): void;
+}
+
+declare class DocumentTimeline extends AnimationTimeline {
+  constructor(options?: DocumentTimelineOptions): void;
 }
 
 declare class DocumentType extends Node mixins mixin$ChildNode {
@@ -3052,7 +3463,8 @@ declare class Element
     mixin$ParentNode,
     mixin$NonDocumentTypeChildNode,
     mixin$ChildNode,
-    mixin$Slottable
+    mixin$Slottable,
+    mixin$Animatable
 {
   +attributes: NamedNodeMap;
   +classList: DOMTokenList;
@@ -4848,6 +5260,22 @@ declare class KeyboardEvent extends UIEvent {
   ): void;
 }
 
+declare class KeyframeEffect extends AnimationEffect {
+  composite: CompositeOperation;
+  pseudoElement: string | null;
+  target: Element | null;
+
+  constructor(
+    target: Element | null,
+    keyframes: Object | null,
+    options?: number | KeyframeEffectOptions,
+  ): void;
+  constructor(source: KeyframeEffect): void;
+
+  getKeyframes(): Array<Object>;
+  setKeyframes(keyframes: Object | null): void;
+}
+
 declare class Location {
   +ancestorOrigins: DOMStringList;
   hash: string;
@@ -5831,10 +6259,7 @@ interface SVGAnimateTransformElement extends SVGAnimationElement {}
 
 declare class SVGAnimationElement
   extends SVGElement
-  mixins
-    mixin$SVGTests,
-    mixin$SVGExternalResourcesRequired,
-    mixin$ElementTimeControl
+  mixins mixin$SVGTests, mixin$SVGExternalResourcesRequired
 {
   +targetElement: SVGElement;
 
@@ -8192,6 +8617,14 @@ declare class XSLTProcessor {
   onerror: EventHandler;
 }
 
+/* mixin */ declare class mixin$Animatable {
+  animate(
+    keyframes: Object | null,
+    options?: number | KeyframeAnimationOptions,
+  ): Animation;
+  getAnimations(options?: GetAnimationsOptions): Array<Animation>;
+}
+
 /* mixin */ declare class mixin$AnimationFrameProvider {
   cancelAnimationFrame(handle: number): void;
   requestAnimationFrame(callback: FrameRequestCallback): number;
@@ -8449,19 +8882,13 @@ declare class XSLTProcessor {
   replaceWith(nodes: Node | string): void;
 }
 
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  adoptedStyleSheets: CSSStyleSheet;
-  +styleSheets: StyleSheetList;
-}
-
-/* mixin */ declare class mixin$DocumentOrShadowRoot {}
-
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  +fullscreenElement: Element | null;
-}
-
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
+/* mixin */ declare class mixin$DocumentOrShadowRoot {
   +activeElement: Element | null;
+  adoptedStyleSheets: CSSStyleSheet;
+  +fullscreenElement: Element | null;
+  +styleSheets: StyleSheetList;
+
+  getAnimations(): Array<Animation>;
 }
 
 /* mixin */ declare class mixin$ElementContentEditable {
@@ -8682,16 +9109,13 @@ declare class XSLTProcessor {
   +appCodeName: string;
   +appName: string;
   +appVersion: string;
+  +oscpu: string;
   +platform: string;
   +product: string;
   +productSub: string;
   +userAgent: string;
   +vendor: string;
   +vendorSub: string;
-}
-
-/* partial mixin */ declare class mixin$NavigatorID {
-  +oscpu: string;
 
   taintEnabled(): boolean;
 }
@@ -9957,18 +10381,12 @@ declare class XSLTProcessor {
   +localStorage: Storage;
 }
 
-/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
-  fetch(input: RequestInfo, init?: RequestInit): Response;
-}
-
-/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
-  +performance: Performance;
-}
-
 /* mixin */ declare class mixin$WindowOrWorkerGlobalScope {
   +crossOriginIsolated: boolean;
   +isSecureContext: boolean;
   +origin: string;
+  +performance: Performance;
+  +trustedTypes: TrustedTypePolicyFactory;
 
   atob(data: string): string;
   btoa(data: string): string;
@@ -9986,15 +10404,12 @@ declare class XSLTProcessor {
     sh: number,
     options?: ImageBitmapOptions,
   ): ImageBitmap;
+  fetch(input: RequestInfo, init?: RequestInit): Response;
   queueMicrotask(callback: VoidFunction): void;
   reportError(e: any): void;
   setInterval(handler: TimerHandler, timeout?: number, arguments_: any): number;
   setTimeout(handler: TimerHandler, timeout?: number, arguments_: any): number;
   structuredClone(value: any, options?: StructuredSerializeOptions): any;
-}
-
-/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
-  +trustedTypes: TrustedTypePolicyFactory;
 }
 
 /* mixin */ declare class mixin$WindowSessionStorage {

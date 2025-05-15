@@ -148,7 +148,3 @@ declare class Response mixins mixin$Body {
   json(): any;
   text(): string;
 }
-
-/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
-  fetch(input: RequestInfo, init?: RequestInit): Response;
-}

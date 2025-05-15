@@ -27,7 +27,6 @@ interface SVGAnimationElement : SVGElement {
 
 SVGAnimationElement includes SVGTests;
 SVGAnimationElement includes SVGExternalResourcesRequired;
-SVGAnimationElement includes ElementTimeControl;
 
 [Exposed=Window]
 interface SVGAnimateElement : SVGAnimationElement {

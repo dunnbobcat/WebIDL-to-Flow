@@ -19,10 +19,7 @@ interface SVGAnimateTransformElement extends SVGAnimationElement {}
 
 declare class SVGAnimationElement
   extends SVGElement
-  mixins
-    mixin$SVGTests,
-    mixin$SVGExternalResourcesRequired,
-    mixin$ElementTimeControl
+  mixins mixin$SVGTests, mixin$SVGExternalResourcesRequired
 {
   +targetElement: SVGElement;
 

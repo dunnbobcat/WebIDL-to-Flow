@@ -33,6 +33,8 @@ type ConstrainDOMStringParameters = {
 type ConstrainDoubleRange = {
   exact: number,
   ideal: number,
+  max: number,
+  min: number,
 };
 
 type Constraints = {
@@ -44,6 +46,8 @@ type ConstraintSet = {};
 type ConstrainULongRange = {
   exact: number,
   ideal: number,
+  max: number,
+  min: number,
 };
 
 type DeviceChangeEventInit = {
@@ -85,6 +89,22 @@ type MediaTrackCapabilities = {
 
 type MediaTrackConstraints = {
   advanced: Array<MediaTrackConstraintSet>,
+  width: ConstrainULong,
+  height: ConstrainULong,
+  aspectRatio: ConstrainDouble,
+  frameRate: ConstrainDouble,
+  facingMode: ConstrainDOMString,
+  resizeMode: ConstrainDOMString,
+  sampleRate: ConstrainULong,
+  sampleSize: ConstrainULong,
+  echoCancellation: ConstrainBoolean,
+  autoGainControl: ConstrainBoolean,
+  noiseSuppression: ConstrainBoolean,
+  latency: ConstrainDouble,
+  channelCount: ConstrainULong,
+  deviceId: ConstrainDOMString,
+  groupId: ConstrainDOMString,
+  backgroundBlur: ConstrainBoolean,
 };
 
 type MediaTrackConstraintSet = {

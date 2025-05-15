@@ -6,10 +6,14 @@ type AddEventListenerOptions = {
   passive: boolean,
   once: boolean,
   signal: AbortSignal,
+  capture: boolean,
 };
 
 type CustomEventInit = {
   detail: any,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 type ElementCreationOptions = {

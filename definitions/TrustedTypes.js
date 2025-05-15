@@ -62,7 +62,3 @@ declare class TrustedTypePolicyFactory {
   isScript(value: any): boolean;
   isScriptURL(value: any): boolean;
 }
-
-/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
-  +trustedTypes: TrustedTypePolicyFactory;
-}

@@ -8,7 +8,3 @@ declare class Performance extends EventTarget {
   now(): number;
   toJSON(): Object;
 }
-
-/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
-  +performance: Performance;
-}

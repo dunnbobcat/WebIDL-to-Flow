@@ -1,5 +1,8 @@
 type CompositionEventInit = {
   data: string,
+  view: Window | null,
+  detail: number,
+  which: number,
 };
 
 type EventModifierInit = {
@@ -17,16 +20,25 @@ type EventModifierInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  view: Window | null,
+  detail: number,
+  which: number,
 };
 
 type FocusEventInit = {
   relatedTarget: EventTarget | null,
+  view: Window | null,
+  detail: number,
+  which: number,
 };
 
 type InputEventInit = {
   data: string | null,
   isComposing: boolean,
   inputType: string,
+  view: Window | null,
+  detail: number,
+  which: number,
 };
 
 type KeyboardEventInit = {
@@ -37,6 +49,23 @@ type KeyboardEventInit = {
   isComposing: boolean,
   charCode: number,
   keyCode: number,
+  ctrlKey: boolean,
+  shiftKey: boolean,
+  altKey: boolean,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
+  view: Window | null,
+  detail: number,
+  which: number,
 };
 
 type MouseEventInit = {
@@ -47,6 +76,20 @@ type MouseEventInit = {
   button: number,
   buttons: number,
   relatedTarget: EventTarget | null,
+  ctrlKey: boolean,
+  shiftKey: boolean,
+  altKey: boolean,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
 };
 
 type UIEventInit = {
@@ -60,6 +103,27 @@ type WheelEventInit = {
   deltaY: number,
   deltaZ: number,
   deltaMode: number,
+  screenX: number,
+  screenY: number,
+  clientX: number,
+  clientY: number,
+  button: number,
+  buttons: number,
+  relatedTarget: EventTarget | null,
+  ctrlKey: boolean,
+  shiftKey: boolean,
+  altKey: boolean,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
 };
 
 declare class CompositionEvent extends UIEvent {

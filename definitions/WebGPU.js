@@ -338,6 +338,7 @@ type GPUVertexStepMode = 'vertex' | 'instance';
 type GPUBindGroupDescriptor = {
   layout: GPUBindGroupLayout,
   entries: Array<GPUBindGroupEntry>,
+  label: string,
 };
 
 type GPUBindGroupEntry = {
@@ -347,6 +348,7 @@ type GPUBindGroupEntry = {
 
 type GPUBindGroupLayoutDescriptor = {
   entries: Array<GPUBindGroupLayoutEntry>,
+  label: string,
 };
 
 type GPUBindGroupLayoutEntry = {
@@ -386,6 +388,7 @@ type GPUBufferDescriptor = {
   size: GPUSize64,
   usage: GPUBufferUsageFlags,
   mappedAtCreation: boolean,
+  label: string,
 };
 
 type GPUCanvasConfiguration = {
@@ -415,12 +418,17 @@ type GPUColorTargetState = {
   writeMask: GPUColorWriteFlags,
 };
 
-type GPUCommandBufferDescriptor = {};
+type GPUCommandBufferDescriptor = {
+  label: string,
+};
 
-type GPUCommandEncoderDescriptor = {};
+type GPUCommandEncoderDescriptor = {
+  label: string,
+};
 
 type GPUComputePassDescriptor = {
   timestampWrites: GPUComputePassTimestampWrites,
+  label: string,
 };
 
 type GPUComputePassTimestampWrites = {
@@ -431,11 +439,17 @@ type GPUComputePassTimestampWrites = {
 
 type GPUComputePipelineDescriptor = {
   compute: GPUProgrammableStage,
+  layout: GPUPipelineLayout | GPUAutoLayoutMode,
+  label: string,
 };
 
 type GPUCopyExternalImageDestInfo = {
   colorSpace: PredefinedColorSpace,
   premultipliedAlpha: boolean,
+  texture: GPUTexture,
+  mipLevel: GPUIntegerCoordinate,
+  origin: GPUOrigin3D,
+  aspect: GPUTextureAspect,
 };
 
 type GPUCopyExternalImageSourceInfo = {
@@ -461,6 +475,7 @@ type GPUDeviceDescriptor = {
   requiredFeatures: Array<GPUFeatureName>,
   requiredLimits: string | GPUSize64 | void,
   defaultQueue: GPUQueueDescriptor,
+  label: string,
 };
 
 type GPUExtent3DDict = {
@@ -474,10 +489,14 @@ type GPUExternalTextureBindingLayout = {};
 type GPUExternalTextureDescriptor = {
   source: HTMLVideoElement | VideoFrame,
   colorSpace: PredefinedColorSpace,
+  label: string,
 };
 
 type GPUFragmentState = {
   targets: Array<GPUColorTargetState | null>,
+  module: GPUShaderModule,
+  entryPoint: string,
+  constants: string | GPUPipelineConstantValue,
 };
 
 type GPUMultisampleState = {
@@ -503,6 +522,7 @@ type GPUOrigin3DDict = {
 
 type GPUPipelineDescriptorBase = {
   layout: GPUPipelineLayout | GPUAutoLayoutMode,
+  label: string,
 };
 
 type GPUPipelineErrorInit = {
@@ -511,6 +531,7 @@ type GPUPipelineErrorInit = {
 
 type GPUPipelineLayoutDescriptor = {
   bindGroupLayouts: Array<GPUBindGroupLayout | null>,
+  label: string,
 };
 
 type GPUPrimitiveState = {
@@ -530,15 +551,24 @@ type GPUProgrammableStage = {
 type GPUQuerySetDescriptor = {
   type: GPUQueryType,
   count: GPUSize32,
+  label: string,
 };
 
-type GPUQueueDescriptor = {};
+type GPUQueueDescriptor = {
+  label: string,
+};
 
-type GPURenderBundleDescriptor = {};
+type GPURenderBundleDescriptor = {
+  label: string,
+};
 
 type GPURenderBundleEncoderDescriptor = {
   depthReadOnly: boolean,
   stencilReadOnly: boolean,
+  colorFormats: Array<GPUTextureFormat | null>,
+  depthStencilFormat: GPUTextureFormat,
+  sampleCount: GPUSize32,
+  label: string,
 };
 
 type GPURenderPassColorAttachment = {
@@ -568,12 +598,14 @@ type GPURenderPassDescriptor = {
   occlusionQuerySet: GPUQuerySet,
   timestampWrites: GPURenderPassTimestampWrites,
   maxDrawCount: GPUSize64,
+  label: string,
 };
 
 type GPURenderPassLayout = {
   colorFormats: Array<GPUTextureFormat | null>,
   depthStencilFormat: GPUTextureFormat,
   sampleCount: GPUSize32,
+  label: string,
 };
 
 type GPURenderPassTimestampWrites = {
@@ -588,6 +620,8 @@ type GPURenderPipelineDescriptor = {
   depthStencil: GPUDepthStencilState,
   multisample: GPUMultisampleState,
   fragment: GPUFragmentState,
+  layout: GPUPipelineLayout | GPUAutoLayoutMode,
+  label: string,
 };
 
 type GPURequestAdapterOptions = {
@@ -612,6 +646,7 @@ type GPUSamplerDescriptor = {
   lodMaxClamp: number,
   compare: GPUCompareFunction,
   maxAnisotropy: number,
+  label: string,
 };
 
 type GPUShaderModuleCompilationHint = {
@@ -622,6 +657,7 @@ type GPUShaderModuleCompilationHint = {
 type GPUShaderModuleDescriptor = {
   code: string,
   compilationHints: Array<GPUShaderModuleCompilationHint>,
+  label: string,
 };
 
 type GPUStencilFaceState = {
@@ -639,6 +675,9 @@ type GPUStorageTextureBindingLayout = {
 
 type GPUTexelCopyBufferInfo = {
   buffer: GPUBuffer,
+  offset: GPUSize64,
+  bytesPerRow: GPUSize32,
+  rowsPerImage: GPUSize32,
 };
 
 type GPUTexelCopyBufferLayout = {
@@ -668,6 +707,7 @@ type GPUTextureDescriptor = {
   format: GPUTextureFormat,
   usage: GPUTextureUsageFlags,
   viewFormats: Array<GPUTextureFormat>,
+  label: string,
 };
 
 type GPUTextureViewDescriptor = {
@@ -679,6 +719,7 @@ type GPUTextureViewDescriptor = {
   mipLevelCount: GPUIntegerCoordinate,
   baseArrayLayer: GPUIntegerCoordinate,
   arrayLayerCount: GPUIntegerCoordinate,
+  label: string,
 };
 
 type GPUUncapturedErrorEventInit = {
@@ -699,6 +740,9 @@ type GPUVertexBufferLayout = {
 
 type GPUVertexState = {
   buffers: Array<GPUVertexBufferLayout | null>,
+  module: GPUShaderModule,
+  entryPoint: string,
+  constants: string | GPUPipelineConstantValue,
 };
 
 declare class GPU {

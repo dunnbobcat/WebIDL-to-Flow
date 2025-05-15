@@ -112,11 +112,6 @@ declare class StyleSheetList {
   item(index: number): CSSStyleSheet | null;
 }
 
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  adoptedStyleSheets: CSSStyleSheet;
-  +styleSheets: StyleSheetList;
-}
-
 /* mixin */ declare class mixin$ElementCSSInlineStyle {
   +style: CSSStyleDeclaration;
 }

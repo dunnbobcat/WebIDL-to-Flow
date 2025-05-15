@@ -163,6 +163,7 @@ async function main(): Promise<void> {
           'URL',
           'URLPattern',
           'Vibration',
+          'WebAnimations',
           'WebCodecs',
           'WebGL',
           'WebGL2',
