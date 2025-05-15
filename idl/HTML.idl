@@ -1875,6 +1875,8 @@ interface Window : EventTarget {
 Window includes GlobalEventHandlers;
 Window includes WindowEventHandlers;
 
+interface WindowProxy : Window {};
+
 dictionary WindowPostMessageOptions : StructuredSerializeOptions {
   USVString targetOrigin = "/";
 };

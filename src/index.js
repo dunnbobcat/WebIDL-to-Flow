@@ -157,6 +157,7 @@ async function main(): Promise<void> {
           'Streams',
           'SVG',
           'SVGAnimation',
+          'TrustedTypes',
           'URL',
           'URLPattern',
           'Vibration',

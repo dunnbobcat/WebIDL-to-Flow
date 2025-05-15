@@ -2417,6 +2417,8 @@ declare class Window
   releaseEvents(): void;
 }
 
+interface WindowProxy extends Window {}
+
 declare class Worker
   extends EventTarget
   mixins mixin$AbstractWorker, mixin$MessageEventTarget
