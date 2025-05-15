@@ -8,9 +8,7 @@ type BlobPropertyBag = {
 };
 
 type FilePropertyBag = {
-  endings: EndingType,
   lastModified: number,
-  type: string,
 };
 
 declare class Blob {
@@ -74,4 +72,9 @@ declare class FileReaderSync {
   readAsBinaryString(blob: Blob): string;
   readAsDataURL(blob: Blob): string;
   readAsText(blob: Blob, encoding?: string): string;
+}
+
+/* partial */ declare class URL {
+  static createObjectURL(obj: Blob | MediaSource): string;
+  static revokeObjectURL(url: string): void;
 }

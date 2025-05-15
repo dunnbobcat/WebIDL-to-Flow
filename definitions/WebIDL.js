@@ -20,6 +20,8 @@ type ArrayBufferView =
 
 type BufferSource = ArrayBufferView | ArrayBuffer;
 
+type Function = (arguments_: any) => any;
+
 type VoidFunction = () => void;
 
 declare class DOMException {

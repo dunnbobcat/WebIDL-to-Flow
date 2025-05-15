@@ -5,13 +5,19 @@ type SVGBoundingBoxOptions = {
   stroke: boolean,
 };
 
+/* partial */ interface Document {
+  +rootElement: SVGSVGElement | null;
+}
+
 declare class ShadowAnimation extends Animation {
   +sourceAnimation: Animation;
+
+  constructor(source: Animation, newTarget: Element | CSSPseudoElement): void;
 }
 
 declare class SVGAElement
   extends SVGGraphicsElement
-  mixins mixin$SVGURIReference, mixin$HTMLHyperlinkElementUtils
+  mixins mixin$SVGURIReference
 {
   download: string;
   hreflang: string;
@@ -22,6 +28,19 @@ declare class SVGAElement
   +target: SVGAnimatedString;
   text: string;
   type: string;
+}
+
+/* partial */ declare class SVGAElement mixins mixin$SVGURIReference {
+  hash: string;
+  host: string;
+  hostname: string;
+  +origin: string;
+  password: string;
+  pathname: string;
+  port: string;
+  protocol: string;
+  search: string;
+  username: string;
 }
 
 declare class SVGAngle {
@@ -114,7 +133,6 @@ declare class SVGElement
   extends Element
   mixins
     mixin$GlobalEventHandlers,
-    mixin$DocumentAndElementEventHandlers,
     mixin$SVGElementInstance,
     mixin$HTMLOrSVGElement
 {
@@ -273,8 +291,6 @@ declare class SVGNumberList {
   (index: number, newItem: SVGNumber): void;
 }
 
-declare class SVGPathElement extends SVGGeometryElement {}
-
 declare class SVGPatternElement
   extends SVGElement
   mixins mixin$SVGFitToViewBox, mixin$SVGURIReference
@@ -379,12 +395,8 @@ declare class SVGStyleElement extends SVGElement mixins mixin$LinkStyle {
 
 declare class SVGSVGElement
   extends SVGGraphicsElement
-  mixins mixin$SVGFitToViewBox, mixin$SVGZoomAndPan, mixin$WindowEventHandlers
+  mixins mixin$SVGFitToViewBox, mixin$WindowEventHandlers
 {
-  static +SVG_ZOOMANDPAN_DISABLE: 1;
-  static +SVG_ZOOMANDPAN_MAGNIFY: 2;
-  static +SVG_ZOOMANDPAN_UNKNOWN: 0;
-
   currentScale: number;
   +currentTranslate: DOMPointReadOnly;
   +height: SVGAnimatedLength;
@@ -401,7 +413,7 @@ declare class SVGSVGElement
   createSVGPoint(): DOMPoint;
   createSVGRect(): DOMRect;
   createSVGTransform(): SVGTransform;
-  createSVGTransformFromMatrix(matrix: DOMMatrixReadOnly): SVGTransform;
+  createSVGTransformFromMatrix(matrix?: DOMMatrix2DInit): SVGTransform;
   deselectAll(): void;
   forceRedraw(): void;
   getElementById(elementId: string): Element;
@@ -484,7 +496,7 @@ declare class SVGTransform {
   +matrix: DOMMatrix;
   +type: number;
 
-  setMatrix(matrix: DOMMatrixReadOnly): void;
+  setMatrix(matrix?: DOMMatrix2DInit): void;
   setRotate(angle: number, cx: number, cy: number): void;
   setScale(sx: number, sy: number): void;
   setSkewX(angle: number): void;
@@ -498,7 +510,7 @@ declare class SVGTransformList {
 
   appendItem(newItem: SVGTransform): SVGTransform;
   clear(): void;
-  createSVGTransformFromMatrix(matrix: DOMMatrixReadOnly): SVGTransform;
+  createSVGTransformFromMatrix(matrix?: DOMMatrix2DInit): SVGTransform;
   initialize(newItem: SVGTransform): SVGTransform;
   getItem(index: number): SVGTransform;
   consolidate(): SVGTransform | null;
@@ -516,8 +528,6 @@ declare class SVGUnitTypes {
   static +SVG_UNIT_TYPE_USERSPACEONUSE: 1;
 }
 
-declare class SVGUnknownElement extends SVGGraphicsElement {}
-
 declare class SVGUseElement
   extends SVGGraphicsElement
   mixins mixin$SVGURIReference
@@ -532,14 +542,7 @@ declare class SVGUseElement
 
 declare class SVGUseElementShadowRoot extends ShadowRoot {}
 
-declare class SVGViewElement
-  extends SVGElement
-  mixins mixin$SVGFitToViewBox, mixin$SVGZoomAndPan
-{
-  static +SVG_ZOOMANDPAN_DISABLE: 1;
-  static +SVG_ZOOMANDPAN_MAGNIFY: 2;
-  static +SVG_ZOOMANDPAN_UNKNOWN: 0;
-}
+declare class SVGViewElement extends SVGElement mixins mixin$SVGFitToViewBox {}
 
 declare class mixin$GetSVGDocument {
   getSVGDocument(): Document;
@@ -550,15 +553,9 @@ declare class mixin$SVGAnimatedPoints {
   +points: SVGPointList;
 }
 
-declare class mixin$SVGCSSRule {}
-
 declare class mixin$SVGElementInstance {
   +correspondingElement: SVGElement | null;
   +correspondingUseElement: SVGUseElement | null;
-}
-
-declare class mixin$SVGExternalResourcesRequired {
-  +externalResourcesRequired: SVGAnimatedBoolean;
 }
 
 declare class mixin$SVGFitToViewBox {
@@ -566,53 +563,11 @@ declare class mixin$SVGFitToViewBox {
   +viewBox: SVGAnimatedRect;
 }
 
-declare class mixin$SVGLangSpace {
-  xmllang: string;
-  xmlspace: string;
-}
-
-declare class mixin$SVGLocatable {
-  +farthestViewportElement: SVGElement;
-  +nearestViewportElement: SVGElement;
-
-  getBBox(): SVGRect;
-  getCTM(): SVGMatrix;
-  getScreenCTM(): SVGMatrix;
-  getTransformToElement(element: SVGElement): SVGMatrix;
-}
-
-declare class mixin$SVGStylable {
-  +className: SVGAnimatedString;
-  +style: CSSStyleDeclaration;
-
-  getPresentationAttribute(name: string): CSSValue;
-}
-
 declare class mixin$SVGTests {
   +requiredExtensions: SVGStringList;
-  +requiredFeatures: SVGStringList;
   +systemLanguage: SVGStringList;
-
-  hasExtension(extension: string): boolean;
-}
-
-declare class mixin$SVGTransformable {
-  +transform: SVGAnimatedTransformList;
 }
 
 declare class mixin$SVGURIReference {
   +href: SVGAnimatedString;
-}
-
-declare class mixin$SVGViewSpec {
-  +preserveAspectRatioString: string;
-  +transform: SVGTransformList;
-  +transformString: string;
-  +viewBoxString: string;
-  +viewTarget: SVGElement;
-  +viewTargetString: string;
-}
-
-declare class mixin$SVGZoomAndPan {
-  zoomAndPan: number;
 }

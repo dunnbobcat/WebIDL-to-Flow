@@ -14,27 +14,15 @@ type DOMMatrix2DInit = {
 };
 
 type DOMMatrixInit = {
-  a: number,
-  b: number,
-  c: number,
-  d: number,
-  e: number,
-  f: number,
   is2D: boolean,
-  m11: number,
-  m12: number,
   m13: number,
   m14: number,
-  m21: number,
-  m22: number,
   m23: number,
   m24: number,
   m31: number,
   m32: number,
   m33: number,
   m34: number,
-  m41: number,
-  m42: number,
   m43: number,
   m44: number,
 };
@@ -83,6 +71,8 @@ declare class DOMMatrix extends DOMMatrixReadOnly {
   m42: number;
   m43: number;
   m44: number;
+
+  constructor(init?: string | Array<number>): void;
 
   static fromFloat32Array(array32: Float32Array): DOMMatrix;
   static fromFloat64Array(array64: Float64Array): DOMMatrix;
@@ -144,6 +134,8 @@ declare class DOMMatrixReadOnly {
   +m43: number;
   +m44: number;
 
+  constructor(init?: string | Array<number>): void;
+
   static fromFloat32Array(array32: Float32Array): DOMMatrixReadOnly;
   static fromFloat64Array(array64: Float64Array): DOMMatrixReadOnly;
   static fromMatrix(other?: DOMMatrixInit): DOMMatrixReadOnly;
@@ -190,6 +182,8 @@ declare class DOMPoint extends DOMPointReadOnly {
   y: number;
   z: number;
 
+  constructor(x?: number, y?: number, z?: number, w?: number): void;
+
   static fromPoint(other?: DOMPointInit): DOMPoint;
 }
 
@@ -198,6 +192,8 @@ declare class DOMPointReadOnly {
   +x: number;
   +y: number;
   +z: number;
+
+  constructor(x?: number, y?: number, z?: number, w?: number): void;
 
   static fromPoint(other?: DOMPointInit): DOMPointReadOnly;
   matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
@@ -209,6 +205,13 @@ declare class DOMQuad {
   +p2: DOMPoint;
   +p3: DOMPoint;
   +p4: DOMPoint;
+
+  constructor(
+    p1?: DOMPointInit,
+    p2?: DOMPointInit,
+    p3?: DOMPointInit,
+    p4?: DOMPointInit,
+  ): void;
 
   static fromQuad(other?: DOMQuadInit): DOMQuad;
   static fromRect(other?: DOMRectInit): DOMQuad;
@@ -222,10 +225,12 @@ declare class DOMRect extends DOMRectReadOnly {
   x: number;
   y: number;
 
+  constructor(x?: number, y?: number, width?: number, height?: number): void;
+
   static fromRect(other?: DOMRectInit): DOMRect;
 }
 
-interface DOMRectList {
+declare class DOMRectList {
   +length: number;
 
   item(index: number): DOMRect | null;
@@ -240,6 +245,8 @@ declare class DOMRectReadOnly {
   +width: number;
   +x: number;
   +y: number;
+
+  constructor(x?: number, y?: number, width?: number, height?: number): void;
 
   static fromRect(other?: DOMRectInit): DOMRectReadOnly;
   toJSON(): Object;

@@ -1,0 +1,104 @@
+type FontFaceLoadStatus = 'unloaded' | 'loading' | 'loaded' | 'error';
+
+type FontFaceSetLoadStatus = 'loading' | 'loaded';
+
+type FontFaceDescriptors = {
+  ascentOverride: string,
+  descentOverride: string,
+  display: string,
+  featureSettings: string,
+  lineGapOverride: string,
+  stretch: string,
+  style: string,
+  unicodeRange: string,
+  variationSettings: string,
+  weight: string,
+};
+
+type FontFaceSetLoadEventInit = {
+  fontfaces: Array<FontFace>,
+};
+
+declare class FontFace {
+  ascentOverride: string;
+  descentOverride: string;
+  display: string;
+  family: string;
+  featureSettings: string;
+  lineGapOverride: string;
+  +loaded: FontFace;
+  +status: FontFaceLoadStatus;
+  stretch: string;
+  style: string;
+  unicodeRange: string;
+  variationSettings: string;
+  weight: string;
+
+  constructor(
+    family: string,
+    source: string | BufferSource,
+    descriptors?: FontFaceDescriptors,
+  ): void;
+
+  load(): FontFace;
+}
+
+/* partial */ interface FontFace {
+  +features: FontFaceFeatures;
+  +palettes: FontFacePalettes;
+  +variations: FontFaceVariations;
+}
+
+declare class FontFaceFeatures {}
+
+declare class FontFacePalette {
+  +length: number;
+  +usableWithDarkBackground: boolean;
+  +usableWithLightBackground: boolean;
+
+  @@iterator(): Iterator<string>;
+
+  (index: number): string;
+}
+
+declare class FontFacePalettes {
+  +length: number;
+
+  @@iterator(): Iterator<FontFacePalette>;
+
+  (index: number): FontFacePalette;
+}
+
+declare class FontFaceSet extends EventTarget {
+  onloading: EventHandler;
+  onloadingdone: EventHandler;
+  onloadingerror: EventHandler;
+  +ready: FontFaceSet;
+  +status: FontFaceSetLoadStatus;
+
+  add(font: FontFace): FontFaceSet;
+  check(font: string, text?: string): boolean;
+  clear(): void;
+  delete(font: FontFace): boolean;
+  load(font: string, text?: string): Array<FontFace>;
+}
+
+declare class FontFaceSetLoadEvent extends Event {
+  +fontfaces: FontFace;
+
+  constructor(type: string, eventInitDict?: FontFaceSetLoadEventInit): void;
+}
+
+declare class FontFaceVariationAxis {
+  +axisTag: string;
+  +defaultValue: number;
+  +maximumValue: number;
+  +minimumValue: number;
+  +name: string;
+}
+
+type FontFaceVariations = Set<FontFaceVariationAxis>;
+
+declare class mixin$FontFaceSource {
+  +fonts: FontFaceSet;
+}

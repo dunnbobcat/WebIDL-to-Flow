@@ -1,0 +1,6 @@
+declare class WEBGL_compressed_texture_pvrtc {
+  static +COMPRESSED_RGB_PVRTC_2BPPV1_IMG: 0x8c01;
+  static +COMPRESSED_RGB_PVRTC_4BPPV1_IMG: 0x8c00;
+  static +COMPRESSED_RGBA_PVRTC_2BPPV1_IMG: 0x8c03;
+  static +COMPRESSED_RGBA_PVRTC_4BPPV1_IMG: 0x8c02;
+}

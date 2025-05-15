@@ -10,6 +10,7 @@ import {convertIDLToLibrary} from './converter.js';
 import {coalesceIDLs} from './coalesce.js';
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
+import idl from '@webref/idl';
 
 const __dirname = dirname(
   // $FlowExpectedError
@@ -48,23 +49,28 @@ async function createOutputDirectory(outputDir: ?string): Promise<string> {
 async function generateFlowDefinitions(outputDir: ?string): Promise<void> {
   const dir = await createOutputDirectory(outputDir);
 
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    terminal: false,
-  });
+  // const rl = readline.createInterface({
+  //   input: process.stdin,
+  //   output: process.stdout,
+  //   terminal: false,
+  // });
 
-  for await (const file of rl) {
+  const parsedFiles = await idl.parseAll();
+  for (const [shortname, ast] of Object.entries(parsedFiles)) {
+    //   // do something with the ast
+    // }
+
+    // for await (const file of rl) {
     try {
-      process.stdout.write(`Converting IDL file: ${file}...\n`);
-      const idl = await parseIDLFile(file);
-      const combinedIDL = await coalesceIDLs([idl]);
-      const lib = await convertIDLToLibrary(combinedIDL);
-      const name = path.basename(file, '.idl');
+      process.stdout.write(`Converting IDL file: ${shortname}...\n`);
+      // const idl = await parseIDLFile(file);
+      // const combinedIDL = await coalesceIDLs([ast]);
+      const lib = await convertIDLToLibrary(ast);
+      const name = path.basename(shortname, '.idl');
       await fs.promises.writeFile(`${dir}/${name}.js`, lib);
     } catch (e) {
       process.stderr.write(
-        `Failed to parse ${file}:\n${e.message}\n\n${e.stack}\n`,
+        `Failed to parse ${shortname}:\n${e.message}\n\n${e.stack}\n`,
       );
       continue;
     }

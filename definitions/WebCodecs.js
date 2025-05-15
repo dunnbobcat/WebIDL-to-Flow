@@ -12,8 +12,6 @@ type AudioSampleFormat =
   | 's32-planar'
   | 'f32-planar';
 
-type BitrateMode = 'constant' | 'variable';
-
 type CodecState = 'unconfigured' | 'configured' | 'closed';
 
 type EncodedAudioChunkType = 'key' | 'delta';

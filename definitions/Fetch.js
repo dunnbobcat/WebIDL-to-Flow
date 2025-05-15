@@ -148,3 +148,7 @@ declare class mixin$Body {
   json(): any;
   text(): string;
 }
+
+/* partial */ declare class mixin$WindowOrWorkerGlobalScope {
+  fetch(input: RequestInfo, init?: RequestInit): Response;
+}

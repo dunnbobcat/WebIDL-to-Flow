@@ -75,3 +75,13 @@ declare class NotificationEvent extends ExtendableEvent {
 
   constructor(type: string, eventInitDict: NotificationEventInit): void;
 }
+
+/* partial */ interface ServiceWorkerGlobalScope {
+  onnotificationclick: EventHandler;
+  onnotificationclose: EventHandler;
+}
+
+/* partial */ interface ServiceWorkerRegistration {
+  getNotifications(filter?: GetNotificationOptions): Array<Notification>;
+  showNotification(title: string, options?: NotificationOptions): void;
+}

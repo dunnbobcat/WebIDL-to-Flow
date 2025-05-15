@@ -3,20 +3,17 @@ type ShadowRootMode = 'open' | 'closed';
 type SlotAssignmentMode = 'manual' | 'named';
 
 type AddEventListenerOptions = {
-  capture: boolean,
   once: boolean,
   passive: boolean,
   signal: AbortSignal,
 };
 
 type CustomEventInit = {
-  bubbles: boolean,
-  cancelable: boolean,
-  composed: boolean,
   detail: any,
 };
 
 type ElementCreationOptions = {
+  customElementRegistry: CustomElementRegistry,
   is: string,
 };
 
@@ -34,6 +31,11 @@ type GetRootNodeOptions = {
   composed: boolean,
 };
 
+type ImportNodeOptions = {
+  customElementRegistry: CustomElementRegistry,
+  selfOnly: boolean,
+};
+
 type MutationObserverInit = {
   attributeFilter: Array<string>,
   attributeOldValue: boolean,
@@ -46,6 +48,7 @@ type MutationObserverInit = {
 
 type ShadowRootInit = {
   clonable: boolean,
+  customElementRegistry: CustomElementRegistry,
   delegatesFocus: boolean,
   mode: ShadowRootMode,
   serializable: boolean,
@@ -222,7 +225,7 @@ declare class Document
     namespace: string | null,
     localName: string,
   ): HTMLCollection;
-  importNode(node: Node, subtree?: boolean): Node;
+  importNode(node: Node, options?: boolean | ImportNodeOptions): Node;
 }
 
 declare class DocumentFragment
@@ -279,6 +282,7 @@ declare class Element
   +attributes: NamedNodeMap;
   +classList: DOMTokenList;
   className: string;
+  +customElementRegistry: CustomElementRegistry | null;
   id: string;
   +localName: string;
   +namespaceURI: string | null;
@@ -554,6 +558,10 @@ declare class TreeWalker {
   previousSibling(): Node | null;
 }
 
+/* partial */ interface Window {
+  +event: Event | void;
+}
+
 declare class XMLDocument extends Document {}
 
 declare class XPathEvaluator mixins mixin$XPathEvaluatorBase {
@@ -612,7 +620,9 @@ declare class mixin$ChildNode {
   replaceWith(nodes: Node | string): void;
 }
 
-declare class mixin$DocumentOrShadowRoot {}
+declare class mixin$DocumentOrShadowRoot {
+  +customElementRegistry: CustomElementRegistry | null;
+}
 
 declare class mixin$NonDocumentTypeChildNode {
   +nextElementSibling: Element | null;
