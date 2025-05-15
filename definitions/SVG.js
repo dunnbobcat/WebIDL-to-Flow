@@ -541,37 +541,37 @@ declare class SVGViewElement
   static +SVG_ZOOMANDPAN_UNKNOWN: 0;
 }
 
-/* mixin */ declare class mixin$GetSVGDocument {
+declare class mixin$GetSVGDocument {
   getSVGDocument(): Document;
 }
 
-/* mixin */ declare class mixin$SVGAnimatedPoints {
+declare class mixin$SVGAnimatedPoints {
   +animatedPoints: SVGPointList;
   +points: SVGPointList;
 }
 
-/* mixin */ declare class mixin$SVGCSSRule {}
+declare class mixin$SVGCSSRule {}
 
-/* mixin */ declare class mixin$SVGElementInstance {
+declare class mixin$SVGElementInstance {
   +correspondingElement: SVGElement | null;
   +correspondingUseElement: SVGUseElement | null;
 }
 
-/* mixin */ declare class mixin$SVGExternalResourcesRequired {
+declare class mixin$SVGExternalResourcesRequired {
   +externalResourcesRequired: SVGAnimatedBoolean;
 }
 
-/* mixin */ declare class mixin$SVGFitToViewBox {
+declare class mixin$SVGFitToViewBox {
   +preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
   +viewBox: SVGAnimatedRect;
 }
 
-/* mixin */ declare class mixin$SVGLangSpace {
+declare class mixin$SVGLangSpace {
   xmllang: string;
   xmlspace: string;
 }
 
-/* mixin */ declare class mixin$SVGLocatable {
+declare class mixin$SVGLocatable {
   +farthestViewportElement: SVGElement;
   +nearestViewportElement: SVGElement;
 
@@ -581,14 +581,14 @@ declare class SVGViewElement
   getTransformToElement(element: SVGElement): SVGMatrix;
 }
 
-/* mixin */ declare class mixin$SVGStylable {
+declare class mixin$SVGStylable {
   +className: SVGAnimatedString;
   +style: CSSStyleDeclaration;
 
   getPresentationAttribute(name: string): CSSValue;
 }
 
-/* mixin */ declare class mixin$SVGTests {
+declare class mixin$SVGTests {
   +requiredExtensions: SVGStringList;
   +requiredFeatures: SVGStringList;
   +systemLanguage: SVGStringList;
@@ -596,15 +596,15 @@ declare class SVGViewElement
   hasExtension(extension: string): boolean;
 }
 
-/* mixin */ declare class mixin$SVGTransformable {
+declare class mixin$SVGTransformable {
   +transform: SVGAnimatedTransformList;
 }
 
-/* mixin */ declare class mixin$SVGURIReference {
+declare class mixin$SVGURIReference {
   +href: SVGAnimatedString;
 }
 
-/* mixin */ declare class mixin$SVGViewSpec {
+declare class mixin$SVGViewSpec {
   +preserveAspectRatioString: string;
   +transform: SVGTransformList;
   +transformString: string;
@@ -613,6 +613,6 @@ declare class SVGViewElement
   +viewTargetString: string;
 }
 
-/* mixin */ declare class mixin$SVGZoomAndPan {
+declare class mixin$SVGZoomAndPan {
   zoomAndPan: number;
 }

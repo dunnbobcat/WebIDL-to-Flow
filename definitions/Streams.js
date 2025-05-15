@@ -238,12 +238,12 @@ declare class WritableStreamDefaultWriter {
   write(chunk?: any): void;
 }
 
-/* mixin */ declare class mixin$GenericTransformStream {
+declare class mixin$GenericTransformStream {
   +readable: ReadableStream;
   +writable: WritableStream;
 }
 
-/* mixin */ declare class mixin$ReadableStreamGenericReader {
+declare class mixin$ReadableStreamGenericReader {
   +closed: void;
 
   cancel(reason?: any): void;

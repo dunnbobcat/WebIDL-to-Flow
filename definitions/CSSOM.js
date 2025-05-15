@@ -4,6 +4,10 @@ type CSSStyleSheetInit = {
   disabled: boolean,
 };
 
+declare namespace CSS {
+  declare function escape(ident: string): string;
+}
+
 declare class CSSGroupingRule extends CSSRule {
   +cssRules: CSSRuleList;
 
@@ -112,14 +116,10 @@ declare class StyleSheetList {
   item(index: number): CSSStyleSheet | null;
 }
 
-/* mixin */ declare class mixin$ElementCSSInlineStyle {
+declare class mixin$ElementCSSInlineStyle {
   +style: CSSStyleDeclaration;
 }
 
-/* mixin */ declare class mixin$LinkStyle {
+declare class mixin$LinkStyle {
   +sheet: CSSStyleSheet | null;
-}
-
-declare namespace CSS {
-  declare function escape(ident: string): string;
 }

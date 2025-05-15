@@ -605,25 +605,25 @@ declare class XSLTProcessor {
   transformToFragment(source: Node, output: Document): DocumentFragment;
 }
 
-/* mixin */ declare class mixin$ChildNode {
+declare class mixin$ChildNode {
   after(nodes: Node | string): void;
   before(nodes: Node | string): void;
   remove(): void;
   replaceWith(nodes: Node | string): void;
 }
 
-/* mixin */ declare class mixin$DocumentOrShadowRoot {}
+declare class mixin$DocumentOrShadowRoot {}
 
-/* mixin */ declare class mixin$NonDocumentTypeChildNode {
+declare class mixin$NonDocumentTypeChildNode {
   +nextElementSibling: Element | null;
   +previousElementSibling: Element | null;
 }
 
-/* mixin */ declare class mixin$NonElementParentNode {
+declare class mixin$NonElementParentNode {
   getElementById(elementId: string): Element | null;
 }
 
-/* mixin */ declare class mixin$ParentNode {
+declare class mixin$ParentNode {
   +childElementCount: number;
   +children: HTMLCollection;
   +firstElementChild: Element | null;
@@ -637,11 +637,11 @@ declare class XSLTProcessor {
   replaceChildren(nodes: Node | string): void;
 }
 
-/* mixin */ declare class mixin$Slottable {
+declare class mixin$Slottable {
   +assignedSlot: HTMLSlotElement | null;
 }
 
-/* mixin */ declare class mixin$XPathEvaluatorBase {
+declare class mixin$XPathEvaluatorBase {
   createExpression(
     expression: string,
     resolver?: XPathNSResolver | null,

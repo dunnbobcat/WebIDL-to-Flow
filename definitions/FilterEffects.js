@@ -286,7 +286,7 @@ declare class SVGFilterElement extends SVGElement mixins mixin$SVGURIReference {
   +y: SVGAnimatedLength;
 }
 
-/* mixin */ declare class mixin$SVGFilterPrimitiveStandardAttributes {
+declare class mixin$SVGFilterPrimitiveStandardAttributes {
   +height: SVGAnimatedLength;
   +result: SVGAnimatedString;
   +width: SVGAnimatedLength;

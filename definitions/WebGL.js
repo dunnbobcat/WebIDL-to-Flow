@@ -395,7 +395,7 @@ declare class WebGLTexture extends WebGLObject {}
 
 declare class WebGLUniformLocation {}
 
-/* mixin */ declare class mixin$WebGLRenderingContextBase {
+declare class mixin$WebGLRenderingContextBase {
   +canvas: HTMLCanvasElement | OffscreenCanvas;
   drawingBufferColorSpace: PredefinedColorSpace;
   +drawingBufferFormat: GLenum;
@@ -652,7 +652,7 @@ declare class WebGLUniformLocation {}
   viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void;
 }
 
-/* mixin */ declare class mixin$WebGLRenderingContextOverloads {
+declare class mixin$WebGLRenderingContextOverloads {
   bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
   bufferData(
     target: GLenum,

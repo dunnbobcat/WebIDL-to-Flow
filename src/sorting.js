@@ -8,6 +8,7 @@ const PRODUCTION_ORDER = ([
   'dictionary',
   'callback',
   'callback interface',
+  'namespace',
   'interface',
   'interface mixin',
   'const',

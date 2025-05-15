@@ -745,6 +745,46 @@ type GPUVertexState = {
   constants: string | GPUPipelineConstantValue,
 };
 
+declare namespace GPUBufferUsage {
+  declare const COPY_DST: 0x0008;
+  declare const COPY_SRC: 0x0004;
+  declare const INDEX: 0x0010;
+  declare const INDIRECT: 0x0100;
+  declare const MAP_READ: 0x0001;
+  declare const MAP_WRITE: 0x0002;
+  declare const QUERY_RESOLVE: 0x0200;
+  declare const STORAGE: 0x0080;
+  declare const UNIFORM: 0x0040;
+  declare const VERTEX: 0x0020;
+}
+
+declare namespace GPUColorWrite {
+  declare const ALL: 0xf;
+  declare const ALPHA: 0x8;
+  declare const BLUE: 0x4;
+  declare const GREEN: 0x2;
+  declare const RED: 0x1;
+}
+
+declare namespace GPUMapMode {
+  declare const READ: 0x0001;
+  declare const WRITE: 0x0002;
+}
+
+declare namespace GPUShaderStage {
+  declare const COMPUTE: 0x4;
+  declare const FRAGMENT: 0x2;
+  declare const VERTEX: 0x1;
+}
+
+declare namespace GPUTextureUsage {
+  declare const COPY_DST: 0x02;
+  declare const COPY_SRC: 0x01;
+  declare const RENDER_ATTACHMENT: 0x10;
+  declare const STORAGE_BINDING: 0x08;
+  declare const TEXTURE_BINDING: 0x04;
+}
+
 declare class GPU {
   +wgslLanguageFeatures: WGSLLanguageFeatures;
 
@@ -1102,7 +1142,7 @@ declare class GPUValidationError extends GPUError {
 
 type WGSLLanguageFeatures = Set<string>;
 
-/* mixin */ declare class mixin$GPUBindingCommandsMixin {
+declare class mixin$GPUBindingCommandsMixin {
   setBindGroup(
     index: GPUIndex32,
     bindGroup: GPUBindGroup | null,
@@ -1117,23 +1157,23 @@ type WGSLLanguageFeatures = Set<string>;
   ): void;
 }
 
-/* mixin */ declare class mixin$GPUCommandsMixin {}
+declare class mixin$GPUCommandsMixin {}
 
-/* mixin */ declare class mixin$GPUDebugCommandsMixin {
+declare class mixin$GPUDebugCommandsMixin {
   insertDebugMarker(markerLabel: string): void;
   popDebugGroup(): void;
   pushDebugGroup(groupLabel: string): void;
 }
 
-/* mixin */ declare class mixin$GPUObjectBase {
+declare class mixin$GPUObjectBase {
   label: string;
 }
 
-/* mixin */ declare class mixin$GPUPipelineBase {
+declare class mixin$GPUPipelineBase {
   getBindGroupLayout(index: number): GPUBindGroupLayout;
 }
 
-/* mixin */ declare class mixin$GPURenderCommandsMixin {
+declare class mixin$GPURenderCommandsMixin {
   draw(
     vertexCount: GPUSize32,
     instanceCount?: GPUSize32,
@@ -1167,42 +1207,6 @@ type WGSLLanguageFeatures = Set<string>;
   ): void;
 }
 
-/* mixin */ declare class mixin$NavigatorGPU {
+declare class mixin$NavigatorGPU {
   +gpu: GPU;
-}
-
-declare namespace GPUBufferUsage {
-  declare const COPY_DST: 0x0008;
-  declare const COPY_SRC: 0x0004;
-  declare const INDEX: 0x0010;
-  declare const INDIRECT: 0x0100;
-  declare const MAP_READ: 0x0001;
-  declare const MAP_WRITE: 0x0002;
-  declare const QUERY_RESOLVE: 0x0200;
-  declare const STORAGE: 0x0080;
-  declare const UNIFORM: 0x0040;
-  declare const VERTEX: 0x0020;
-}
-declare namespace GPUColorWrite {
-  declare const ALL: 0xf;
-  declare const ALPHA: 0x8;
-  declare const BLUE: 0x4;
-  declare const GREEN: 0x2;
-  declare const RED: 0x1;
-}
-declare namespace GPUMapMode {
-  declare const READ: 0x0001;
-  declare const WRITE: 0x0002;
-}
-declare namespace GPUShaderStage {
-  declare const COMPUTE: 0x4;
-  declare const FRAGMENT: 0x2;
-  declare const VERTEX: 0x1;
-}
-declare namespace GPUTextureUsage {
-  declare const COPY_DST: 0x02;
-  declare const COPY_SRC: 0x01;
-  declare const RENDER_ATTACHMENT: 0x10;
-  declare const STORAGE_BINDING: 0x08;
-  declare const TEXTURE_BINDING: 0x04;
 }

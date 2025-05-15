@@ -137,7 +137,7 @@ declare class Response mixins mixin$Body {
   clone(): Response;
 }
 
-/* mixin */ declare class mixin$Body {
+declare class mixin$Body {
   +body: ReadableStream | null;
   +bodyUsed: boolean;
 

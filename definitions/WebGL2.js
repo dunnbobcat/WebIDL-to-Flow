@@ -284,7 +284,7 @@ declare class WebGLTransformFeedback extends WebGLObject {}
 
 declare class WebGLVertexArrayObject extends WebGLObject {}
 
-/* mixin */ declare class mixin$WebGL2RenderingContextBase {
+declare class mixin$WebGL2RenderingContextBase {
   beginQuery(target: GLenum, query: WebGLQuery): void;
   beginTransformFeedback(primitiveMode: GLenum): void;
   bindBufferBase(
@@ -738,7 +738,7 @@ declare class WebGLVertexArrayObject extends WebGLObject {}
   waitSync(sync: WebGLSync, flags: GLbitfield, timeout: GLint64): void;
 }
 
-/* mixin */ declare class mixin$WebGL2RenderingContextOverloads {
+declare class mixin$WebGL2RenderingContextOverloads {
   bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
   bufferData(
     target: GLenum,

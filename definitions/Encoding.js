@@ -40,12 +40,12 @@ declare class TextEncoderStream
   constructor(): void;
 }
 
-/* mixin */ declare class mixin$TextDecoderCommon {
+declare class mixin$TextDecoderCommon {
   +encoding: string;
   +fatal: boolean;
   +ignoreBOM: boolean;
 }
 
-/* mixin */ declare class mixin$TextEncoderCommon {
+declare class mixin$TextEncoderCommon {
   +encoding: string;
 }

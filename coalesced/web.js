@@ -2586,6 +2586,50 @@ interface XPathNSResolver {
   lookupNamespaceURI(prefix: string | null): string | null;
 }
 
+declare namespace CSS {
+  declare function escape(ident: string): string;
+}
+
+declare namespace GPUBufferUsage {
+  declare const COPY_DST: 0x0008;
+  declare const COPY_SRC: 0x0004;
+  declare const INDEX: 0x0010;
+  declare const INDIRECT: 0x0100;
+  declare const MAP_READ: 0x0001;
+  declare const MAP_WRITE: 0x0002;
+  declare const QUERY_RESOLVE: 0x0200;
+  declare const STORAGE: 0x0080;
+  declare const UNIFORM: 0x0040;
+  declare const VERTEX: 0x0020;
+}
+
+declare namespace GPUColorWrite {
+  declare const ALL: 0xf;
+  declare const ALPHA: 0x8;
+  declare const BLUE: 0x4;
+  declare const GREEN: 0x2;
+  declare const RED: 0x1;
+}
+
+declare namespace GPUMapMode {
+  declare const READ: 0x0001;
+  declare const WRITE: 0x0002;
+}
+
+declare namespace GPUShaderStage {
+  declare const COMPUTE: 0x4;
+  declare const FRAGMENT: 0x2;
+  declare const VERTEX: 0x1;
+}
+
+declare namespace GPUTextureUsage {
+  declare const COPY_DST: 0x02;
+  declare const COPY_SRC: 0x01;
+  declare const RENDER_ATTACHMENT: 0x10;
+  declare const STORAGE_BINDING: 0x08;
+  declare const TEXTURE_BINDING: 0x04;
+}
+
 declare class AbortController {
   +signal: AbortSignal;
 
@@ -8613,11 +8657,11 @@ declare class XSLTProcessor {
   transformToFragment(source: Node, output: Document): DocumentFragment;
 }
 
-/* mixin */ declare class mixin$AbstractWorker {
+declare class mixin$AbstractWorker {
   onerror: EventHandler;
 }
 
-/* mixin */ declare class mixin$Animatable {
+declare class mixin$Animatable {
   animate(
     keyframes: Object | null,
     options?: number | KeyframeAnimationOptions,
@@ -8625,12 +8669,12 @@ declare class XSLTProcessor {
   getAnimations(options?: GetAnimationsOptions): Array<Animation>;
 }
 
-/* mixin */ declare class mixin$AnimationFrameProvider {
+declare class mixin$AnimationFrameProvider {
   cancelAnimationFrame(handle: number): void;
   requestAnimationFrame(callback: FrameRequestCallback): number;
 }
 
-/* mixin */ declare class mixin$Body {
+declare class mixin$Body {
   +body: ReadableStream | null;
   +bodyUsed: boolean;
 
@@ -8642,12 +8686,12 @@ declare class XSLTProcessor {
   text(): string;
 }
 
-/* mixin */ declare class mixin$CanvasCompositing {
+declare class mixin$CanvasCompositing {
   globalAlpha: number;
   globalCompositeOperation: string;
 }
 
-/* mixin */ declare class mixin$CanvasDrawImage {
+declare class mixin$CanvasDrawImage {
   drawImage(image: CanvasImageSource, dx: number, dy: number): void;
   drawImage(
     image: CanvasImageSource,
@@ -8669,7 +8713,7 @@ declare class XSLTProcessor {
   ): void;
 }
 
-/* mixin */ declare class mixin$CanvasDrawPath {
+declare class mixin$CanvasDrawPath {
   beginPath(): void;
   clip(fillRule?: CanvasFillRule): void;
   clip(path: Path2D, fillRule?: CanvasFillRule): void;
@@ -8688,7 +8732,7 @@ declare class XSLTProcessor {
   stroke(path: Path2D): void;
 }
 
-/* mixin */ declare class mixin$CanvasFillStrokeStyles {
+declare class mixin$CanvasFillStrokeStyles {
   fillStyle: string | CanvasGradient | CanvasPattern;
   strokeStyle: string | CanvasGradient | CanvasPattern;
 
@@ -8713,11 +8757,11 @@ declare class XSLTProcessor {
   ): CanvasGradient;
 }
 
-/* mixin */ declare class mixin$CanvasFilters {
+declare class mixin$CanvasFilters {
   filter: string;
 }
 
-/* mixin */ declare class mixin$CanvasImageData {
+declare class mixin$CanvasImageData {
   createImageData(
     sw: number,
     sh: number,
@@ -8743,12 +8787,12 @@ declare class XSLTProcessor {
   ): void;
 }
 
-/* mixin */ declare class mixin$CanvasImageSmoothing {
+declare class mixin$CanvasImageSmoothing {
   imageSmoothingEnabled: boolean;
   imageSmoothingQuality: ImageSmoothingQuality;
 }
 
-/* mixin */ declare class mixin$CanvasPath {
+declare class mixin$CanvasPath {
   arc(
     x: number,
     y: number,
@@ -8790,7 +8834,7 @@ declare class XSLTProcessor {
   ): void;
 }
 
-/* mixin */ declare class mixin$CanvasPathDrawingStyles {
+declare class mixin$CanvasPathDrawingStyles {
   lineCap: CanvasLineCap;
   lineDashOffset: number;
   lineJoin: CanvasLineJoin;
@@ -8801,37 +8845,37 @@ declare class XSLTProcessor {
   setLineDash(segments: Array<number>): void;
 }
 
-/* mixin */ declare class mixin$CanvasRect {
+declare class mixin$CanvasRect {
   clearRect(x: number, y: number, w: number, h: number): void;
   fillRect(x: number, y: number, w: number, h: number): void;
   strokeRect(x: number, y: number, w: number, h: number): void;
 }
 
-/* mixin */ declare class mixin$CanvasSettings {
+declare class mixin$CanvasSettings {
   getContextAttributes(): CanvasRenderingContext2DSettings;
 }
 
-/* mixin */ declare class mixin$CanvasShadowStyles {
+declare class mixin$CanvasShadowStyles {
   shadowBlur: number;
   shadowColor: string;
   shadowOffsetX: number;
   shadowOffsetY: number;
 }
 
-/* mixin */ declare class mixin$CanvasState {
+declare class mixin$CanvasState {
   isContextLost(): boolean;
   reset(): void;
   restore(): void;
   save(): void;
 }
 
-/* mixin */ declare class mixin$CanvasText {
+declare class mixin$CanvasText {
   fillText(text: string, x: number, y: number, maxWidth?: number): void;
   measureText(text: string): TextMetrics;
   strokeText(text: string, x: number, y: number, maxWidth?: number): void;
 }
 
-/* mixin */ declare class mixin$CanvasTextDrawingStyles {
+declare class mixin$CanvasTextDrawingStyles {
   direction: CanvasDirection;
   font: string;
   fontKerning: CanvasFontKerning;
@@ -8845,7 +8889,7 @@ declare class XSLTProcessor {
   wordSpacing: string;
 }
 
-/* mixin */ declare class mixin$CanvasTransform {
+declare class mixin$CanvasTransform {
   getTransform(): DOMMatrix;
   resetTransform(): void;
   rotate(angle: number): void;
@@ -8870,19 +8914,19 @@ declare class XSLTProcessor {
   translate(x: number, y: number): void;
 }
 
-/* mixin */ declare class mixin$CanvasUserInterface {
+declare class mixin$CanvasUserInterface {
   drawFocusIfNeeded(element: Element): void;
   drawFocusIfNeeded(path: Path2D, element: Element): void;
 }
 
-/* mixin */ declare class mixin$ChildNode {
+declare class mixin$ChildNode {
   after(nodes: Node | string): void;
   before(nodes: Node | string): void;
   remove(): void;
   replaceWith(nodes: Node | string): void;
 }
 
-/* mixin */ declare class mixin$DocumentOrShadowRoot {
+declare class mixin$DocumentOrShadowRoot {
   +activeElement: Element | null;
   adoptedStyleSheets: CSSStyleSheet;
   +fullscreenElement: Element | null;
@@ -8891,27 +8935,27 @@ declare class XSLTProcessor {
   getAnimations(): Array<Animation>;
 }
 
-/* mixin */ declare class mixin$ElementContentEditable {
+declare class mixin$ElementContentEditable {
   contentEditable: string;
   enterKeyHint: string;
   inputMode: string;
   +isContentEditable: boolean;
 }
 
-/* mixin */ declare class mixin$ElementCSSInlineStyle {
+declare class mixin$ElementCSSInlineStyle {
   +style: CSSStyleDeclaration;
 }
 
-/* mixin */ declare class mixin$GenericTransformStream {
+declare class mixin$GenericTransformStream {
   +readable: ReadableStream;
   +writable: WritableStream;
 }
 
-/* mixin */ declare class mixin$GetSVGDocument {
+declare class mixin$GetSVGDocument {
   getSVGDocument(): Document;
 }
 
-/* mixin */ declare class mixin$GlobalEventHandlers {
+declare class mixin$GlobalEventHandlers {
   onabort: EventHandler;
   onauxclick: EventHandler;
   onbeforeinput: EventHandler;
@@ -8990,7 +9034,7 @@ declare class XSLTProcessor {
   onwheel: EventHandler;
 }
 
-/* mixin */ declare class mixin$GPUBindingCommandsMixin {
+declare class mixin$GPUBindingCommandsMixin {
   setBindGroup(
     index: GPUIndex32,
     bindGroup: GPUBindGroup | null,
@@ -9005,23 +9049,23 @@ declare class XSLTProcessor {
   ): void;
 }
 
-/* mixin */ declare class mixin$GPUCommandsMixin {}
+declare class mixin$GPUCommandsMixin {}
 
-/* mixin */ declare class mixin$GPUDebugCommandsMixin {
+declare class mixin$GPUDebugCommandsMixin {
   insertDebugMarker(markerLabel: string): void;
   popDebugGroup(): void;
   pushDebugGroup(groupLabel: string): void;
 }
 
-/* mixin */ declare class mixin$GPUObjectBase {
+declare class mixin$GPUObjectBase {
   label: string;
 }
 
-/* mixin */ declare class mixin$GPUPipelineBase {
+declare class mixin$GPUPipelineBase {
   getBindGroupLayout(index: number): GPUBindGroupLayout;
 }
 
-/* mixin */ declare class mixin$GPURenderCommandsMixin {
+declare class mixin$GPURenderCommandsMixin {
   draw(
     vertexCount: GPUSize32,
     instanceCount?: GPUSize32,
@@ -9055,7 +9099,7 @@ declare class XSLTProcessor {
   ): void;
 }
 
-/* mixin */ declare class mixin$HTMLHyperlinkElementUtils {
+declare class mixin$HTMLHyperlinkElementUtils {
   hash: string;
   host: string;
   hostname: string;
@@ -9069,7 +9113,7 @@ declare class XSLTProcessor {
   username: string;
 }
 
-/* mixin */ declare class mixin$HTMLOrSVGElement {
+declare class mixin$HTMLOrSVGElement {
   autofocus: boolean;
   +dataset: DOMStringMap;
   nonce: string;
@@ -9079,33 +9123,33 @@ declare class XSLTProcessor {
   focus(options?: FocusOptions): void;
 }
 
-/* mixin */ declare class mixin$LinkStyle {
+declare class mixin$LinkStyle {
   +sheet: CSSStyleSheet | null;
 }
 
-/* mixin */ declare class mixin$MessageEventTarget {
+declare class mixin$MessageEventTarget {
   onmessage: EventHandler;
   onmessageerror: EventHandler;
 }
 
-/* mixin */ declare class mixin$NavigatorConcurrentHardware {
+declare class mixin$NavigatorConcurrentHardware {
   +hardwareConcurrency: number;
 }
 
-/* mixin */ declare class mixin$NavigatorContentUtils {
+declare class mixin$NavigatorContentUtils {
   registerProtocolHandler(scheme: string, url: string): void;
   unregisterProtocolHandler(scheme: string, url: string): void;
 }
 
-/* mixin */ declare class mixin$NavigatorCookies {
+declare class mixin$NavigatorCookies {
   +cookieEnabled: boolean;
 }
 
-/* mixin */ declare class mixin$NavigatorGPU {
+declare class mixin$NavigatorGPU {
   +gpu: GPU;
 }
 
-/* mixin */ declare class mixin$NavigatorID {
+declare class mixin$NavigatorID {
   +appCodeName: string;
   +appName: string;
   +appVersion: string;
@@ -9120,16 +9164,16 @@ declare class XSLTProcessor {
   taintEnabled(): boolean;
 }
 
-/* mixin */ declare class mixin$NavigatorLanguage {
+declare class mixin$NavigatorLanguage {
   +language: string;
   +languages: string;
 }
 
-/* mixin */ declare class mixin$NavigatorOnLine {
+declare class mixin$NavigatorOnLine {
   +onLine: boolean;
 }
 
-/* mixin */ declare class mixin$NavigatorPlugins {
+declare class mixin$NavigatorPlugins {
   +mimeTypes: MimeTypeArray;
   +pdfViewerEnabled: boolean;
   +plugins: PluginArray;
@@ -9137,16 +9181,16 @@ declare class XSLTProcessor {
   javaEnabled(): boolean;
 }
 
-/* mixin */ declare class mixin$NonDocumentTypeChildNode {
+declare class mixin$NonDocumentTypeChildNode {
   +nextElementSibling: Element | null;
   +previousElementSibling: Element | null;
 }
 
-/* mixin */ declare class mixin$NonElementParentNode {
+declare class mixin$NonElementParentNode {
   getElementById(elementId: string): Element | null;
 }
 
-/* mixin */ declare class mixin$ParentNode {
+declare class mixin$ParentNode {
   +childElementCount: number;
   +children: HTMLCollection;
   +firstElementChild: Element | null;
@@ -9160,38 +9204,38 @@ declare class XSLTProcessor {
   replaceChildren(nodes: Node | string): void;
 }
 
-/* mixin */ declare class mixin$PopoverInvokerElement {
+declare class mixin$PopoverInvokerElement {
   popoverTargetAction: string;
   popoverTargetElement: Element | null;
 }
 
-/* mixin */ declare class mixin$ReadableStreamGenericReader {
+declare class mixin$ReadableStreamGenericReader {
   +closed: void;
 
   cancel(reason?: any): void;
 }
 
-/* mixin */ declare class mixin$Slottable {
+declare class mixin$Slottable {
   +assignedSlot: HTMLSlotElement | null;
 }
 
-/* mixin */ declare class mixin$SVGAnimatedPoints {
+declare class mixin$SVGAnimatedPoints {
   +animatedPoints: SVGPointList;
   +points: SVGPointList;
 }
 
-/* mixin */ declare class mixin$SVGCSSRule {}
+declare class mixin$SVGCSSRule {}
 
-/* mixin */ declare class mixin$SVGElementInstance {
+declare class mixin$SVGElementInstance {
   +correspondingElement: SVGElement | null;
   +correspondingUseElement: SVGUseElement | null;
 }
 
-/* mixin */ declare class mixin$SVGExternalResourcesRequired {
+declare class mixin$SVGExternalResourcesRequired {
   +externalResourcesRequired: SVGAnimatedBoolean;
 }
 
-/* mixin */ declare class mixin$SVGFilterPrimitiveStandardAttributes {
+declare class mixin$SVGFilterPrimitiveStandardAttributes {
   +height: SVGAnimatedLength;
   +result: SVGAnimatedString;
   +width: SVGAnimatedLength;
@@ -9199,17 +9243,17 @@ declare class XSLTProcessor {
   +y: SVGAnimatedLength;
 }
 
-/* mixin */ declare class mixin$SVGFitToViewBox {
+declare class mixin$SVGFitToViewBox {
   +preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
   +viewBox: SVGAnimatedRect;
 }
 
-/* mixin */ declare class mixin$SVGLangSpace {
+declare class mixin$SVGLangSpace {
   xmllang: string;
   xmlspace: string;
 }
 
-/* mixin */ declare class mixin$SVGLocatable {
+declare class mixin$SVGLocatable {
   +farthestViewportElement: SVGElement;
   +nearestViewportElement: SVGElement;
 
@@ -9219,14 +9263,14 @@ declare class XSLTProcessor {
   getTransformToElement(element: SVGElement): SVGMatrix;
 }
 
-/* mixin */ declare class mixin$SVGStylable {
+declare class mixin$SVGStylable {
   +className: SVGAnimatedString;
   +style: CSSStyleDeclaration;
 
   getPresentationAttribute(name: string): CSSValue;
 }
 
-/* mixin */ declare class mixin$SVGTests {
+declare class mixin$SVGTests {
   +requiredExtensions: SVGStringList;
   +requiredFeatures: SVGStringList;
   +systemLanguage: SVGStringList;
@@ -9234,15 +9278,15 @@ declare class XSLTProcessor {
   hasExtension(extension: string): boolean;
 }
 
-/* mixin */ declare class mixin$SVGTransformable {
+declare class mixin$SVGTransformable {
   +transform: SVGAnimatedTransformList;
 }
 
-/* mixin */ declare class mixin$SVGURIReference {
+declare class mixin$SVGURIReference {
   +href: SVGAnimatedString;
 }
 
-/* mixin */ declare class mixin$SVGViewSpec {
+declare class mixin$SVGViewSpec {
   +preserveAspectRatioString: string;
   +transform: SVGTransformList;
   +transformString: string;
@@ -9251,21 +9295,21 @@ declare class XSLTProcessor {
   +viewTargetString: string;
 }
 
-/* mixin */ declare class mixin$SVGZoomAndPan {
+declare class mixin$SVGZoomAndPan {
   zoomAndPan: number;
 }
 
-/* mixin */ declare class mixin$TextDecoderCommon {
+declare class mixin$TextDecoderCommon {
   +encoding: string;
   +fatal: boolean;
   +ignoreBOM: boolean;
 }
 
-/* mixin */ declare class mixin$TextEncoderCommon {
+declare class mixin$TextEncoderCommon {
   +encoding: string;
 }
 
-/* mixin */ declare class mixin$WebGL2RenderingContextBase {
+declare class mixin$WebGL2RenderingContextBase {
   beginQuery(target: GLenum, query: WebGLQuery): void;
   beginTransformFeedback(primitiveMode: GLenum): void;
   bindBufferBase(
@@ -9719,7 +9763,7 @@ declare class XSLTProcessor {
   waitSync(sync: WebGLSync, flags: GLbitfield, timeout: GLint64): void;
 }
 
-/* mixin */ declare class mixin$WebGL2RenderingContextOverloads {
+declare class mixin$WebGL2RenderingContextOverloads {
   bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
   bufferData(
     target: GLenum,
@@ -9995,7 +10039,7 @@ declare class XSLTProcessor {
   ): void;
 }
 
-/* mixin */ declare class mixin$WebGLRenderingContextBase {
+declare class mixin$WebGLRenderingContextBase {
   +canvas: HTMLCanvasElement | OffscreenCanvas;
   drawingBufferColorSpace: PredefinedColorSpace;
   +drawingBufferFormat: GLenum;
@@ -10252,7 +10296,7 @@ declare class XSLTProcessor {
   viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void;
 }
 
-/* mixin */ declare class mixin$WebGLRenderingContextOverloads {
+declare class mixin$WebGLRenderingContextOverloads {
   bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
   bufferData(
     target: GLenum,
@@ -10356,7 +10400,7 @@ declare class XSLTProcessor {
   ): void;
 }
 
-/* mixin */ declare class mixin$WindowEventHandlers {
+declare class mixin$WindowEventHandlers {
   onafterprint: EventHandler;
   onbeforeprint: EventHandler;
   onbeforeunload: OnBeforeUnloadEventHandler;
@@ -10377,11 +10421,11 @@ declare class XSLTProcessor {
   onunload: EventHandler;
 }
 
-/* mixin */ declare class mixin$WindowLocalStorage {
+declare class mixin$WindowLocalStorage {
   +localStorage: Storage;
 }
 
-/* mixin */ declare class mixin$WindowOrWorkerGlobalScope {
+declare class mixin$WindowOrWorkerGlobalScope {
   +crossOriginIsolated: boolean;
   +isSecureContext: boolean;
   +origin: string;
@@ -10412,11 +10456,11 @@ declare class XSLTProcessor {
   structuredClone(value: any, options?: StructuredSerializeOptions): any;
 }
 
-/* mixin */ declare class mixin$WindowSessionStorage {
+declare class mixin$WindowSessionStorage {
   +sessionStorage: Storage;
 }
 
-/* mixin */ declare class mixin$XPathEvaluatorBase {
+declare class mixin$XPathEvaluatorBase {
   createExpression(
     expression: string,
     resolver?: XPathNSResolver | null,
@@ -10429,43 +10473,4 @@ declare class XSLTProcessor {
     type?: number,
     result?: XPathResult | null,
   ): XPathResult;
-}
-
-declare namespace CSS {
-  declare function escape(ident: string): string;
-}
-declare namespace GPUBufferUsage {
-  declare const COPY_DST: 0x0008;
-  declare const COPY_SRC: 0x0004;
-  declare const INDEX: 0x0010;
-  declare const INDIRECT: 0x0100;
-  declare const MAP_READ: 0x0001;
-  declare const MAP_WRITE: 0x0002;
-  declare const QUERY_RESOLVE: 0x0200;
-  declare const STORAGE: 0x0080;
-  declare const UNIFORM: 0x0040;
-  declare const VERTEX: 0x0020;
-}
-declare namespace GPUColorWrite {
-  declare const ALL: 0xf;
-  declare const ALPHA: 0x8;
-  declare const BLUE: 0x4;
-  declare const GREEN: 0x2;
-  declare const RED: 0x1;
-}
-declare namespace GPUMapMode {
-  declare const READ: 0x0001;
-  declare const WRITE: 0x0002;
-}
-declare namespace GPUShaderStage {
-  declare const COMPUTE: 0x4;
-  declare const FRAGMENT: 0x2;
-  declare const VERTEX: 0x1;
-}
-declare namespace GPUTextureUsage {
-  declare const COPY_DST: 0x02;
-  declare const COPY_SRC: 0x01;
-  declare const RENDER_ATTACHMENT: 0x10;
-  declare const STORAGE_BINDING: 0x08;
-  declare const TEXTURE_BINDING: 0x04;
 }

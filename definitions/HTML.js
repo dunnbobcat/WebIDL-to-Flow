@@ -2288,21 +2288,21 @@ declare class XMLSerializer {
   serializeToString(root: Node): string;
 }
 
-/* mixin */ declare class mixin$AbstractWorker {
+declare class mixin$AbstractWorker {
   onerror: EventHandler;
 }
 
-/* mixin */ declare class mixin$AnimationFrameProvider {
+declare class mixin$AnimationFrameProvider {
   cancelAnimationFrame(handle: number): void;
   requestAnimationFrame(callback: FrameRequestCallback): number;
 }
 
-/* mixin */ declare class mixin$CanvasCompositing {
+declare class mixin$CanvasCompositing {
   globalAlpha: number;
   globalCompositeOperation: string;
 }
 
-/* mixin */ declare class mixin$CanvasDrawImage {
+declare class mixin$CanvasDrawImage {
   drawImage(image: CanvasImageSource, dx: number, dy: number): void;
   drawImage(
     image: CanvasImageSource,
@@ -2324,7 +2324,7 @@ declare class XMLSerializer {
   ): void;
 }
 
-/* mixin */ declare class mixin$CanvasDrawPath {
+declare class mixin$CanvasDrawPath {
   beginPath(): void;
   clip(fillRule?: CanvasFillRule): void;
   clip(path: Path2D, fillRule?: CanvasFillRule): void;
@@ -2343,7 +2343,7 @@ declare class XMLSerializer {
   stroke(path: Path2D): void;
 }
 
-/* mixin */ declare class mixin$CanvasFillStrokeStyles {
+declare class mixin$CanvasFillStrokeStyles {
   fillStyle: string | CanvasGradient | CanvasPattern;
   strokeStyle: string | CanvasGradient | CanvasPattern;
 
@@ -2368,11 +2368,11 @@ declare class XMLSerializer {
   ): CanvasGradient;
 }
 
-/* mixin */ declare class mixin$CanvasFilters {
+declare class mixin$CanvasFilters {
   filter: string;
 }
 
-/* mixin */ declare class mixin$CanvasImageData {
+declare class mixin$CanvasImageData {
   createImageData(
     sw: number,
     sh: number,
@@ -2398,12 +2398,12 @@ declare class XMLSerializer {
   ): void;
 }
 
-/* mixin */ declare class mixin$CanvasImageSmoothing {
+declare class mixin$CanvasImageSmoothing {
   imageSmoothingEnabled: boolean;
   imageSmoothingQuality: ImageSmoothingQuality;
 }
 
-/* mixin */ declare class mixin$CanvasPath {
+declare class mixin$CanvasPath {
   arc(
     x: number,
     y: number,
@@ -2445,7 +2445,7 @@ declare class XMLSerializer {
   ): void;
 }
 
-/* mixin */ declare class mixin$CanvasPathDrawingStyles {
+declare class mixin$CanvasPathDrawingStyles {
   lineCap: CanvasLineCap;
   lineDashOffset: number;
   lineJoin: CanvasLineJoin;
@@ -2456,37 +2456,37 @@ declare class XMLSerializer {
   setLineDash(segments: Array<number>): void;
 }
 
-/* mixin */ declare class mixin$CanvasRect {
+declare class mixin$CanvasRect {
   clearRect(x: number, y: number, w: number, h: number): void;
   fillRect(x: number, y: number, w: number, h: number): void;
   strokeRect(x: number, y: number, w: number, h: number): void;
 }
 
-/* mixin */ declare class mixin$CanvasSettings {
+declare class mixin$CanvasSettings {
   getContextAttributes(): CanvasRenderingContext2DSettings;
 }
 
-/* mixin */ declare class mixin$CanvasShadowStyles {
+declare class mixin$CanvasShadowStyles {
   shadowBlur: number;
   shadowColor: string;
   shadowOffsetX: number;
   shadowOffsetY: number;
 }
 
-/* mixin */ declare class mixin$CanvasState {
+declare class mixin$CanvasState {
   isContextLost(): boolean;
   reset(): void;
   restore(): void;
   save(): void;
 }
 
-/* mixin */ declare class mixin$CanvasText {
+declare class mixin$CanvasText {
   fillText(text: string, x: number, y: number, maxWidth?: number): void;
   measureText(text: string): TextMetrics;
   strokeText(text: string, x: number, y: number, maxWidth?: number): void;
 }
 
-/* mixin */ declare class mixin$CanvasTextDrawingStyles {
+declare class mixin$CanvasTextDrawingStyles {
   direction: CanvasDirection;
   font: string;
   fontKerning: CanvasFontKerning;
@@ -2500,7 +2500,7 @@ declare class XMLSerializer {
   wordSpacing: string;
 }
 
-/* mixin */ declare class mixin$CanvasTransform {
+declare class mixin$CanvasTransform {
   getTransform(): DOMMatrix;
   resetTransform(): void;
   rotate(angle: number): void;
@@ -2525,19 +2525,19 @@ declare class XMLSerializer {
   translate(x: number, y: number): void;
 }
 
-/* mixin */ declare class mixin$CanvasUserInterface {
+declare class mixin$CanvasUserInterface {
   drawFocusIfNeeded(element: Element): void;
   drawFocusIfNeeded(path: Path2D, element: Element): void;
 }
 
-/* mixin */ declare class mixin$ElementContentEditable {
+declare class mixin$ElementContentEditable {
   contentEditable: string;
   enterKeyHint: string;
   inputMode: string;
   +isContentEditable: boolean;
 }
 
-/* mixin */ declare class mixin$GlobalEventHandlers {
+declare class mixin$GlobalEventHandlers {
   onabort: EventHandler;
   onauxclick: EventHandler;
   onbeforeinput: EventHandler;
@@ -2616,7 +2616,7 @@ declare class XMLSerializer {
   onwheel: EventHandler;
 }
 
-/* mixin */ declare class mixin$HTMLHyperlinkElementUtils {
+declare class mixin$HTMLHyperlinkElementUtils {
   hash: string;
   host: string;
   hostname: string;
@@ -2630,7 +2630,7 @@ declare class XMLSerializer {
   username: string;
 }
 
-/* mixin */ declare class mixin$HTMLOrSVGElement {
+declare class mixin$HTMLOrSVGElement {
   autofocus: boolean;
   +dataset: DOMStringMap;
   nonce: string;
@@ -2640,25 +2640,25 @@ declare class XMLSerializer {
   focus(options?: FocusOptions): void;
 }
 
-/* mixin */ declare class mixin$MessageEventTarget {
+declare class mixin$MessageEventTarget {
   onmessage: EventHandler;
   onmessageerror: EventHandler;
 }
 
-/* mixin */ declare class mixin$NavigatorConcurrentHardware {
+declare class mixin$NavigatorConcurrentHardware {
   +hardwareConcurrency: number;
 }
 
-/* mixin */ declare class mixin$NavigatorContentUtils {
+declare class mixin$NavigatorContentUtils {
   registerProtocolHandler(scheme: string, url: string): void;
   unregisterProtocolHandler(scheme: string, url: string): void;
 }
 
-/* mixin */ declare class mixin$NavigatorCookies {
+declare class mixin$NavigatorCookies {
   +cookieEnabled: boolean;
 }
 
-/* mixin */ declare class mixin$NavigatorID {
+declare class mixin$NavigatorID {
   +appCodeName: string;
   +appName: string;
   +appVersion: string;
@@ -2673,16 +2673,16 @@ declare class XMLSerializer {
   taintEnabled(): boolean;
 }
 
-/* mixin */ declare class mixin$NavigatorLanguage {
+declare class mixin$NavigatorLanguage {
   +language: string;
   +languages: string;
 }
 
-/* mixin */ declare class mixin$NavigatorOnLine {
+declare class mixin$NavigatorOnLine {
   +onLine: boolean;
 }
 
-/* mixin */ declare class mixin$NavigatorPlugins {
+declare class mixin$NavigatorPlugins {
   +mimeTypes: MimeTypeArray;
   +pdfViewerEnabled: boolean;
   +plugins: PluginArray;
@@ -2690,12 +2690,12 @@ declare class XMLSerializer {
   javaEnabled(): boolean;
 }
 
-/* mixin */ declare class mixin$PopoverInvokerElement {
+declare class mixin$PopoverInvokerElement {
   popoverTargetAction: string;
   popoverTargetElement: Element | null;
 }
 
-/* mixin */ declare class mixin$WindowEventHandlers {
+declare class mixin$WindowEventHandlers {
   onafterprint: EventHandler;
   onbeforeprint: EventHandler;
   onbeforeunload: OnBeforeUnloadEventHandler;
@@ -2716,11 +2716,11 @@ declare class XMLSerializer {
   onunload: EventHandler;
 }
 
-/* mixin */ declare class mixin$WindowLocalStorage {
+declare class mixin$WindowLocalStorage {
   +localStorage: Storage;
 }
 
-/* mixin */ declare class mixin$WindowOrWorkerGlobalScope {
+declare class mixin$WindowOrWorkerGlobalScope {
   +crossOriginIsolated: boolean;
   +isSecureContext: boolean;
   +origin: string;
@@ -2748,6 +2748,6 @@ declare class XMLSerializer {
   structuredClone(value: any, options?: StructuredSerializeOptions): any;
 }
 
-/* mixin */ declare class mixin$WindowSessionStorage {
+declare class mixin$WindowSessionStorage {
   +sessionStorage: Storage;
 }

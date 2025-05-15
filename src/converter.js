@@ -71,7 +71,7 @@ function convertNamespace(production: IDLProduction): string {
     )
     .join('');
 
-  return `${partial}declare namespace ${name} {${namespaceMembers}}`;
+  return `${partial}declare namespace ${name} {${namespaceMembers}}\n`;
 }
 
 function convertNamespaceMember(production: IDLProduction): string {
@@ -240,8 +240,8 @@ function convertInterfaceMixin(production: IDLProduction): string {
     )
     .join('\n');
 
-  const comment = partial ? 'partial mixin' : 'mixin';
-  return `/* ${comment} */ declare class mixin$${name} {${interfaceMembers}}\n`;
+  const comment = partial ? '/* partial */ ' : '';
+  return `${comment}declare class mixin$${name} {${interfaceMembers}}\n`;
 }
 
 function convertConstructor(production: IDLProduction): string {

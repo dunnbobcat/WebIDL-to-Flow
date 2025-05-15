@@ -180,7 +180,7 @@ declare class KeyframeEffect extends AnimationEffect {
   setKeyframes(keyframes: Object | null): void;
 }
 
-/* mixin */ declare class mixin$Animatable {
+declare class mixin$Animatable {
   animate(
     keyframes: Object | null,
     options?: number | KeyframeAnimationOptions,
