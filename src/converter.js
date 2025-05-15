@@ -15,6 +15,7 @@ const KEYWORD_REPLACEMENTS = ({
 }: {[string]: string});
 
 const TYPE_MAP = ({
+  byte: 'number',
   ByteString: 'string',
   CSSOMString: 'string',
   DOMHighResTimeStamp: 'number',
@@ -24,6 +25,7 @@ const TYPE_MAP = ({
   'long long': 'number',
   long: 'number',
   object: 'Object',
+  octet: 'number',
   short: 'number',
   undefined: 'void',
   'unrestricted float': 'number',

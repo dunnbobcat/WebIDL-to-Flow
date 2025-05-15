@@ -9,12 +9,12 @@ const PRODUCTION_ORDER = ([
   'callback',
   'callback interface',
   'interface',
+  'interface mixin',
   'const',
   'attribute',
   'constructor',
   'iterable',
   'operation',
-  'interface mixin',
 ]: $ReadOnlyArray<string>);
 
 function getPrecedence(type: string): number {

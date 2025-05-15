@@ -4,7 +4,7 @@ type GLbitfield = number;
 
 type GLboolean = boolean;
 
-type GLbyte = byte;
+type GLbyte = number;
 
 type GLclampf = number;
 
@@ -22,7 +22,7 @@ type GLsizei = number;
 
 type GLsizeiptr = number;
 
-type GLubyte = octet;
+type GLubyte = number;
 
 type GLuint = number;
 

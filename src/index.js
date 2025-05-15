@@ -149,6 +149,7 @@ async function main(): Promise<void> {
           'Geometry',
           'HTML',
           'MathMLCore',
+          'MediaCaptureAndStreams',
           'Notifications',
           'Streams',
           'SVG',
