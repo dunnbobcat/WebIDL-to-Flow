@@ -25,14 +25,6 @@ declare class LinearAccelerationSensor extends Accelerometer {
   constructor(options?: AccelerometerSensorOptions): void;
 }
 
-/*---------- ambient-light ----------*/
-
-declare class AmbientLightSensor extends Sensor {
-  +illuminance: number | null;
-
-  constructor(sensorOptions?: SensorOptions): void;
-}
-
 /*---------- anchors ----------*/
 
 // Contributes to:
@@ -777,42 +769,6 @@ declare class CSSPositionTryRule extends CSSRule {
   +style: CSSPositionTryDescriptors;
 }
 
-/*---------- css-animation-worklet ----------*/
-
-// Contributes to:
-//   - CSS
-
-type AnimatorInstanceConstructor = (options: any, state?: any) => any;
-
-declare class AnimationWorkletGlobalScope extends WorkletGlobalScope {
-  registerAnimator(
-    name: string,
-    animatorCtor: AnimatorInstanceConstructor,
-  ): void;
-}
-
-declare class WorkletAnimation extends Animation {
-  +animatorName: string;
-
-  constructor(
-    animatorName: string,
-    effects?: AnimationEffect | Array<AnimationEffect> | null,
-    timeline?: AnimationTimeline | null,
-    options?: any,
-  ): void;
-}
-
-declare class WorkletAnimationEffect {
-  localTime: number | null;
-
-  getComputedTiming(): ComputedEffectTiming;
-  getTiming(): EffectTiming;
-}
-
-declare class WorkletGroupEffect {
-  getChildren(): Array<WorkletAnimationEffect>;
-}
-
 /*---------- css-animations-2 ----------*/
 
 declare class CSSAnimation extends Animation {
@@ -1366,76 +1322,6 @@ declare class PaintWorkletGlobalScope extends WorkletGlobalScope {
   registerPaint(name: string, paintCtor: VoidFunction): void;
 }
 
-/*---------- css-parser-api ----------*/
-
-// Contributes to:
-//   - CSS
-
-type CSSStringSource = string | ReadableStream;
-
-type CSSToken = string | CSSStyleValue | CSSParserValue;
-
-type CSSParserOptions = {
-  atRules: Object,
-};
-
-declare class CSSParserAtRule extends CSSParserRule {
-  +body: $ReadOnlyArray<CSSParserRule> | null;
-  +name: string;
-  +prelude: $ReadOnlyArray<CSSParserValue>;
-
-  constructor(
-    name: string,
-    prelude: Array<CSSToken>,
-    body?: Array<CSSParserRule> | null,
-  ): void;
-
-  toString(): string;
-}
-
-declare class CSSParserBlock extends CSSParserValue {
-  +body: $ReadOnlyArray<CSSParserValue>;
-  +name: string;
-
-  constructor(name: string, body: Array<CSSParserValue>): void;
-
-  toString(): string;
-}
-
-declare class CSSParserDeclaration extends CSSParserRule {
-  +body: $ReadOnlyArray<CSSParserValue>;
-  +name: string;
-
-  constructor(name: string, body?: Array<CSSParserRule>): void;
-
-  toString(): string;
-}
-
-declare class CSSParserFunction extends CSSParserValue {
-  +args: $ReadOnlyArray<$ReadOnlyArray<CSSParserValue>>;
-  +name: string;
-
-  constructor(name: string, args: Array<Array<CSSParserValue>>): void;
-
-  toString(): string;
-}
-
-declare class CSSParserQualifiedRule extends CSSParserRule {
-  +body: $ReadOnlyArray<CSSParserRule>;
-  +prelude: $ReadOnlyArray<CSSParserValue>;
-
-  constructor(
-    prelude: Array<CSSToken>,
-    body?: Array<CSSParserRule> | null,
-  ): void;
-
-  toString(): string;
-}
-
-declare class CSSParserRule {}
-
-declare class CSSParserValue {}
-
 /*---------- css-properties-values-api ----------*/
 
 // Contributes to:
@@ -1967,15 +1853,6 @@ declare class ViewTransition {
   skipTransition(): void;
 }
 
-/*---------- css-viewport ----------*/
-
-// Contributes to:
-//   - Window
-
-declare class Viewport {
-  +segments: $ReadOnlyArray<DOMRect> | null;
-}
-
 /*---------- cssom-view ----------*/
 
 // Contributes to:
@@ -2123,7 +2000,6 @@ type CSSStyleSheetInit = {
 };
 
 declare namespace CSS {
-  declare const animationWorklet: Worklet;
   declare const elementSources: any;
   declare const highlights: HighlightRegistry;
   declare const layoutWorklet: Worklet;
@@ -2166,29 +2042,6 @@ declare namespace CSS {
   declare function mm(value: number): CSSUnitValue;
   declare function ms(value: number): CSSUnitValue;
   declare function number(value: number): CSSUnitValue;
-  declare function parseCommaValueList(css: string): Array<Array<CSSToken>>;
-  declare function parseDeclaration(
-    css: string,
-    options?: CSSParserOptions,
-  ): CSSParserDeclaration;
-  declare function parseDeclarationList(
-    css: CSSStringSource,
-    options?: CSSParserOptions,
-  ): Promise<Array<CSSParserRule>>;
-  declare function parseRule(
-    css: CSSStringSource,
-    options?: CSSParserOptions,
-  ): Promise<CSSParserRule>;
-  declare function parseRuleList(
-    css: CSSStringSource,
-    options?: CSSParserOptions,
-  ): Promise<Array<CSSParserRule>>;
-  declare function parseStylesheet(
-    css: CSSStringSource,
-    options?: CSSParserOptions,
-  ): Promise<Array<CSSParserRule>>;
-  declare function parseValue(css: string): CSSToken;
-  declare function parseValueList(css: string): Array<CSSToken>;
   declare function pc(value: number): CSSUnitValue;
   declare function percent(value: number): CSSUnitValue;
   declare function pt(value: number): CSSUnitValue;
@@ -2808,26 +2661,24 @@ declare class Document
     localName: string,
   ): HTMLCollection;
   getSelection(): Selection | null;
-  hasFocus(): boolean;
   hasPrivateToken(issuer: string): Promise<boolean>;
   hasRedemptionRecord(issuer: string): Promise<boolean>;
   hasStorageAccess(): Promise<boolean>;
   hasUnpartitionedCookieAccess(): Promise<boolean>;
   importNode(node: Node, options?: boolean | ImportNodeOptions): Node;
-  measureElement(element: Element): FontMetrics;
-  measureText(text: string, styleMap: StylePropertyMapReadOnly): FontMetrics;
   open(url: string, name: string, features: string): WindowProxy | null;
-  releaseEvents(): void;
+  queryCommandSupported(commandId: string): boolean;
+  queryCommandValue(commandId: string): string;
   startViewTransition(
     callbackOptions?: ViewTransitionUpdateCallback | StartViewTransitionOptions,
   ): ViewTransition;
   (name: string): Object;
+  hasFocus(): boolean;
   open(unused1?: string, unused2?: string): Document;
   queryCommandEnabled(commandId: string): boolean;
   queryCommandIndeterm(commandId: string): boolean;
   queryCommandState(commandId: string): boolean;
-  queryCommandSupported(commandId: string): boolean;
-  queryCommandValue(commandId: string): string;
+  releaseEvents(): void;
   requestStorageAccess(): Promise<void>;
   requestStorageAccessFor(requestedOrigin: string): Promise<void>;
   write(text: TrustedHTML | string): void;
@@ -3637,71 +3488,6 @@ declare class MediaKeySystemAccess {
   getConfiguration(): MediaKeySystemConfiguration;
 }
 
-/*---------- entries-api ----------*/
-
-// Contributes to:
-//   - File
-//   - HTMLInputElement
-//   - DataTransferItem
-
-type FileSystemFlags = {
-  create: boolean,
-  exclusive: boolean,
-};
-
-type ErrorCallback = (err: DOMException) => void;
-
-type FileCallback = (file: File) => void;
-
-type FileSystemEntriesCallback = (entries: Array<FileSystemEntry>) => void;
-
-type FileSystemEntryCallback = (entry: FileSystemEntry) => void;
-
-declare class FileSystem {
-  +name: string;
-  +root: FileSystemDirectoryEntry;
-}
-
-declare class FileSystemDirectoryEntry extends FileSystemEntry {
-  createReader(): FileSystemDirectoryReader;
-  getDirectory(
-    path?: string | null,
-    options?: FileSystemFlags,
-    successCallback?: FileSystemEntryCallback,
-    errorCallback?: ErrorCallback,
-  ): void;
-  getFile(
-    path?: string | null,
-    options?: FileSystemFlags,
-    successCallback?: FileSystemEntryCallback,
-    errorCallback?: ErrorCallback,
-  ): void;
-}
-
-declare class FileSystemDirectoryReader {
-  readEntries(
-    successCallback: FileSystemEntriesCallback,
-    errorCallback?: ErrorCallback,
-  ): void;
-}
-
-declare class FileSystemEntry {
-  +filesystem: FileSystem;
-  +fullPath: string;
-  +isDirectory: boolean;
-  +isFile: boolean;
-  +name: string;
-
-  getParent(
-    successCallback?: FileSystemEntryCallback,
-    errorCallback?: ErrorCallback,
-  ): void;
-}
-
-declare class FileSystemFileEntry extends FileSystemEntry {
-  file(successCallback: FileCallback, errorCallback?: ErrorCallback): void;
-}
-
 /*---------- event-timing ----------*/
 
 // Contributes to:
@@ -3984,7 +3770,6 @@ type ResponseType =
   | 'opaqueredirect';
 
 type RequestInit = {
-  adAuctionHeaders: boolean,
   attributionReporting: AttributionReportingRequestOptions,
   body: BodyInit | null,
   cache: RequestCache,
@@ -4186,7 +3971,6 @@ declare class Blob {
 declare class File extends Blob {
   +lastModified: number;
   +name: string;
-  +webkitRelativePath: string;
 
   constructor(
     fileBits: Array<BlobPart>,
@@ -4530,38 +4314,6 @@ declare class mixin$SVGFilterPrimitiveStandardAttributes {
   +width: SVGAnimatedLength;
   +x: SVGAnimatedLength;
   +y: SVGAnimatedLength;
-}
-
-/*---------- font-metrics-api ----------*/
-
-// Contributes to:
-//   - Document
-
-declare class Baseline {
-  +name: string;
-  +value: number;
-}
-
-declare class Font {
-  +glyphsRendered: number;
-  +name: string;
-}
-
-declare class FontMetrics {
-  +advances: $ReadOnlyArray<number>;
-  +baselines: $ReadOnlyArray<Baseline>;
-  +boundingBoxAscent: number;
-  +boundingBoxDescent: number;
-  +boundingBoxLeft: number;
-  +boundingBoxRight: number;
-  +dominantBaseline: Baseline;
-  +emHeightAscent: number;
-  +emHeightDescent: number;
-  +fontBoundingBoxAscent: number;
-  +fontBoundingBoxDescent: number;
-  +fonts: $ReadOnlyArray<Font>;
-  +height: number;
-  +width: number;
 }
 
 /*---------- fs ----------*/
@@ -5797,7 +5549,6 @@ declare class DataTransferItem {
   getAsFile(): File | null;
   getAsFileSystemHandle(): Promise<FileSystemHandle | null>;
   getAsString(callback: FunctionStringCallback | null): void;
-  webkitGetAsEntry(): FileSystemEntry | null;
 }
 
 declare class DataTransferItemList {
@@ -6264,7 +6015,6 @@ declare class HTMLIFrameElement
   extends HTMLElement
   mixins mixin$HTMLSharedStorageWritableElementUtils
 {
-  adAuctionHeaders: boolean;
   align: string;
   allow: string;
   allowFullscreen: boolean;
@@ -6381,8 +6131,6 @@ declare class HTMLInputElement
   value: string;
   valueAsDate: Object | null;
   valueAsNumber: number;
-  webkitdirectory: boolean;
-  +webkitEntries: $ReadOnlyArray<FileSystemEntry>;
   width: number;
   +willValidate: boolean;
 
@@ -7213,14 +6961,12 @@ declare class Navigator
     mixin$NavigatorUA,
     mixin$NavigatorLocks,
     mixin$NavigatorAutomationInformation,
-    mixin$NavigatorGPU,
-    mixin$NavigatorML
+    mixin$NavigatorGPU
 {
   +audioSession: AudioSession;
   +bluetooth: Bluetooth;
   +clipboard: Clipboard;
   +credentials: CredentialsContainer;
-  +deprecatedRunAdAuctionEnforcesKAnonymity: boolean;
   +devicePosture: DevicePosture;
   +geolocation: Geolocation;
   +hid: HID;
@@ -7235,8 +6981,6 @@ declare class Navigator
   +permissions: Permissions;
   +preferences: PreferenceManager;
   +presentation: Presentation;
-  +privateAttribution: PrivateAttribution;
-  +protectedAudience: ProtectedAudience;
   +scheduling: Scheduling;
   +serial: Serial;
   +serviceWorker: ServiceWorkerContainer;
@@ -7248,13 +6992,7 @@ declare class Navigator
   +xr: XRSystem;
 
   adAuctionComponents(numAdComponents: number): Array<string>;
-  canLoadAdAuctionFencedFrame(): boolean;
   canShare(data?: ShareData): boolean;
-  clearOriginJoinedAdInterestGroups(
-    owner: string,
-    interestGroupsToKeep?: Array<string>,
-  ): Promise<void>;
-  createAuctionNonce(): Promise<string>;
   deprecatedReplaceInURN(
     urnOrConfig: UrnOrConfig,
     replacements: {[string]: string},
@@ -7269,22 +7007,13 @@ declare class Navigator
   getBattery(): Promise<BatteryManager>;
   getGamepads(): Array<Gamepad | null>;
   getInstalledRelatedApps(): Promise<Array<RelatedApplication>>;
-  getInterestGroupAdAuctionData(
-    config?: AdAuctionDataConfig,
-  ): Promise<AdAuctionData>;
-  joinAdInterestGroup(group: AuctionAdInterestGroup): Promise<void>;
-  leaveAdInterestGroup(group?: AuctionAdInterestGroupKey): Promise<void>;
   requestMediaKeySystemAccess(
     keySystem: string,
     supportedConfigurations: Array<MediaKeySystemConfiguration>,
   ): Promise<MediaKeySystemAccess>;
   requestMIDIAccess(options?: MIDIOptions): Promise<MIDIAccess>;
-  runAdAuction(
-    config: AuctionAdConfig,
-  ): Promise<string | FencedFrameConfig | null>;
   sendBeacon(url: string, data?: BodyInit | null): boolean;
   share(data?: ShareData): Promise<void>;
-  updateAdInterestGroups(): void;
   vibrate(pattern: VibratePattern): boolean;
 }
 
@@ -7630,7 +7359,6 @@ declare class Window
   +pageYOffset: number;
   +parent: WindowProxy | null;
   +personalbar: BarProp;
-  +portalHost: PortalHost | null;
   +screen: Screen;
   +screenLeft: number;
   +screenTop: number;
@@ -7646,7 +7374,6 @@ declare class Window
   +statusbar: BarProp;
   +toolbar: BarProp;
   +top: WindowProxy | null;
-  +viewport: Viewport;
   +visualViewport: VisualViewport | null;
   +window: WindowProxy;
 
@@ -7762,8 +7489,7 @@ declare class WorkerNavigator
     mixin$NavigatorStorage,
     mixin$NavigatorUA,
     mixin$NavigatorLocks,
-    mixin$NavigatorGPU,
-    mixin$NavigatorML
+    mixin$NavigatorGPU
 {
   +hid: HID;
   +mediaCapabilities: MediaCapabilities;
@@ -8239,7 +7965,6 @@ declare class mixin$WindowEventHandlers {
   onpageshow: EventHandler;
   onpageswap: EventHandler;
   onpopstate: EventHandler;
-  onportalactivate: EventHandler;
   onrejectionhandled: EventHandler;
   onstorage: EventHandler;
   onunhandledrejection: EventHandler;
@@ -8895,34 +8620,6 @@ declare class TaskAttributionTiming extends PerformanceEntry {
   +startTime: number;
 
   toJSON(): Object;
-}
-
-/*---------- magnetometer ----------*/
-
-type MagnetometerLocalCoordinateSystem = 'device' | 'screen';
-
-type MagnetometerSensorOptions = {
-  ...SensorOptions,
-  referenceFrame: MagnetometerLocalCoordinateSystem,
-};
-
-declare class Magnetometer extends Sensor {
-  +x: number | null;
-  +y: number | null;
-  +z: number | null;
-
-  constructor(sensorOptions?: MagnetometerSensorOptions): void;
-}
-
-declare class UncalibratedMagnetometer extends Sensor {
-  +x: number | null;
-  +xBias: number | null;
-  +y: number | null;
-  +yBias: number | null;
-  +z: number | null;
-  +zBias: number | null;
-
-  constructor(sensorOptions?: MagnetometerSensorOptions): void;
 }
 
 /*---------- managed-configuration ----------*/
@@ -9766,10 +9463,6 @@ declare class MediaRecorder extends EventTarget {
   start(timeslice?: number): void;
   stop(): void;
 }
-
-/*---------- model-element ----------*/
-
-declare class HTMLModelElement extends HTMLElement {}
 
 /*---------- mst-content-hint ----------*/
 
@@ -10680,101 +10373,6 @@ type PointerLockOptions = {
   unadjustedMovement: boolean,
 };
 
-/*---------- portals ----------*/
-
-// Contributes to:
-//   - Window
-//   - WindowEventHandlers
-
-type PortalActivateEventInit = {
-  ...EventInit,
-  data: any,
-};
-
-type PortalActivateOptions = {
-  ...StructuredSerializeOptions,
-  data: any,
-};
-
-declare class HTMLPortalElement extends HTMLElement {
-  onmessage: EventHandler;
-  onmessageerror: EventHandler;
-  referrerPolicy: string;
-  src: string;
-
-  constructor(): void;
-
-  activate(options?: PortalActivateOptions): Promise<void>;
-  postMessage(message: any, options?: StructuredSerializeOptions): void;
-}
-
-declare class PortalActivateEvent extends Event {
-  +data: any;
-
-  constructor(type: string, eventInitDict?: PortalActivateEventInit): void;
-
-  adoptPredecessor(): HTMLPortalElement;
-}
-
-declare class PortalHost extends EventTarget {
-  onmessage: EventHandler;
-  onmessageerror: EventHandler;
-
-  postMessage(message: any, options?: StructuredSerializeOptions): void;
-}
-
-/*---------- ppa ----------*/
-
-// Contributes to:
-//   - Navigator
-//   - PrivateAttribution
-
-type PrivateAttributionLogic = 'last-touch';
-
-type PrivateAttributionProtocol = 'dap-12-histogram' | 'tee-00';
-
-type PrivateAttributionAggregationService = {
-  protocol: string,
-};
-
-type PrivateAttributionConversionOptions = {
-  aggregationService: string,
-  epsilon: number,
-  filterData: number,
-  histogramSize: number,
-  impressionSites: Array<string>,
-  intermediarySites: Array<string>,
-  logic: PrivateAttributionLogic,
-  lookbackDays: number,
-  maxValue: number,
-  value: number,
-};
-
-type PrivateAttributionConversionResult = {
-  report: Uint8Array,
-};
-
-type PrivateAttributionImpressionOptions = {
-  conversionSite: string,
-  filterData: number,
-  histogramIndex: number,
-  lifetimeDays: number,
-};
-
-declare class PrivateAttribution {
-  +aggregationServices: PrivateAttributionAggregationServices;
-
-  measureConversion(
-    options: PrivateAttributionConversionOptions,
-  ): Promise<PrivateAttributionConversionResult>;
-  saveImpression(options: PrivateAttributionImpressionOptions): void;
-}
-
-type PrivateAttributionAggregationServices = Map<
-  string,
-  PrivateAttributionAggregationService,
->;
-
 /*---------- prefer-current-tab ----------*/
 
 // Contributes to:
@@ -10876,27 +10474,6 @@ declare class PresentationRequest extends EventTarget {
   getAvailability(): Promise<PresentationAvailability>;
   reconnect(presentationId: string): Promise<PresentationConnection>;
   start(): Promise<PresentationConnection>;
-}
-
-/*---------- private-aggregation-api ----------*/
-
-type PADebugModeOptions = {
-  debugKey: bigint,
-};
-
-type PAHistogramContribution = {
-  bucket: bigint,
-  filteringId: bigint,
-  value: number,
-};
-
-declare class PrivateAggregation {
-  contributeToHistogram(contribution: PAHistogramContribution): void;
-  contributeToHistogramOnEvent(
-    event: string,
-    contribution: {[string]: any},
-  ): void;
-  enableDebugMode(options?: PADebugModeOptions): void;
 }
 
 /*---------- private-click-measurement ----------*/
@@ -11022,6 +10599,10 @@ declare class PushSubscriptionOptions {
 declare class XRCamera {
   +height: number;
   +width: number;
+}
+
+/* partial */ declare class XRWebGLBinding {
+  getCameraImage(camera: XRCamera): WebGLTexture | null;
 }
 
 /*---------- real-world-meshing ----------*/
@@ -13539,349 +13120,6 @@ declare class TrustedTypePolicyFactory {
   isScriptURL(value: any): boolean;
 }
 
-/*---------- turtledove ----------*/
-
-// Contributes to:
-//   - Navigator
-//   - RequestInit
-//   - HTMLIFrameElement
-
-type PreviousWin = Array<PreviousWinElement>;
-
-type PreviousWinElement = number | AuctionAd;
-
-type KAnonStatus =
-  | 'passedAndEnforced'
-  | 'passedNotEnforced'
-  | 'belowThreshold'
-  | 'notCalculated';
-
-type AdAuctionData = {
-  request: Uint8Array,
-  requestId: string,
-  requests: Array<AdAuctionPerSellerData>,
-};
-
-type AdAuctionDataBuyerConfig = {
-  targetSize: number,
-};
-
-type AdAuctionDataConfig = {
-  coordinatorOrigin: string,
-  perBuyerConfig: {[string]: AdAuctionDataBuyerConfig},
-  requestSize: number,
-  seller: string,
-  sellers: Array<AdAuctionOneSeller>,
-};
-
-type AdAuctionOneSeller = {
-  coordinatorOrigin: string,
-  seller: string,
-};
-
-type AdAuctionPerSellerData = {
-  error: string,
-  request: Uint8Array,
-  seller: string,
-};
-
-type AdRender = {
-  height: string,
-  url: string,
-  width: string,
-};
-
-type AuctionAd = {
-  adRenderId: string,
-  allowedReportingOrigins: Array<string>,
-  buyerAndSellerReportingId: string,
-  buyerReportingId: string,
-  creativeScanningMetadata: string,
-  metadata: any,
-  renderURL: string,
-  selectableBuyerAndSellerReportingIds: Array<string>,
-  sizeGroup: string,
-};
-
-type AuctionAdConfig = {
-  additionalBids: Promise<void>,
-  allSlotsRequestedSizes: Array<{[string]: string}>,
-  auctionNonce: string,
-  auctionReportBuyerDebugModeConfig: AuctionReportBuyerDebugModeConfig,
-  auctionReportBuyerKeys: Array<bigint>,
-  auctionReportBuyers: {[string]: AuctionReportBuyersConfig},
-  auctionSignals: Promise<any>,
-  componentAuctions: Array<AuctionAdConfig>,
-  decisionLogicURL: string,
-  deprecatedRenderURLReplacements: Promise<{[string]: string} | null>,
-  directFromSellerSignalsHeaderAdSlot: Promise<string | null>,
-  interestGroupBuyers: Array<string>,
-  maxTrustedScoringSignalsURLLength: number,
-  perBuyerCumulativeTimeouts: Promise<{[string]: number} | null>,
-  perBuyerCurrencies: Promise<{[string]: string} | null>,
-  perBuyerExperimentGroupIds: {[string]: number},
-  perBuyerGroupLimits: {[string]: number},
-  perBuyerMultiBidLimits: {[string]: number},
-  perBuyerPrioritySignals: {[string]: {[string]: number}},
-  perBuyerRealTimeReportingConfig: {[string]: AuctionRealTimeReportingConfig},
-  perBuyerSignals: Promise<{[string]: any} | null>,
-  perBuyerTimeouts: Promise<{[string]: number} | null>,
-  privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
-  reportingTimeout: number,
-  requestedSize: {[string]: string},
-  requestId: string,
-  requiredSellerCapabilities: Array<string>,
-  resolveToConfig: Promise<boolean>,
-  seller: string,
-  sellerCurrency: string,
-  sellerExperimentGroupId: number,
-  sellerRealTimeReportingConfig: AuctionRealTimeReportingConfig,
-  sellerSignals: Promise<any>,
-  sellerTimeout: number,
-  sendCreativeScanningMetadata: boolean,
-  serverResponse: Promise<Uint8Array>,
-  signal: AbortSignal | null,
-  trustedScoringSignalsCoordinator: string,
-  trustedScoringSignalsURL: string,
-};
-
-type AuctionAdInterestGroup = {
-  ...GenerateBidInterestGroup,
-  additionalBidKey: string,
-  lifetimeMs: number,
-  priority: number,
-  prioritySignalsOverrides: {[string]: number},
-  privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
-};
-
-type AuctionAdInterestGroupKey = {
-  name: string,
-  owner: string,
-};
-
-type AuctionAdInterestGroupSize = {
-  height: string,
-  width: string,
-};
-
-type AuctionRealTimeReportingConfig = {
-  type: string,
-};
-
-type AuctionReportBuyerDebugModeConfig = {
-  debugKey: bigint | null,
-  enabled: boolean,
-};
-
-type AuctionReportBuyersConfig = {
-  bucket: bigint,
-  scale: number,
-};
-
-type BiddingBrowserSignals = {
-  adComponentsLimit: number,
-  bidCount: number,
-  crossOriginDataVersion: number,
-  dataVersion: number,
-  forDebuggingOnlyInCooldownOrLockout: boolean,
-  joinCount: number,
-  multiBidLimit: number,
-  prevWinsMs: Array<PreviousWin>,
-  recency: number,
-  requestedSize: {[string]: string},
-  seller: string,
-  topLevelSeller: string,
-  topWindowHostname: string,
-  wasmHelper: Object,
-};
-
-type DirectFromSellerSignalsForBuyer = {
-  auctionSignals: any,
-  perBuyerSignals: any,
-};
-
-type DirectFromSellerSignalsForSeller = {
-  auctionSignals: any,
-  sellerSignals: any,
-};
-
-type GenerateBidInterestGroup = {
-  adComponents: Array<AuctionAd>,
-  ads: Array<AuctionAd>,
-  adSizes: {[string]: AuctionAdInterestGroupSize},
-  biddingLogicURL: string,
-  biddingWasmHelperURL: string,
-  enableBiddingSignalsPrioritization: boolean,
-  executionMode: string,
-  maxTrustedBiddingSignalsURLLength: number,
-  name: string,
-  owner: string,
-  priorityVector: {[string]: number},
-  sellerCapabilities: {[string]: Array<string>},
-  sizeGroups: {[string]: Array<string>},
-  trustedBiddingSignalsCoordinator: string,
-  trustedBiddingSignalsKeys: Array<string>,
-  trustedBiddingSignalsSlotSizeMode: string,
-  trustedBiddingSignalsURL: string,
-  updateURL: string,
-  userBiddingSignals: any,
-};
-
-type GenerateBidOutput = {
-  ad: any,
-  adComponents: Array<string | AdRender>,
-  adCost: number,
-  allowComponentAuction: boolean,
-  bid: number,
-  bidCurrency: string,
-  modelingSignals: number,
-  numMandatoryAdComponents: number,
-  render: string | AdRender,
-  selectedBuyerAndSellerReportingId: string,
-  targetNumAdComponents: number,
-};
-
-type PAExtendedHistogramContribution = {
-  bucket: PASignalValue | bigint,
-  filteringId: bigint,
-  value: PASignalValue | number,
-};
-
-type PASignalValue = {
-  baseValue: string,
-  offset: bigint | number,
-  scale: number,
-};
-
-type ProtectedAudiencePrivateAggregationConfig = {
-  aggregationCoordinatorOrigin: string,
-};
-
-type RealTimeContribution = {
-  bucket: number,
-  latencyThreshold: number,
-  priorityWeight: number,
-};
-
-type ReportingBrowserSignals = {
-  bid: number,
-  bidCurrency: string,
-  buyerAndSellerReportingId: string,
-  componentSeller: string,
-  highestScoringOtherBid: number,
-  highestScoringOtherBidCurrency: string,
-  interestGroupOwner: string,
-  renderURL: string,
-  selectedBuyerAndSellerReportingId: string,
-  topLevelSeller: string,
-  topWindowHostname: string,
-};
-
-type ReportResultBrowserSignals = {
-  ...ReportingBrowserSignals,
-  dataVersion: number,
-  desirability: number,
-  modifiedBid: number,
-  topLevelSellerSignals: string,
-};
-
-type ReportWinBrowserSignals = {
-  ...ReportingBrowserSignals,
-  adCost: number,
-  buyerReportingId: string,
-  dataVersion: number,
-  interestGroupName: string,
-  kAnonStatus: KAnonStatus,
-  madeHighestScoringOtherBid: boolean,
-  modelingSignals: number,
-  seller: string,
-};
-
-type ScoreAdOutput = {
-  allowComponentAuction: boolean,
-  bid: number,
-  bidCurrency: string,
-  desirability: number,
-  incomingBidInSellerCurrency: number,
-};
-
-type ScoringBrowserSignals = {
-  adComponents: Array<string>,
-  adComponentsCreativeScanningMetadata: Array<string | null>,
-  bidCurrency: string,
-  biddingDurationMsec: number,
-  creativeScanningMetadata: string,
-  crossOriginDataVersion: number,
-  dataVersion: number,
-  forDebuggingOnlyInCooldownOrLockout: boolean,
-  interestGroupOwner: string,
-  renderSize: {[string]: string},
-  renderURL: string,
-  topWindowHostname: string,
-};
-
-type StorageInterestGroup = {
-  ...AuctionAdInterestGroup,
-  bidCount: number,
-  estimatedSize: number,
-  joinCount: number,
-  joiningOrigin: string,
-  lifetimeRemainingMs: number,
-  prevWinsMs: Array<PreviousWin>,
-  timeSinceGroupJoinedMs: number,
-  timeSinceLastUpdateMs: number,
-  timeUntilNextUpdateMs: number,
-};
-
-declare class ForDebuggingOnly {
-  reportAdAuctionLoss(url: string): void;
-  reportAdAuctionWin(url: string): void;
-}
-
-declare class InterestGroupBiddingAndScoringScriptRunnerGlobalScope
-  extends InterestGroupScriptRunnerGlobalScope
-{
-  +forDebuggingOnly: ForDebuggingOnly;
-  +realTimeReporting: RealTimeReporting;
-}
-
-declare class InterestGroupBiddingScriptRunnerGlobalScope
-  extends InterestGroupBiddingAndScoringScriptRunnerGlobalScope
-{
-  setBid(oneOrManyBids?: GenerateBidOutput | Array<GenerateBidOutput>): boolean;
-  setPriority(priority: number): void;
-  setPrioritySignalsOverride(key: string, priority?: number | null): void;
-}
-
-declare class InterestGroupReportingScriptRunnerGlobalScope
-  extends InterestGroupScriptRunnerGlobalScope
-{
-  registerAdBeacon(map: {[string]: string}): void;
-  registerAdMacro(name: string, value: string): void;
-  sendReportTo(url: string): void;
-}
-
-declare class InterestGroupScoringScriptRunnerGlobalScope
-  extends InterestGroupBiddingAndScoringScriptRunnerGlobalScope {}
-
-declare class InterestGroupScriptRunnerGlobalScope {
-  +privateAggregation: PrivateAggregation | null;
-  +protectedAudience: ProtectedAudienceUtilities;
-}
-
-declare class ProtectedAudience {
-  queryFeatureSupport(feature: string): any;
-}
-
-declare class ProtectedAudienceUtilities {
-  decodeUtf8(bytes: Uint8Array): string;
-  encodeUtf8(input: string): Uint8Array;
-}
-
-declare class RealTimeReporting {
-  contributeToHistogram(contribution: RealTimeContribution): void;
-}
-
 /*---------- ua-client-hints ----------*/
 
 type NavigatorUABrandVersion = {
@@ -15150,79 +14388,6 @@ declare class LockManager {
 
 declare class mixin$NavigatorLocks {
   +locks: LockManager;
-}
-
-/*---------- web-nfc ----------*/
-
-type NDEFMessageSource = string | BufferSource | NDEFMessageInit;
-
-type NDEFMakeReadOnlyOptions = {
-  signal: AbortSignal | null,
-};
-
-type NDEFMessageInit = {
-  records: Array<NDEFRecordInit>,
-};
-
-type NDEFReadingEventInit = {
-  ...EventInit,
-  message: NDEFMessageInit,
-  serialNumber: string | null,
-};
-
-type NDEFRecordInit = {
-  data: any,
-  encoding: string,
-  id: string,
-  lang: string,
-  mediaType: string,
-  recordType: string,
-};
-
-type NDEFScanOptions = {
-  signal: AbortSignal,
-};
-
-type NDEFWriteOptions = {
-  overwrite: boolean,
-  signal: AbortSignal | null,
-};
-
-declare class NDEFMessage {
-  +records: $ReadOnlyArray<NDEFRecord>;
-
-  constructor(messageInit: NDEFMessageInit): void;
-}
-
-declare class NDEFReader extends EventTarget {
-  onreading: EventHandler;
-  onreadingerror: EventHandler;
-
-  constructor(): void;
-
-  makeReadOnly(options?: NDEFMakeReadOnlyOptions): Promise<void>;
-  scan(options?: NDEFScanOptions): Promise<void>;
-  write(message: NDEFMessageSource, options?: NDEFWriteOptions): Promise<void>;
-}
-
-declare class NDEFReadingEvent extends Event {
-  +message: NDEFMessage;
-  +serialNumber: string;
-
-  constructor(type: string, readingEventInitDict: NDEFReadingEventInit): void;
-}
-
-declare class NDEFRecord {
-  +data: DataView | null;
-  +encoding: string | null;
-  +id: string | null;
-  +lang: string | null;
-  +mediaType: string | null;
-  +recordType: string;
-
-  constructor(recordInit: NDEFRecordInit): void;
-
-  toRecords(): Array<NDEFRecord> | null;
 }
 
 /*---------- web-otp ----------*/
@@ -21179,840 +20344,6 @@ declare class MIDIPort extends EventTarget {
   open(): Promise<MIDIPort>;
 }
 
-/*---------- webnn ----------*/
-
-// Contributes to:
-//   - MLGraphBuilder
-//   - MLOpSupportLimits
-
-type MLDataTypeList = Array<MLOperandDataType>;
-
-type MLNamedOperands = {[string]: MLOperand};
-
-type MLNamedTensors = {[string]: MLTensor};
-
-type MLNumber = bigint | number;
-
-type MLConv2dFilterOperandLayout = 'oihw' | 'hwio' | 'ohwi' | 'ihwo';
-
-type MLConvTranspose2dFilterOperandLayout = 'iohw' | 'hwoi' | 'ohwi';
-
-type MLGruWeightLayout = 'zrn' | 'rzn';
-
-type MLInputOperandLayout = 'nchw' | 'nhwc';
-
-type MLInterpolationMode = 'nearest-neighbor' | 'linear';
-
-type MLLstmWeightLayout = 'iofg' | 'ifgo';
-
-type MLOperandDataType =
-  | 'float32'
-  | 'float16'
-  | 'int32'
-  | 'uint32'
-  | 'int64'
-  | 'uint64'
-  | 'int8'
-  | 'uint8';
-
-type MLPaddingMode = 'constant' | 'edge' | 'reflection';
-
-type MLPowerPreference = 'default' | 'high-performance' | 'low-power';
-
-type MLRecurrentNetworkActivation = 'relu' | 'sigmoid' | 'tanh';
-
-type MLRecurrentNetworkDirection = 'forward' | 'backward' | 'both';
-
-type MLRoundingType = 'floor' | 'ceil';
-
-type MLArgMinMaxOptions = {
-  ...MLOperatorOptions,
-  keepDimensions: boolean,
-  outputDataType: MLOperandDataType,
-};
-
-type MLBatchNormalizationOptions = {
-  ...MLOperatorOptions,
-  axis: number,
-  bias: MLOperand,
-  epsilon: number,
-  scale: MLOperand,
-};
-
-type MLBatchNormalizationSupportLimits = {
-  bias: MLTensorLimits,
-  input: MLTensorLimits,
-  mean: MLTensorLimits,
-  output: MLDataTypeLimits,
-  scale: MLTensorLimits,
-  variance: MLTensorLimits,
-};
-
-type MLBinarySupportLimits = {
-  a: MLTensorLimits,
-  b: MLTensorLimits,
-  output: MLDataTypeLimits,
-};
-
-type MLClampOptions = {
-  ...MLOperatorOptions,
-  maxValue: MLNumber,
-  minValue: MLNumber,
-};
-
-type MLConcatSupportLimits = {
-  inputs: MLTensorLimits,
-  output: MLDataTypeLimits,
-};
-
-type MLContextLostInfo = {
-  message: string,
-};
-
-type MLContextOptions = {
-  powerPreference: MLPowerPreference,
-};
-
-type MLConv2dOptions = {
-  ...MLOperatorOptions,
-  bias: MLOperand,
-  dilations: Array<number>,
-  filterLayout: MLConv2dFilterOperandLayout,
-  groups: number,
-  inputLayout: MLInputOperandLayout,
-  padding: Array<number>,
-  strides: Array<number>,
-};
-
-type MLConv2dSupportLimits = {
-  bias: MLTensorLimits,
-  filter: MLTensorLimits,
-  input: MLTensorLimits,
-  output: MLDataTypeLimits,
-};
-
-type MLConvTranspose2dOptions = {
-  ...MLOperatorOptions,
-  bias: MLOperand,
-  dilations: Array<number>,
-  filterLayout: MLConvTranspose2dFilterOperandLayout,
-  groups: number,
-  inputLayout: MLInputOperandLayout,
-  outputPadding: Array<number>,
-  outputSizes: Array<number>,
-  padding: Array<number>,
-  strides: Array<number>,
-};
-
-type MLCumulativeSumOptions = {
-  ...MLOperatorOptions,
-  exclusive: boolean,
-  reversed: boolean,
-};
-
-type MLDataTypeLimits = {
-  dataTypes: MLDataTypeList,
-};
-
-type MLEluOptions = {
-  ...MLOperatorOptions,
-  alpha: number,
-};
-
-type MLGatherOptions = {
-  ...MLOperatorOptions,
-  axis: number,
-};
-
-type MLGatherSupportLimits = {
-  indices: MLTensorLimits,
-  input: MLTensorLimits,
-  output: MLDataTypeLimits,
-};
-
-type MLGemmOptions = {
-  ...MLOperatorOptions,
-  alpha: number,
-  aTranspose: boolean,
-  beta: number,
-  bTranspose: boolean,
-  c: MLOperand,
-};
-
-type MLGemmSupportLimits = {
-  a: MLTensorLimits,
-  b: MLTensorLimits,
-  c: MLTensorLimits,
-  output: MLDataTypeLimits,
-};
-
-type MLGruCellOptions = {
-  ...MLOperatorOptions,
-  activations: Array<MLRecurrentNetworkActivation>,
-  bias: MLOperand,
-  layout: MLGruWeightLayout,
-  recurrentBias: MLOperand,
-  resetAfter: boolean,
-};
-
-type MLGruCellSupportLimits = {
-  bias: MLTensorLimits,
-  hiddenState: MLTensorLimits,
-  input: MLTensorLimits,
-  output: MLDataTypeLimits,
-  recurrentBias: MLTensorLimits,
-  recurrentWeight: MLTensorLimits,
-  weight: MLTensorLimits,
-};
-
-type MLGruOptions = {
-  ...MLOperatorOptions,
-  activations: Array<MLRecurrentNetworkActivation>,
-  bias: MLOperand,
-  direction: MLRecurrentNetworkDirection,
-  initialHiddenState: MLOperand,
-  layout: MLGruWeightLayout,
-  recurrentBias: MLOperand,
-  resetAfter: boolean,
-  returnSequence: boolean,
-};
-
-type MLGruSupportLimits = {
-  bias: MLTensorLimits,
-  initialHiddenState: MLTensorLimits,
-  input: MLTensorLimits,
-  outputs: MLDataTypeLimits,
-  recurrentBias: MLTensorLimits,
-  recurrentWeight: MLTensorLimits,
-  weight: MLTensorLimits,
-};
-
-type MLHardSigmoidOptions = {
-  ...MLOperatorOptions,
-  alpha: number,
-  beta: number,
-};
-
-type MLInstanceNormalizationOptions = {
-  ...MLOperatorOptions,
-  bias: MLOperand,
-  epsilon: number,
-  layout: MLInputOperandLayout,
-  scale: MLOperand,
-};
-
-type MLLayerNormalizationOptions = {
-  ...MLOperatorOptions,
-  axes: Array<number>,
-  bias: MLOperand,
-  epsilon: number,
-  scale: MLOperand,
-};
-
-type MLLeakyReluOptions = {
-  ...MLOperatorOptions,
-  alpha: number,
-};
-
-type MLLinearOptions = {
-  ...MLOperatorOptions,
-  alpha: number,
-  beta: number,
-};
-
-type MLLogicalNotSupportLimits = {
-  a: MLTensorLimits,
-  output: MLDataTypeLimits,
-};
-
-type MLLstmCellOptions = {
-  ...MLOperatorOptions,
-  activations: Array<MLRecurrentNetworkActivation>,
-  bias: MLOperand,
-  layout: MLLstmWeightLayout,
-  peepholeWeight: MLOperand,
-  recurrentBias: MLOperand,
-};
-
-type MLLstmCellSupportLimits = {
-  bias: MLTensorLimits,
-  cellState: MLTensorLimits,
-  hiddenState: MLTensorLimits,
-  input: MLTensorLimits,
-  outputs: MLDataTypeLimits,
-  peepholeWeight: MLTensorLimits,
-  recurrentBias: MLTensorLimits,
-  recurrentWeight: MLTensorLimits,
-  weight: MLTensorLimits,
-};
-
-type MLLstmOptions = {
-  ...MLOperatorOptions,
-  activations: Array<MLRecurrentNetworkActivation>,
-  bias: MLOperand,
-  direction: MLRecurrentNetworkDirection,
-  initialCellState: MLOperand,
-  initialHiddenState: MLOperand,
-  layout: MLLstmWeightLayout,
-  peepholeWeight: MLOperand,
-  recurrentBias: MLOperand,
-  returnSequence: boolean,
-};
-
-type MLLstmSupportLimits = {
-  bias: MLTensorLimits,
-  initialCellState: MLTensorLimits,
-  initialHiddenState: MLTensorLimits,
-  input: MLTensorLimits,
-  outputs: MLDataTypeLimits,
-  peepholeWeight: MLTensorLimits,
-  recurrentBias: MLTensorLimits,
-  recurrentWeight: MLTensorLimits,
-  weight: MLTensorLimits,
-};
-
-type MLNormalizationSupportLimits = {
-  bias: MLTensorLimits,
-  input: MLTensorLimits,
-  output: MLDataTypeLimits,
-  scale: MLTensorLimits,
-};
-
-type MLOperandDescriptor = {
-  dataType: MLOperandDataType,
-  shape: Array<number>,
-};
-
-type MLOperatorOptions = {
-  label: string,
-};
-
-type MLOpSupportLimits = {
-  abs: MLSingleInputSupportLimits,
-  add: MLBinarySupportLimits,
-  argMax: MLSingleInputSupportLimits,
-  argMin: MLSingleInputSupportLimits,
-  averagePool2d: MLSingleInputSupportLimits,
-  batchNormalization: MLBatchNormalizationSupportLimits,
-  cast: MLSingleInputSupportLimits,
-  ceil: MLSingleInputSupportLimits,
-  clamp: MLSingleInputSupportLimits,
-  concat: MLConcatSupportLimits,
-  constant: MLDataTypeLimits,
-  conv2d: MLConv2dSupportLimits,
-  convTranspose2d: MLConv2dSupportLimits,
-  cos: MLSingleInputSupportLimits,
-  cumulativeSum: MLSingleInputSupportLimits,
-  dequantizeLinear: MLQuantizeDequantizeLinearSupportLimits,
-  div: MLBinarySupportLimits,
-  elu: MLSingleInputSupportLimits,
-  equal: MLBinarySupportLimits,
-  erf: MLSingleInputSupportLimits,
-  exp: MLSingleInputSupportLimits,
-  expand: MLSingleInputSupportLimits,
-  floor: MLSingleInputSupportLimits,
-  gather: MLGatherSupportLimits,
-  gatherElements: MLGatherSupportLimits,
-  gatherND: MLGatherSupportLimits,
-  gelu: MLSingleInputSupportLimits,
-  gemm: MLGemmSupportLimits,
-  greater: MLBinarySupportLimits,
-  greaterOrEqual: MLBinarySupportLimits,
-  gru: MLGruSupportLimits,
-  gruCell: MLGruCellSupportLimits,
-  hardSigmoid: MLSingleInputSupportLimits,
-  hardSwish: MLSingleInputSupportLimits,
-  identity: MLSingleInputSupportLimits,
-  input: MLDataTypeLimits,
-  instanceNormalization: MLNormalizationSupportLimits,
-  l2Pool2d: MLSingleInputSupportLimits,
-  layerNormalization: MLNormalizationSupportLimits,
-  leakyRelu: MLSingleInputSupportLimits,
-  lesser: MLBinarySupportLimits,
-  lesserOrEqual: MLBinarySupportLimits,
-  linear: MLSingleInputSupportLimits,
-  log: MLSingleInputSupportLimits,
-  logicalAnd: MLBinarySupportLimits,
-  logicalNot: MLLogicalNotSupportLimits,
-  logicalOr: MLBinarySupportLimits,
-  logicalXor: MLBinarySupportLimits,
-  lstm: MLLstmSupportLimits,
-  lstmCell: MLLstmCellSupportLimits,
-  matmul: MLBinarySupportLimits,
-  max: MLBinarySupportLimits,
-  maxPool2d: MLSingleInputSupportLimits,
-  maxTensorByteLength: number,
-  min: MLBinarySupportLimits,
-  mul: MLBinarySupportLimits,
-  neg: MLSingleInputSupportLimits,
-  notEqual: MLBinarySupportLimits,
-  output: MLDataTypeLimits,
-  pad: MLSingleInputSupportLimits,
-  pow: MLBinarySupportLimits,
-  preferredInputLayout: MLInputOperandLayout,
-  prelu: MLPreluSupportLimits,
-  quantizeLinear: MLQuantizeDequantizeLinearSupportLimits,
-  reciprocal: MLSingleInputSupportLimits,
-  reduceL1: MLSingleInputSupportLimits,
-  reduceL2: MLSingleInputSupportLimits,
-  reduceLogSum: MLSingleInputSupportLimits,
-  reduceLogSumExp: MLSingleInputSupportLimits,
-  reduceMax: MLSingleInputSupportLimits,
-  reduceMean: MLSingleInputSupportLimits,
-  reduceMin: MLSingleInputSupportLimits,
-  reduceProduct: MLSingleInputSupportLimits,
-  reduceSum: MLSingleInputSupportLimits,
-  reduceSumSquare: MLSingleInputSupportLimits,
-  relu: MLSingleInputSupportLimits,
-  resample2d: MLSingleInputSupportLimits,
-  reshape: MLSingleInputSupportLimits,
-  reverse: MLSingleInputSupportLimits,
-  scatterElements: MLScatterSupportLimits,
-  scatterND: MLScatterSupportLimits,
-  sigmoid: MLSingleInputSupportLimits,
-  sign: MLSingleInputSupportLimits,
-  sin: MLSingleInputSupportLimits,
-  slice: MLSingleInputSupportLimits,
-  softmax: MLSingleInputSupportLimits,
-  softplus: MLSingleInputSupportLimits,
-  softsign: MLSingleInputSupportLimits,
-  split: MLSplitSupportLimits,
-  sqrt: MLSingleInputSupportLimits,
-  sub: MLBinarySupportLimits,
-  tan: MLSingleInputSupportLimits,
-  tanh: MLSingleInputSupportLimits,
-  tile: MLSingleInputSupportLimits,
-  transpose: MLSingleInputSupportLimits,
-  triangular: MLSingleInputSupportLimits,
-  where: MLWhereSupportLimits,
-};
-
-type MLPadOptions = {
-  ...MLOperatorOptions,
-  mode: MLPaddingMode,
-  value: MLNumber,
-};
-
-type MLPool2dOptions = {
-  ...MLOperatorOptions,
-  dilations: Array<number>,
-  layout: MLInputOperandLayout,
-  outputSizes: Array<number>,
-  padding: Array<number>,
-  roundingType: MLRoundingType,
-  strides: Array<number>,
-  windowDimensions: Array<number>,
-};
-
-type MLPreluSupportLimits = {
-  input: MLTensorLimits,
-  output: MLDataTypeLimits,
-  slope: MLTensorLimits,
-};
-
-type MLQuantizeDequantizeLinearSupportLimits = {
-  input: MLTensorLimits,
-  output: MLDataTypeLimits,
-  scale: MLTensorLimits,
-  zeroPoint: MLTensorLimits,
-};
-
-type MLRankRange = {
-  max: number,
-  min: number,
-};
-
-type MLReduceOptions = {
-  ...MLOperatorOptions,
-  axes: Array<number>,
-  keepDimensions: boolean,
-};
-
-type MLResample2dOptions = {
-  ...MLOperatorOptions,
-  axes: Array<number>,
-  mode: MLInterpolationMode,
-  scales: Array<number>,
-  sizes: Array<number>,
-};
-
-type MLReverseOptions = {
-  ...MLOperatorOptions,
-  axes: Array<number>,
-};
-
-type MLScatterOptions = {
-  ...MLOperatorOptions,
-  axis: number,
-};
-
-type MLScatterSupportLimits = {
-  indices: MLTensorLimits,
-  input: MLTensorLimits,
-  output: MLDataTypeLimits,
-  updates: MLTensorLimits,
-};
-
-type MLSingleInputSupportLimits = {
-  input: MLTensorLimits,
-  output: MLDataTypeLimits,
-};
-
-type MLSliceOptions = {
-  ...MLOperatorOptions,
-  strides: Array<number>,
-};
-
-type MLSplitOptions = {
-  ...MLOperatorOptions,
-  axis: number,
-};
-
-type MLSplitSupportLimits = {
-  input: MLTensorLimits,
-  outputs: MLDataTypeLimits,
-};
-
-type MLTensorDescriptor = {
-  ...MLOperandDescriptor,
-  readable: boolean,
-  writable: boolean,
-};
-
-type MLTensorLimits = {
-  dataTypes: MLDataTypeList,
-  rankRange: MLRankRange,
-};
-
-type MLTransposeOptions = {
-  ...MLOperatorOptions,
-  permutation: Array<number>,
-};
-
-type MLTriangularOptions = {
-  ...MLOperatorOptions,
-  diagonal: number,
-  upper: boolean,
-};
-
-type MLWhereSupportLimits = {
-  condition: MLTensorLimits,
-  falseValue: MLTensorLimits,
-  output: MLDataTypeLimits,
-  trueValue: MLTensorLimits,
-};
-
-declare class ML {
-  createContext(options?: MLContextOptions): Promise<MLContext>;
-  createContext(gpuDevice: GPUDevice): Promise<MLContext>;
-}
-
-declare class MLContext {
-  +lost: Promise<MLContextLostInfo>;
-
-  createConstantTensor(
-    descriptor: MLOperandDescriptor,
-    inputData: AllowSharedBufferSource,
-  ): Promise<MLTensor>;
-  createTensor(descriptor: MLTensorDescriptor): Promise<MLTensor>;
-  destroy(): void;
-  dispatch(
-    graph: MLGraph,
-    inputs: MLNamedTensors,
-    outputs: MLNamedTensors,
-  ): void;
-  opSupportLimits(): MLOpSupportLimits;
-  readTensor(tensor: MLTensor): Promise<ArrayBuffer>;
-  readTensor(
-    tensor: MLTensor,
-    outputData: AllowSharedBufferSource,
-  ): Promise<void>;
-  writeTensor(tensor: MLTensor, inputData: AllowSharedBufferSource): void;
-}
-
-declare class MLGraph {
-  destroy(): void;
-}
-
-declare class MLGraphBuilder {
-  constructor(context: MLContext): void;
-
-  abs(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  add(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  argMax(
-    input: MLOperand,
-    axis: number,
-    options?: MLArgMinMaxOptions,
-  ): MLOperand;
-  argMin(
-    input: MLOperand,
-    axis: number,
-    options?: MLArgMinMaxOptions,
-  ): MLOperand;
-  averagePool2d(input: MLOperand, options?: MLPool2dOptions): MLOperand;
-  batchNormalization(
-    input: MLOperand,
-    mean: MLOperand,
-    variance: MLOperand,
-    options?: MLBatchNormalizationOptions,
-  ): MLOperand;
-  build(outputs: MLNamedOperands): Promise<MLGraph>;
-  cast(
-    input: MLOperand,
-    type: MLOperandDataType,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  ceil(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  clamp(input: MLOperand, options?: MLClampOptions): MLOperand;
-  concat(
-    inputs: Array<MLOperand>,
-    axis: number,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  constant(
-    descriptor: MLOperandDescriptor,
-    buffer: AllowSharedBufferSource,
-  ): MLOperand;
-  constant(type: MLOperandDataType, value: MLNumber): MLOperand;
-  constant(tensor: MLTensor): MLOperand;
-  conv2d(
-    input: MLOperand,
-    filter: MLOperand,
-    options?: MLConv2dOptions,
-  ): MLOperand;
-  convTranspose2d(
-    input: MLOperand,
-    filter: MLOperand,
-    options?: MLConvTranspose2dOptions,
-  ): MLOperand;
-  cos(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  cumulativeSum(
-    input: MLOperand,
-    axis: number,
-    options?: MLCumulativeSumOptions,
-  ): MLOperand;
-  dequantizeLinear(
-    input: MLOperand,
-    scale: MLOperand,
-    zeroPoint: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  div(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  elu(input: MLOperand, options?: MLEluOptions): MLOperand;
-  equal(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  erf(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  exp(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  expand(
-    input: MLOperand,
-    newShape: Array<number>,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  floor(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  gather(
-    input: MLOperand,
-    indices: MLOperand,
-    options?: MLGatherOptions,
-  ): MLOperand;
-  gatherElements(
-    input: MLOperand,
-    indices: MLOperand,
-    options?: MLGatherOptions,
-  ): MLOperand;
-  gatherND(
-    input: MLOperand,
-    indices: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  gelu(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  gemm(a: MLOperand, b: MLOperand, options?: MLGemmOptions): MLOperand;
-  greater(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  greaterOrEqual(
-    a: MLOperand,
-    b: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  gru(
-    input: MLOperand,
-    weight: MLOperand,
-    recurrentWeight: MLOperand,
-    steps: number,
-    hiddenSize: number,
-    options?: MLGruOptions,
-  ): Array<MLOperand>;
-  gruCell(
-    input: MLOperand,
-    weight: MLOperand,
-    recurrentWeight: MLOperand,
-    hiddenState: MLOperand,
-    hiddenSize: number,
-    options?: MLGruCellOptions,
-  ): MLOperand;
-  hardSigmoid(input: MLOperand, options?: MLHardSigmoidOptions): MLOperand;
-  hardSwish(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  identity(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  input(name: string, descriptor: MLOperandDescriptor): MLOperand;
-  instanceNormalization(
-    input: MLOperand,
-    options?: MLInstanceNormalizationOptions,
-  ): MLOperand;
-  l2Pool2d(input: MLOperand, options?: MLPool2dOptions): MLOperand;
-  layerNormalization(
-    input: MLOperand,
-    options?: MLLayerNormalizationOptions,
-  ): MLOperand;
-  leakyRelu(input: MLOperand, options?: MLLeakyReluOptions): MLOperand;
-  lesser(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  lesserOrEqual(
-    a: MLOperand,
-    b: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  linear(input: MLOperand, options?: MLLinearOptions): MLOperand;
-  log(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  logicalAnd(
-    a: MLOperand,
-    b: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  logicalNot(a: MLOperand, options?: MLOperatorOptions): MLOperand;
-  logicalOr(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  logicalXor(
-    a: MLOperand,
-    b: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  lstm(
-    input: MLOperand,
-    weight: MLOperand,
-    recurrentWeight: MLOperand,
-    steps: number,
-    hiddenSize: number,
-    options?: MLLstmOptions,
-  ): Array<MLOperand>;
-  lstmCell(
-    input: MLOperand,
-    weight: MLOperand,
-    recurrentWeight: MLOperand,
-    hiddenState: MLOperand,
-    cellState: MLOperand,
-    hiddenSize: number,
-    options?: MLLstmCellOptions,
-  ): Array<MLOperand>;
-  matmul(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  max(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  maxPool2d(input: MLOperand, options?: MLPool2dOptions): MLOperand;
-  min(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  mul(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  neg(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  notEqual(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  pad(
-    input: MLOperand,
-    beginningPadding: Array<number>,
-    endingPadding: Array<number>,
-    options?: MLPadOptions,
-  ): MLOperand;
-  pow(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  prelu(
-    input: MLOperand,
-    slope: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  quantizeLinear(
-    input: MLOperand,
-    scale: MLOperand,
-    zeroPoint: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  reciprocal(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  reduceL1(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  reduceL2(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  reduceLogSum(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  reduceLogSumExp(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  reduceMax(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  reduceMean(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  reduceMin(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  reduceProduct(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  reduceSum(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  reduceSumSquare(input: MLOperand, options?: MLReduceOptions): MLOperand;
-  relu(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  resample2d(input: MLOperand, options?: MLResample2dOptions): MLOperand;
-  reshape(
-    input: MLOperand,
-    newShape: Array<number>,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  reverse(input: MLOperand, options?: MLReverseOptions): MLOperand;
-  scatterElements(
-    input: MLOperand,
-    indices: MLOperand,
-    updates: MLOperand,
-    options?: MLScatterOptions,
-  ): MLOperand;
-  scatterND(
-    input: MLOperand,
-    indices: MLOperand,
-    updates: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  sigmoid(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  sign(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  sin(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  slice(
-    input: MLOperand,
-    starts: Array<number>,
-    sizes: Array<number>,
-    options?: MLSliceOptions,
-  ): MLOperand;
-  softmax(
-    input: MLOperand,
-    axis: number,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  softplus(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  softsign(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  split(
-    input: MLOperand,
-    splits: number | Array<number>,
-    options?: MLSplitOptions,
-  ): Array<MLOperand>;
-  sqrt(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  sub(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
-  tan(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  tanh(input: MLOperand, options?: MLOperatorOptions): MLOperand;
-  tile(
-    input: MLOperand,
-    repetitions: Array<number>,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-  transpose(input: MLOperand, options?: MLTransposeOptions): MLOperand;
-  triangular(input: MLOperand, options?: MLTriangularOptions): MLOperand;
-  where(
-    condition: MLOperand,
-    trueValue: MLOperand,
-    falseValue: MLOperand,
-    options?: MLOperatorOptions,
-  ): MLOperand;
-}
-
-declare class MLOperand {
-  +dataType: MLOperandDataType;
-  +shape: $ReadOnlyArray<number>;
-}
-
-declare class MLTensor {
-  +constant: boolean;
-  +dataType: MLOperandDataType;
-  +readable: boolean;
-  +shape: $ReadOnlyArray<number>;
-  +writable: boolean;
-
-  destroy(): void;
-}
-
-declare class mixin$NavigatorML {
-  +ml: ML;
-}
-
 /*---------- webrtc-encoded-transform ----------*/
 
 // Contributes to:
@@ -23685,6 +22016,10 @@ declare class XRDepthInformation mixins mixin$XRViewGeometry {
   +width: number;
 }
 
+/* partial */ declare class XRWebGLBinding {
+  getDepthInformation(view: XRView): XRWebGLDepthInformation | null;
+}
+
 declare class XRWebGLDepthInformation extends XRDepthInformation {
   +imageIndex: number | null;
   +texture: WebGLTexture;
@@ -23838,6 +22173,10 @@ declare class XRLightEstimate {
 declare class XRLightProbe extends EventTarget {
   onreflectionchange: EventHandler;
   +probeSpace: XRSpace;
+}
+
+/* partial */ declare class XRWebGLBinding {
+  getReflectionCubeMap(lightProbe: XRLightProbe): WebGLTexture | null;
 }
 
 /*---------- webxr-plane-detection ----------*/
@@ -24048,7 +22387,6 @@ declare class XRRenderState {
   +depthFar: number;
   +depthNear: number;
   +inlineVerticalFieldOfView: number | null;
-  +layers: $ReadOnlyArray<XRLayer>;
   +passthroughFullyObscured: boolean | null;
 }
 
@@ -24167,226 +22505,6 @@ declare class XRWebGLLayer extends XRLayer {
 declare class mixin$XRViewGeometry {
   +projectionMatrix: Float32Array;
   +transform: XRRigidTransform;
-}
-
-/*---------- webxrlayers ----------*/
-
-// Contributes to:
-//   - XRRenderState
-
-type XRLayerLayout =
-  | 'default'
-  | 'mono'
-  | 'stereo'
-  | 'stereo-left-right'
-  | 'stereo-top-bottom';
-
-type XRLayerQuality = 'default' | 'text-optimized' | 'graphics-optimized';
-
-type XRTextureType = 'texture' | 'texture-array';
-
-type XRCubeLayerInit = {
-  ...XRLayerInit,
-  orientation: DOMPointReadOnly | null,
-};
-
-type XRCylinderLayerInit = {
-  ...XRLayerInit,
-  aspectRatio: number,
-  centralAngle: number,
-  radius: number,
-  textureType: XRTextureType,
-  transform: XRRigidTransform | null,
-};
-
-type XREquirectLayerInit = {
-  ...XRLayerInit,
-  centralHorizontalAngle: number,
-  lowerVerticalAngle: number,
-  radius: number,
-  textureType: XRTextureType,
-  transform: XRRigidTransform | null,
-  upperVerticalAngle: number,
-};
-
-type XRLayerEventInit = {
-  ...EventInit,
-  layer: XRLayer,
-};
-
-type XRLayerInit = {
-  clearOnAccess: boolean,
-  colorFormat: GLenum,
-  depthFormat: GLenum | null,
-  isStatic: boolean,
-  layout: XRLayerLayout,
-  mipLevels: number,
-  space: XRSpace,
-  viewPixelHeight: number,
-  viewPixelWidth: number,
-};
-
-type XRMediaCylinderLayerInit = {
-  ...XRMediaLayerInit,
-  aspectRatio: number | null,
-  centralAngle: number,
-  radius: number,
-  transform: XRRigidTransform | null,
-};
-
-type XRMediaEquirectLayerInit = {
-  ...XRMediaLayerInit,
-  centralHorizontalAngle: number,
-  lowerVerticalAngle: number,
-  radius: number,
-  transform: XRRigidTransform | null,
-  upperVerticalAngle: number,
-};
-
-type XRMediaLayerInit = {
-  invertStereo: boolean,
-  layout: XRLayerLayout,
-  space: XRSpace,
-};
-
-type XRMediaQuadLayerInit = {
-  ...XRMediaLayerInit,
-  height: number | null,
-  transform: XRRigidTransform | null,
-  width: number | null,
-};
-
-type XRProjectionLayerInit = {
-  clearOnAccess: boolean,
-  colorFormat: GLenum,
-  depthFormat: GLenum,
-  scaleFactor: number,
-  textureType: XRTextureType,
-};
-
-type XRQuadLayerInit = {
-  ...XRLayerInit,
-  height: number,
-  textureType: XRTextureType,
-  transform: XRRigidTransform | null,
-  width: number,
-};
-
-declare class XRCompositionLayer extends XRLayer {
-  blendTextureSourceAlpha: boolean;
-  forceMonoPresentation: boolean;
-  +layout: XRLayerLayout;
-  +mipLevels: number;
-  +needsRedraw: boolean;
-  opacity: number;
-  quality: XRLayerQuality;
-
-  destroy(): void;
-}
-
-declare class XRCubeLayer extends XRCompositionLayer {
-  onredraw: EventHandler;
-  orientation: DOMPointReadOnly;
-  space: XRSpace;
-}
-
-declare class XRCylinderLayer extends XRCompositionLayer {
-  aspectRatio: number;
-  centralAngle: number;
-  onredraw: EventHandler;
-  radius: number;
-  space: XRSpace;
-  transform: XRRigidTransform;
-}
-
-declare class XREquirectLayer extends XRCompositionLayer {
-  centralHorizontalAngle: number;
-  lowerVerticalAngle: number;
-  onredraw: EventHandler;
-  radius: number;
-  space: XRSpace;
-  transform: XRRigidTransform;
-  upperVerticalAngle: number;
-}
-
-declare class XRLayerEvent extends Event {
-  +layer: XRLayer;
-
-  constructor(type: string, eventInitDict: XRLayerEventInit): void;
-}
-
-declare class XRMediaBinding {
-  constructor(session: XRSession): void;
-
-  createCylinderLayer(
-    video: HTMLVideoElement,
-    init?: XRMediaCylinderLayerInit,
-  ): XRCylinderLayer;
-  createEquirectLayer(
-    video: HTMLVideoElement,
-    init?: XRMediaEquirectLayerInit,
-  ): XREquirectLayer;
-  createQuadLayer(
-    video: HTMLVideoElement,
-    init?: XRMediaQuadLayerInit,
-  ): XRQuadLayer;
-}
-
-declare class XRProjectionLayer extends XRCompositionLayer {
-  deltaPose: XRRigidTransform | null;
-  fixedFoveation: number | null;
-  +ignoreDepthValues: boolean;
-  +textureArrayLength: number;
-  +textureHeight: number;
-  +textureWidth: number;
-}
-
-declare class XRQuadLayer extends XRCompositionLayer {
-  height: number;
-  onredraw: EventHandler;
-  space: XRSpace;
-  transform: XRRigidTransform;
-  width: number;
-}
-
-declare class XRSubImage {
-  +viewport: XRViewport;
-}
-
-declare class XRWebGLBinding {
-  +nativeProjectionScaleFactor: number;
-  +usesDepthValues: boolean;
-
-  constructor(session: XRSession, context: XRWebGLRenderingContext): void;
-
-  createCubeLayer(init?: XRCubeLayerInit): XRCubeLayer;
-  createCylinderLayer(init?: XRCylinderLayerInit): XRCylinderLayer;
-  createEquirectLayer(init?: XREquirectLayerInit): XREquirectLayer;
-  createProjectionLayer(init?: XRProjectionLayerInit): XRProjectionLayer;
-  createQuadLayer(init?: XRQuadLayerInit): XRQuadLayer;
-  foveateBoundTexture(target: GLenum, fixed_foveation: number): void;
-  getCameraImage(camera: XRCamera): WebGLTexture | null;
-  getDepthInformation(view: XRView): XRWebGLDepthInformation | null;
-  getReflectionCubeMap(lightProbe: XRLightProbe): WebGLTexture | null;
-  getSubImage(
-    layer: XRCompositionLayer,
-    frame: XRFrame,
-    eye?: XREye,
-  ): XRWebGLSubImage;
-  getViewSubImage(layer: XRProjectionLayer, view: XRView): XRWebGLSubImage;
-}
-
-declare class XRWebGLSubImage extends XRSubImage {
-  +colorTexture: WebGLTexture;
-  +colorTextureHeight: number;
-  +colorTextureWidth: number;
-  +depthStencilTexture: WebGLTexture | null;
-  +depthStencilTextureHeight: number | null;
-  +depthStencilTextureWidth: number | null;
-  +imageIndex: number | null;
-  +motionVectorTexture: WebGLTexture | null;
-  +motionVectorTextureHeight: number | null;
-  +motionVectorTextureWidth: number | null;
 }
 
 /*---------- window-controls-overlay ----------*/
