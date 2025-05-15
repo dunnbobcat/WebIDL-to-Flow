@@ -60,55 +60,55 @@ type MutationCallback = (
   observer: MutationObserver,
 ) => void;
 
-/* mixin */ class ChildNode {
-  after(nodes: Node | string): void {}
-  before(nodes: Node | string): void {}
-  remove(): void {}
-  replaceWith(nodes: Node | string): void {}
+/* mixin */ declare class mixin$ChildNode {
+  after(nodes: Node | string): void;
+  before(nodes: Node | string): void;
+  remove(): void;
+  replaceWith(nodes: Node | string): void;
 }
 
-/* mixin */ class DocumentOrShadowRoot {}
+/* mixin */ declare class mixin$DocumentOrShadowRoot {}
 
-/* mixin */ class NonDocumentTypeChildNode {
+/* mixin */ declare class mixin$NonDocumentTypeChildNode {
   +nextElementSibling: Element | null;
   +previousElementSibling: Element | null;
 }
 
-/* mixin */ class NonElementParentNode {
-  getElementById(elementId: string): Element | null {}
+/* mixin */ declare class mixin$NonElementParentNode {
+  getElementById(elementId: string): Element | null;
 }
 
-/* mixin */ class ParentNode {
+/* mixin */ declare class mixin$ParentNode {
   +childElementCount: number;
   +children: HTMLCollection;
   +firstElementChild: Element | null;
   +lastElementChild: Element | null;
 
-  append(nodes: Node | string): void {}
-  moveBefore(node: Node, child: Node | null): void {}
-  prepend(nodes: Node | string): void {}
-  querySelector(selectors: string): Element | null {}
-  querySelectorAll(selectors: string): NodeList {}
-  replaceChildren(nodes: Node | string): void {}
+  append(nodes: Node | string): void;
+  moveBefore(node: Node, child: Node | null): void;
+  prepend(nodes: Node | string): void;
+  querySelector(selectors: string): Element | null;
+  querySelectorAll(selectors: string): NodeList;
+  replaceChildren(nodes: Node | string): void;
 }
 
-/* mixin */ class Slottable {
+/* mixin */ declare class mixin$Slottable {
   +assignedSlot: HTMLSlotElement | null;
 }
 
-/* mixin */ class XPathEvaluatorBase {
+/* mixin */ declare class mixin$XPathEvaluatorBase {
   createExpression(
     expression: string,
     resolver?: XPathNSResolver | null,
-  ): XPathExpression {}
-  createNSResolver(nodeResolver: Node): Node {}
+  ): XPathExpression;
+  createNSResolver(nodeResolver: Node): Node;
   evaluate(
     expression: string,
     contextNode: Node,
     resolver?: XPathNSResolver | null,
     type?: number,
     result?: XPathResult | null,
-  ): XPathResult {}
+  ): XPathResult;
 }
 
 interface EventListener {
@@ -181,7 +181,7 @@ declare class CDATASection extends Text {}
 
 declare class CharacterData
   extends Node
-  mixins NonDocumentTypeChildNode, ChildNode
+  mixins mixin$NonDocumentTypeChildNode, mixin$ChildNode
 {
   data: string;
   +length: number;
@@ -213,10 +213,10 @@ declare class CustomEvent extends Event {
 declare class Document
   extends Node
   mixins
-    NonElementParentNode,
-    DocumentOrShadowRoot,
-    ParentNode,
-    XPathEvaluatorBase
+    mixin$NonElementParentNode,
+    mixin$DocumentOrShadowRoot,
+    mixin$ParentNode,
+    mixin$XPathEvaluatorBase
 {
   +characterSet: string;
   +charset: string;
@@ -274,12 +274,12 @@ declare class Document
 
 declare class DocumentFragment
   extends Node
-  mixins NonElementParentNode, ParentNode
+  mixins mixin$NonElementParentNode, mixin$ParentNode
 {
   constructor(): void;
 }
 
-declare class DocumentType extends Node mixins ChildNode {
+declare class DocumentType extends Node mixins mixin$ChildNode {
   +name: string;
   +publicId: string;
   +systemId: string;
@@ -317,7 +317,11 @@ declare class DOMTokenList {
 
 declare class Element
   extends Node
-  mixins ParentNode, NonDocumentTypeChildNode, ChildNode, Slottable
+  mixins
+    mixin$ParentNode,
+    mixin$NonDocumentTypeChildNode,
+    mixin$ChildNode,
+    mixin$Slottable
 {
   +attributes: NamedNodeMap;
   +classList: DOMTokenList;
@@ -557,7 +561,10 @@ declare class Range extends AbstractRange {
   toString(): string;
 }
 
-declare class ShadowRoot extends DocumentFragment mixins DocumentOrShadowRoot {
+declare class ShadowRoot
+  extends DocumentFragment
+  mixins mixin$DocumentOrShadowRoot
+{
   +clonable: boolean;
   +delegatesFocus: boolean;
   +host: Element;
@@ -571,7 +578,7 @@ declare class StaticRange extends AbstractRange {
   constructor(init: StaticRangeInit): void;
 }
 
-declare class Text extends CharacterData mixins Slottable {
+declare class Text extends CharacterData mixins mixin$Slottable {
   +wholeText: string;
 
   constructor(data?: string): void;
@@ -600,7 +607,7 @@ declare class TreeWalker {
 
 declare class XMLDocument extends Document {}
 
-declare class XPathEvaluator mixins XPathEvaluatorBase {
+declare class XPathEvaluator mixins mixin$XPathEvaluatorBase {
   constructor(): void;
 }
 

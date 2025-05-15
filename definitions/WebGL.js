@@ -57,7 +57,7 @@ type WebGLContextEventInit = {
   statusMessage: string,
 };
 
-/* mixin */ class WebGLRenderingContextBase {
+/* mixin */ declare class mixin$WebGLRenderingContextBase {
   +canvas: HTMLCanvasElement | OffscreenCanvas;
   drawingBufferColorSpace: PredefinedColorSpace;
   +drawingBufferFormat: GLenum;
@@ -65,52 +65,48 @@ type WebGLContextEventInit = {
   +drawingBufferWidth: GLsizei;
   unpackColorSpace: PredefinedColorSpace;
 
-  activeTexture(texture: GLenum): void {}
-  attachShader(program: WebGLProgram, shader: WebGLShader): void {}
-  bindAttribLocation(
-    program: WebGLProgram,
-    index: GLuint,
-    name: string,
-  ): void {}
-  bindBuffer(target: GLenum, buffer: WebGLBuffer | null): void {}
-  bindFramebuffer(target: GLenum, framebuffer: WebGLFramebuffer | null): void {}
+  activeTexture(texture: GLenum): void;
+  attachShader(program: WebGLProgram, shader: WebGLShader): void;
+  bindAttribLocation(program: WebGLProgram, index: GLuint, name: string): void;
+  bindBuffer(target: GLenum, buffer: WebGLBuffer | null): void;
+  bindFramebuffer(target: GLenum, framebuffer: WebGLFramebuffer | null): void;
   bindRenderbuffer(
     target: GLenum,
     renderbuffer: WebGLRenderbuffer | null,
-  ): void {}
-  bindTexture(target: GLenum, texture: WebGLTexture | null): void {}
+  ): void;
+  bindTexture(target: GLenum, texture: WebGLTexture | null): void;
   blendColor(
     red: GLclampf,
     green: GLclampf,
     blue: GLclampf,
     alpha: GLclampf,
-  ): void {}
-  blendEquation(mode: GLenum): void {}
-  blendEquationSeparate(modeRGB: GLenum, modeAlpha: GLenum): void {}
-  blendFunc(sfactor: GLenum, dfactor: GLenum): void {}
+  ): void;
+  blendEquation(mode: GLenum): void;
+  blendEquationSeparate(modeRGB: GLenum, modeAlpha: GLenum): void;
+  blendFunc(sfactor: GLenum, dfactor: GLenum): void;
   blendFuncSeparate(
     srcRGB: GLenum,
     dstRGB: GLenum,
     srcAlpha: GLenum,
     dstAlpha: GLenum,
-  ): void {}
-  checkFramebufferStatus(target: GLenum): GLenum {}
-  clear(mask: GLbitfield): void {}
+  ): void;
+  checkFramebufferStatus(target: GLenum): GLenum;
+  clear(mask: GLbitfield): void;
   clearColor(
     red: GLclampf,
     green: GLclampf,
     blue: GLclampf,
     alpha: GLclampf,
-  ): void {}
-  clearDepth(depth: GLclampf): void {}
-  clearStencil(s: GLint): void {}
+  ): void;
+  clearDepth(depth: GLclampf): void;
+  clearStencil(s: GLint): void;
   colorMask(
     red: GLboolean,
     green: GLboolean,
     blue: GLboolean,
     alpha: GLboolean,
-  ): void {}
-  compileShader(shader: WebGLShader): void {}
+  ): void;
+  compileShader(shader: WebGLShader): void;
   copyTexImage2D(
     target: GLenum,
     level: GLint,
@@ -120,7 +116,7 @@ type WebGLContextEventInit = {
     width: GLsizei,
     height: GLsizei,
     border: GLint,
-  ): void {}
+  ): void;
   copyTexSubImage2D(
     target: GLenum,
     level: GLint,
@@ -130,186 +126,183 @@ type WebGLContextEventInit = {
     y: GLint,
     width: GLsizei,
     height: GLsizei,
-  ): void {}
-  createBuffer(): WebGLBuffer {}
-  createFramebuffer(): WebGLFramebuffer {}
-  createProgram(): WebGLProgram {}
-  createRenderbuffer(): WebGLRenderbuffer {}
-  createShader(type: GLenum): WebGLShader | null {}
-  createTexture(): WebGLTexture {}
-  cullFace(mode: GLenum): void {}
-  deleteBuffer(buffer: WebGLBuffer | null): void {}
-  deleteFramebuffer(framebuffer: WebGLFramebuffer | null): void {}
-  deleteProgram(program: WebGLProgram | null): void {}
-  deleteRenderbuffer(renderbuffer: WebGLRenderbuffer | null): void {}
-  deleteShader(shader: WebGLShader | null): void {}
-  deleteTexture(texture: WebGLTexture | null): void {}
-  depthFunc(func: GLenum): void {}
-  depthMask(flag: GLboolean): void {}
-  depthRange(zNear: GLclampf, zFar: GLclampf): void {}
-  detachShader(program: WebGLProgram, shader: WebGLShader): void {}
-  disable(cap: GLenum): void {}
-  disableVertexAttribArray(index: GLuint): void {}
-  drawArrays(mode: GLenum, first: GLint, count: GLsizei): void {}
+  ): void;
+  createBuffer(): WebGLBuffer;
+  createFramebuffer(): WebGLFramebuffer;
+  createProgram(): WebGLProgram;
+  createRenderbuffer(): WebGLRenderbuffer;
+  createShader(type: GLenum): WebGLShader | null;
+  createTexture(): WebGLTexture;
+  cullFace(mode: GLenum): void;
+  deleteBuffer(buffer: WebGLBuffer | null): void;
+  deleteFramebuffer(framebuffer: WebGLFramebuffer | null): void;
+  deleteProgram(program: WebGLProgram | null): void;
+  deleteRenderbuffer(renderbuffer: WebGLRenderbuffer | null): void;
+  deleteShader(shader: WebGLShader | null): void;
+  deleteTexture(texture: WebGLTexture | null): void;
+  depthFunc(func: GLenum): void;
+  depthMask(flag: GLboolean): void;
+  depthRange(zNear: GLclampf, zFar: GLclampf): void;
+  detachShader(program: WebGLProgram, shader: WebGLShader): void;
+  disable(cap: GLenum): void;
+  disableVertexAttribArray(index: GLuint): void;
+  drawArrays(mode: GLenum, first: GLint, count: GLsizei): void;
   drawElements(
     mode: GLenum,
     count: GLsizei,
     type: GLenum,
     offset: GLintptr,
-  ): void {}
+  ): void;
   drawingBufferStorage(
     sizedFormat: GLenum,
     width: number,
     height: number,
-  ): void {}
-  enable(cap: GLenum): void {}
-  enableVertexAttribArray(index: GLuint): void {}
-  finish(): void {}
-  flush(): void {}
+  ): void;
+  enable(cap: GLenum): void;
+  enableVertexAttribArray(index: GLuint): void;
+  finish(): void;
+  flush(): void;
   framebufferRenderbuffer(
     target: GLenum,
     attachment: GLenum,
     renderbuffertarget: GLenum,
     renderbuffer: WebGLRenderbuffer | null,
-  ): void {}
+  ): void;
   framebufferTexture2D(
     target: GLenum,
     attachment: GLenum,
     textarget: GLenum,
     texture: WebGLTexture | null,
     level: GLint,
-  ): void {}
-  frontFace(mode: GLenum): void {}
-  generateMipmap(target: GLenum): void {}
-  getActiveAttrib(
-    program: WebGLProgram,
-    index: GLuint,
-  ): WebGLActiveInfo | null {}
+  ): void;
+  frontFace(mode: GLenum): void;
+  generateMipmap(target: GLenum): void;
+  getActiveAttrib(program: WebGLProgram, index: GLuint): WebGLActiveInfo | null;
   getActiveUniform(
     program: WebGLProgram,
     index: GLuint,
-  ): WebGLActiveInfo | null {}
-  getAttachedShaders(program: WebGLProgram): Array<WebGLShader> | null {}
-  getAttribLocation(program: WebGLProgram, name: string): GLint {}
-  getBufferParameter(target: GLenum, pname: GLenum): any {}
-  getContextAttributes(): WebGLContextAttributes | null {}
-  getError(): GLenum {}
-  getExtension(name: string): Object | null {}
+  ): WebGLActiveInfo | null;
+  getAttachedShaders(program: WebGLProgram): Array<WebGLShader> | null;
+  getAttribLocation(program: WebGLProgram, name: string): GLint;
+  getBufferParameter(target: GLenum, pname: GLenum): any;
+  getContextAttributes(): WebGLContextAttributes | null;
+  getError(): GLenum;
+  getExtension(name: string): Object | null;
   getFramebufferAttachmentParameter(
     target: GLenum,
     attachment: GLenum,
     pname: GLenum,
-  ): any {}
-  getParameter(pname: GLenum): any {}
-  getProgramInfoLog(program: WebGLProgram): string | null {}
-  getProgramParameter(program: WebGLProgram, pname: GLenum): any {}
-  getRenderbufferParameter(target: GLenum, pname: GLenum): any {}
-  getShaderInfoLog(shader: WebGLShader): string | null {}
-  getShaderParameter(shader: WebGLShader, pname: GLenum): any {}
+  ): any;
+  getParameter(pname: GLenum): any;
+  getProgramInfoLog(program: WebGLProgram): string | null;
+  getProgramParameter(program: WebGLProgram, pname: GLenum): any;
+  getRenderbufferParameter(target: GLenum, pname: GLenum): any;
+  getShaderInfoLog(shader: WebGLShader): string | null;
+  getShaderParameter(shader: WebGLShader, pname: GLenum): any;
   getShaderPrecisionFormat(
     shadertype: GLenum,
     precisiontype: GLenum,
-  ): WebGLShaderPrecisionFormat | null {}
-  getShaderSource(shader: WebGLShader): string | null {}
-  getSupportedExtensions(): Array<string> | null {}
-  getTexParameter(target: GLenum, pname: GLenum): any {}
-  getUniform(program: WebGLProgram, location: WebGLUniformLocation): any {}
+  ): WebGLShaderPrecisionFormat | null;
+  getShaderSource(shader: WebGLShader): string | null;
+  getSupportedExtensions(): Array<string> | null;
+  getTexParameter(target: GLenum, pname: GLenum): any;
+  getUniform(program: WebGLProgram, location: WebGLUniformLocation): any;
   getUniformLocation(
     program: WebGLProgram,
     name: string,
-  ): WebGLUniformLocation | null {}
-  getVertexAttrib(index: GLuint, pname: GLenum): any {}
-  getVertexAttribOffset(index: GLuint, pname: GLenum): GLintptr {}
-  hint(target: GLenum, mode: GLenum): void {}
-  isBuffer(buffer: WebGLBuffer | null): GLboolean {}
-  isContextLost(): boolean {}
-  isEnabled(cap: GLenum): GLboolean {}
-  isFramebuffer(framebuffer: WebGLFramebuffer | null): GLboolean {}
-  isProgram(program: WebGLProgram | null): GLboolean {}
-  isRenderbuffer(renderbuffer: WebGLRenderbuffer | null): GLboolean {}
-  isShader(shader: WebGLShader | null): GLboolean {}
-  isTexture(texture: WebGLTexture | null): GLboolean {}
-  lineWidth(width: GLfloat): void {}
-  linkProgram(program: WebGLProgram): void {}
-  pixelStorei(pname: GLenum, param: GLint): void {}
-  polygonOffset(factor: GLfloat, units: GLfloat): void {}
+  ): WebGLUniformLocation | null;
+  getVertexAttrib(index: GLuint, pname: GLenum): any;
+  getVertexAttribOffset(index: GLuint, pname: GLenum): GLintptr;
+  hint(target: GLenum, mode: GLenum): void;
+  isBuffer(buffer: WebGLBuffer | null): GLboolean;
+  isContextLost(): boolean;
+  isEnabled(cap: GLenum): GLboolean;
+  isFramebuffer(framebuffer: WebGLFramebuffer | null): GLboolean;
+  isProgram(program: WebGLProgram | null): GLboolean;
+  isRenderbuffer(renderbuffer: WebGLRenderbuffer | null): GLboolean;
+  isShader(shader: WebGLShader | null): GLboolean;
+  isTexture(texture: WebGLTexture | null): GLboolean;
+  lineWidth(width: GLfloat): void;
+  linkProgram(program: WebGLProgram): void;
+  pixelStorei(pname: GLenum, param: GLint): void;
+  polygonOffset(factor: GLfloat, units: GLfloat): void;
   renderbufferStorage(
     target: GLenum,
     internalformat: GLenum,
     width: GLsizei,
     height: GLsizei,
-  ): void {}
-  sampleCoverage(value: GLclampf, invert: GLboolean): void {}
-  scissor(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void {}
-  shaderSource(shader: WebGLShader, source: string): void {}
-  stencilFunc(func: GLenum, ref: GLint, mask: GLuint): void {}
+  ): void;
+  sampleCoverage(value: GLclampf, invert: GLboolean): void;
+  scissor(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void;
+  shaderSource(shader: WebGLShader, source: string): void;
+  stencilFunc(func: GLenum, ref: GLint, mask: GLuint): void;
   stencilFuncSeparate(
     face: GLenum,
     func: GLenum,
     ref: GLint,
     mask: GLuint,
-  ): void {}
-  stencilMask(mask: GLuint): void {}
-  stencilMaskSeparate(face: GLenum, mask: GLuint): void {}
-  stencilOp(fail: GLenum, zfail: GLenum, zpass: GLenum): void {}
+  ): void;
+  stencilMask(mask: GLuint): void;
+  stencilMaskSeparate(face: GLenum, mask: GLuint): void;
+  stencilOp(fail: GLenum, zfail: GLenum, zpass: GLenum): void;
   stencilOpSeparate(
     face: GLenum,
     fail: GLenum,
     zfail: GLenum,
     zpass: GLenum,
-  ): void {}
-  texParameterf(target: GLenum, pname: GLenum, param: GLfloat): void {}
-  texParameteri(target: GLenum, pname: GLenum, param: GLint): void {}
-  uniform1f(location: WebGLUniformLocation | null, x: GLfloat): void {}
-  uniform1i(location: WebGLUniformLocation | null, x: GLint): void {}
+  ): void;
+  texParameterf(target: GLenum, pname: GLenum, param: GLfloat): void;
+  texParameteri(target: GLenum, pname: GLenum, param: GLint): void;
+  uniform1f(location: WebGLUniformLocation | null, x: GLfloat): void;
+  uniform1i(location: WebGLUniformLocation | null, x: GLint): void;
   uniform2f(
     location: WebGLUniformLocation | null,
     x: GLfloat,
     y: GLfloat,
-  ): void {}
-  uniform2i(location: WebGLUniformLocation | null, x: GLint, y: GLint): void {}
+  ): void;
+  uniform2i(location: WebGLUniformLocation | null, x: GLint, y: GLint): void;
   uniform3f(
     location: WebGLUniformLocation | null,
     x: GLfloat,
     y: GLfloat,
     z: GLfloat,
-  ): void {}
+  ): void;
   uniform3i(
     location: WebGLUniformLocation | null,
     x: GLint,
     y: GLint,
     z: GLint,
-  ): void {}
+  ): void;
   uniform4f(
     location: WebGLUniformLocation | null,
     x: GLfloat,
     y: GLfloat,
     z: GLfloat,
     w: GLfloat,
-  ): void {}
+  ): void;
   uniform4i(
     location: WebGLUniformLocation | null,
     x: GLint,
     y: GLint,
     z: GLint,
     w: GLint,
-  ): void {}
-  useProgram(program: WebGLProgram | null): void {}
-  validateProgram(program: WebGLProgram): void {}
-  vertexAttrib1f(index: GLuint, x: GLfloat): void {}
-  vertexAttrib1fv(index: GLuint, values: Float32List): void {}
-  vertexAttrib2f(index: GLuint, x: GLfloat, y: GLfloat): void {}
-  vertexAttrib2fv(index: GLuint, values: Float32List): void {}
-  vertexAttrib3f(index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat): void {}
-  vertexAttrib3fv(index: GLuint, values: Float32List): void {}
+  ): void;
+  useProgram(program: WebGLProgram | null): void;
+  validateProgram(program: WebGLProgram): void;
+  vertexAttrib1f(index: GLuint, x: GLfloat): void;
+  vertexAttrib1fv(index: GLuint, values: Float32List): void;
+  vertexAttrib2f(index: GLuint, x: GLfloat, y: GLfloat): void;
+  vertexAttrib2fv(index: GLuint, values: Float32List): void;
+  vertexAttrib3f(index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat): void;
+  vertexAttrib3fv(index: GLuint, values: Float32List): void;
   vertexAttrib4f(
     index: GLuint,
     x: GLfloat,
     y: GLfloat,
     z: GLfloat,
     w: GLfloat,
-  ): void {}
-  vertexAttrib4fv(index: GLuint, values: Float32List): void {}
+  ): void;
+  vertexAttrib4fv(index: GLuint, values: Float32List): void;
   vertexAttribPointer(
     index: GLuint,
     size: GLint,
@@ -317,22 +310,22 @@ type WebGLContextEventInit = {
     normalized: GLboolean,
     stride: GLsizei,
     offset: GLintptr,
-  ): void {}
-  viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void {}
+  ): void;
+  viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void;
 }
 
-/* mixin */ class WebGLRenderingContextOverloads {
-  bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void {}
+/* mixin */ declare class mixin$WebGLRenderingContextOverloads {
+  bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
   bufferData(
     target: GLenum,
     data: AllowSharedBufferSource | null,
     usage: GLenum,
-  ): void {}
+  ): void;
   bufferSubData(
     target: GLenum,
     offset: GLintptr,
     data: AllowSharedBufferSource,
-  ): void {}
+  ): void;
   compressedTexImage2D(
     target: GLenum,
     level: GLint,
@@ -341,7 +334,7 @@ type WebGLContextEventInit = {
     height: GLsizei,
     border: GLint,
     data: ArrayBufferView,
-  ): void {}
+  ): void;
   compressedTexSubImage2D(
     target: GLenum,
     level: GLint,
@@ -351,7 +344,7 @@ type WebGLContextEventInit = {
     height: GLsizei,
     format: GLenum,
     data: ArrayBufferView,
-  ): void {}
+  ): void;
   readPixels(
     x: GLint,
     y: GLint,
@@ -360,7 +353,7 @@ type WebGLContextEventInit = {
     format: GLenum,
     type: GLenum,
     pixels: ArrayBufferView | null,
-  ): void {}
+  ): void;
   texImage2D(
     target: GLenum,
     level: GLint,
@@ -371,7 +364,7 @@ type WebGLContextEventInit = {
     format: GLenum,
     type: GLenum,
     pixels: ArrayBufferView | null,
-  ): void {}
+  ): void;
   texImage2D(
     target: GLenum,
     level: GLint,
@@ -379,7 +372,7 @@ type WebGLContextEventInit = {
     format: GLenum,
     type: GLenum,
     source: TexImageSource,
-  ): void {}
+  ): void;
   texSubImage2D(
     target: GLenum,
     level: GLint,
@@ -390,7 +383,7 @@ type WebGLContextEventInit = {
     format: GLenum,
     type: GLenum,
     pixels: ArrayBufferView | null,
-  ): void {}
+  ): void;
   texSubImage2D(
     target: GLenum,
     level: GLint,
@@ -399,30 +392,30 @@ type WebGLContextEventInit = {
     format: GLenum,
     type: GLenum,
     source: TexImageSource,
-  ): void {}
-  uniform1fv(location: WebGLUniformLocation | null, v: Float32List): void {}
-  uniform1iv(location: WebGLUniformLocation | null, v: Int32List): void {}
-  uniform2fv(location: WebGLUniformLocation | null, v: Float32List): void {}
-  uniform2iv(location: WebGLUniformLocation | null, v: Int32List): void {}
-  uniform3fv(location: WebGLUniformLocation | null, v: Float32List): void {}
-  uniform3iv(location: WebGLUniformLocation | null, v: Int32List): void {}
-  uniform4fv(location: WebGLUniformLocation | null, v: Float32List): void {}
-  uniform4iv(location: WebGLUniformLocation | null, v: Int32List): void {}
+  ): void;
+  uniform1fv(location: WebGLUniformLocation | null, v: Float32List): void;
+  uniform1iv(location: WebGLUniformLocation | null, v: Int32List): void;
+  uniform2fv(location: WebGLUniformLocation | null, v: Float32List): void;
+  uniform2iv(location: WebGLUniformLocation | null, v: Int32List): void;
+  uniform3fv(location: WebGLUniformLocation | null, v: Float32List): void;
+  uniform3iv(location: WebGLUniformLocation | null, v: Int32List): void;
+  uniform4fv(location: WebGLUniformLocation | null, v: Float32List): void;
+  uniform4iv(location: WebGLUniformLocation | null, v: Int32List): void;
   uniformMatrix2fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
     value: Float32List,
-  ): void {}
+  ): void;
   uniformMatrix3fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
     value: Float32List,
-  ): void {}
+  ): void;
   uniformMatrix4fv(
     location: WebGLUniformLocation | null,
     transpose: GLboolean,
     value: Float32List,
-  ): void {}
+  ): void;
 }
 
 declare class WebGLActiveInfo {
@@ -450,7 +443,7 @@ declare class WebGLProgram extends WebGLObject {}
 declare class WebGLRenderbuffer extends WebGLObject {}
 
 declare class WebGLRenderingContext
-  mixins WebGLRenderingContextBase, WebGLRenderingContextOverloads
+  mixins mixin$WebGLRenderingContextBase, mixin$WebGLRenderingContextOverloads
 {
   static +ACTIVE_ATTRIBUTES: 0x8b89;
   static +ACTIVE_TEXTURE: 0x84e0;

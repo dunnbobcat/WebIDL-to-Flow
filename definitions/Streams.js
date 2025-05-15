@@ -113,15 +113,15 @@ type UnderlyingSourceStartCallback = (
   controller: ReadableStreamController,
 ) => any;
 
-/* mixin */ class GenericTransformStream {
+/* mixin */ declare class mixin$GenericTransformStream {
   +readable: ReadableStream;
   +writable: WritableStream;
 }
 
-/* mixin */ class ReadableStreamGenericReader {
+/* mixin */ declare class mixin$ReadableStreamGenericReader {
   +closed: void;
 
-  cancel(reason?: any): void {}
+  cancel(reason?: any): void;
 }
 
 declare class ByteLengthQueuingStrategy {
@@ -165,7 +165,9 @@ declare class ReadableStream {
   tee(): Array<ReadableStream>;
 }
 
-declare class ReadableStreamBYOBReader mixins ReadableStreamGenericReader {
+declare class ReadableStreamBYOBReader
+  mixins mixin$ReadableStreamGenericReader
+{
   constructor(stream: ReadableStream): void;
 
   read(
@@ -190,7 +192,9 @@ declare class ReadableStreamDefaultController {
   error(e?: any): void;
 }
 
-declare class ReadableStreamDefaultReader mixins ReadableStreamGenericReader {
+declare class ReadableStreamDefaultReader
+  mixins mixin$ReadableStreamGenericReader
+{
   constructor(stream: ReadableStream): void;
 
   read(): ReadableStreamReadResult;

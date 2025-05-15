@@ -7,11 +7,11 @@ interface ElementTimeControl {
 
 declare class SVGAnimateColorElement
   extends SVGAnimationElement
-  mixins SVGStylable {}
+  mixins mixin$SVGStylable {}
 
 declare class SVGAnimateElement
   extends SVGAnimationElement
-  mixins SVGStylable {}
+  mixins mixin$SVGStylable {}
 
 declare class SVGAnimateMotionElement extends SVGAnimationElement {}
 
@@ -19,7 +19,10 @@ interface SVGAnimateTransformElement extends SVGAnimationElement {}
 
 declare class SVGAnimationElement
   extends SVGElement
-  mixins SVGTests, SVGExternalResourcesRequired, ElementTimeControl
+  mixins
+    mixin$SVGTests,
+    mixin$SVGExternalResourcesRequired,
+    mixin$ElementTimeControl
 {
   +targetElement: SVGElement;
 
@@ -30,7 +33,7 @@ declare class SVGAnimationElement
 
 declare class SVGMPathElement
   extends SVGElement
-  mixins SVGURIReference, SVGExternalResourcesRequired {}
+  mixins mixin$SVGURIReference, mixin$SVGExternalResourcesRequired {}
 
 declare class SVGSetElement extends SVGAnimationElement {}
 

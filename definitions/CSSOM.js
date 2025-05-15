@@ -4,16 +4,16 @@ type CSSStyleSheetInit = {
   disabled: boolean,
 };
 
-/* mixin */ class DocumentOrShadowRoot {
+/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
   adoptedStyleSheets: CSSStyleSheet;
   +styleSheets: StyleSheetList;
 }
 
-/* mixin */ class ElementCSSInlineStyle {
+/* mixin */ declare class mixin$ElementCSSInlineStyle {
   +style: CSSStyleDeclaration;
 }
 
-/* mixin */ class LinkStyle {
+/* mixin */ declare class mixin$LinkStyle {
   +sheet: CSSStyleSheet | null;
 }
 

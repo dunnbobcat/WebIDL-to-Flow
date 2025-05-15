@@ -1,5 +1,3 @@
-// @flow
-
 type CanvasImageSource =
   | HTMLOrSVGImageElement
   | HTMLVideoElement
@@ -387,29 +385,29 @@ type OnErrorEventHandlerNonNull = (
   error?: any,
 ) => any;
 
-/* mixin */ class AbstractWorker {
+/* mixin */ declare class mixin$AbstractWorker {
   onerror: EventHandler;
 }
 
-/* mixin */ class AnimationFrameProvider {
-  cancelAnimationFrame(handle: number): void {}
-  requestAnimationFrame(callback: FrameRequestCallback): number {}
+/* mixin */ declare class mixin$AnimationFrameProvider {
+  cancelAnimationFrame(handle: number): void;
+  requestAnimationFrame(callback: FrameRequestCallback): number;
 }
 
-/* mixin */ class CanvasCompositing {
+/* mixin */ declare class mixin$CanvasCompositing {
   globalAlpha: number;
   globalCompositeOperation: string;
 }
 
-/* mixin */ class CanvasDrawImage {
-  drawImage(image: CanvasImageSource, dx: number, dy: number): void {}
+/* mixin */ declare class mixin$CanvasDrawImage {
+  drawImage(image: CanvasImageSource, dx: number, dy: number): void;
   drawImage(
     image: CanvasImageSource,
     dx: number,
     dy: number,
     dw: number,
     dh: number,
-  ): void {}
+  ): void;
   drawImage(
     image: CanvasImageSource,
     sx: number,
@@ -420,47 +418,43 @@ type OnErrorEventHandlerNonNull = (
     dy: number,
     dw: number,
     dh: number,
-  ): void {}
+  ): void;
 }
 
-/* mixin */ class CanvasDrawPath {
-  beginPath(): void {}
-  clip(fillRule?: CanvasFillRule): void {}
-  clip(path: Path2D, fillRule?: CanvasFillRule): void {}
-  fill(fillRule?: CanvasFillRule): void {}
-  fill(path: Path2D, fillRule?: CanvasFillRule): void {}
-  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean {}
+/* mixin */ declare class mixin$CanvasDrawPath {
+  beginPath(): void;
+  clip(fillRule?: CanvasFillRule): void;
+  clip(path: Path2D, fillRule?: CanvasFillRule): void;
+  fill(fillRule?: CanvasFillRule): void;
+  fill(path: Path2D, fillRule?: CanvasFillRule): void;
+  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
   isPointInPath(
     path: Path2D,
     x: number,
     y: number,
     fillRule?: CanvasFillRule,
-  ): boolean {}
-  isPointInStroke(x: number, y: number): boolean {}
-  isPointInStroke(path: Path2D, x: number, y: number): boolean {}
-  stroke(): void {}
-  stroke(path: Path2D): void {}
+  ): boolean;
+  isPointInStroke(x: number, y: number): boolean;
+  isPointInStroke(path: Path2D, x: number, y: number): boolean;
+  stroke(): void;
+  stroke(path: Path2D): void;
 }
 
-/* mixin */ class CanvasFillStrokeStyles {
+/* mixin */ declare class mixin$CanvasFillStrokeStyles {
   fillStyle: string | CanvasGradient | CanvasPattern;
   strokeStyle: string | CanvasGradient | CanvasPattern;
 
-  createConicGradient(
-    startAngle: number,
-    x: number,
-    y: number,
-  ): CanvasGradient {}
+  createConicGradient(startAngle: number, x: number, y: number): CanvasGradient;
   createLinearGradient(
     x0: number,
     y0: number,
     x1: number,
     y1: number,
-  ): CanvasGradient {}
+  ): CanvasGradient;
   createPattern(
     image: CanvasImageSource,
     repetition: string,
-  ): CanvasPattern | null {}
+  ): CanvasPattern | null;
   createRadialGradient(
     x0: number,
     y0: number,
@@ -468,28 +462,28 @@ type OnErrorEventHandlerNonNull = (
     x1: number,
     y1: number,
     r1: number,
-  ): CanvasGradient {}
+  ): CanvasGradient;
 }
 
-/* mixin */ class CanvasFilters {
+/* mixin */ declare class mixin$CanvasFilters {
   filter: string;
 }
 
-/* mixin */ class CanvasImageData {
+/* mixin */ declare class mixin$CanvasImageData {
   createImageData(
     sw: number,
     sh: number,
     settings?: ImageDataSettings,
-  ): ImageData {}
-  createImageData(imageData: ImageData): ImageData {}
+  ): ImageData;
+  createImageData(imageData: ImageData): ImageData;
   getImageData(
     sx: number,
     sy: number,
     sw: number,
     sh: number,
     settings?: ImageDataSettings,
-  ): ImageData {}
-  putImageData(imageData: ImageData, dx: number, dy: number): void {}
+  ): ImageData;
+  putImageData(imageData: ImageData, dx: number, dy: number): void;
   putImageData(
     imageData: ImageData,
     dx: number,
@@ -498,15 +492,15 @@ type OnErrorEventHandlerNonNull = (
     dirtyY: number,
     dirtyWidth: number,
     dirtyHeight: number,
-  ): void {}
+  ): void;
 }
 
-/* mixin */ class CanvasImageSmoothing {
+/* mixin */ declare class mixin$CanvasImageSmoothing {
   imageSmoothingEnabled: boolean;
   imageSmoothingQuality: ImageSmoothingQuality;
 }
 
-/* mixin */ class CanvasPath {
+/* mixin */ declare class mixin$CanvasPath {
   arc(
     x: number,
     y: number,
@@ -514,8 +508,8 @@ type OnErrorEventHandlerNonNull = (
     startAngle: number,
     endAngle: number,
     counterclockwise?: boolean,
-  ): void {}
-  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void {}
+  ): void;
+  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
   bezierCurveTo(
     cp1x: number,
     cp1y: number,
@@ -523,8 +517,8 @@ type OnErrorEventHandlerNonNull = (
     cp2y: number,
     x: number,
     y: number,
-  ): void {}
-  closePath(): void {}
+  ): void;
+  closePath(): void;
   ellipse(
     x: number,
     y: number,
@@ -534,62 +528,62 @@ type OnErrorEventHandlerNonNull = (
     startAngle: number,
     endAngle: number,
     counterclockwise?: boolean,
-  ): void {}
-  lineTo(x: number, y: number): void {}
-  moveTo(x: number, y: number): void {}
-  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void {}
-  rect(x: number, y: number, w: number, h: number): void {}
+  ): void;
+  lineTo(x: number, y: number): void;
+  moveTo(x: number, y: number): void;
+  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+  rect(x: number, y: number, w: number, h: number): void;
   roundRect(
     x: number,
     y: number,
     w: number,
     h: number,
     radii?: number | DOMPointInit | Array<number | DOMPointInit>,
-  ): void {}
+  ): void;
 }
 
-/* mixin */ class CanvasPathDrawingStyles {
+/* mixin */ declare class mixin$CanvasPathDrawingStyles {
   lineCap: CanvasLineCap;
   lineDashOffset: number;
   lineJoin: CanvasLineJoin;
   lineWidth: number;
   miterLimit: number;
 
-  getLineDash(): Array<number> {}
-  setLineDash(segments: Array<number>): void {}
+  getLineDash(): Array<number>;
+  setLineDash(segments: Array<number>): void;
 }
 
-/* mixin */ class CanvasRect {
-  clearRect(x: number, y: number, w: number, h: number): void {}
-  fillRect(x: number, y: number, w: number, h: number): void {}
-  strokeRect(x: number, y: number, w: number, h: number): void {}
+/* mixin */ declare class mixin$CanvasRect {
+  clearRect(x: number, y: number, w: number, h: number): void;
+  fillRect(x: number, y: number, w: number, h: number): void;
+  strokeRect(x: number, y: number, w: number, h: number): void;
 }
 
-/* mixin */ class CanvasSettings {
-  getContextAttributes(): CanvasRenderingContext2DSettings {}
+/* mixin */ declare class mixin$CanvasSettings {
+  getContextAttributes(): CanvasRenderingContext2DSettings;
 }
 
-/* mixin */ class CanvasShadowStyles {
+/* mixin */ declare class mixin$CanvasShadowStyles {
   shadowBlur: number;
   shadowColor: string;
   shadowOffsetX: number;
   shadowOffsetY: number;
 }
 
-/* mixin */ class CanvasState {
-  isContextLost(): boolean {}
-  reset(): void {}
-  restore(): void {}
-  save(): void {}
+/* mixin */ declare class mixin$CanvasState {
+  isContextLost(): boolean;
+  reset(): void;
+  restore(): void;
+  save(): void;
 }
 
-/* mixin */ class CanvasText {
-  fillText(text: string, x: number, y: number, maxWidth?: number): void {}
-  measureText(text: string): TextMetrics {}
-  strokeText(text: string, x: number, y: number, maxWidth?: number): void {}
+/* mixin */ declare class mixin$CanvasText {
+  fillText(text: string, x: number, y: number, maxWidth?: number): void;
+  measureText(text: string): TextMetrics;
+  strokeText(text: string, x: number, y: number, maxWidth?: number): void;
 }
 
-/* mixin */ class CanvasTextDrawingStyles {
+/* mixin */ declare class mixin$CanvasTextDrawingStyles {
   direction: CanvasDirection;
   font: string;
   fontKerning: CanvasFontKerning;
@@ -603,11 +597,11 @@ type OnErrorEventHandlerNonNull = (
   wordSpacing: string;
 }
 
-/* mixin */ class CanvasTransform {
-  getTransform(): DOMMatrix {}
-  resetTransform(): void {}
-  rotate(angle: number): void {}
-  scale(x: number, y: number): void {}
+/* mixin */ declare class mixin$CanvasTransform {
+  getTransform(): DOMMatrix;
+  resetTransform(): void;
+  rotate(angle: number): void;
+  scale(x: number, y: number): void;
   setTransform(
     a: number,
     b: number,
@@ -615,8 +609,8 @@ type OnErrorEventHandlerNonNull = (
     d: number,
     e: number,
     f: number,
-  ): void {}
-  setTransform(transform?: DOMMatrix2DInit): void {}
+  ): void;
+  setTransform(transform?: DOMMatrix2DInit): void;
   transform(
     a: number,
     b: number,
@@ -624,27 +618,27 @@ type OnErrorEventHandlerNonNull = (
     d: number,
     e: number,
     f: number,
-  ): void {}
-  translate(x: number, y: number): void {}
+  ): void;
+  translate(x: number, y: number): void;
 }
 
-/* mixin */ class CanvasUserInterface {
-  drawFocusIfNeeded(element: Element): void {}
-  drawFocusIfNeeded(path: Path2D, element: Element): void {}
+/* mixin */ declare class mixin$CanvasUserInterface {
+  drawFocusIfNeeded(element: Element): void;
+  drawFocusIfNeeded(path: Path2D, element: Element): void;
 }
 
-/* mixin */ class DocumentOrShadowRoot {
+/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
   +activeElement: Element | null;
 }
 
-/* mixin */ class ElementContentEditable {
+/* mixin */ declare class mixin$ElementContentEditable {
   contentEditable: string;
   enterKeyHint: string;
   inputMode: string;
   +isContentEditable: boolean;
 }
 
-/* mixin */ class GlobalEventHandlers {
+/* mixin */ declare class mixin$GlobalEventHandlers {
   onabort: EventHandler;
   onauxclick: EventHandler;
   onbeforeinput: EventHandler;
@@ -723,7 +717,7 @@ type OnErrorEventHandlerNonNull = (
   onwheel: EventHandler;
 }
 
-/* mixin */ class HTMLHyperlinkElementUtils {
+/* mixin */ declare class mixin$HTMLHyperlinkElementUtils {
   hash: string;
   host: string;
   hostname: string;
@@ -737,35 +731,35 @@ type OnErrorEventHandlerNonNull = (
   username: string;
 }
 
-/* mixin */ class HTMLOrSVGElement {
+/* mixin */ declare class mixin$HTMLOrSVGElement {
   autofocus: boolean;
   +dataset: DOMStringMap;
   nonce: string;
   tabIndex: number;
 
-  blur(): void {}
-  focus(options?: FocusOptions): void {}
+  blur(): void;
+  focus(options?: FocusOptions): void;
 }
 
-/* mixin */ class MessageEventTarget {
+/* mixin */ declare class mixin$MessageEventTarget {
   onmessage: EventHandler;
   onmessageerror: EventHandler;
 }
 
-/* mixin */ class NavigatorConcurrentHardware {
+/* mixin */ declare class mixin$NavigatorConcurrentHardware {
   +hardwareConcurrency: number;
 }
 
-/* mixin */ class NavigatorContentUtils {
-  registerProtocolHandler(scheme: string, url: string): void {}
-  unregisterProtocolHandler(scheme: string, url: string): void {}
+/* mixin */ declare class mixin$NavigatorContentUtils {
+  registerProtocolHandler(scheme: string, url: string): void;
+  unregisterProtocolHandler(scheme: string, url: string): void;
 }
 
-/* mixin */ class NavigatorCookies {
+/* mixin */ declare class mixin$NavigatorCookies {
   +cookieEnabled: boolean;
 }
 
-/* mixin */ class NavigatorID {
+/* mixin */ declare class mixin$NavigatorID {
   +appCodeName: string;
   +appName: string;
   +appVersion: string;
@@ -777,35 +771,35 @@ type OnErrorEventHandlerNonNull = (
   +vendorSub: string;
 }
 
-/* mixin */ class NavigatorID {
+/* partial mixin */ declare class mixin$NavigatorID {
   +oscpu: string;
 
-  taintEnabled(): boolean {}
+  taintEnabled(): boolean;
 }
 
-/* mixin */ class NavigatorLanguage {
+/* mixin */ declare class mixin$NavigatorLanguage {
   +language: string;
   +languages: string;
 }
 
-/* mixin */ class NavigatorOnLine {
+/* mixin */ declare class mixin$NavigatorOnLine {
   +onLine: boolean;
 }
 
-/* mixin */ class NavigatorPlugins {
+/* mixin */ declare class mixin$NavigatorPlugins {
   +mimeTypes: MimeTypeArray;
   +pdfViewerEnabled: boolean;
   +plugins: PluginArray;
 
-  javaEnabled(): boolean {}
+  javaEnabled(): boolean;
 }
 
-/* mixin */ class PopoverInvokerElement {
+/* mixin */ declare class mixin$PopoverInvokerElement {
   popoverTargetAction: string;
   popoverTargetElement: Element | null;
 }
 
-/* mixin */ class WindowEventHandlers {
+/* mixin */ declare class mixin$WindowEventHandlers {
   onafterprint: EventHandler;
   onbeforeprint: EventHandler;
   onbeforeunload: OnBeforeUnloadEventHandler;
@@ -826,23 +820,23 @@ type OnErrorEventHandlerNonNull = (
   onunload: EventHandler;
 }
 
-/* mixin */ class WindowLocalStorage {
+/* mixin */ declare class mixin$WindowLocalStorage {
   +localStorage: Storage;
 }
 
-/* mixin */ class WindowOrWorkerGlobalScope {
+/* mixin */ declare class mixin$WindowOrWorkerGlobalScope {
   +crossOriginIsolated: boolean;
   +isSecureContext: boolean;
   +origin: string;
 
-  atob(data: string): ByteString {}
-  btoa(data: string): string {}
-  clearInterval(id?: number): void {}
-  clearTimeout(id?: number): void {}
+  atob(data: string): ByteString;
+  btoa(data: string): string;
+  clearInterval(id?: number): void;
+  clearTimeout(id?: number): void;
   createImageBitmap(
     image: ImageBitmapSource,
     options?: ImageBitmapOptions,
-  ): ImageBitmap {}
+  ): ImageBitmap;
   createImageBitmap(
     image: ImageBitmapSource,
     sx: number,
@@ -850,23 +844,15 @@ type OnErrorEventHandlerNonNull = (
     sw: number,
     sh: number,
     options?: ImageBitmapOptions,
-  ): ImageBitmap {}
-  queueMicrotask(callback: VoidFunction): void {}
-  reportError(e: any): void {}
-  setInterval(
-    handler: TimerHandler,
-    timeout?: number,
-    arguments_: any,
-  ): number {}
-  setTimeout(
-    handler: TimerHandler,
-    timeout?: number,
-    arguments_: any,
-  ): number {}
-  structuredClone(value: any, options?: StructuredSerializeOptions): any {}
+  ): ImageBitmap;
+  queueMicrotask(callback: VoidFunction): void;
+  reportError(e: any): void;
+  setInterval(handler: TimerHandler, timeout?: number, arguments_: any): number;
+  setTimeout(handler: TimerHandler, timeout?: number, arguments_: any): number;
+  structuredClone(value: any, options?: StructuredSerializeOptions): any;
 }
 
-/* mixin */ class WindowSessionStorage {
+/* mixin */ declare class mixin$WindowSessionStorage {
   +sessionStorage: Storage;
 }
 
@@ -917,23 +903,23 @@ declare class CanvasPattern {
 
 declare class CanvasRenderingContext2D
   mixins
-    CanvasSettings,
-    CanvasState,
-    CanvasTransform,
-    CanvasCompositing,
-    CanvasImageSmoothing,
-    CanvasFillStrokeStyles,
-    CanvasShadowStyles,
-    CanvasFilters,
-    CanvasRect,
-    CanvasDrawPath,
-    CanvasUserInterface,
-    CanvasText,
-    CanvasDrawImage,
-    CanvasImageData,
-    CanvasPathDrawingStyles,
-    CanvasTextDrawingStyles,
-    CanvasPath
+    mixin$CanvasSettings,
+    mixin$CanvasState,
+    mixin$CanvasTransform,
+    mixin$CanvasCompositing,
+    mixin$CanvasImageSmoothing,
+    mixin$CanvasFillStrokeStyles,
+    mixin$CanvasShadowStyles,
+    mixin$CanvasFilters,
+    mixin$CanvasRect,
+    mixin$CanvasDrawPath,
+    mixin$CanvasUserInterface,
+    mixin$CanvasText,
+    mixin$CanvasDrawImage,
+    mixin$CanvasImageData,
+    mixin$CanvasPathDrawingStyles,
+    mixin$CanvasTextDrawingStyles,
+    mixin$CanvasPath
 {
   +canvas: HTMLCanvasElement;
 }
@@ -1005,7 +991,7 @@ declare class DataTransferItemList {
 
 declare class DedicatedWorkerGlobalScope
   extends WorkerGlobalScope
-  mixins AnimationFrameProvider, MessageEventTarget
+  mixins mixin$AnimationFrameProvider, mixin$MessageEventTarget
 {
   +name: string;
 
@@ -1014,7 +1000,7 @@ declare class DedicatedWorkerGlobalScope
   postMessage(message: any, options?: StructuredSerializeOptions): void;
 }
 
-/* partial */ declare class Document mixins GlobalEventHandlers {
+/* partial */ declare class Document mixins mixin$GlobalEventHandlers {
   body: HTMLElement | null;
   cookie: string;
   +currentScript: HTMLOrSVGScriptElement | null;
@@ -1056,7 +1042,7 @@ declare class DedicatedWorkerGlobalScope
   writeln(text: TrustedHTML | string): void;
 }
 
-/* partial */ declare class Document mixins GlobalEventHandlers {
+/* partial */ declare class Document mixins mixin$GlobalEventHandlers {
   alinkColor: string;
   +all: HTMLAllCollection;
   +anchors: HTMLCollection;
@@ -1108,7 +1094,7 @@ declare class DragEvent extends MouseEvent {
   setHTMLUnsafe(html: TrustedHTML | string): void;
 }
 
-declare class ElementInternals mixins ARIAMixin {
+declare class ElementInternals mixins mixin$ARIAMixin {
   +form: HTMLFormElement | null;
   +labels: NodeList;
   +shadowRoot: ShadowRoot | null;
@@ -1201,7 +1187,7 @@ declare class HTMLAllCollection {
 
 declare class HTMLAnchorElement
   extends HTMLElement
-  mixins HTMLHyperlinkElementUtils
+  mixins mixin$HTMLHyperlinkElementUtils
 {
   download: string;
   hreflang: string;
@@ -1216,7 +1202,9 @@ declare class HTMLAnchorElement
   constructor(): void;
 }
 
-/* partial */ declare class HTMLAnchorElement mixins HTMLHyperlinkElementUtils {
+/* partial */ declare class HTMLAnchorElement
+  mixins mixin$HTMLHyperlinkElementUtils
+{
   charset: string;
   coords: string;
   name: string;
@@ -1226,7 +1214,7 @@ declare class HTMLAnchorElement
 
 declare class HTMLAreaElement
   extends HTMLElement
-  mixins HTMLHyperlinkElementUtils
+  mixins mixin$HTMLHyperlinkElementUtils
 {
   alt: string;
   coords: string;
@@ -1241,7 +1229,9 @@ declare class HTMLAreaElement
   constructor(): void;
 }
 
-/* partial */ declare class HTMLAreaElement mixins HTMLHyperlinkElementUtils {
+/* partial */ declare class HTMLAreaElement
+  mixins mixin$HTMLHyperlinkElementUtils
+{
   noHref: boolean;
 }
 
@@ -1256,11 +1246,14 @@ declare class HTMLBaseElement extends HTMLElement {
   constructor(): void;
 }
 
-declare class HTMLBodyElement extends HTMLElement mixins WindowEventHandlers {
+declare class HTMLBodyElement
+  extends HTMLElement
+  mixins mixin$WindowEventHandlers
+{
   constructor(): void;
 }
 
-/* partial */ declare class HTMLBodyElement mixins WindowEventHandlers {
+/* partial */ declare class HTMLBodyElement mixins mixin$WindowEventHandlers {
   aLink: string;
   background: string;
   bgColor: string;
@@ -1279,7 +1272,7 @@ declare class HTMLBRElement extends HTMLElement {
 
 declare class HTMLButtonElement
   extends HTMLElement
-  mixins PopoverInvokerElement
+  mixins mixin$PopoverInvokerElement
 {
   command: string;
   commandForElement: Element | null;
@@ -1373,7 +1366,10 @@ declare class HTMLDListElement extends HTMLElement {
 
 declare class HTMLElement
   extends Element
-  mixins GlobalEventHandlers, ElementContentEditable, HTMLOrSVGElement
+  mixins
+    mixin$GlobalEventHandlers,
+    mixin$ElementContentEditable,
+    mixin$HTMLOrSVGElement
 {
   accessKey: string;
   +accessKeyLabel: string;
@@ -1489,7 +1485,7 @@ declare class HTMLFrameElement extends HTMLElement {
 
 declare class HTMLFrameSetElement
   extends HTMLElement
-  mixins WindowEventHandlers
+  mixins mixin$WindowEventHandlers
 {
   cols: string;
   rows: string;
@@ -1593,7 +1589,7 @@ declare class HTMLImageElement extends HTMLElement {
 
 declare class HTMLInputElement
   extends HTMLElement
-  mixins PopoverInvokerElement
+  mixins mixin$PopoverInvokerElement
 {
   accept: string;
   alpha: boolean;
@@ -1660,7 +1656,9 @@ declare class HTMLInputElement
   stepUp(n?: number): void;
 }
 
-/* partial */ declare class HTMLInputElement mixins PopoverInvokerElement {
+/* partial */ declare class HTMLInputElement
+  mixins mixin$PopoverInvokerElement
+{
   align: string;
   useMap: string;
 }
@@ -1693,7 +1691,7 @@ declare class HTMLLIElement extends HTMLElement {
   type: string;
 }
 
-declare class HTMLLinkElement extends HTMLElement mixins LinkStyle {
+declare class HTMLLinkElement extends HTMLElement mixins mixin$LinkStyle {
   as: string;
   +blocking: DOMTokenList;
   crossOrigin: string | null;
@@ -1714,7 +1712,7 @@ declare class HTMLLinkElement extends HTMLElement mixins LinkStyle {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLLinkElement mixins LinkStyle {
+/* partial */ declare class HTMLLinkElement mixins mixin$LinkStyle {
   charset: string;
   rev: string;
   target: string;
@@ -2067,7 +2065,7 @@ declare class HTMLSpanElement extends HTMLElement {
   constructor(): void;
 }
 
-declare class HTMLStyleElement extends HTMLElement mixins LinkStyle {
+declare class HTMLStyleElement extends HTMLElement mixins mixin$LinkStyle {
   +blocking: DOMTokenList;
   disabled: boolean;
   media: string;
@@ -2075,7 +2073,7 @@ declare class HTMLStyleElement extends HTMLElement mixins LinkStyle {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLStyleElement mixins LinkStyle {
+/* partial */ declare class HTMLStyleElement mixins mixin$LinkStyle {
   type: string;
 }
 
@@ -2377,7 +2375,7 @@ declare class MessageEvent extends Event {
   ): void;
 }
 
-declare class MessagePort extends EventTarget mixins MessageEventTarget {
+declare class MessagePort extends EventTarget mixins mixin$MessageEventTarget {
   onclose: EventHandler;
 
   close(): void;
@@ -2484,26 +2482,26 @@ declare class NavigationTransition {
 
 /* partial */ declare class Navigator
   mixins
-    NavigatorID,
-    NavigatorLanguage,
-    NavigatorOnLine,
-    NavigatorContentUtils,
-    NavigatorCookies,
-    NavigatorPlugins,
-    NavigatorConcurrentHardware
+    mixin$NavigatorID,
+    mixin$NavigatorLanguage,
+    mixin$NavigatorOnLine,
+    mixin$NavigatorContentUtils,
+    mixin$NavigatorCookies,
+    mixin$NavigatorPlugins,
+    mixin$NavigatorConcurrentHardware
 {
   +userActivation: UserActivation;
 }
 
 declare class Navigator
   mixins
-    NavigatorID,
-    NavigatorLanguage,
-    NavigatorOnLine,
-    NavigatorContentUtils,
-    NavigatorCookies,
-    NavigatorPlugins,
-    NavigatorConcurrentHardware {}
+    mixin$NavigatorID,
+    mixin$NavigatorLanguage,
+    mixin$NavigatorOnLine,
+    mixin$NavigatorContentUtils,
+    mixin$NavigatorCookies,
+    mixin$NavigatorPlugins,
+    mixin$NavigatorConcurrentHardware {}
 
 declare class NotRestoredReasonDetails {
   +reason: string;
@@ -2540,22 +2538,22 @@ declare class OffscreenCanvas extends EventTarget {
 
 declare class OffscreenCanvasRenderingContext2D
   mixins
-    CanvasSettings,
-    CanvasState,
-    CanvasTransform,
-    CanvasCompositing,
-    CanvasImageSmoothing,
-    CanvasFillStrokeStyles,
-    CanvasShadowStyles,
-    CanvasFilters,
-    CanvasRect,
-    CanvasDrawPath,
-    CanvasText,
-    CanvasDrawImage,
-    CanvasImageData,
-    CanvasPathDrawingStyles,
-    CanvasTextDrawingStyles,
-    CanvasPath
+    mixin$CanvasSettings,
+    mixin$CanvasState,
+    mixin$CanvasTransform,
+    mixin$CanvasCompositing,
+    mixin$CanvasImageSmoothing,
+    mixin$CanvasFillStrokeStyles,
+    mixin$CanvasShadowStyles,
+    mixin$CanvasFilters,
+    mixin$CanvasRect,
+    mixin$CanvasDrawPath,
+    mixin$CanvasText,
+    mixin$CanvasDrawImage,
+    mixin$CanvasImageData,
+    mixin$CanvasPathDrawingStyles,
+    mixin$CanvasTextDrawingStyles,
+    mixin$CanvasPath
 {
   +canvas: OffscreenCanvas;
 }
@@ -2579,7 +2577,7 @@ declare class PageTransitionEvent extends Event {
   constructor(type: string, eventInitDict?: PageTransitionEventInit): void;
 }
 
-declare class Path2D mixins CanvasPath {
+declare class Path2D mixins mixin$CanvasPath {
   constructor(path?: Path2D | string): void;
 
   addPath(path: Path2D, transform?: DOMMatrix2DInit): void;
@@ -2632,7 +2630,7 @@ declare class RadioNodeList extends NodeList {
   setHTMLUnsafe(html: TrustedHTML | string): void;
 }
 
-declare class SharedWorker extends EventTarget mixins AbstractWorker {
+declare class SharedWorker extends EventTarget mixins mixin$AbstractWorker {
   +port: MessagePort;
 
   constructor(
@@ -2810,12 +2808,12 @@ declare class VisibilityStateEntry extends PerformanceEntry {
 declare class Window
   extends EventTarget
   mixins
-    GlobalEventHandlers,
-    WindowEventHandlers,
-    WindowOrWorkerGlobalScope,
-    AnimationFrameProvider,
-    WindowSessionStorage,
-    WindowLocalStorage
+    mixin$GlobalEventHandlers,
+    mixin$WindowEventHandlers,
+    mixin$WindowOrWorkerGlobalScope,
+    mixin$AnimationFrameProvider,
+    mixin$WindowSessionStorage,
+    mixin$WindowLocalStorage
 {
   +clientInformation: Navigator;
   +closed: boolean;
@@ -2864,12 +2862,12 @@ declare class Window
 
 /* partial */ declare class Window
   mixins
-    GlobalEventHandlers,
-    WindowEventHandlers,
-    WindowOrWorkerGlobalScope,
-    AnimationFrameProvider,
-    WindowSessionStorage,
-    WindowLocalStorage
+    mixin$GlobalEventHandlers,
+    mixin$WindowEventHandlers,
+    mixin$WindowOrWorkerGlobalScope,
+    mixin$AnimationFrameProvider,
+    mixin$WindowSessionStorage,
+    mixin$WindowLocalStorage
 {
   +fakeWorklet1: Worklet;
   +fakeWorklet2: Worklet;
@@ -2877,12 +2875,12 @@ declare class Window
 
 /* partial */ declare class Window
   mixins
-    GlobalEventHandlers,
-    WindowEventHandlers,
-    WindowOrWorkerGlobalScope,
-    AnimationFrameProvider,
-    WindowSessionStorage,
-    WindowLocalStorage
+    mixin$GlobalEventHandlers,
+    mixin$WindowEventHandlers,
+    mixin$WindowOrWorkerGlobalScope,
+    mixin$AnimationFrameProvider,
+    mixin$WindowSessionStorage,
+    mixin$WindowLocalStorage
 {
   +external: External;
 
@@ -2892,7 +2890,7 @@ declare class Window
 
 declare class Worker
   extends EventTarget
-  mixins AbstractWorker, MessageEventTarget
+  mixins mixin$AbstractWorker, mixin$MessageEventTarget
 {
   constructor(
     scriptURL: TrustedScriptURL | string,
@@ -2906,7 +2904,7 @@ declare class Worker
 
 declare class WorkerGlobalScope
   extends EventTarget
-  mixins WindowOrWorkerGlobalScope
+  mixins mixin$WindowOrWorkerGlobalScope
 {
   +location: WorkerLocation;
   +navigator: WorkerNavigator;
@@ -2935,10 +2933,10 @@ declare class WorkerLocation {
 
 declare class WorkerNavigator
   mixins
-    NavigatorID,
-    NavigatorLanguage,
-    NavigatorOnLine,
-    NavigatorConcurrentHardware {}
+    mixin$NavigatorID,
+    mixin$NavigatorLanguage,
+    mixin$NavigatorOnLine,
+    mixin$NavigatorConcurrentHardware {}
 
 declare class Worklet {
   addModule(moduleURL: string, options?: WorkletOptions): void;

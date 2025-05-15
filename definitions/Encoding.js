@@ -12,29 +12,29 @@ type TextEncoderEncodeIntoResult = {
   written: number,
 };
 
-/* mixin */ class TextDecoderCommon {
+/* mixin */ declare class mixin$TextDecoderCommon {
   +encoding: string;
   +fatal: boolean;
   +ignoreBOM: boolean;
 }
 
-/* mixin */ class TextEncoderCommon {
+/* mixin */ declare class mixin$TextEncoderCommon {
   +encoding: string;
 }
 
-declare class TextDecoder mixins TextDecoderCommon {
+declare class TextDecoder mixins mixin$TextDecoderCommon {
   constructor(label?: string, options?: TextDecoderOptions): void;
 
   decode(input?: AllowSharedBufferSource, options?: TextDecodeOptions): string;
 }
 
 declare class TextDecoderStream
-  mixins TextDecoderCommon, GenericTransformStream
+  mixins mixin$TextDecoderCommon, mixin$GenericTransformStream
 {
   constructor(label?: string, options?: TextDecoderOptions): void;
 }
 
-declare class TextEncoder mixins TextEncoderCommon {
+declare class TextEncoder mixins mixin$TextEncoderCommon {
   constructor(): void;
 
   encode(input?: string): Uint8Array;
@@ -45,7 +45,7 @@ declare class TextEncoder mixins TextEncoderCommon {
 }
 
 declare class TextEncoderStream
-  mixins TextEncoderCommon, GenericTransformStream
+  mixins mixin$TextEncoderCommon, mixin$GenericTransformStream
 {
   constructor(): void;
 }

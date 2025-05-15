@@ -84,20 +84,20 @@ type ResponseInit = {
   headers: HeadersInit,
 };
 
-/* mixin */ class Body {
+/* mixin */ declare class mixin$Body {
   +body: ReadableStream | null;
   +bodyUsed: boolean;
 
-  arrayBuffer(): ArrayBuffer {}
-  blob(): Blob {}
-  bytes(): Uint8Array {}
-  formData(): FormData {}
-  json(): any {}
-  text(): string {}
+  arrayBuffer(): ArrayBuffer;
+  blob(): Blob;
+  bytes(): Uint8Array;
+  formData(): FormData;
+  json(): any;
+  text(): string;
 }
 
-/* mixin */ class WindowOrWorkerGlobalScope {
-  fetch(input: RequestInfo, init?: RequestInit): Response {}
+/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
+  fetch(input: RequestInfo, init?: RequestInit): Response;
 }
 
 declare class Headers {
@@ -113,7 +113,7 @@ declare class Headers {
   set(name: ByteString, value: ByteString): void;
 }
 
-declare class Request mixins Body {
+declare class Request mixins mixin$Body {
   +cache: RequestCache;
   +credentials: RequestCredentials;
   +destination: RequestDestination;
@@ -136,7 +136,7 @@ declare class Request mixins Body {
   clone(): Request;
 }
 
-declare class Response mixins Body {
+declare class Response mixins mixin$Body {
   +headers: Headers;
   +ok: boolean;
   +redirected: boolean;

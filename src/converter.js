@@ -178,35 +178,6 @@ function convertInterfaceMember(production: IDLProduction): string {
   }
 }
 
-function convertMixinMember(production: IDLProduction): string {
-  switch (production.type) {
-    case 'constructor':
-      return convertConstructor(production, true);
-
-    case 'iterable':
-      return convertIterable(production, true);
-
-    case 'attribute':
-      return convertAttribute(production);
-
-    case 'operation':
-      return convertOperation(production, true);
-
-    case 'const':
-      return convertConstant(production);
-
-    case 'setlike':
-      // Handled separately
-      return '';
-
-    default:
-      return productionError(
-        `Unhandled IDL production ${production.type}`,
-        production,
-      );
-  }
-}
-
 function convertInterface(
   production: IDLProduction,
   mixins: ?Array<string>,
@@ -234,7 +205,9 @@ function convertInterface(
   const classOrInterface = hasMixins || isExposed ? 'class' : 'interface';
   const extendsDecl = inheritance != null ? `extends ${inheritance} ` : '';
   const mixinDecl =
-    mixins != null && mixins.length > 0 ? `mixins ${mixins.join(', ')} ` : '';
+    mixins != null && mixins.length > 0
+      ? `mixins ${mixins.map((mixin) => `mixin$${mixin}`).join(', ')} `
+      : '';
 
   const grouped = group(members, (member) => member.type);
   const interfaceMembers = Object.keys(grouped)
@@ -251,7 +224,7 @@ function convertInterface(
 }
 
 function convertInterfaceMixin(production: IDLProduction): string {
-  const {name, members} = production;
+  const {name, members, partial} = production;
 
   const grouped = group(members, (member) => member.type);
   const interfaceMembers = Object.keys(grouped)
@@ -259,29 +232,25 @@ function convertInterfaceMixin(production: IDLProduction): string {
     .map((key) =>
       grouped[key]
         .toSorted(compareProductions)
-        .map(convertMixinMember)
+        .map(convertInterfaceMember)
         .join(''),
     )
     .join('\n');
 
-  return `/* mixin */ class ${name} {${interfaceMembers}}\n`;
+  const comment = partial ? 'partial mixin' : 'mixin';
+  return `/* ${comment} */ declare class mixin$${name} {${interfaceMembers}}\n`;
 }
 
-function convertConstructor(
-  production: IDLProduction,
-  mixin?: boolean,
-): string {
+function convertConstructor(production: IDLProduction): string {
   const {arguments: args} = production;
   const argString = args.map(convertArgument).join(', ');
-  const body = mixin === true ? ' {}' : ';';
-  return `constructor(${argString}): void${body}\n`;
+  return `constructor(${argString}): void;\n`;
 }
 
-function convertIterable(production: IDLProduction, mixin?: boolean): string {
+function convertIterable(production: IDLProduction): string {
   const {idlType: types} = production;
   const typeStr = types.map(convertIDLType).join(', ');
-  const body = mixin === true ? ' {}' : ';';
-  return `@@iterator(): Iterator<${typeStr}>${body}\n`;
+  return `@@iterator(): Iterator<${typeStr}>;\n`;
 }
 
 function convertAttribute(production: IDLProduction): string {
@@ -290,7 +259,7 @@ function convertAttribute(production: IDLProduction): string {
   return `${plus}${name}: ${convertIDLType(idlType)};\n`;
 }
 
-function convertOperation(production: IDLProduction, mixin?: boolean): string {
+function convertOperation(production: IDLProduction): string {
   const {idlType, name, arguments: args, special} = production;
 
   if (special === 'stringifier' && name === '') {
@@ -299,8 +268,7 @@ function convertOperation(production: IDLProduction, mixin?: boolean): string {
 
   const staticString = special === 'static' ? 'static ' : '';
   const argString = args.map(convertArgument).join(', ');
-  const body = mixin === true ? ' {}' : ';';
-  return `${staticString}${name}(${argString}): ${convertIDLType(idlType)}${body}\n`;
+  return `${staticString}${name}(${argString}): ${convertIDLType(idlType)};\n`;
 }
 
 function convertConstant(production: IDLProduction): string {

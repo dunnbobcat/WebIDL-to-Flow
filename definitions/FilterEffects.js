@@ -1,4 +1,4 @@
-/* mixin */ class SVGFilterPrimitiveStandardAttributes {
+/* mixin */ declare class mixin$SVGFilterPrimitiveStandardAttributes {
   +height: SVGAnimatedLength;
   +result: SVGAnimatedString;
   +width: SVGAnimatedLength;
@@ -25,7 +25,7 @@ declare class SVGComponentTransferFunctionElement extends SVGElement {
 
 declare class SVGFEBlendElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   static +SVG_FEBLEND_MODE_COLOR: 15;
   static +SVG_FEBLEND_MODE_COLOR_BURN: 8;
@@ -52,7 +52,7 @@ declare class SVGFEBlendElement
 
 declare class SVGFEColorMatrixElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   static +SVG_FECOLORMATRIX_TYPE_HUEROTATE: 3;
   static +SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA: 4;
@@ -67,14 +67,14 @@ declare class SVGFEColorMatrixElement
 
 declare class SVGFEComponentTransferElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   +in1: SVGAnimatedString;
 }
 
 declare class SVGFECompositeElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   static +SVG_FECOMPOSITE_OPERATOR_ARITHMETIC: 6;
   static +SVG_FECOMPOSITE_OPERATOR_ATOP: 4;
@@ -95,7 +95,7 @@ declare class SVGFECompositeElement
 
 declare class SVGFEConvolveMatrixElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   static +SVG_EDGEMODE_DUPLICATE: 1;
   static +SVG_EDGEMODE_NONE: 3;
@@ -118,7 +118,7 @@ declare class SVGFEConvolveMatrixElement
 
 declare class SVGFEDiffuseLightingElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   +diffuseConstant: SVGAnimatedNumber;
   +in1: SVGAnimatedString;
@@ -129,7 +129,7 @@ declare class SVGFEDiffuseLightingElement
 
 declare class SVGFEDisplacementMapElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   static +SVG_CHANNEL_A: 4;
   static +SVG_CHANNEL_B: 3;
@@ -151,7 +151,7 @@ interface SVGFEDistantLightElement extends SVGElement {
 
 declare class SVGFEDropShadowElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   +dx: SVGAnimatedNumber;
   +dy: SVGAnimatedNumber;
@@ -164,7 +164,7 @@ declare class SVGFEDropShadowElement
 
 declare class SVGFEFloodElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes {}
+  mixins mixin$SVGFilterPrimitiveStandardAttributes {}
 
 interface SVGFEFuncAElement extends SVGComponentTransferFunctionElement {}
 
@@ -176,7 +176,7 @@ interface SVGFEFuncRElement extends SVGComponentTransferFunctionElement {}
 
 declare class SVGFEGaussianBlurElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   static +SVG_EDGEMODE_DUPLICATE: 1;
   static +SVG_EDGEMODE_NONE: 3;
@@ -193,7 +193,7 @@ declare class SVGFEGaussianBlurElement
 
 declare class SVGFEImageElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes, SVGURIReference
+  mixins mixin$SVGFilterPrimitiveStandardAttributes, mixin$SVGURIReference
 {
   +crossOrigin: SVGAnimatedString;
   +preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
@@ -201,7 +201,7 @@ declare class SVGFEImageElement
 
 declare class SVGFEMergeElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes {}
+  mixins mixin$SVGFilterPrimitiveStandardAttributes {}
 
 interface SVGFEMergeNodeElement extends SVGElement {
   +in1: SVGAnimatedString;
@@ -209,7 +209,7 @@ interface SVGFEMergeNodeElement extends SVGElement {
 
 declare class SVGFEMorphologyElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   static +SVG_MORPHOLOGY_OPERATOR_DILATE: 2;
   static +SVG_MORPHOLOGY_OPERATOR_ERODE: 1;
@@ -223,7 +223,7 @@ declare class SVGFEMorphologyElement
 
 declare class SVGFEOffsetElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   +dx: SVGAnimatedNumber;
   +dy: SVGAnimatedNumber;
@@ -238,7 +238,7 @@ interface SVGFEPointLightElement extends SVGElement {
 
 declare class SVGFESpecularLightingElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   +in1: SVGAnimatedString;
   +kernelUnitLengthX: SVGAnimatedNumber;
@@ -261,14 +261,14 @@ interface SVGFESpotLightElement extends SVGElement {
 
 declare class SVGFETileElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   +in1: SVGAnimatedString;
 }
 
 declare class SVGFETurbulenceElement
   extends SVGElement
-  mixins SVGFilterPrimitiveStandardAttributes
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
 {
   static +SVG_STITCHTYPE_NOSTITCH: 2;
   static +SVG_STITCHTYPE_STITCH: 1;
@@ -285,7 +285,7 @@ declare class SVGFETurbulenceElement
   +type: SVGAnimatedEnumeration;
 }
 
-declare class SVGFilterElement extends SVGElement mixins SVGURIReference {
+declare class SVGFilterElement extends SVGElement mixins mixin$SVGURIReference {
   +filterUnits: SVGAnimatedEnumeration;
   +height: SVGAnimatedLength;
   +primitiveUnits: SVGAnimatedEnumeration;

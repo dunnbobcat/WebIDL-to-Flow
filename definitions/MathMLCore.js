@@ -1,3 +1,3 @@
 declare class MathMLElement
   extends Element
-  mixins GlobalEventHandlers, HTMLOrSVGElement {}
+  mixins mixin$GlobalEventHandlers, mixin$HTMLOrSVGElement {}
