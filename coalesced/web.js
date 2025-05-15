@@ -34,6 +34,14 @@ type CanvasImageSource =
   | OffscreenCanvas
   | VideoFrame;
 
+type ConstrainBoolean = boolean | ConstrainBooleanParameters;
+
+type ConstrainDOMString = string | Array<string> | ConstrainDOMStringParameters;
+
+type ConstrainDouble = number | ConstrainDoubleRange;
+
+type ConstrainULong = number | ConstrainULongRange;
+
 type EventHandler = EventHandlerNonNull | null;
 
 type Float32List = Float32Array | Array<GLfloat>;
@@ -54,6 +62,8 @@ type GLfloat = number;
 
 type GLint = number;
 
+type GLint64 = number;
+
 type GLintptr = number;
 
 type GLshort = number;
@@ -65,6 +75,8 @@ type GLsizeiptr = number;
 type GLubyte = number;
 
 type GLuint = number;
+
+type GLuint64 = number;
 
 type GLushort = number;
 
@@ -120,6 +132,8 @@ type TexImageSource =
   | VideoFrame;
 
 type TimerHandler = string | Function | TrustedScript;
+
+type Uint32List = Uint32Array | Array<GLuint>;
 
 type URLPatternCompatible = string | URLPatternInit | URLPattern;
 
@@ -204,6 +218,10 @@ type FullscreenNavigationUI = 'auto' | 'show' | 'hide';
 type ImageOrientation = 'from-image' | 'flipY';
 
 type ImageSmoothingQuality = 'low' | 'medium' | 'high';
+
+type MediaDeviceKind = 'audioinput' | 'audiooutput' | 'videoinput';
+
+type MediaStreamTrackState = 'live' | 'ended';
 
 type NavigationFocusReset = 'after-transition' | 'manual';
 
@@ -300,6 +318,10 @@ type TextTrackKind =
 
 type TextTrackMode = 'disabled' | 'hidden' | 'showing';
 
+type VideoFacingModeEnum = 'user' | 'environment' | 'left' | 'right';
+
+type VideoResizeModeEnum = 'none' | 'crop-and-scale';
+
 type WebGLPowerPreference = 'default' | 'low-power' | 'high-performance';
 
 type WorkerType = 'classic' | 'module';
@@ -327,6 +349,10 @@ type BlobPropertyBag = {
   endings: EndingType,
 };
 
+type CameraDevicePermissionDescriptor = {
+  panTiltZoom: boolean,
+};
+
 type CanvasRenderingContext2DSettings = {
   alpha: boolean,
   desynchronized: boolean,
@@ -334,6 +360,8 @@ type CanvasRenderingContext2DSettings = {
   colorType: CanvasColorType,
   willReadFrequently: boolean,
 };
+
+type Capabilities = {};
 
 type CloseWatcherOptions = {
   signal: AbortSignal,
@@ -344,6 +372,32 @@ type CommandEventInit = {
   command: string,
 };
 
+type ConstrainBooleanParameters = {
+  exact: boolean,
+  ideal: boolean,
+};
+
+type ConstrainDOMStringParameters = {
+  exact: string | Array<string>,
+  ideal: string | Array<string>,
+};
+
+type ConstrainDoubleRange = {
+  exact: number,
+  ideal: number,
+};
+
+type Constraints = {
+  advanced: Array<ConstraintSet>,
+};
+
+type ConstraintSet = {};
+
+type ConstrainULongRange = {
+  exact: number,
+  ideal: number,
+};
+
 type CSSStyleSheetInit = {
   baseURL: string,
   media: MediaList | string,
@@ -352,6 +406,10 @@ type CSSStyleSheetInit = {
 
 type CustomEventInit = {
   detail: any,
+};
+
+type DeviceChangeEventInit = {
+  devices: Array<MediaDeviceInfo>,
 };
 
 type DOMMatrix2DInit = {
@@ -402,6 +460,11 @@ type DOMRectInit = {
   y: number,
   width: number,
   height: number,
+};
+
+type DoubleRange = {
+  max: number,
+  min: number,
 };
 
 type DragEventInit = {
@@ -493,6 +556,95 @@ type ImageDataSettings = {
 type ImageEncodeOptions = {
   type: string,
   quality: number,
+};
+
+type MediaStreamConstraints = {
+  video: boolean | MediaTrackConstraints,
+  audio: boolean | MediaTrackConstraints,
+};
+
+type MediaStreamTrackEventInit = {
+  track: MediaStreamTrack,
+};
+
+type MediaTrackCapabilities = {
+  width: ULongRange,
+  height: ULongRange,
+  aspectRatio: DoubleRange,
+  frameRate: DoubleRange,
+  facingMode: Array<string>,
+  resizeMode: Array<string>,
+  sampleRate: ULongRange,
+  sampleSize: ULongRange,
+  echoCancellation: Array<boolean>,
+  autoGainControl: Array<boolean>,
+  noiseSuppression: Array<boolean>,
+  latency: DoubleRange,
+  channelCount: ULongRange,
+  deviceId: string,
+  groupId: string,
+  backgroundBlur: Array<boolean>,
+};
+
+type MediaTrackConstraints = {
+  advanced: Array<MediaTrackConstraintSet>,
+};
+
+type MediaTrackConstraintSet = {
+  width: ConstrainULong,
+  height: ConstrainULong,
+  aspectRatio: ConstrainDouble,
+  frameRate: ConstrainDouble,
+  facingMode: ConstrainDOMString,
+  resizeMode: ConstrainDOMString,
+  sampleRate: ConstrainULong,
+  sampleSize: ConstrainULong,
+  echoCancellation: ConstrainBoolean,
+  autoGainControl: ConstrainBoolean,
+  noiseSuppression: ConstrainBoolean,
+  latency: ConstrainDouble,
+  channelCount: ConstrainULong,
+  deviceId: ConstrainDOMString,
+  groupId: ConstrainDOMString,
+  backgroundBlur: ConstrainBoolean,
+};
+
+type MediaTrackSettings = {
+  width: number,
+  height: number,
+  aspectRatio: number,
+  frameRate: number,
+  facingMode: string,
+  resizeMode: string,
+  sampleRate: number,
+  sampleSize: number,
+  echoCancellation: boolean,
+  autoGainControl: boolean,
+  noiseSuppression: boolean,
+  latency: number,
+  channelCount: number,
+  deviceId: string,
+  groupId: string,
+  backgroundBlur: boolean,
+};
+
+type MediaTrackSupportedConstraints = {
+  width: boolean,
+  height: boolean,
+  aspectRatio: boolean,
+  frameRate: boolean,
+  facingMode: boolean,
+  resizeMode: boolean,
+  sampleRate: boolean,
+  sampleSize: boolean,
+  echoCancellation: boolean,
+  autoGainControl: boolean,
+  noiseSuppression: boolean,
+  latency: boolean,
+  channelCount: boolean,
+  deviceId: boolean,
+  groupId: boolean,
+  backgroundBlur: boolean,
 };
 
 type MessageEventInit = {
@@ -672,6 +824,8 @@ type ResponseInit = {
   headers: HeadersInit,
 };
 
+type Settings = {};
+
 type ShadowRootInit = {
   mode: ShadowRootMode,
   delegatesFocus: boolean,
@@ -755,6 +909,11 @@ type Transformer = {
   cancel: TransformerCancelCallback,
   readableType: any,
   writableType: any,
+};
+
+type ULongRange = {
+  max: number,
+  min: number,
 };
 
 type UnderlyingSink = {
@@ -867,6 +1026,10 @@ type MutationCallback = (
 ) => void;
 
 type NavigationInterceptHandler = () => void;
+
+type NavigatorUserMediaErrorCallback = (error: DOMException) => void;
+
+type NavigatorUserMediaSuccessCallback = (stream: MediaStream) => void;
 
 type NotificationPermissionCallback = (
   permission: NotificationPermission,
@@ -1116,6 +1279,13 @@ declare class Comment extends CharacterData {
   constructor(data?: string): void;
 }
 
+declare class ConstrainablePattern {
+  applyConstraints(constraints?: Constraints): void;
+  getCapabilities(): Capabilities;
+  getConstraints(): Constraints;
+  getSettings(): Settings;
+}
+
 declare class CountQueuingStrategy {
   +highWaterMark: number;
   +size: Function;
@@ -1279,6 +1449,13 @@ declare class DedicatedWorkerGlobalScope
   close(): void;
   postMessage(message: any, transfer: Array<Object>): void;
   postMessage(message: any, options?: StructuredSerializeOptions): void;
+}
+
+declare class DeviceChangeEvent extends Event {
+  +devices: MediaDeviceInfo;
+  +userInsertedDevices: MediaDeviceInfo;
+
+  constructor(type: string, eventInitDict?: DeviceChangeEventInit): void;
 }
 
 declare class Document
@@ -3177,6 +3354,10 @@ declare class ImageData {
   ): void;
 }
 
+declare class InputDeviceInfo extends MediaDeviceInfo {
+  getCapabilities(): MediaTrackCapabilities;
+}
+
 declare class Location {
   +ancestorOrigins: DOMStringList;
   hash: string;
@@ -3201,6 +3382,26 @@ declare class MathMLElement
     mixin$GlobalEventHandlers,
     mixin$HTMLOrSVGElement {}
 
+declare class MediaDeviceInfo {
+  +deviceId: string;
+  +groupId: string;
+  +kind: MediaDeviceKind;
+  +label: string;
+
+  toJSON(): Object;
+}
+
+declare class MediaDevices extends EventTarget {
+  ondevicechange: EventHandler;
+
+  enumerateDevices(): Array<MediaDeviceInfo>;
+}
+
+/* partial */ interface MediaDevices {
+  getSupportedConstraints(): MediaTrackSupportedConstraints;
+  getUserMedia(constraints?: MediaStreamConstraints): MediaStream;
+}
+
 declare class MediaError {
   static +MEDIA_ERR_ABORTED: 1;
   static +MEDIA_ERR_DECODE: 3;
@@ -3218,6 +3419,50 @@ declare class MediaList {
   item(index: number): string | null;
   appendMedium(medium: string): void;
   deleteMedium(medium: string): void;
+}
+
+declare class MediaStream extends EventTarget {
+  +active: boolean;
+  +id: string;
+  onaddtrack: EventHandler;
+  onremovetrack: EventHandler;
+
+  constructor(): void;
+  constructor(stream: MediaStream): void;
+  constructor(tracks: Array<MediaStreamTrack>): void;
+
+  addTrack(track: MediaStreamTrack): void;
+  clone(): MediaStream;
+  getAudioTracks(): Array<MediaStreamTrack>;
+  getTrackById(trackId: string): MediaStreamTrack | null;
+  getTracks(): Array<MediaStreamTrack>;
+  getVideoTracks(): Array<MediaStreamTrack>;
+  removeTrack(track: MediaStreamTrack): void;
+}
+
+declare class MediaStreamTrack extends EventTarget {
+  enabled: boolean;
+  +id: string;
+  +kind: string;
+  +label: string;
+  +muted: boolean;
+  onended: EventHandler;
+  onmute: EventHandler;
+  onunmute: EventHandler;
+  +readyState: MediaStreamTrackState;
+
+  applyConstraints(constraints?: MediaTrackConstraints): void;
+  clone(): MediaStreamTrack;
+  getCapabilities(): MediaTrackCapabilities;
+  getConstraints(): MediaTrackConstraints;
+  getSettings(): MediaTrackSettings;
+  stop(): void;
+}
+
+declare class MediaStreamTrackEvent extends Event {
+  +track: MediaStreamTrack;
+
+  constructor(type: string, eventInitDict: MediaStreamTrackEventInit): void;
 }
 
 declare class MessageChannel {
@@ -3418,6 +3663,36 @@ declare class Navigator
     mixin$NavigatorPlugins,
     mixin$NavigatorConcurrentHardware
 {
+  +mediaDevices: MediaDevices;
+}
+
+/* partial */ declare class Navigator
+  mixins
+    mixin$NavigatorID,
+    mixin$NavigatorLanguage,
+    mixin$NavigatorOnLine,
+    mixin$NavigatorContentUtils,
+    mixin$NavigatorCookies,
+    mixin$NavigatorPlugins,
+    mixin$NavigatorConcurrentHardware
+{
+  getUserMedia(
+    constraints: MediaStreamConstraints,
+    successCallback: NavigatorUserMediaSuccessCallback,
+    errorCallback: NavigatorUserMediaErrorCallback,
+  ): void;
+}
+
+/* partial */ declare class Navigator
+  mixins
+    mixin$NavigatorID,
+    mixin$NavigatorLanguage,
+    mixin$NavigatorOnLine,
+    mixin$NavigatorContentUtils,
+    mixin$NavigatorCookies,
+    mixin$NavigatorPlugins,
+    mixin$NavigatorConcurrentHardware
+{
   vibrate(pattern: VibratePattern): boolean;
 }
 
@@ -3584,6 +3859,12 @@ declare class OffscreenCanvasRenderingContext2D
     mixin$CanvasPath
 {
   +canvas: OffscreenCanvas;
+}
+
+declare class OverconstrainedError extends DOMException {
+  +constraint: string;
+
+  constructor(constraint: string, message?: string): void;
 }
 
 declare class PageRevealEvent extends Event {
@@ -5030,6 +5311,573 @@ declare class VisibilityStateEntry extends PerformanceEntry {
   +startTime: number;
 }
 
+declare class WebGL2RenderingContext
+  mixins
+    mixin$WebGLRenderingContextBase,
+    mixin$WebGL2RenderingContextBase,
+    mixin$WebGL2RenderingContextOverloads
+{
+  static +ACTIVE_ATTRIBUTES: 0x8b89;
+  static +ACTIVE_TEXTURE: 0x84e0;
+  static +ACTIVE_UNIFORM_BLOCKS: 0x8a36;
+  static +ACTIVE_UNIFORMS: 0x8b86;
+  static +ALIASED_LINE_WIDTH_RANGE: 0x846e;
+  static +ALIASED_POINT_SIZE_RANGE: 0x846d;
+  static +ALPHA: 0x1906;
+  static +ALPHA_BITS: 0x0d55;
+  static +ALREADY_SIGNALED: 0x911a;
+  static +ALWAYS: 0x0207;
+  static +ANY_SAMPLES_PASSED: 0x8c2f;
+  static +ANY_SAMPLES_PASSED_CONSERVATIVE: 0x8d6a;
+  static +ARRAY_BUFFER: 0x8892;
+  static +ARRAY_BUFFER_BINDING: 0x8894;
+  static +ATTACHED_SHADERS: 0x8b85;
+  static +BACK: 0x0405;
+  static +BLEND: 0x0be2;
+  static +BLEND_COLOR: 0x8005;
+  static +BLEND_DST_ALPHA: 0x80ca;
+  static +BLEND_DST_RGB: 0x80c8;
+  static +BLEND_EQUATION: 0x8009;
+  static +BLEND_EQUATION_ALPHA: 0x883d;
+  static +BLEND_EQUATION_RGB: 0x8009;
+  static +BLEND_SRC_ALPHA: 0x80cb;
+  static +BLEND_SRC_RGB: 0x80c9;
+  static +BLUE_BITS: 0x0d54;
+  static +BOOL: 0x8b56;
+  static +BOOL_VEC2: 0x8b57;
+  static +BOOL_VEC3: 0x8b58;
+  static +BOOL_VEC4: 0x8b59;
+  static +BROWSER_DEFAULT_WEBGL: 0x9244;
+  static +BUFFER_SIZE: 0x8764;
+  static +BUFFER_USAGE: 0x8765;
+  static +BYTE: 0x1400;
+  static +CCW: 0x0901;
+  static +CLAMP_TO_EDGE: 0x812f;
+  static +COLOR: 0x1800;
+  static +COLOR_ATTACHMENT0: 0x8ce0;
+  static +COLOR_ATTACHMENT1: 0x8ce1;
+  static +COLOR_ATTACHMENT10: 0x8cea;
+  static +COLOR_ATTACHMENT11: 0x8ceb;
+  static +COLOR_ATTACHMENT12: 0x8cec;
+  static +COLOR_ATTACHMENT13: 0x8ced;
+  static +COLOR_ATTACHMENT14: 0x8cee;
+  static +COLOR_ATTACHMENT15: 0x8cef;
+  static +COLOR_ATTACHMENT2: 0x8ce2;
+  static +COLOR_ATTACHMENT3: 0x8ce3;
+  static +COLOR_ATTACHMENT4: 0x8ce4;
+  static +COLOR_ATTACHMENT5: 0x8ce5;
+  static +COLOR_ATTACHMENT6: 0x8ce6;
+  static +COLOR_ATTACHMENT7: 0x8ce7;
+  static +COLOR_ATTACHMENT8: 0x8ce8;
+  static +COLOR_ATTACHMENT9: 0x8ce9;
+  static +COLOR_BUFFER_BIT: 0x00004000;
+  static +COLOR_CLEAR_VALUE: 0x0c22;
+  static +COLOR_WRITEMASK: 0x0c23;
+  static +COMPARE_REF_TO_TEXTURE: 0x884e;
+  static +COMPILE_STATUS: 0x8b81;
+  static +COMPRESSED_TEXTURE_FORMATS: 0x86a3;
+  static +CONDITION_SATISFIED: 0x911c;
+  static +CONSTANT_ALPHA: 0x8003;
+  static +CONSTANT_COLOR: 0x8001;
+  static +CONTEXT_LOST_WEBGL: 0x9242;
+  static +COPY_READ_BUFFER: 0x8f36;
+  static +COPY_READ_BUFFER_BINDING: 0x8f36;
+  static +COPY_WRITE_BUFFER: 0x8f37;
+  static +COPY_WRITE_BUFFER_BINDING: 0x8f37;
+  static +CULL_FACE: 0x0b44;
+  static +CULL_FACE_MODE: 0x0b45;
+  static +CURRENT_PROGRAM: 0x8b8d;
+  static +CURRENT_QUERY: 0x8865;
+  static +CURRENT_VERTEX_ATTRIB: 0x8626;
+  static +CW: 0x0900;
+  static +DECR: 0x1e03;
+  static +DECR_WRAP: 0x8508;
+  static +DELETE_STATUS: 0x8b80;
+  static +DEPTH: 0x1801;
+  static +DEPTH_ATTACHMENT: 0x8d00;
+  static +DEPTH_BITS: 0x0d56;
+  static +DEPTH_BUFFER_BIT: 0x00000100;
+  static +DEPTH_CLEAR_VALUE: 0x0b73;
+  static +DEPTH_COMPONENT: 0x1902;
+  static +DEPTH_COMPONENT16: 0x81a5;
+  static +DEPTH_COMPONENT24: 0x81a6;
+  static +DEPTH_COMPONENT32F: 0x8cac;
+  static +DEPTH_FUNC: 0x0b74;
+  static +DEPTH_RANGE: 0x0b70;
+  static +DEPTH_STENCIL: 0x84f9;
+  static +DEPTH_STENCIL_ATTACHMENT: 0x821a;
+  static +DEPTH_TEST: 0x0b71;
+  static +DEPTH_WRITEMASK: 0x0b72;
+  static +DEPTH24_STENCIL8: 0x88f0;
+  static +DEPTH32F_STENCIL8: 0x8cad;
+  static +DITHER: 0x0bd0;
+  static +DONT_CARE: 0x1100;
+  static +DRAW_BUFFER0: 0x8825;
+  static +DRAW_BUFFER1: 0x8826;
+  static +DRAW_BUFFER10: 0x882f;
+  static +DRAW_BUFFER11: 0x8830;
+  static +DRAW_BUFFER12: 0x8831;
+  static +DRAW_BUFFER13: 0x8832;
+  static +DRAW_BUFFER14: 0x8833;
+  static +DRAW_BUFFER15: 0x8834;
+  static +DRAW_BUFFER2: 0x8827;
+  static +DRAW_BUFFER3: 0x8828;
+  static +DRAW_BUFFER4: 0x8829;
+  static +DRAW_BUFFER5: 0x882a;
+  static +DRAW_BUFFER6: 0x882b;
+  static +DRAW_BUFFER7: 0x882c;
+  static +DRAW_BUFFER8: 0x882d;
+  static +DRAW_BUFFER9: 0x882e;
+  static +DRAW_FRAMEBUFFER: 0x8ca9;
+  static +DRAW_FRAMEBUFFER_BINDING: 0x8ca6;
+  static +DST_ALPHA: 0x0304;
+  static +DST_COLOR: 0x0306;
+  static +DYNAMIC_COPY: 0x88ea;
+  static +DYNAMIC_DRAW: 0x88e8;
+  static +DYNAMIC_READ: 0x88e9;
+  static +ELEMENT_ARRAY_BUFFER: 0x8893;
+  static +ELEMENT_ARRAY_BUFFER_BINDING: 0x8895;
+  static +EQUAL: 0x0202;
+  static +FASTEST: 0x1101;
+  static +FLOAT: 0x1406;
+  static +FLOAT_32_UNSIGNED_INT_24_8_REV: 0x8dad;
+  static +FLOAT_MAT2: 0x8b5a;
+  static +FLOAT_MAT2x3: 0x8b65;
+  static +FLOAT_MAT2x4: 0x8b66;
+  static +FLOAT_MAT3: 0x8b5b;
+  static +FLOAT_MAT3x2: 0x8b67;
+  static +FLOAT_MAT3x4: 0x8b68;
+  static +FLOAT_MAT4: 0x8b5c;
+  static +FLOAT_MAT4x2: 0x8b69;
+  static +FLOAT_MAT4x3: 0x8b6a;
+  static +FLOAT_VEC2: 0x8b50;
+  static +FLOAT_VEC3: 0x8b51;
+  static +FLOAT_VEC4: 0x8b52;
+  static +FRAGMENT_SHADER: 0x8b30;
+  static +FRAGMENT_SHADER_DERIVATIVE_HINT: 0x8b8b;
+  static +FRAMEBUFFER: 0x8d40;
+  static +FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE: 0x8215;
+  static +FRAMEBUFFER_ATTACHMENT_BLUE_SIZE: 0x8214;
+  static +FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING: 0x8210;
+  static +FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE: 0x8211;
+  static +FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE: 0x8216;
+  static +FRAMEBUFFER_ATTACHMENT_GREEN_SIZE: 0x8213;
+  static +FRAMEBUFFER_ATTACHMENT_OBJECT_NAME: 0x8cd1;
+  static +FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE: 0x8cd0;
+  static +FRAMEBUFFER_ATTACHMENT_RED_SIZE: 0x8212;
+  static +FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE: 0x8217;
+  static +FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE: 0x8cd3;
+  static +FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER: 0x8cd4;
+  static +FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL: 0x8cd2;
+  static +FRAMEBUFFER_BINDING: 0x8ca6;
+  static +FRAMEBUFFER_COMPLETE: 0x8cd5;
+  static +FRAMEBUFFER_DEFAULT: 0x8218;
+  static +FRAMEBUFFER_INCOMPLETE_ATTACHMENT: 0x8cd6;
+  static +FRAMEBUFFER_INCOMPLETE_DIMENSIONS: 0x8cd9;
+  static +FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT: 0x8cd7;
+  static +FRAMEBUFFER_INCOMPLETE_MULTISAMPLE: 0x8d56;
+  static +FRAMEBUFFER_UNSUPPORTED: 0x8cdd;
+  static +FRONT: 0x0404;
+  static +FRONT_AND_BACK: 0x0408;
+  static +FRONT_FACE: 0x0b46;
+  static +FUNC_ADD: 0x8006;
+  static +FUNC_REVERSE_SUBTRACT: 0x800b;
+  static +FUNC_SUBTRACT: 0x800a;
+  static +GENERATE_MIPMAP_HINT: 0x8192;
+  static +GEQUAL: 0x0206;
+  static +GREATER: 0x0204;
+  static +GREEN_BITS: 0x0d53;
+  static +HALF_FLOAT: 0x140b;
+  static +HIGH_FLOAT: 0x8df2;
+  static +HIGH_INT: 0x8df5;
+  static +IMPLEMENTATION_COLOR_READ_FORMAT: 0x8b9b;
+  static +IMPLEMENTATION_COLOR_READ_TYPE: 0x8b9a;
+  static +INCR: 0x1e02;
+  static +INCR_WRAP: 0x8507;
+  static +INT: 0x1404;
+  static +INT_2_10_10_10_REV: 0x8d9f;
+  static +INT_SAMPLER_2D: 0x8dca;
+  static +INT_SAMPLER_2D_ARRAY: 0x8dcf;
+  static +INT_SAMPLER_3D: 0x8dcb;
+  static +INT_SAMPLER_CUBE: 0x8dcc;
+  static +INT_VEC2: 0x8b53;
+  static +INT_VEC3: 0x8b54;
+  static +INT_VEC4: 0x8b55;
+  static +INTERLEAVED_ATTRIBS: 0x8c8c;
+  static +INVALID_ENUM: 0x0500;
+  static +INVALID_FRAMEBUFFER_OPERATION: 0x0506;
+  static +INVALID_INDEX: 0xffffffff;
+  static +INVALID_OPERATION: 0x0502;
+  static +INVALID_VALUE: 0x0501;
+  static +INVERT: 0x150a;
+  static +KEEP: 0x1e00;
+  static +LEQUAL: 0x0203;
+  static +LESS: 0x0201;
+  static +LINE_LOOP: 0x0002;
+  static +LINE_STRIP: 0x0003;
+  static +LINE_WIDTH: 0x0b21;
+  static +LINEAR: 0x2601;
+  static +LINEAR_MIPMAP_LINEAR: 0x2703;
+  static +LINEAR_MIPMAP_NEAREST: 0x2701;
+  static +LINES: 0x0001;
+  static +LINK_STATUS: 0x8b82;
+  static +LOW_FLOAT: 0x8df0;
+  static +LOW_INT: 0x8df3;
+  static +LUMINANCE: 0x1909;
+  static +LUMINANCE_ALPHA: 0x190a;
+  static +MAX: 0x8008;
+  static +MAX_3D_TEXTURE_SIZE: 0x8073;
+  static +MAX_ARRAY_TEXTURE_LAYERS: 0x88ff;
+  static +MAX_CLIENT_WAIT_TIMEOUT_WEBGL: 0x9247;
+  static +MAX_COLOR_ATTACHMENTS: 0x8cdf;
+  static +MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS: 0x8a33;
+  static +MAX_COMBINED_TEXTURE_IMAGE_UNITS: 0x8b4d;
+  static +MAX_COMBINED_UNIFORM_BLOCKS: 0x8a2e;
+  static +MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS: 0x8a31;
+  static +MAX_CUBE_MAP_TEXTURE_SIZE: 0x851c;
+  static +MAX_DRAW_BUFFERS: 0x8824;
+  static +MAX_ELEMENT_INDEX: 0x8d6b;
+  static +MAX_ELEMENTS_INDICES: 0x80e9;
+  static +MAX_ELEMENTS_VERTICES: 0x80e8;
+  static +MAX_FRAGMENT_INPUT_COMPONENTS: 0x9125;
+  static +MAX_FRAGMENT_UNIFORM_BLOCKS: 0x8a2d;
+  static +MAX_FRAGMENT_UNIFORM_COMPONENTS: 0x8b49;
+  static +MAX_FRAGMENT_UNIFORM_VECTORS: 0x8dfd;
+  static +MAX_PROGRAM_TEXEL_OFFSET: 0x8905;
+  static +MAX_RENDERBUFFER_SIZE: 0x84e8;
+  static +MAX_SAMPLES: 0x8d57;
+  static +MAX_SERVER_WAIT_TIMEOUT: 0x9111;
+  static +MAX_TEXTURE_IMAGE_UNITS: 0x8872;
+  static +MAX_TEXTURE_LOD_BIAS: 0x84fd;
+  static +MAX_TEXTURE_SIZE: 0x0d33;
+  static +MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS: 0x8c8a;
+  static +MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS: 0x8c8b;
+  static +MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS: 0x8c80;
+  static +MAX_UNIFORM_BLOCK_SIZE: 0x8a30;
+  static +MAX_UNIFORM_BUFFER_BINDINGS: 0x8a2f;
+  static +MAX_VARYING_COMPONENTS: 0x8b4b;
+  static +MAX_VARYING_VECTORS: 0x8dfc;
+  static +MAX_VERTEX_ATTRIBS: 0x8869;
+  static +MAX_VERTEX_OUTPUT_COMPONENTS: 0x9122;
+  static +MAX_VERTEX_TEXTURE_IMAGE_UNITS: 0x8b4c;
+  static +MAX_VERTEX_UNIFORM_BLOCKS: 0x8a2b;
+  static +MAX_VERTEX_UNIFORM_COMPONENTS: 0x8b4a;
+  static +MAX_VERTEX_UNIFORM_VECTORS: 0x8dfb;
+  static +MAX_VIEWPORT_DIMS: 0x0d3a;
+  static +MEDIUM_FLOAT: 0x8df1;
+  static +MEDIUM_INT: 0x8df4;
+  static +MIN: 0x8007;
+  static +MIN_PROGRAM_TEXEL_OFFSET: 0x8904;
+  static +MIRRORED_REPEAT: 0x8370;
+  static +NEAREST: 0x2600;
+  static +NEAREST_MIPMAP_LINEAR: 0x2702;
+  static +NEAREST_MIPMAP_NEAREST: 0x2700;
+  static +NEVER: 0x0200;
+  static +NICEST: 0x1102;
+  static +NO_ERROR: 0;
+  static +NONE: 0;
+  static +NOTEQUAL: 0x0205;
+  static +OBJECT_TYPE: 0x9112;
+  static +ONE: 1;
+  static +ONE_MINUS_CONSTANT_ALPHA: 0x8004;
+  static +ONE_MINUS_CONSTANT_COLOR: 0x8002;
+  static +ONE_MINUS_DST_ALPHA: 0x0305;
+  static +ONE_MINUS_DST_COLOR: 0x0307;
+  static +ONE_MINUS_SRC_ALPHA: 0x0303;
+  static +ONE_MINUS_SRC_COLOR: 0x0301;
+  static +OUT_OF_MEMORY: 0x0505;
+  static +PACK_ALIGNMENT: 0x0d05;
+  static +PACK_ROW_LENGTH: 0x0d02;
+  static +PACK_SKIP_PIXELS: 0x0d04;
+  static +PACK_SKIP_ROWS: 0x0d03;
+  static +PIXEL_PACK_BUFFER: 0x88eb;
+  static +PIXEL_PACK_BUFFER_BINDING: 0x88ed;
+  static +PIXEL_UNPACK_BUFFER: 0x88ec;
+  static +PIXEL_UNPACK_BUFFER_BINDING: 0x88ef;
+  static +POINTS: 0x0000;
+  static +POLYGON_OFFSET_FACTOR: 0x8038;
+  static +POLYGON_OFFSET_FILL: 0x8037;
+  static +POLYGON_OFFSET_UNITS: 0x2a00;
+  static +QUERY_RESULT: 0x8866;
+  static +QUERY_RESULT_AVAILABLE: 0x8867;
+  static +R11F_G11F_B10F: 0x8c3a;
+  static +R16F: 0x822d;
+  static +R16I: 0x8233;
+  static +R16UI: 0x8234;
+  static +R32F: 0x822e;
+  static +R32I: 0x8235;
+  static +R32UI: 0x8236;
+  static +R8: 0x8229;
+  static +R8_SNORM: 0x8f94;
+  static +R8I: 0x8231;
+  static +R8UI: 0x8232;
+  static +RASTERIZER_DISCARD: 0x8c89;
+  static +READ_BUFFER: 0x0c02;
+  static +READ_FRAMEBUFFER: 0x8ca8;
+  static +READ_FRAMEBUFFER_BINDING: 0x8caa;
+  static +RED: 0x1903;
+  static +RED_BITS: 0x0d52;
+  static +RED_INTEGER: 0x8d94;
+  static +RENDERBUFFER: 0x8d41;
+  static +RENDERBUFFER_ALPHA_SIZE: 0x8d53;
+  static +RENDERBUFFER_BINDING: 0x8ca7;
+  static +RENDERBUFFER_BLUE_SIZE: 0x8d52;
+  static +RENDERBUFFER_DEPTH_SIZE: 0x8d54;
+  static +RENDERBUFFER_GREEN_SIZE: 0x8d51;
+  static +RENDERBUFFER_HEIGHT: 0x8d43;
+  static +RENDERBUFFER_INTERNAL_FORMAT: 0x8d44;
+  static +RENDERBUFFER_RED_SIZE: 0x8d50;
+  static +RENDERBUFFER_SAMPLES: 0x8cab;
+  static +RENDERBUFFER_STENCIL_SIZE: 0x8d55;
+  static +RENDERBUFFER_WIDTH: 0x8d42;
+  static +RENDERER: 0x1f01;
+  static +REPEAT: 0x2901;
+  static +REPLACE: 0x1e01;
+  static +RG: 0x8227;
+  static +RG_INTEGER: 0x8228;
+  static +RG16F: 0x822f;
+  static +RG16I: 0x8239;
+  static +RG16UI: 0x823a;
+  static +RG32F: 0x8230;
+  static +RG32I: 0x823b;
+  static +RG32UI: 0x823c;
+  static +RG8: 0x822b;
+  static +RG8_SNORM: 0x8f95;
+  static +RG8I: 0x8237;
+  static +RG8UI: 0x8238;
+  static +RGB: 0x1907;
+  static +RGB_INTEGER: 0x8d98;
+  static +RGB10_A2: 0x8059;
+  static +RGB10_A2UI: 0x906f;
+  static +RGB16F: 0x881b;
+  static +RGB16I: 0x8d89;
+  static +RGB16UI: 0x8d77;
+  static +RGB32F: 0x8815;
+  static +RGB32I: 0x8d83;
+  static +RGB32UI: 0x8d71;
+  static +RGB5_A1: 0x8057;
+  static +RGB565: 0x8d62;
+  static +RGB8: 0x8051;
+  static +RGB8_SNORM: 0x8f96;
+  static +RGB8I: 0x8d8f;
+  static +RGB8UI: 0x8d7d;
+  static +RGB9_E5: 0x8c3d;
+  static +RGBA: 0x1908;
+  static +RGBA_INTEGER: 0x8d99;
+  static +RGBA16F: 0x881a;
+  static +RGBA16I: 0x8d88;
+  static +RGBA16UI: 0x8d76;
+  static +RGBA32F: 0x8814;
+  static +RGBA32I: 0x8d82;
+  static +RGBA32UI: 0x8d70;
+  static +RGBA4: 0x8056;
+  static +RGBA8: 0x8058;
+  static +RGBA8_SNORM: 0x8f97;
+  static +RGBA8I: 0x8d8e;
+  static +RGBA8UI: 0x8d7c;
+  static +SAMPLE_ALPHA_TO_COVERAGE: 0x809e;
+  static +SAMPLE_BUFFERS: 0x80a8;
+  static +SAMPLE_COVERAGE: 0x80a0;
+  static +SAMPLE_COVERAGE_INVERT: 0x80ab;
+  static +SAMPLE_COVERAGE_VALUE: 0x80aa;
+  static +SAMPLER_2D: 0x8b5e;
+  static +SAMPLER_2D_ARRAY: 0x8dc1;
+  static +SAMPLER_2D_ARRAY_SHADOW: 0x8dc4;
+  static +SAMPLER_2D_SHADOW: 0x8b62;
+  static +SAMPLER_3D: 0x8b5f;
+  static +SAMPLER_BINDING: 0x8919;
+  static +SAMPLER_CUBE: 0x8b60;
+  static +SAMPLER_CUBE_SHADOW: 0x8dc5;
+  static +SAMPLES: 0x80a9;
+  static +SCISSOR_BOX: 0x0c10;
+  static +SCISSOR_TEST: 0x0c11;
+  static +SEPARATE_ATTRIBS: 0x8c8d;
+  static +SHADER_TYPE: 0x8b4f;
+  static +SHADING_LANGUAGE_VERSION: 0x8b8c;
+  static +SHORT: 0x1402;
+  static +SIGNALED: 0x9119;
+  static +SIGNED_NORMALIZED: 0x8f9c;
+  static +SRC_ALPHA: 0x0302;
+  static +SRC_ALPHA_SATURATE: 0x0308;
+  static +SRC_COLOR: 0x0300;
+  static +SRGB: 0x8c40;
+  static +SRGB8: 0x8c41;
+  static +SRGB8_ALPHA8: 0x8c43;
+  static +STATIC_COPY: 0x88e6;
+  static +STATIC_DRAW: 0x88e4;
+  static +STATIC_READ: 0x88e5;
+  static +STENCIL: 0x1802;
+  static +STENCIL_ATTACHMENT: 0x8d20;
+  static +STENCIL_BACK_FAIL: 0x8801;
+  static +STENCIL_BACK_FUNC: 0x8800;
+  static +STENCIL_BACK_PASS_DEPTH_FAIL: 0x8802;
+  static +STENCIL_BACK_PASS_DEPTH_PASS: 0x8803;
+  static +STENCIL_BACK_REF: 0x8ca3;
+  static +STENCIL_BACK_VALUE_MASK: 0x8ca4;
+  static +STENCIL_BACK_WRITEMASK: 0x8ca5;
+  static +STENCIL_BITS: 0x0d57;
+  static +STENCIL_BUFFER_BIT: 0x00000400;
+  static +STENCIL_CLEAR_VALUE: 0x0b91;
+  static +STENCIL_FAIL: 0x0b94;
+  static +STENCIL_FUNC: 0x0b92;
+  static +STENCIL_INDEX8: 0x8d48;
+  static +STENCIL_PASS_DEPTH_FAIL: 0x0b95;
+  static +STENCIL_PASS_DEPTH_PASS: 0x0b96;
+  static +STENCIL_REF: 0x0b97;
+  static +STENCIL_TEST: 0x0b90;
+  static +STENCIL_VALUE_MASK: 0x0b93;
+  static +STENCIL_WRITEMASK: 0x0b98;
+  static +STREAM_COPY: 0x88e2;
+  static +STREAM_DRAW: 0x88e0;
+  static +STREAM_READ: 0x88e1;
+  static +SUBPIXEL_BITS: 0x0d50;
+  static +SYNC_CONDITION: 0x9113;
+  static +SYNC_FENCE: 0x9116;
+  static +SYNC_FLAGS: 0x9115;
+  static +SYNC_FLUSH_COMMANDS_BIT: 0x00000001;
+  static +SYNC_GPU_COMMANDS_COMPLETE: 0x9117;
+  static +SYNC_STATUS: 0x9114;
+  static +TEXTURE: 0x1702;
+  static +TEXTURE_2D: 0x0de1;
+  static +TEXTURE_2D_ARRAY: 0x8c1a;
+  static +TEXTURE_3D: 0x806f;
+  static +TEXTURE_BASE_LEVEL: 0x813c;
+  static +TEXTURE_BINDING_2D: 0x8069;
+  static +TEXTURE_BINDING_2D_ARRAY: 0x8c1d;
+  static +TEXTURE_BINDING_3D: 0x806a;
+  static +TEXTURE_BINDING_CUBE_MAP: 0x8514;
+  static +TEXTURE_COMPARE_FUNC: 0x884d;
+  static +TEXTURE_COMPARE_MODE: 0x884c;
+  static +TEXTURE_CUBE_MAP: 0x8513;
+  static +TEXTURE_CUBE_MAP_NEGATIVE_X: 0x8516;
+  static +TEXTURE_CUBE_MAP_NEGATIVE_Y: 0x8518;
+  static +TEXTURE_CUBE_MAP_NEGATIVE_Z: 0x851a;
+  static +TEXTURE_CUBE_MAP_POSITIVE_X: 0x8515;
+  static +TEXTURE_CUBE_MAP_POSITIVE_Y: 0x8517;
+  static +TEXTURE_CUBE_MAP_POSITIVE_Z: 0x8519;
+  static +TEXTURE_IMMUTABLE_FORMAT: 0x912f;
+  static +TEXTURE_IMMUTABLE_LEVELS: 0x82df;
+  static +TEXTURE_MAG_FILTER: 0x2800;
+  static +TEXTURE_MAX_LEVEL: 0x813d;
+  static +TEXTURE_MAX_LOD: 0x813b;
+  static +TEXTURE_MIN_FILTER: 0x2801;
+  static +TEXTURE_MIN_LOD: 0x813a;
+  static +TEXTURE_WRAP_R: 0x8072;
+  static +TEXTURE_WRAP_S: 0x2802;
+  static +TEXTURE_WRAP_T: 0x2803;
+  static +TEXTURE0: 0x84c0;
+  static +TEXTURE1: 0x84c1;
+  static +TEXTURE10: 0x84ca;
+  static +TEXTURE11: 0x84cb;
+  static +TEXTURE12: 0x84cc;
+  static +TEXTURE13: 0x84cd;
+  static +TEXTURE14: 0x84ce;
+  static +TEXTURE15: 0x84cf;
+  static +TEXTURE16: 0x84d0;
+  static +TEXTURE17: 0x84d1;
+  static +TEXTURE18: 0x84d2;
+  static +TEXTURE19: 0x84d3;
+  static +TEXTURE2: 0x84c2;
+  static +TEXTURE20: 0x84d4;
+  static +TEXTURE21: 0x84d5;
+  static +TEXTURE22: 0x84d6;
+  static +TEXTURE23: 0x84d7;
+  static +TEXTURE24: 0x84d8;
+  static +TEXTURE25: 0x84d9;
+  static +TEXTURE26: 0x84da;
+  static +TEXTURE27: 0x84db;
+  static +TEXTURE28: 0x84dc;
+  static +TEXTURE29: 0x84dd;
+  static +TEXTURE3: 0x84c3;
+  static +TEXTURE30: 0x84de;
+  static +TEXTURE31: 0x84df;
+  static +TEXTURE4: 0x84c4;
+  static +TEXTURE5: 0x84c5;
+  static +TEXTURE6: 0x84c6;
+  static +TEXTURE7: 0x84c7;
+  static +TEXTURE8: 0x84c8;
+  static +TEXTURE9: 0x84c9;
+  static +TIMEOUT_EXPIRED: 0x911b;
+  static +TIMEOUT_IGNORED: -1;
+  static +TRANSFORM_FEEDBACK: 0x8e22;
+  static +TRANSFORM_FEEDBACK_ACTIVE: 0x8e24;
+  static +TRANSFORM_FEEDBACK_BINDING: 0x8e25;
+  static +TRANSFORM_FEEDBACK_BUFFER: 0x8c8e;
+  static +TRANSFORM_FEEDBACK_BUFFER_BINDING: 0x8c8f;
+  static +TRANSFORM_FEEDBACK_BUFFER_MODE: 0x8c7f;
+  static +TRANSFORM_FEEDBACK_BUFFER_SIZE: 0x8c85;
+  static +TRANSFORM_FEEDBACK_BUFFER_START: 0x8c84;
+  static +TRANSFORM_FEEDBACK_PAUSED: 0x8e23;
+  static +TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN: 0x8c88;
+  static +TRANSFORM_FEEDBACK_VARYINGS: 0x8c83;
+  static +TRIANGLE_FAN: 0x0006;
+  static +TRIANGLE_STRIP: 0x0005;
+  static +TRIANGLES: 0x0004;
+  static +UNIFORM_ARRAY_STRIDE: 0x8a3c;
+  static +UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES: 0x8a43;
+  static +UNIFORM_BLOCK_ACTIVE_UNIFORMS: 0x8a42;
+  static +UNIFORM_BLOCK_BINDING: 0x8a3f;
+  static +UNIFORM_BLOCK_DATA_SIZE: 0x8a40;
+  static +UNIFORM_BLOCK_INDEX: 0x8a3a;
+  static +UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER: 0x8a46;
+  static +UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER: 0x8a44;
+  static +UNIFORM_BUFFER: 0x8a11;
+  static +UNIFORM_BUFFER_BINDING: 0x8a28;
+  static +UNIFORM_BUFFER_OFFSET_ALIGNMENT: 0x8a34;
+  static +UNIFORM_BUFFER_SIZE: 0x8a2a;
+  static +UNIFORM_BUFFER_START: 0x8a29;
+  static +UNIFORM_IS_ROW_MAJOR: 0x8a3e;
+  static +UNIFORM_MATRIX_STRIDE: 0x8a3d;
+  static +UNIFORM_OFFSET: 0x8a3b;
+  static +UNIFORM_SIZE: 0x8a38;
+  static +UNIFORM_TYPE: 0x8a37;
+  static +UNPACK_ALIGNMENT: 0x0cf5;
+  static +UNPACK_COLORSPACE_CONVERSION_WEBGL: 0x9243;
+  static +UNPACK_FLIP_Y_WEBGL: 0x9240;
+  static +UNPACK_IMAGE_HEIGHT: 0x806e;
+  static +UNPACK_PREMULTIPLY_ALPHA_WEBGL: 0x9241;
+  static +UNPACK_ROW_LENGTH: 0x0cf2;
+  static +UNPACK_SKIP_IMAGES: 0x806d;
+  static +UNPACK_SKIP_PIXELS: 0x0cf4;
+  static +UNPACK_SKIP_ROWS: 0x0cf3;
+  static +UNSIGNALED: 0x9118;
+  static +UNSIGNED_BYTE: 0x1401;
+  static +UNSIGNED_INT: 0x1405;
+  static +UNSIGNED_INT_10F_11F_11F_REV: 0x8c3b;
+  static +UNSIGNED_INT_2_10_10_10_REV: 0x8368;
+  static +UNSIGNED_INT_24_8: 0x84fa;
+  static +UNSIGNED_INT_5_9_9_9_REV: 0x8c3e;
+  static +UNSIGNED_INT_SAMPLER_2D: 0x8dd2;
+  static +UNSIGNED_INT_SAMPLER_2D_ARRAY: 0x8dd7;
+  static +UNSIGNED_INT_SAMPLER_3D: 0x8dd3;
+  static +UNSIGNED_INT_SAMPLER_CUBE: 0x8dd4;
+  static +UNSIGNED_INT_VEC2: 0x8dc6;
+  static +UNSIGNED_INT_VEC3: 0x8dc7;
+  static +UNSIGNED_INT_VEC4: 0x8dc8;
+  static +UNSIGNED_NORMALIZED: 0x8c17;
+  static +UNSIGNED_SHORT: 0x1403;
+  static +UNSIGNED_SHORT_4_4_4_4: 0x8033;
+  static +UNSIGNED_SHORT_5_5_5_1: 0x8034;
+  static +UNSIGNED_SHORT_5_6_5: 0x8363;
+  static +VALIDATE_STATUS: 0x8b83;
+  static +VENDOR: 0x1f00;
+  static +VERSION: 0x1f02;
+  static +VERTEX_ARRAY_BINDING: 0x85b5;
+  static +VERTEX_ATTRIB_ARRAY_BUFFER_BINDING: 0x889f;
+  static +VERTEX_ATTRIB_ARRAY_DIVISOR: 0x88fe;
+  static +VERTEX_ATTRIB_ARRAY_ENABLED: 0x8622;
+  static +VERTEX_ATTRIB_ARRAY_INTEGER: 0x88fd;
+  static +VERTEX_ATTRIB_ARRAY_NORMALIZED: 0x886a;
+  static +VERTEX_ATTRIB_ARRAY_POINTER: 0x8645;
+  static +VERTEX_ATTRIB_ARRAY_SIZE: 0x8623;
+  static +VERTEX_ATTRIB_ARRAY_STRIDE: 0x8624;
+  static +VERTEX_ATTRIB_ARRAY_TYPE: 0x8625;
+  static +VERTEX_SHADER: 0x8b31;
+  static +VIEWPORT: 0x0ba2;
+  static +WAIT_FAILED: 0x911d;
+  static +ZERO: 0;
+}
+
 declare class WebGLActiveInfo {
   +name: string;
   +size: GLint;
@@ -5051,6 +5899,8 @@ declare class WebGLObject {
 }
 
 declare class WebGLProgram extends WebGLObject {}
+
+declare class WebGLQuery extends WebGLObject {}
 
 declare class WebGLRenderbuffer extends WebGLObject {}
 
@@ -5356,6 +6206,8 @@ declare class WebGLRenderingContext
   static +ZERO: 0;
 }
 
+declare class WebGLSampler extends WebGLObject {}
+
 declare class WebGLShader extends WebGLObject {}
 
 declare class WebGLShaderPrecisionFormat {
@@ -5364,9 +6216,15 @@ declare class WebGLShaderPrecisionFormat {
   +rangeMin: GLint;
 }
 
+declare class WebGLSync extends WebGLObject {}
+
 declare class WebGLTexture extends WebGLObject {}
 
+declare class WebGLTransformFeedback extends WebGLObject {}
+
 declare class WebGLUniformLocation {}
+
+declare class WebGLVertexArrayObject extends WebGLObject {}
 
 /* partial */ declare class Window
   mixins
@@ -6252,6 +7110,736 @@ declare class XSLTProcessor {
 
 /* mixin */ declare class mixin$TextEncoderCommon {
   +encoding: string;
+}
+
+/* mixin */ declare class mixin$WebGL2RenderingContextBase {
+  beginQuery(target: GLenum, query: WebGLQuery): void;
+  beginTransformFeedback(primitiveMode: GLenum): void;
+  bindBufferBase(
+    target: GLenum,
+    index: GLuint,
+    buffer: WebGLBuffer | null,
+  ): void;
+  bindBufferRange(
+    target: GLenum,
+    index: GLuint,
+    buffer: WebGLBuffer | null,
+    offset: GLintptr,
+    size: GLsizeiptr,
+  ): void;
+  bindSampler(unit: GLuint, sampler: WebGLSampler | null): void;
+  bindTransformFeedback(
+    target: GLenum,
+    tf: WebGLTransformFeedback | null,
+  ): void;
+  bindVertexArray(array: WebGLVertexArrayObject | null): void;
+  blitFramebuffer(
+    srcX0: GLint,
+    srcY0: GLint,
+    srcX1: GLint,
+    srcY1: GLint,
+    dstX0: GLint,
+    dstY0: GLint,
+    dstX1: GLint,
+    dstY1: GLint,
+    mask: GLbitfield,
+    filter: GLenum,
+  ): void;
+  clearBufferfi(
+    buffer: GLenum,
+    drawbuffer: GLint,
+    depth: GLfloat,
+    stencil: GLint,
+  ): void;
+  clearBufferfv(
+    buffer: GLenum,
+    drawbuffer: GLint,
+    values: Float32List,
+    srcOffset?: number,
+  ): void;
+  clearBufferiv(
+    buffer: GLenum,
+    drawbuffer: GLint,
+    values: Int32List,
+    srcOffset?: number,
+  ): void;
+  clearBufferuiv(
+    buffer: GLenum,
+    drawbuffer: GLint,
+    values: Uint32List,
+    srcOffset?: number,
+  ): void;
+  clientWaitSync(sync: WebGLSync, flags: GLbitfield, timeout: GLuint64): GLenum;
+  compressedTexImage3D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    border: GLint,
+    imageSize: GLsizei,
+    offset: GLintptr,
+  ): void;
+  compressedTexImage3D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    border: GLint,
+    srcData: ArrayBufferView,
+    srcOffset?: number,
+    srcLengthOverride?: GLuint,
+  ): void;
+  compressedTexSubImage3D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    zoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    format: GLenum,
+    imageSize: GLsizei,
+    offset: GLintptr,
+  ): void;
+  compressedTexSubImage3D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    zoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    format: GLenum,
+    srcData: ArrayBufferView,
+    srcOffset?: number,
+    srcLengthOverride?: GLuint,
+  ): void;
+  copyBufferSubData(
+    readTarget: GLenum,
+    writeTarget: GLenum,
+    readOffset: GLintptr,
+    writeOffset: GLintptr,
+    size: GLsizeiptr,
+  ): void;
+  copyTexSubImage3D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    zoffset: GLint,
+    x: GLint,
+    y: GLint,
+    width: GLsizei,
+    height: GLsizei,
+  ): void;
+  createQuery(): WebGLQuery;
+  createSampler(): WebGLSampler;
+  createTransformFeedback(): WebGLTransformFeedback;
+  createVertexArray(): WebGLVertexArrayObject;
+  deleteQuery(query: WebGLQuery | null): void;
+  deleteSampler(sampler: WebGLSampler | null): void;
+  deleteSync(sync: WebGLSync | null): void;
+  deleteTransformFeedback(tf: WebGLTransformFeedback | null): void;
+  deleteVertexArray(vertexArray: WebGLVertexArrayObject | null): void;
+  drawArraysInstanced(
+    mode: GLenum,
+    first: GLint,
+    count: GLsizei,
+    instanceCount: GLsizei,
+  ): void;
+  drawBuffers(buffers: Array<GLenum>): void;
+  drawElementsInstanced(
+    mode: GLenum,
+    count: GLsizei,
+    type: GLenum,
+    offset: GLintptr,
+    instanceCount: GLsizei,
+  ): void;
+  drawRangeElements(
+    mode: GLenum,
+    start: GLuint,
+    end: GLuint,
+    count: GLsizei,
+    type: GLenum,
+    offset: GLintptr,
+  ): void;
+  endQuery(target: GLenum): void;
+  endTransformFeedback(): void;
+  fenceSync(condition: GLenum, flags: GLbitfield): WebGLSync | null;
+  framebufferTextureLayer(
+    target: GLenum,
+    attachment: GLenum,
+    texture: WebGLTexture | null,
+    level: GLint,
+    layer: GLint,
+  ): void;
+  getActiveUniformBlockName(
+    program: WebGLProgram,
+    uniformBlockIndex: GLuint,
+  ): string | null;
+  getActiveUniformBlockParameter(
+    program: WebGLProgram,
+    uniformBlockIndex: GLuint,
+    pname: GLenum,
+  ): any;
+  getActiveUniforms(
+    program: WebGLProgram,
+    uniformIndices: Array<GLuint>,
+    pname: GLenum,
+  ): any;
+  getBufferSubData(
+    target: GLenum,
+    srcByteOffset: GLintptr,
+    dstBuffer: ArrayBufferView,
+    dstOffset?: number,
+    length?: GLuint,
+  ): void;
+  getFragDataLocation(program: WebGLProgram, name: string): GLint;
+  getIndexedParameter(target: GLenum, index: GLuint): any;
+  getInternalformatParameter(
+    target: GLenum,
+    internalformat: GLenum,
+    pname: GLenum,
+  ): any;
+  getQuery(target: GLenum, pname: GLenum): WebGLQuery | null;
+  getQueryParameter(query: WebGLQuery, pname: GLenum): any;
+  getSamplerParameter(sampler: WebGLSampler, pname: GLenum): any;
+  getSyncParameter(sync: WebGLSync, pname: GLenum): any;
+  getTransformFeedbackVarying(
+    program: WebGLProgram,
+    index: GLuint,
+  ): WebGLActiveInfo | null;
+  getUniformBlockIndex(program: WebGLProgram, uniformBlockName: string): GLuint;
+  getUniformIndices(
+    program: WebGLProgram,
+    uniformNames: Array<string>,
+  ): Array<GLuint> | null;
+  invalidateFramebuffer(target: GLenum, attachments: Array<GLenum>): void;
+  invalidateSubFramebuffer(
+    target: GLenum,
+    attachments: Array<GLenum>,
+    x: GLint,
+    y: GLint,
+    width: GLsizei,
+    height: GLsizei,
+  ): void;
+  isQuery(query: WebGLQuery | null): GLboolean;
+  isSampler(sampler: WebGLSampler | null): GLboolean;
+  isSync(sync: WebGLSync | null): GLboolean;
+  isTransformFeedback(tf: WebGLTransformFeedback | null): GLboolean;
+  isVertexArray(vertexArray: WebGLVertexArrayObject | null): GLboolean;
+  pauseTransformFeedback(): void;
+  readBuffer(src: GLenum): void;
+  renderbufferStorageMultisample(
+    target: GLenum,
+    samples: GLsizei,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+  ): void;
+  resumeTransformFeedback(): void;
+  samplerParameterf(sampler: WebGLSampler, pname: GLenum, param: GLfloat): void;
+  samplerParameteri(sampler: WebGLSampler, pname: GLenum, param: GLint): void;
+  texImage3D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    pboOffset: GLintptr,
+  ): void;
+  texImage3D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
+  ): void;
+  texImage3D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    srcData: ArrayBufferView | null,
+  ): void;
+  texImage3D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    srcData: ArrayBufferView,
+    srcOffset: number,
+  ): void;
+  texStorage2D(
+    target: GLenum,
+    levels: GLsizei,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+  ): void;
+  texStorage3D(
+    target: GLenum,
+    levels: GLsizei,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+  ): void;
+  texSubImage3D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    zoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    pboOffset: GLintptr,
+  ): void;
+  texSubImage3D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    zoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
+  ): void;
+  texSubImage3D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    zoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    depth: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    srcData: ArrayBufferView | null,
+    srcOffset?: number,
+  ): void;
+  transformFeedbackVaryings(
+    program: WebGLProgram,
+    varyings: Array<string>,
+    bufferMode: GLenum,
+  ): void;
+  uniform1ui(location: WebGLUniformLocation | null, v0: GLuint): void;
+  uniform1uiv(
+    location: WebGLUniformLocation | null,
+    data: Uint32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform2ui(
+    location: WebGLUniformLocation | null,
+    v0: GLuint,
+    v1: GLuint,
+  ): void;
+  uniform2uiv(
+    location: WebGLUniformLocation | null,
+    data: Uint32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform3ui(
+    location: WebGLUniformLocation | null,
+    v0: GLuint,
+    v1: GLuint,
+    v2: GLuint,
+  ): void;
+  uniform3uiv(
+    location: WebGLUniformLocation | null,
+    data: Uint32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform4ui(
+    location: WebGLUniformLocation | null,
+    v0: GLuint,
+    v1: GLuint,
+    v2: GLuint,
+    v3: GLuint,
+  ): void;
+  uniform4uiv(
+    location: WebGLUniformLocation | null,
+    data: Uint32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniformBlockBinding(
+    program: WebGLProgram,
+    uniformBlockIndex: GLuint,
+    uniformBlockBinding: GLuint,
+  ): void;
+  uniformMatrix2x3fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniformMatrix2x4fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniformMatrix3x2fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniformMatrix3x4fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniformMatrix4x2fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniformMatrix4x3fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  vertexAttribDivisor(index: GLuint, divisor: GLuint): void;
+  vertexAttribI4i(index: GLuint, x: GLint, y: GLint, z: GLint, w: GLint): void;
+  vertexAttribI4iv(index: GLuint, values: Int32List): void;
+  vertexAttribI4ui(
+    index: GLuint,
+    x: GLuint,
+    y: GLuint,
+    z: GLuint,
+    w: GLuint,
+  ): void;
+  vertexAttribI4uiv(index: GLuint, values: Uint32List): void;
+  vertexAttribIPointer(
+    index: GLuint,
+    size: GLint,
+    type: GLenum,
+    stride: GLsizei,
+    offset: GLintptr,
+  ): void;
+  waitSync(sync: WebGLSync, flags: GLbitfield, timeout: GLint64): void;
+}
+
+/* mixin */ declare class mixin$WebGL2RenderingContextOverloads {
+  bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
+  bufferData(
+    target: GLenum,
+    srcData: AllowSharedBufferSource | null,
+    usage: GLenum,
+  ): void;
+  bufferData(
+    target: GLenum,
+    srcData: ArrayBufferView,
+    usage: GLenum,
+    srcOffset: number,
+    length?: GLuint,
+  ): void;
+  bufferSubData(
+    target: GLenum,
+    dstByteOffset: GLintptr,
+    srcData: AllowSharedBufferSource,
+  ): void;
+  bufferSubData(
+    target: GLenum,
+    dstByteOffset: GLintptr,
+    srcData: ArrayBufferView,
+    srcOffset: number,
+    length?: GLuint,
+  ): void;
+  compressedTexImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    imageSize: GLsizei,
+    offset: GLintptr,
+  ): void;
+  compressedTexImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    srcData: ArrayBufferView,
+    srcOffset?: number,
+    srcLengthOverride?: GLuint,
+  ): void;
+  compressedTexSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    imageSize: GLsizei,
+    offset: GLintptr,
+  ): void;
+  compressedTexSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    srcData: ArrayBufferView,
+    srcOffset?: number,
+    srcLengthOverride?: GLuint,
+  ): void;
+  readPixels(
+    x: GLint,
+    y: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    dstData: ArrayBufferView | null,
+  ): void;
+  readPixels(
+    x: GLint,
+    y: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    offset: GLintptr,
+  ): void;
+  readPixels(
+    x: GLint,
+    y: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    dstData: ArrayBufferView,
+    dstOffset: number,
+  ): void;
+  texImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    pixels: ArrayBufferView | null,
+  ): void;
+  texImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
+  ): void;
+  texImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    pboOffset: GLintptr,
+  ): void;
+  texImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
+  ): void;
+  texImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    srcData: ArrayBufferView,
+    srcOffset: number,
+  ): void;
+  texSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    pixels: ArrayBufferView | null,
+  ): void;
+  texSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
+  ): void;
+  texSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    pboOffset: GLintptr,
+  ): void;
+  texSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
+  ): void;
+  texSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    srcData: ArrayBufferView,
+    srcOffset: number,
+  ): void;
+  uniform1fv(
+    location: WebGLUniformLocation | null,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform1iv(
+    location: WebGLUniformLocation | null,
+    data: Int32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform2fv(
+    location: WebGLUniformLocation | null,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform2iv(
+    location: WebGLUniformLocation | null,
+    data: Int32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform3fv(
+    location: WebGLUniformLocation | null,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform3iv(
+    location: WebGLUniformLocation | null,
+    data: Int32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform4fv(
+    location: WebGLUniformLocation | null,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniform4iv(
+    location: WebGLUniformLocation | null,
+    data: Int32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniformMatrix2fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniformMatrix3fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
+  uniformMatrix4fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    data: Float32List,
+    srcOffset?: number,
+    srcLength?: GLuint,
+  ): void;
 }
 
 /* mixin */ declare class mixin$WebGLRenderingContextBase {

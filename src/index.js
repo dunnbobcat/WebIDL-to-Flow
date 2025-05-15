@@ -158,6 +158,8 @@ async function main(): Promise<void> {
           'URLPattern',
           'Vibration',
           'WebGL',
+          'WebGL2',
+          'WebGPU',
           'WebIDL',
           'XHR',
         ],

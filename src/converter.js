@@ -83,7 +83,7 @@ function convertNamespaceMember(production: IDLProduction): string {
       return `declare function ${convertOperation(production)}`;
 
     case 'const':
-      return `declare ${convertConstant(production)}`;
+      return `declare ${convertNamespaceConstant(production)}`;
 
     default:
       return productionError(
@@ -288,6 +288,22 @@ function convertConstant(production: IDLProduction): string {
   }
 
   return `static +${name}: ${valueString};\n`;
+}
+
+function convertNamespaceConstant(production: IDLProduction): string {
+  const {name, value} = production;
+
+  let valueString;
+  switch (value.type) {
+    case 'number':
+      valueString = value.value;
+      break;
+
+    default:
+      return productionError(`Unhandled constant type ${value.type}`, value);
+  }
+
+  return `const ${name}: ${valueString};\n`;
 }
 
 function convertSetlike(production: IDLProduction): string {
