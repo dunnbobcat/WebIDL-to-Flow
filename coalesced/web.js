@@ -5,6 +5,7 @@
 type AccelerometerLocalCoordinateSystem = 'device' | 'screen';
 
 type AccelerometerSensorOptions = {
+  frequency: number,
   referenceFrame: AccelerometerLocalCoordinateSystem,
 };
 
@@ -104,6 +105,8 @@ type BackgroundFetchEventInit = {
 
 type BackgroundFetchOptions = {
   downloadTotal: number,
+  icons: Array<ImageResource>,
+  title: string,
 };
 
 type BackgroundFetchUIOptions = {
@@ -217,6 +220,9 @@ type CaptureHandleConfig = {
 /*---------- captured-mouse-events ----------*/
 
 type CapturedMouseEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   surfaceX: number,
   surfaceY: number,
 };
@@ -237,7 +243,10 @@ type ClipboardItems = Array<ClipboardItem>;
 type PresentationStyle = 'unspecified' | 'inline' | 'attachment';
 
 type ClipboardEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   clipboardData: DataTransfer | null,
+  composed: boolean,
 };
 
 type ClipboardItemOptions = {
@@ -246,6 +255,7 @@ type ClipboardItemOptions = {
 
 type ClipboardPermissionDescriptor = {
   allowWithoutGesture: boolean,
+  name: string,
 };
 
 type ClipboardUnsanitizedFormats = {
@@ -389,7 +399,10 @@ type CookieList = Array<CookieListItem>;
 type CookieSameSite = 'strict' | 'lax' | 'none';
 
 type CookieChangeEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   changed: CookieList,
+  composed: boolean,
   deleted: CookieList,
 };
 
@@ -489,7 +502,11 @@ type CredentialMediationRequirement =
   | 'required';
 
 type CredentialCreationOptions = {
+  digital: DigitalCredentialCreationOptions,
+  federated: FederatedCredentialInit,
   mediation: CredentialMediationRequirement,
+  password: PasswordCredentialInit,
+  publicKey: PublicKeyCredentialCreationOptions,
   signal: AbortSignal,
 };
 
@@ -498,12 +515,19 @@ type CredentialData = {
 };
 
 type CredentialRequestOptions = {
+  digital: DigitalCredentialRequestOptions,
+  federated: FederatedCredentialRequestOptions,
+  identity: IdentityCredentialRequestOptions,
   mediation: CredentialMediationRequirement,
+  otp: OTPCredentialRequestOptions,
+  password: boolean,
+  publicKey: PublicKeyCredentialRequestOptions,
   signal: AbortSignal,
 };
 
 type FederatedCredentialInit = {
   iconURL: string,
+  id: string,
   name: string,
   origin: string,
   protocol: string,
@@ -517,6 +541,7 @@ type FederatedCredentialRequestOptions = {
 
 type PasswordCredentialData = {
   iconURL: string,
+  id: string,
   name: string,
   origin: string,
   password: string,
@@ -588,7 +613,10 @@ type SecurityPolicyViolationEventDisposition = 'enforce' | 'report';
 
 type SecurityPolicyViolationEventInit = {
   blockedURI: string,
+  bubbles: boolean,
+  cancelable: boolean,
   columnNumber: number,
+  composed: boolean,
   disposition: SecurityPolicyViolationEventDisposition,
   documentURI: string,
   effectiveDirective: string,
@@ -729,6 +757,9 @@ declare class CSSAnimation extends Animation {
 
 type AnimationEventInit = {
   animationName: string,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   elapsedTime: number,
   pseudoElement: string,
 };
@@ -808,6 +839,9 @@ declare class CSSSupportsRule extends CSSConditionRule {
 /*---------- css-contain ----------*/
 
 type ContentVisibilityAutoStateChangeEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   skipped: boolean,
 };
 
@@ -856,6 +890,9 @@ type FontFaceDescriptors = {
 };
 
 type FontFaceSetLoadEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   fontfaces: Array<FontFace>,
 };
 
@@ -864,13 +901,16 @@ declare class FontFace {
   descentOverride: string;
   display: string;
   family: string;
+  +features: FontFaceFeatures;
   featureSettings: string;
   lineGapOverride: string;
   +loaded: Promise<FontFace>;
+  +palettes: FontFacePalettes;
   +status: FontFaceLoadStatus;
   stretch: string;
   style: string;
   unicodeRange: string;
+  +variations: FontFaceVariations;
   variationSettings: string;
   weight: string;
 
@@ -1006,7 +1046,13 @@ declare class Highlight {
   constructor(initialRanges: AbstractRange): void;
 }
 
-type HighlightRegistry = Map<string, Highlight>;
+declare class HighlightRegistry {
+  highlightsFromPoint(
+    x: number,
+    y: number,
+    options?: HighlightsFromPointOptions,
+  ): Array<Highlight>;
+}
 
 /*---------- css-images-4 ----------*/
 
@@ -1172,8 +1218,10 @@ type FocusableAreasOption = {
 };
 
 type NavigationEventInit = {
+  detail: number,
   dir: SpatialNavigationDirection,
   relatedTarget: EventTarget | null,
+  view: Window | null,
 };
 
 type SpatialNavigationSearchOptions = {
@@ -1341,6 +1389,9 @@ declare class mixin$Region {
 /*---------- css-scroll-snap-2 ----------*/
 
 type SnapEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   snapTargetBlock: Node | null,
   snapTargetInline: Node | null,
 };
@@ -1365,6 +1416,9 @@ declare class CSSTransition extends Animation {
 /*---------- css-transitions ----------*/
 
 type TransitionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   elapsedTime: number,
   propertyName: string,
   pseudoElement: string,
@@ -1787,6 +1841,7 @@ type ViewTransitionUpdateCallback = () => Promise<any>;
 declare class ViewTransition {
   +finished: Promise<void>;
   +ready: Promise<void>;
+  types: ViewTransitionTypeSet;
   +updateCallbackDone: Promise<void>;
 
   skipTransition(): void;
@@ -1833,11 +1888,15 @@ type ConvertCoordinateOptions = {
 };
 
 type MediaQueryListEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   matches: boolean,
   media: string,
 };
 
 type ScrollIntoViewOptions = {
+  behavior: ScrollBehavior,
   block: ScrollLogicalPosition,
   container: ScrollIntoViewContainer,
   inline: ScrollLogicalPosition,
@@ -1848,6 +1907,7 @@ type ScrollOptions = {
 };
 
 type ScrollToOptions = {
+  behavior: ScrollBehavior,
   left: number,
   top: number,
 };
@@ -1880,6 +1940,9 @@ declare class Screen {
   +availWidth: number;
   +colorDepth: number;
   +height: number;
+  +isExtended: boolean;
+  onchange: EventHandler;
+  +orientation: ScreenOrientation;
   +pixelDepth: number;
   +width: number;
 }
@@ -1925,7 +1988,101 @@ type CSSStyleSheetInit = {
 };
 
 declare namespace CSS {
+  declare const animationWorklet: Worklet;
+  declare const elementSources: any;
+  declare const highlights: HighlightRegistry;
+  declare const layoutWorklet: Worklet;
+  declare const paintWorklet: Worklet;
+  declare function cap(value: number): CSSUnitValue;
+  declare function ch(value: number): CSSUnitValue;
+  declare function cm(value: number): CSSUnitValue;
+  declare function cqb(value: number): CSSUnitValue;
+  declare function cqh(value: number): CSSUnitValue;
+  declare function cqi(value: number): CSSUnitValue;
+  declare function cqmax(value: number): CSSUnitValue;
+  declare function cqmin(value: number): CSSUnitValue;
+  declare function cqw(value: number): CSSUnitValue;
+  declare function deg(value: number): CSSUnitValue;
+  declare function dpcm(value: number): CSSUnitValue;
+  declare function dpi(value: number): CSSUnitValue;
+  declare function dppx(value: number): CSSUnitValue;
+  declare function dvb(value: number): CSSUnitValue;
+  declare function dvh(value: number): CSSUnitValue;
+  declare function dvi(value: number): CSSUnitValue;
+  declare function dvmax(value: number): CSSUnitValue;
+  declare function dvmin(value: number): CSSUnitValue;
+  declare function dvw(value: number): CSSUnitValue;
+  declare function em(value: number): CSSUnitValue;
   declare function escape(ident: string): string;
+  declare function ex(value: number): CSSUnitValue;
+  declare function fr(value: number): CSSUnitValue;
+  declare function grad(value: number): CSSUnitValue;
+  declare function Hz(value: number): CSSUnitValue;
+  declare function ic(value: number): CSSUnitValue;
+  /* declare function in(value: number): CSSUnitValue; */
+  declare function kHz(value: number): CSSUnitValue;
+  declare function lh(value: number): CSSUnitValue;
+  declare function lvb(value: number): CSSUnitValue;
+  declare function lvh(value: number): CSSUnitValue;
+  declare function lvi(value: number): CSSUnitValue;
+  declare function lvmax(value: number): CSSUnitValue;
+  declare function lvmin(value: number): CSSUnitValue;
+  declare function lvw(value: number): CSSUnitValue;
+  declare function mm(value: number): CSSUnitValue;
+  declare function ms(value: number): CSSUnitValue;
+  declare function number(value: number): CSSUnitValue;
+  declare function parseCommaValueList(css: string): Array<Array<CSSToken>>;
+  declare function parseDeclaration(
+    css: string,
+    options?: CSSParserOptions,
+  ): CSSParserDeclaration;
+  declare function parseDeclarationList(
+    css: CSSStringSource,
+    options?: CSSParserOptions,
+  ): Promise<Array<CSSParserRule>>;
+  declare function parseRule(
+    css: CSSStringSource,
+    options?: CSSParserOptions,
+  ): Promise<CSSParserRule>;
+  declare function parseRuleList(
+    css: CSSStringSource,
+    options?: CSSParserOptions,
+  ): Promise<Array<CSSParserRule>>;
+  declare function parseStylesheet(
+    css: CSSStringSource,
+    options?: CSSParserOptions,
+  ): Promise<Array<CSSParserRule>>;
+  declare function parseValue(css: string): CSSToken;
+  declare function parseValueList(css: string): Array<CSSToken>;
+  declare function pc(value: number): CSSUnitValue;
+  declare function percent(value: number): CSSUnitValue;
+  declare function pt(value: number): CSSUnitValue;
+  declare function px(value: number): CSSUnitValue;
+  declare function Q(value: number): CSSUnitValue;
+  declare function rad(value: number): CSSUnitValue;
+  declare function rcap(value: number): CSSUnitValue;
+  declare function rch(value: number): CSSUnitValue;
+  declare function registerProperty(definition: PropertyDefinition): void;
+  declare function rem(value: number): CSSUnitValue;
+  declare function rex(value: number): CSSUnitValue;
+  declare function ric(value: number): CSSUnitValue;
+  declare function rlh(value: number): CSSUnitValue;
+  declare function s(value: number): CSSUnitValue;
+  declare function supports(property: string, value: string): boolean;
+  declare function supports(conditionText: string): boolean;
+  declare function svb(value: number): CSSUnitValue;
+  declare function svh(value: number): CSSUnitValue;
+  declare function svi(value: number): CSSUnitValue;
+  declare function svmax(value: number): CSSUnitValue;
+  declare function svmin(value: number): CSSUnitValue;
+  declare function svw(value: number): CSSUnitValue;
+  declare function turn(value: number): CSSUnitValue;
+  declare function vb(value: number): CSSUnitValue;
+  declare function vh(value: number): CSSUnitValue;
+  declare function vi(value: number): CSSUnitValue;
+  declare function vmax(value: number): CSSUnitValue;
+  declare function vmin(value: number): CSSUnitValue;
+  declare function vw(value: number): CSSUnitValue;
 }
 
 declare class CSSGroupingRule extends CSSRule {
@@ -1972,13 +2129,18 @@ declare class CSSPageRule extends CSSGroupingRule {
 
 declare class CSSRule {
   static +CHARSET_RULE: 2;
+  static +COUNTER_STYLE_RULE: 11;
   static +FONT_FACE_RULE: 5;
+  static +FONT_FEATURE_VALUES_RULE: 14;
   static +IMPORT_RULE: 3;
+  static +KEYFRAME_RULE: 8;
+  static +KEYFRAMES_RULE: 7;
   static +MARGIN_RULE: 9;
   static +MEDIA_RULE: 4;
   static +NAMESPACE_RULE: 10;
   static +PAGE_RULE: 6;
   static +STYLE_RULE: 1;
+  static +SUPPORTS_RULE: 12;
 
   cssText: string;
   +parentRule: CSSRule | null;
@@ -2011,16 +2173,20 @@ declare class CSSStyleProperties extends CSSStyleDeclaration {
 declare class CSSStyleRule extends CSSGroupingRule {
   selectorText: string;
   +style: CSSStyleProperties;
+  +styleMap: StylePropertyMap;
 }
 
 declare class CSSStyleSheet extends StyleSheet {
   +cssRules: CSSRuleList;
   +ownerRule: CSSRule | null;
+  +rules: CSSRuleList;
 
   constructor(options?: CSSStyleSheetInit): void;
 
+  addRule(selector?: string, style?: string, index?: number): number;
   deleteRule(index: number): void;
   insertRule(rule: string, index?: number): number;
+  removeRule(index?: number): void;
   replace(text: string): Promise<CSSStyleSheet>;
   replaceSync(text: string): void;
 }
@@ -2051,6 +2217,7 @@ declare class StyleSheetList {
 }
 
 declare class mixin$ElementCSSInlineStyle {
+  +attributeStyleMap: StylePropertyMap;
   +style: CSSStyleDeclaration;
 }
 
@@ -2160,6 +2327,9 @@ declare class DigitalGoodsService {
 /*---------- document-picture-in-picture ----------*/
 
 type DocumentPictureInPictureEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   window: Window,
 };
 
@@ -2193,12 +2363,16 @@ type ShadowRootMode = 'open' | 'closed';
 type SlotAssignmentMode = 'manual' | 'named';
 
 type AddEventListenerOptions = {
+  capture: boolean,
   once: boolean,
   passive: boolean,
   signal: AbortSignal,
 };
 
 type CustomEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   detail: any,
 };
 
@@ -2364,20 +2538,78 @@ declare class Document
     mixin$ParentNode,
     mixin$XPathEvaluatorBase
 {
+  alinkColor: string;
+  +all: HTMLAllCollection;
+  +anchors: HTMLCollection;
+  +applets: HTMLCollection;
+  bgColor: string;
+  body: HTMLElement | null;
   +characterSet: string;
   +charset: string;
   +compatMode: string;
   +contentType: string;
+  cookie: string;
+  +currentScript: HTMLOrSVGScriptElement | null;
+  +defaultView: WindowProxy | null;
+  designMode: string;
+  dir: string;
   +doctype: DocumentType | null;
   +documentElement: Element | null;
   +documentURI: string;
+  domain: string;
+  +embeds: HTMLCollection;
+  fgColor: string;
+  +forms: HTMLCollection;
+  +fragmentDirective: FragmentDirective;
+  +fullscreen: boolean;
+  +fullscreenEnabled: boolean;
+  +head: HTMLHeadElement | null;
+  +hidden: boolean;
+  +images: HTMLCollection;
   +implementation: DOMImplementation;
   +inputEncoding: string;
+  +lastModified: string;
+  linkColor: string;
+  +links: HTMLCollection;
+  +location: Location | null;
+  +namedFlows: NamedFlowMap;
+  onfreeze: EventHandler;
+  onfullscreenchange: EventHandler;
+  onfullscreenerror: EventHandler;
+  onpointerlockchange: EventHandler;
+  onpointerlockerror: EventHandler;
+  onprerenderingchange: EventHandler;
+  onreadystatechange: EventHandler;
+  onresume: EventHandler;
+  onvisibilitychange: EventHandler;
+  +permissionsPolicy: PermissionsPolicy;
+  +pictureInPictureEnabled: boolean;
+  +plugins: HTMLCollection;
+  +prerendering: boolean;
+  +readyState: DocumentReadyState;
+  +referrer: string;
+  +rootElement: SVGSVGElement | null;
+  +scripts: HTMLCollection;
+  +scrollingElement: Element | null;
+  +timeline: DocumentTimeline;
+  title: string;
   +URL: string;
+  +visibilityState: DocumentVisibilityState;
+  vlinkColor: string;
+  +wasDiscarded: boolean;
 
   constructor(): void;
 
+  static parseHTMLUnsafe(html: TrustedHTML | string): Document;
   adoptNode(node: Node): Node;
+  captureEvents(): void;
+  caretPositionFromPoint(
+    x: number,
+    y: number,
+    options?: CaretPositionFromPointOptions,
+  ): CaretPosition | null;
+  clear(): void;
+  close(): void;
   createAttribute(localName: string): Attr;
   createAttributeNS(namespace: string | null, qualifiedName: string): Attr;
   createCDATASection(data: string): CDATASection;
@@ -2409,13 +2641,44 @@ declare class Document
     whatToShow?: number,
     filter?: NodeFilter | null,
   ): TreeWalker;
+  elementFromPoint(x: number, y: number): Element | null;
+  elementsFromPoint(x: number, y: number): Array<Element>;
+  execCommand(commandId: string, showUI?: boolean, value?: string): boolean;
+  exitFullscreen(): Promise<void>;
+  exitPictureInPicture(): Promise<void>;
+  exitPointerLock(): void;
   getElementsByClassName(classNames: string): HTMLCollection;
+  getElementsByName(elementName: string): NodeList;
   getElementsByTagName(qualifiedName: string): HTMLCollection;
   getElementsByTagNameNS(
     namespace: string | null,
     localName: string,
   ): HTMLCollection;
+  getSelection(): Selection | null;
+  hasFocus(): boolean;
+  hasPrivateToken(issuer: string): Promise<boolean>;
+  hasRedemptionRecord(issuer: string): Promise<boolean>;
+  hasStorageAccess(): Promise<boolean>;
+  hasUnpartitionedCookieAccess(): Promise<boolean>;
   importNode(node: Node, options?: boolean | ImportNodeOptions): Node;
+  measureElement(element: Element): FontMetrics;
+  measureText(text: string, styleMap: StylePropertyMapReadOnly): FontMetrics;
+  open(url: string, name: string, features: string): WindowProxy | null;
+  releaseEvents(): void;
+  startViewTransition(
+    callbackOptions?: ViewTransitionUpdateCallback | StartViewTransitionOptions,
+  ): ViewTransition;
+  (name: string): Object;
+  open(unused1?: string, unused2?: string): Document;
+  queryCommandEnabled(commandId: string): boolean;
+  queryCommandIndeterm(commandId: string): boolean;
+  queryCommandState(commandId: string): boolean;
+  queryCommandSupported(commandId: string): boolean;
+  queryCommandValue(commandId: string): string;
+  requestStorageAccess(): Promise<void>;
+  requestStorageAccessFor(requestedOrigin: string): Promise<void>;
+  write(text: TrustedHTML | string): void;
+  writeln(text: TrustedHTML | string): void;
 }
 
 declare class DocumentFragment
@@ -2472,37 +2735,72 @@ declare class Element
   +attributes: NamedNodeMap;
   +classList: DOMTokenList;
   className: string;
+  +clientHeight: number;
+  +clientLeft: number;
+  +clientTop: number;
+  +clientWidth: number;
+  +currentCSSZoom: number;
   +customElementRegistry: CustomElementRegistry | null;
+  elementTiming: string;
   id: string;
+  innerHTML: TrustedHTML | string;
   +localName: string;
   +namespaceURI: string | null;
+  onfullscreenchange: EventHandler;
+  onfullscreenerror: EventHandler;
+  outerHTML: TrustedHTML | string;
+  +part: DOMTokenList;
   +prefix: string | null;
+  +scrollHeight: number;
+  scrollLeft: number;
+  scrollTop: number;
+  +scrollWidth: number;
   +shadowRoot: ShadowRoot | null;
   slot: string;
   +tagName: string;
 
   attachShadow(init: ShadowRootInit): ShadowRoot;
+  checkVisibility(options?: CheckVisibilityOptions): boolean;
   closest(selectors: string): Element | null;
+  computedStyleMap(): StylePropertyMapReadOnly;
+  focusableAreas(option?: FocusableAreasOption): Array<Node>;
   getAttribute(qualifiedName: string): string | null;
   getAttributeNames(): Array<string>;
   getAttributeNode(qualifiedName: string): Attr | null;
   getAttributeNodeNS(namespace: string | null, localName: string): Attr | null;
   getAttributeNS(namespace: string | null, localName: string): string | null;
+  getBoundingClientRect(): DOMRect;
+  getClientRects(): DOMRectList;
   getElementsByClassName(classNames: string): HTMLCollection;
   getElementsByTagName(qualifiedName: string): HTMLCollection;
   getElementsByTagNameNS(
     namespace: string | null,
     localName: string,
   ): HTMLCollection;
+  getHTML(options?: GetHTMLOptions): string;
+  getSpatialNavigationContainer(): Node;
   hasAttribute(qualifiedName: string): boolean;
   hasAttributeNS(namespace: string | null, localName: string): boolean;
   hasAttributes(): boolean;
+  hasPointerCapture(pointerId: number): boolean;
   insertAdjacentElement(where: string, element: Element): Element | null;
+  insertAdjacentHTML(position: string, string: TrustedHTML | string): void;
   insertAdjacentText(where: string, data: string): void;
   matches(selectors: string): boolean;
+  pseudo(type: string): CSSPseudoElement | null;
+  releasePointerCapture(pointerId: number): void;
   removeAttribute(qualifiedName: string): void;
   removeAttributeNode(attr: Attr): Attr;
   removeAttributeNS(namespace: string | null, localName: string): void;
+  requestFullscreen(options?: FullscreenOptions): Promise<void>;
+  requestPointerLock(options?: PointerLockOptions): Promise<void>;
+  scroll(options?: ScrollToOptions): void;
+  scroll(x: number, y: number): void;
+  scrollBy(options?: ScrollToOptions): void;
+  scrollBy(x: number, y: number): void;
+  scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void;
+  scrollTo(options?: ScrollToOptions): void;
+  scrollTo(x: number, y: number): void;
   setAttribute(qualifiedName: string, value: string): void;
   setAttributeNode(attr: Attr): Attr | null;
   setAttributeNodeNS(attr: Attr): Attr | null;
@@ -2511,6 +2809,12 @@ declare class Element
     qualifiedName: string,
     value: string,
   ): void;
+  setHTMLUnsafe(html: TrustedHTML | string): void;
+  setPointerCapture(pointerId: number): void;
+  spatialNavigationSearch(
+    dir: SpatialNavigationDirection,
+    options?: SpatialNavigationSearchOptions,
+  ): Node | null;
   toggleAttribute(qualifiedName: string, force?: boolean): boolean;
   webkitMatchesSelector(selectors: string): boolean;
 }
@@ -2558,6 +2862,7 @@ declare class EventTarget {
     callback: EventListener | null,
     options?: EventListenerOptions | boolean,
   ): void;
+  when(type: string, options?: ObservableEventListenerOptions): Observable;
 }
 
 declare class HTMLCollection {
@@ -2690,9 +2995,12 @@ declare class Range extends AbstractRange {
   collapse(toStart?: boolean): void;
   compareBoundaryPoints(how: number, sourceRange: Range): number;
   comparePoint(node: Node, offset: number): number;
+  createContextualFragment(string: TrustedHTML | string): DocumentFragment;
   deleteContents(): void;
   detach(): void;
   extractContents(): DocumentFragment;
+  getBoundingClientRect(): DOMRect;
+  getClientRects(): DOMRectList;
   insertNode(node: Node): void;
   intersectsNode(node: Node): boolean;
   isPointInRange(node: Node, offset: number): boolean;
@@ -2715,10 +3023,14 @@ declare class ShadowRoot
   +clonable: boolean;
   +delegatesFocus: boolean;
   +host: Element;
+  innerHTML: TrustedHTML | string;
   +mode: ShadowRootMode;
   onslotchange: EventHandler;
   +serializable: boolean;
   +slotAssignment: SlotAssignmentMode;
+
+  getHTML(options?: GetHTMLOptions): string;
+  setHTMLUnsafe(html: TrustedHTML | string): void;
 }
 
 declare class StaticRange extends AbstractRange {
@@ -2807,7 +3119,15 @@ declare class mixin$ChildNode {
 }
 
 declare class mixin$DocumentOrShadowRoot {
+  +activeElement: Element | null;
+  adoptedStyleSheets: Array<CSSStyleSheet>;
   +customElementRegistry: CustomElementRegistry | null;
+  +fullscreenElement: Element | null;
+  +pictureInPictureElement: Element | null;
+  +pointerLockElement: Element | null;
+  +styleSheets: StyleSheetList;
+
+  getAnimations(): Array<Animation>;
 }
 
 declare class mixin$NonDocumentTypeChildNode {
@@ -2859,6 +3179,9 @@ type UnderlineStyle = 'none' | 'solid' | 'dotted' | 'dashed' | 'wavy';
 type UnderlineThickness = 'none' | 'thin' | 'thick';
 
 type CharacterBoundsUpdateEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   rangeEnd: number,
   rangeStart: number,
 };
@@ -2877,10 +3200,16 @@ type TextFormatInit = {
 };
 
 type TextFormatUpdateEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   textFormats: Array<TextFormat>,
 };
 
 type TextUpdateEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   compositionEnd: number,
   compositionStart: number,
   selectionEnd: number,
@@ -3056,11 +3385,17 @@ type MediaKeyStatus =
   | 'internal-error';
 
 type MediaEncryptedEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   initData: ArrayBuffer | null,
   initDataType: string,
 };
 
 type MediaKeyMessageEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   message: ArrayBuffer,
   messageType: MediaKeyMessageType,
 };
@@ -3247,6 +3582,8 @@ type IdentityAssertionResponse = {
 
 type IdentityCredentialDisconnectOptions = {
   accountHint: string,
+  clientId: string,
+  configURL: string,
 };
 
 type IdentityCredentialRequestOptions = {
@@ -3306,6 +3643,8 @@ type IdentityProviderIcon = {
 };
 
 type IdentityProviderRequestOptions = {
+  clientId: string,
+  configURL: string,
   domainHint: string,
   fields: Array<string>,
   loginHint: string,
@@ -3461,6 +3800,8 @@ type ResponseType =
   | 'opaqueredirect';
 
 type RequestInit = {
+  adAuctionHeaders: boolean,
+  attributionReporting: AttributionReportingRequestOptions,
   body: BodyInit | null,
   cache: RequestCache,
   credentials: RequestCredentials,
@@ -3471,10 +3812,13 @@ type RequestInit = {
   method: string,
   mode: RequestMode,
   priority: RequestPriority,
+  privateToken: PrivateToken,
   redirect: RequestRedirect,
   referrer: string,
   referrerPolicy: ReferrerPolicy,
+  sharedStorageWritable: boolean,
   signal: AbortSignal | null,
+  targetAddressSpace: IPAddressSpace,
   window: any,
 };
 
@@ -3513,6 +3857,7 @@ declare class Request mixins mixin$Body {
   +referrer: string;
   +referrerPolicy: ReferrerPolicy;
   +signal: AbortSignal;
+  +targetAddressSpace: IPAddressSpace;
   +url: string;
 
   constructor(input: RequestInfo, init?: RequestInit): void;
@@ -3600,14 +3945,23 @@ type FileSystemHandlePermissionDescriptor = {
 type FileSystemPermissionDescriptor = {
   handle: FileSystemHandle,
   mode: FileSystemPermissionMode,
+  name: string,
 };
 
 type OpenFilePickerOptions = {
+  excludeAcceptAllOption: boolean,
+  id: string,
   multiple: boolean,
+  startIn: StartInDirectory,
+  types: Array<FilePickerAcceptType>,
 };
 
 type SaveFilePickerOptions = {
+  excludeAcceptAllOption: boolean,
+  id: string,
+  startIn: StartInDirectory,
   suggestedName: string | null,
+  types: Array<FilePickerAcceptType>,
 };
 
 /*---------- FileAPI ----------*/
@@ -3622,7 +3976,9 @@ type BlobPropertyBag = {
 };
 
 type FilePropertyBag = {
+  endings: EndingType,
   lastModified: number,
+  type: string,
 };
 
 declare class Blob {
@@ -3641,6 +3997,7 @@ declare class Blob {
 declare class File extends Blob {
   +lastModified: number;
   +name: string;
+  +webkitRelativePath: string;
 
   constructor(
     fileBits: Array<BlobPart>,
@@ -4078,6 +4435,12 @@ declare class FileSystemHandle {
   +name: string;
 
   isSameEntry(other: FileSystemHandle): Promise<boolean>;
+  queryPermission(
+    descriptor?: FileSystemHandlePermissionDescriptor,
+  ): Promise<PermissionState>;
+  requestPermission(
+    descriptor?: FileSystemHandlePermissionDescriptor,
+  ): Promise<PermissionState>;
 }
 
 declare class FileSystemSyncAccessHandle {
@@ -4107,6 +4470,7 @@ type FullscreenNavigationUI = 'auto' | 'show' | 'hide';
 
 type FullscreenOptions = {
   navigationUI: FullscreenNavigationUI,
+  screen: ScreenDetailed,
 };
 
 /*---------- gamepad-extensions ----------*/
@@ -4142,6 +4506,9 @@ type GamepadEffectParameters = {
 };
 
 type GamepadEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   gamepad: Gamepad,
 };
 
@@ -4156,9 +4523,12 @@ declare class Gamepad {
   +axes: $ReadOnlyArray<number>;
   +buttons: $ReadOnlyArray<GamepadButton>;
   +connected: boolean;
+  +hand: GamepadHand;
+  +hapticActuators: $ReadOnlyArray<GamepadHapticActuator>;
   +id: string;
   +index: number;
   +mapping: GamepadMappingType;
+  +pose: GamepadPose | null;
   +timestamp: number;
   +touches: $ReadOnlyArray<GamepadTouch>;
   +vibrationActuator: GamepadHapticActuator;
@@ -4183,12 +4553,16 @@ declare class GamepadHapticActuator {
     type: GamepadHapticEffectType,
     params?: GamepadEffectParameters,
   ): Promise<GamepadHapticsResult>;
+  pulse(value: number, duration: number): Promise<boolean>;
   reset(): Promise<GamepadHapticsResult>;
 }
 
 /*---------- generic-sensor ----------*/
 
 type SensorErrorEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   error: DOMException,
 };
 
@@ -4216,7 +4590,9 @@ declare class SensorErrorEvent extends Event {
 
 /*---------- geolocation-sensor ----------*/
 
-type GeolocationSensorOptions = {};
+type GeolocationSensorOptions = {
+  frequency: number,
+};
 
 type GeolocationSensorReading = {
   accuracy: number | null,
@@ -4230,6 +4606,7 @@ type GeolocationSensorReading = {
 };
 
 type ReadOptions = {
+  frequency: number,
   signal: AbortSignal | null,
 };
 
@@ -4319,15 +4696,27 @@ type DOMMatrix2DInit = {
 };
 
 type DOMMatrixInit = {
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+  f: number,
   is2D: boolean,
+  m11: number,
+  m12: number,
   m13: number,
   m14: number,
+  m21: number,
+  m22: number,
   m23: number,
   m24: number,
   m31: number,
   m32: number,
   m33: number,
   m34: number,
+  m41: number,
+  m42: number,
   m43: number,
   m44: number,
 };
@@ -4577,6 +4966,7 @@ declare class mixin$GlobalPrivacyControl {
 type GyroscopeLocalCoordinateSystem = 'device' | 'screen';
 
 type GyroscopeSensorOptions = {
+  frequency: number,
   referenceFrame: GyroscopeLocalCoordinateSystem,
 };
 
@@ -4588,81 +4978,6 @@ declare class Gyroscope extends Sensor {
   constructor(sensorOptions?: GyroscopeSensorOptions): void;
 }
 
-/*---------- handwriting-recognition ----------*/
-
-type HandwritingInputType = 'mouse' | 'stylus' | 'touch';
-
-type HandwritingRecognitionType = 'text' | 'per-character';
-
-type HandwritingDrawingSegment = {
-  beginPointIndex: number,
-  endPointIndex: number,
-  strokeIndex: number,
-};
-
-type HandwritingHints = {
-  alternatives: number,
-  inputType: string,
-  recognitionType: string,
-  textContext: string,
-};
-
-type HandwritingHintsQueryResult = {
-  alternatives: boolean,
-  inputType: Array<HandwritingInputType>,
-  recognitionType: Array<HandwritingRecognitionType>,
-  textContext: boolean,
-};
-
-type HandwritingModelConstraint = {
-  languages: Array<string>,
-};
-
-type HandwritingPoint = {
-  t: number,
-  x: number,
-  y: number,
-};
-
-type HandwritingPrediction = {
-  segmentationResult: Array<HandwritingSegment>,
-  text: string,
-};
-
-type HandwritingRecognizerQueryResult = {
-  hints: HandwritingHintsQueryResult,
-  textAlternatives: boolean,
-  textSegmentation: boolean,
-};
-
-type HandwritingSegment = {
-  beginIndex: number,
-  drawingSegments: Array<HandwritingDrawingSegment>,
-  endIndex: number,
-  grapheme: string,
-};
-
-declare class HandwritingDrawing {
-  addStroke(stroke: HandwritingStroke): void;
-  clear(): void;
-  getPrediction(): Promise<Array<HandwritingPrediction>>;
-  getStrokes(): Array<HandwritingStroke>;
-  removeStroke(stroke: HandwritingStroke): void;
-}
-
-declare class HandwritingRecognizer {
-  finish(): void;
-  startDrawing(hints?: HandwritingHints): HandwritingDrawing;
-}
-
-declare class HandwritingStroke {
-  constructor(): void;
-
-  addPoint(point: HandwritingPoint): void;
-  clear(): void;
-  getPoints(): Array<HandwritingPoint>;
-}
-
 /*---------- hr-time ----------*/
 
 type DOMHighResTimeStamp = number;
@@ -4670,9 +4985,28 @@ type DOMHighResTimeStamp = number;
 type EpochTimeStamp = number;
 
 declare class Performance extends EventTarget {
+  +eventCounts: EventCounts;
+  +interactionCount: number;
+  +navigation: PerformanceNavigation;
+  onresourcetimingbufferfull: EventHandler;
   +timeOrigin: number;
+  +timing: PerformanceTiming;
 
+  clearMarks(markName?: string): void;
+  clearMeasures(measureName?: string): void;
+  clearResourceTimings(): void;
+  getEntries(): PerformanceEntryList;
+  getEntriesByName(name: string, type?: string): PerformanceEntryList;
+  getEntriesByType(type: string): PerformanceEntryList;
+  mark(markName: string, markOptions?: PerformanceMarkOptions): PerformanceMark;
+  measure(
+    measureName: string,
+    startOrMeasureOptions?: string | PerformanceMeasureOptions,
+    endMark?: string,
+  ): PerformanceMeasure;
+  measureUserAgentSpecificMemory(): Promise<MemoryMeasurement>;
   now(): number;
+  setResourceTimingBufferSize(maxSize: number): void;
   toJSON(): Object;
 }
 
@@ -4844,12 +5178,22 @@ type CloseWatcherOptions = {
 };
 
 type CommandEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   command: string,
+  composed: boolean,
   source: Element | null,
 };
 
 type DragEventInit = {
+  button: number,
+  buttons: number,
+  clientX: number,
+  clientY: number,
   dataTransfer: DataTransfer | null,
+  relatedTarget: EventTarget | null,
+  screenX: number,
+  screenY: number,
 };
 
 type ElementDefinitionOptions = {
@@ -4857,7 +5201,10 @@ type ElementDefinitionOptions = {
 };
 
 type ErrorEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   colno: number,
+  composed: boolean,
   error: any,
   filename: string,
   lineno: number,
@@ -4874,6 +5221,9 @@ type FocusOptions = {
 };
 
 type FormDataEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   formData: FormData,
 };
 
@@ -4883,6 +5233,9 @@ type GetHTMLOptions = {
 };
 
 type HashChangeEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   newURL: string,
   oldURL: string,
 };
@@ -4911,6 +5264,9 @@ type ImageEncodeOptions = {
 };
 
 type MessageEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   data: any,
   lastEventId: string,
   origin: string,
@@ -4919,7 +5275,10 @@ type MessageEventInit = {
 };
 
 type NavigateEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   canIntercept: boolean,
+  composed: boolean,
   destination: NavigationDestination,
   downloadRequest: string | null,
   formData: FormData | null,
@@ -4933,6 +5292,9 @@ type NavigateEventInit = {
 };
 
 type NavigationCurrentEntryChangeEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   from: NavigationHistoryEntry,
   navigationType: NavigationType | null,
 };
@@ -4945,6 +5307,7 @@ type NavigationInterceptOptions = {
 
 type NavigationNavigateOptions = {
   history: NavigationHistoryBehavior,
+  info: any,
   state: any,
 };
 
@@ -4953,6 +5316,7 @@ type NavigationOptions = {
 };
 
 type NavigationReloadOptions = {
+  info: any,
   state: any,
 };
 
@@ -4966,24 +5330,39 @@ type NavigationUpdateCurrentEntryOptions = {
 };
 
 type PageRevealEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   viewTransition: ViewTransition | null,
 };
 
 type PageSwapEventInit = {
   activation: NavigationActivation | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   viewTransition: ViewTransition | null,
 };
 
 type PageTransitionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   persisted: boolean,
 };
 
 type PopStateEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   hasUAVisualTransition: boolean,
   state: any,
 };
 
 type PromiseRejectionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   promise: Object,
   reason: any,
 };
@@ -4993,6 +5372,9 @@ type ShowPopoverOptions = {
 };
 
 type StorageEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   key: string | null,
   newValue: string | null,
   oldValue: string | null,
@@ -5005,19 +5387,29 @@ type StructuredSerializeOptions = {
 };
 
 type SubmitEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   submitter: HTMLElement | null,
 };
 
 type ToggleEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   newState: string,
   oldState: string,
 };
 
 type TogglePopoverOptions = {
   force: boolean,
+  source: HTMLElement,
 };
 
 type TrackEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   track: VideoTrack | AudioTrack | TextTrack | null,
 };
 
@@ -5036,6 +5428,7 @@ type ValidityStateFlags = {
 
 type WindowPostMessageOptions = {
   targetOrigin: string,
+  transfer: Array<Object>,
 };
 
 type WorkerOptions = {
@@ -5076,6 +5469,7 @@ declare class AudioTrack {
   +kind: string;
   +label: string;
   +language: string;
+  +sourceBuffer: SourceBuffer | null;
 }
 
 declare class AudioTrackList extends EventTarget {
@@ -5193,7 +5587,9 @@ declare class DataTransferItem {
   +type: string;
 
   getAsFile(): File | null;
+  getAsFileSystemHandle(): Promise<FileSystemHandle | null>;
   getAsString(callback: FunctionStringCallback | null): void;
+  webkitGetAsEntry(): FileSystemEntry | null;
 }
 
 declare class DataTransferItemList {
@@ -5211,6 +5607,7 @@ declare class DedicatedWorkerGlobalScope
   mixins mixin$AnimationFrameProvider, mixin$MessageEventTarget
 {
   +name: string;
+  onrtctransform: EventHandler;
 
   close(): void;
   postMessage(message: any, transfer: Array<Object>): void;
@@ -5336,12 +5733,18 @@ declare class HTMLAnchorElement
   extends HTMLElement
   mixins mixin$HTMLHyperlinkElementUtils
 {
+  attributionSourceId: number;
+  charset: string;
+  coords: string;
   download: string;
   hreflang: string;
+  name: string;
   ping: string;
   referrerPolicy: string;
   rel: string;
   +relList: DOMTokenList;
+  rev: string;
+  shape: string;
   target: string;
   text: string;
   type: string;
@@ -5356,6 +5759,7 @@ declare class HTMLAreaElement
   alt: string;
   coords: string;
   download: string;
+  noHref: boolean;
   ping: string;
   referrerPolicy: string;
   rel: string;
@@ -5381,10 +5785,20 @@ declare class HTMLBodyElement
   extends HTMLElement
   mixins mixin$WindowEventHandlers
 {
+  aLink: string;
+  background: string;
+  bgColor: string;
+  link: string;
+  onorientationchange: EventHandler;
+  text: string;
+  vLink: string;
+
   constructor(): void;
 }
 
 declare class HTMLBRElement extends HTMLElement {
+  clear: string;
+
   constructor(): void;
 }
 
@@ -5422,6 +5836,7 @@ declare class HTMLCanvasElement extends HTMLElement {
 
   constructor(): void;
 
+  captureStream(frameRequestRate?: number): MediaStream;
   getContext(contextId: string, options?: any): RenderingContext | null;
   toBlob(callback: BlobCallback, type?: string, quality?: any): void;
   toDataURL(type?: string, quality?: any): string;
@@ -5467,10 +5882,14 @@ declare class HTMLDirectoryElement extends HTMLElement {
 }
 
 declare class HTMLDivElement extends HTMLElement {
+  align: string;
+
   constructor(): void;
 }
 
 declare class HTMLDListElement extends HTMLElement {
+  compact: boolean;
+
   constructor(): void;
 }
 
@@ -5487,10 +5906,16 @@ declare class HTMLElement
   autocorrect: boolean;
   dir: string;
   draggable: boolean;
+  editContext: EditContext | null;
   hidden: boolean | number | string | null;
   inert: boolean;
   innerText: string;
   lang: string;
+  +offsetHeight: number;
+  +offsetLeft: number;
+  +offsetParent: Element | null;
+  +offsetTop: number;
+  +offsetWidth: number;
   outerText: string;
   popover: string | null;
   spellcheck: boolean;
@@ -5508,7 +5933,9 @@ declare class HTMLElement
 }
 
 declare class HTMLEmbedElement extends HTMLElement {
+  align: string;
   height: string;
+  name: string;
   src: string;
   type: string;
   width: string;
@@ -5603,27 +6030,48 @@ declare class HTMLHeadElement extends HTMLElement {
 }
 
 declare class HTMLHeadingElement extends HTMLElement {
+  align: string;
+
   constructor(): void;
 }
 
 declare class HTMLHRElement extends HTMLElement {
+  align: string;
+  color: string;
+  noShade: boolean;
+  size: string;
+  width: string;
+
   constructor(): void;
 }
 
 declare class HTMLHtmlElement extends HTMLElement {
+  version: string;
+
   constructor(): void;
 }
 
 declare class HTMLIFrameElement extends HTMLElement {
+  adAuctionHeaders: boolean;
+  align: string;
   allow: string;
   allowFullscreen: boolean;
   +contentDocument: Document | null;
   +contentWindow: WindowProxy | null;
+  credentialless: boolean;
+  csp: string;
+  frameBorder: string;
   height: string;
   loading: string;
+  longDesc: string;
+  marginHeight: string;
+  marginWidth: string;
   name: string;
+  +permissionsPolicy: PermissionsPolicy;
+  privateToken: string;
   referrerPolicy: string;
   +sandbox: DOMTokenList;
+  scrolling: string;
   src: string;
   srcdoc: TrustedHTML | string;
   width: string;
@@ -5634,15 +6082,21 @@ declare class HTMLIFrameElement extends HTMLElement {
 }
 
 declare class HTMLImageElement extends HTMLElement {
+  align: string;
   alt: string;
+  border: string;
   +complete: boolean;
   crossOrigin: string | null;
   +currentSrc: string;
   decoding: string;
   fetchPriority: string;
   height: number;
+  hspace: number;
   isMap: boolean;
   loading: string;
+  longDesc: string;
+  lowsrc: string;
+  name: string;
   +naturalHeight: number;
   +naturalWidth: number;
   referrerPolicy: string;
@@ -5650,7 +6104,10 @@ declare class HTMLImageElement extends HTMLElement {
   src: string;
   srcset: string;
   useMap: string;
+  vspace: number;
   width: number;
+  +x: number;
+  +y: number;
 
   constructor(): void;
 
@@ -5662,9 +6119,11 @@ declare class HTMLInputElement
   mixins mixin$PopoverInvokerElement
 {
   accept: string;
+  align: string;
   alpha: boolean;
   alt: string;
   autocomplete: string;
+  capture: string;
   checked: boolean;
   colorSpace: string;
   defaultChecked: boolean;
@@ -5699,11 +6158,14 @@ declare class HTMLInputElement
   src: string;
   step: string;
   type: string;
+  useMap: string;
   +validationMessage: string;
   +validity: ValidityState;
   value: string;
   valueAsDate: Object | null;
   valueAsNumber: number;
+  webkitdirectory: boolean;
+  +webkitEntries: $ReadOnlyArray<FileSystemEntry>;
   width: number;
   +willValidate: boolean;
 
@@ -5735,12 +6197,14 @@ declare class HTMLLabelElement extends HTMLElement {
 }
 
 declare class HTMLLegendElement extends HTMLElement {
+  align: string;
   +form: HTMLFormElement | null;
 
   constructor(): void;
 }
 
 declare class HTMLLIElement extends HTMLElement {
+  type: string;
   value: number;
 
   constructor(): void;
@@ -5749,6 +6213,7 @@ declare class HTMLLIElement extends HTMLElement {
 declare class HTMLLinkElement extends HTMLElement mixins mixin$LinkStyle {
   as: string;
   +blocking: DOMTokenList;
+  charset: string;
   crossOrigin: string | null;
   disabled: boolean;
   fetchPriority: string;
@@ -5761,7 +6226,9 @@ declare class HTMLLinkElement extends HTMLElement mixins mixin$LinkStyle {
   referrerPolicy: string;
   rel: string;
   +relList: DOMTokenList;
+  rev: string;
   +sizes: DOMTokenList;
+  target: string;
   type: string;
 
   constructor(): void;
@@ -5813,20 +6280,26 @@ declare class HTMLMediaElement extends HTMLElement {
   currentTime: number;
   defaultMuted: boolean;
   defaultPlaybackRate: number;
+  disableRemotePlayback: boolean;
   +duration: number;
   +ended: boolean;
   +error: MediaError | null;
   loop: boolean;
+  +mediaKeys: MediaKeys | null;
   muted: boolean;
   +networkState: number;
+  onencrypted: EventHandler;
+  onwaitingforkey: EventHandler;
   +paused: boolean;
   playbackRate: number;
   +played: TimeRanges;
   preload: string;
   preservesPitch: boolean;
   +readyState: number;
+  +remote: RemotePlayback;
   +seekable: TimeRanges;
   +seeking: boolean;
+  +sinkId: string;
   src: string;
   srcObject: MediaProvider | null;
   +textTracks: TextTrackList;
@@ -5839,14 +6312,19 @@ declare class HTMLMediaElement extends HTMLElement {
     language?: string,
   ): TextTrack;
   canPlayType(type: string): CanPlayTypeResult;
+  captureStream(): MediaStream;
   fastSeek(time: number): void;
   getStartDate(): Object;
   load(): void;
   pause(): void;
   play(): Promise<void>;
+  setMediaKeys(mediaKeys: MediaKeys | null): Promise<void>;
+  setSinkId(sinkId: string): Promise<void>;
 }
 
 declare class HTMLMenuElement extends HTMLElement {
+  compact: boolean;
+
   constructor(): void;
 }
 
@@ -5855,6 +6333,7 @@ declare class HTMLMetaElement extends HTMLElement {
   httpEquiv: string;
   media: string;
   name: string;
+  scheme: string;
 
   constructor(): void;
 }
@@ -5879,15 +6358,26 @@ declare class HTMLModElement extends HTMLElement {
 }
 
 declare class HTMLObjectElement extends HTMLElement {
+  align: string;
+  archive: string;
+  border: string;
+  code: string;
+  codeBase: string;
+  codeType: string;
   +contentDocument: Document | null;
   +contentWindow: WindowProxy | null;
   data: string;
+  declare: boolean;
   +form: HTMLFormElement | null;
   height: string;
+  hspace: number;
   name: string;
+  standby: string;
   type: string;
+  useMap: string;
   +validationMessage: string;
   +validity: ValidityState;
+  vspace: number;
   width: string;
   +willValidate: boolean;
 
@@ -5900,6 +6390,7 @@ declare class HTMLObjectElement extends HTMLElement {
 }
 
 declare class HTMLOListElement extends HTMLElement {
+  compact: boolean;
   reversed: boolean;
   start: number;
   type: string;
@@ -5959,6 +6450,8 @@ declare class HTMLOutputElement extends HTMLElement {
 }
 
 declare class HTMLParagraphElement extends HTMLElement {
+  align: string;
+
   constructor(): void;
 }
 
@@ -5976,6 +6469,8 @@ declare class HTMLPictureElement extends HTMLElement {
 }
 
 declare class HTMLPreElement extends HTMLElement {
+  width: number;
+
   constructor(): void;
 }
 
@@ -5997,9 +6492,12 @@ declare class HTMLQuoteElement extends HTMLElement {
 declare class HTMLScriptElement extends HTMLElement {
   async: boolean;
   +blocking: DOMTokenList;
+  charset: string;
   crossOrigin: string | null;
   defer: boolean;
+  event: string;
   fetchPriority: string;
+  htmlFor: string;
   integrity: string;
   noModule: boolean;
   referrerPolicy: string;
@@ -6078,37 +6576,63 @@ declare class HTMLStyleElement extends HTMLElement mixins mixin$LinkStyle {
   +blocking: DOMTokenList;
   disabled: boolean;
   media: string;
+  type: string;
 
   constructor(): void;
 }
 
 declare class HTMLTableCaptionElement extends HTMLElement {
+  align: string;
+
   constructor(): void;
 }
 
 declare class HTMLTableCellElement extends HTMLElement {
   abbr: string;
+  align: string;
+  axis: string;
+  bgColor: string;
   +cellIndex: number;
+  ch: string;
+  chOff: string;
   colSpan: number;
   headers: string;
+  height: string;
+  noWrap: boolean;
   rowSpan: number;
   scope: string;
+  vAlign: string;
+  width: string;
 
   constructor(): void;
 }
 
 declare class HTMLTableColElement extends HTMLElement {
+  align: string;
+  ch: string;
+  chOff: string;
   span: number;
+  vAlign: string;
+  width: string;
 
   constructor(): void;
 }
 
 declare class HTMLTableElement extends HTMLElement {
+  align: string;
+  bgColor: string;
+  border: string;
   caption: HTMLTableCaptionElement | null;
+  cellPadding: string;
+  cellSpacing: string;
+  frame: string;
   +rows: HTMLCollection;
+  rules: string;
+  summary: string;
   +tBodies: HTMLCollection;
   tFoot: HTMLTableSectionElement | null;
   tHead: HTMLTableSectionElement | null;
+  width: string;
 
   constructor(): void;
 
@@ -6124,9 +6648,14 @@ declare class HTMLTableElement extends HTMLElement {
 }
 
 declare class HTMLTableRowElement extends HTMLElement {
+  align: string;
+  bgColor: string;
   +cells: HTMLCollection;
+  ch: string;
+  chOff: string;
   +rowIndex: number;
   +sectionRowIndex: number;
+  vAlign: string;
 
   constructor(): void;
 
@@ -6135,7 +6664,11 @@ declare class HTMLTableRowElement extends HTMLElement {
 }
 
 declare class HTMLTableSectionElement extends HTMLElement {
+  align: string;
+  ch: string;
+  chOff: string;
   +rows: HTMLCollection;
+  vAlign: string;
 
   constructor(): void;
 
@@ -6226,13 +6759,19 @@ declare class HTMLTrackElement extends HTMLElement {
 }
 
 declare class HTMLUListElement extends HTMLElement {
+  compact: boolean;
+  type: string;
+
   constructor(): void;
 }
 
 declare class HTMLUnknownElement extends HTMLElement {}
 
 declare class HTMLVideoElement extends HTMLMediaElement {
+  disablePictureInPicture: boolean;
   height: number;
+  onenterpictureinpicture: EventHandler;
+  onleavepictureinpicture: EventHandler;
   playsInline: boolean;
   poster: string;
   +videoHeight: number;
@@ -6240,6 +6779,11 @@ declare class HTMLVideoElement extends HTMLMediaElement {
   width: number;
 
   constructor(): void;
+
+  cancelVideoFrameCallback(handle: number): void;
+  getVideoPlaybackQuality(): VideoPlaybackQuality;
+  requestPictureInPicture(): Promise<PictureInPictureWindow>;
+  requestVideoFrameCallback(callback: VideoFrameRequestCallback): number;
 }
 
 declare class ImageBitmap {
@@ -6439,7 +6983,79 @@ declare class Navigator
     mixin$NavigatorContentUtils,
     mixin$NavigatorCookies,
     mixin$NavigatorPlugins,
-    mixin$NavigatorConcurrentHardware {}
+    mixin$NavigatorConcurrentHardware
+{
+  +audioSession: AudioSession;
+  +bluetooth: Bluetooth;
+  +clipboard: Clipboard;
+  +credentials: CredentialsContainer;
+  +deprecatedRunAdAuctionEnforcesKAnonymity: boolean;
+  +devicePosture: DevicePosture;
+  +geolocation: Geolocation;
+  +hid: HID;
+  +ink: Ink;
+  +keyboard: Keyboard;
+  +login: NavigatorLogin;
+  +managed: NavigatorManagedData;
+  +maxTouchPoints: number;
+  +mediaCapabilities: MediaCapabilities;
+  +mediaDevices: MediaDevices;
+  +mediaSession: MediaSession;
+  +permissions: Permissions;
+  +preferences: PreferenceManager;
+  +presentation: Presentation;
+  +privateAttribution: PrivateAttribution;
+  +protectedAudience: ProtectedAudience;
+  +scheduling: Scheduling;
+  +serial: Serial;
+  +serviceWorker: ServiceWorkerContainer;
+  +usb: USB;
+  +userActivation: UserActivation;
+  +virtualKeyboard: VirtualKeyboard;
+  +wakeLock: WakeLock;
+  +windowControlsOverlay: WindowControlsOverlay;
+  +xr: XRSystem;
+
+  adAuctionComponents(numAdComponents: number): Array<string>;
+  canLoadAdAuctionFencedFrame(): boolean;
+  canShare(data?: ShareData): boolean;
+  clearOriginJoinedAdInterestGroups(
+    owner: string,
+    interestGroupsToKeep?: Array<string>,
+  ): Promise<void>;
+  createAuctionNonce(): Promise<string>;
+  deprecatedReplaceInURN(
+    urnOrConfig: UrnOrConfig,
+    replacements: {[string]: string},
+  ): Promise<void>;
+  deprecatedURNtoURL(
+    urnOrConfig: UrnOrConfig,
+    send_reports?: boolean,
+  ): Promise<string>;
+  getAutoplayPolicy(type: AutoplayPolicyMediaType): AutoplayPolicy;
+  getAutoplayPolicy(element: HTMLMediaElement): AutoplayPolicy;
+  getAutoplayPolicy(context: AudioContext): AutoplayPolicy;
+  getBattery(): Promise<BatteryManager>;
+  getGamepads(): Array<Gamepad | null>;
+  getInstalledRelatedApps(): Promise<Array<RelatedApplication>>;
+  getInterestGroupAdAuctionData(
+    config?: AdAuctionDataConfig,
+  ): Promise<AdAuctionData>;
+  joinAdInterestGroup(group: AuctionAdInterestGroup): Promise<void>;
+  leaveAdInterestGroup(group?: AuctionAdInterestGroupKey): Promise<void>;
+  requestMediaKeySystemAccess(
+    keySystem: string,
+    supportedConfigurations: Array<MediaKeySystemConfiguration>,
+  ): Promise<MediaKeySystemAccess>;
+  requestMIDIAccess(options?: MIDIOptions): Promise<MIDIAccess>;
+  runAdAuction(
+    config: AuctionAdConfig,
+  ): Promise<string | FencedFrameConfig | null>;
+  sendBeacon(url: string, data?: BodyInit | null): boolean;
+  share(data?: ShareData): Promise<void>;
+  updateAdInterestGroups(): void;
+  vibrate(pattern: VibratePattern): boolean;
+}
 
 declare class NotRestoredReasonDetails {
   +reason: string;
@@ -6635,6 +7251,7 @@ declare class TextTrack extends EventTarget {
   +language: string;
   mode: TextTrackMode;
   oncuechange: EventHandler;
+  +sourceBuffer: SourceBuffer | null;
 
   addCue(cue: TextTrackCue): void;
   removeCue(cue: TextTrackCue): void;
@@ -6712,6 +7329,7 @@ declare class VideoTrack {
   +label: string;
   +language: string;
   selected: boolean;
+  +sourceBuffer: SourceBuffer | null;
 }
 
 declare class VideoTrackList extends EventTarget {
@@ -6744,11 +7362,21 @@ declare class Window
 {
   +clientInformation: Navigator;
   +closed: boolean;
+  +cookieStore: CookieStore;
+  +credentialless: boolean;
   +customElements: CustomElementRegistry;
+  +devicePixelRatio: number;
   +document: Document;
+  +documentPictureInPicture: DocumentPictureInPicture;
+  +event: Event | void;
+  +external: External;
+  +fence: Fence | null;
   +frameElement: Element | null;
   +frames: WindowProxy;
   +history: History;
+  +innerHeight: number;
+  +innerWidth: number;
+  +launchQueue: LaunchQueue;
   +length: number;
   +location: Location;
   +locationbar: BarProp;
@@ -6756,24 +7384,60 @@ declare class Window
   name: string;
   +navigation: Navigation;
   +navigator: Navigator;
+  onappinstalled: EventHandler;
+  onbeforeinstallprompt: EventHandler;
+  ondevicemotion: EventHandler;
+  ondeviceorientation: EventHandler;
+  ondeviceorientationabsolute: EventHandler;
+  onorientationchange: EventHandler;
   opener: any;
+  +orientation: number;
   +originAgentCluster: boolean;
+  +outerHeight: number;
+  +outerWidth: number;
+  +pageXOffset: number;
+  +pageYOffset: number;
   +parent: WindowProxy | null;
   +personalbar: BarProp;
+  +portalHost: PortalHost | null;
+  +screen: Screen;
+  +screenLeft: number;
+  +screenTop: number;
+  +screenX: number;
+  +screenY: number;
   +scrollbars: BarProp;
+  +scrollX: number;
+  +scrollY: number;
   +self: WindowProxy;
+  +sharedStorage: SharedStorage | null;
+  +speechSynthesis: SpeechSynthesis;
   status: string;
   +statusbar: BarProp;
   +toolbar: BarProp;
   +top: WindowProxy | null;
+  +viewport: Viewport;
+  +visualViewport: VisualViewport | null;
   +window: WindowProxy;
 
   alert(): void;
   alert(message: string): void;
   blur(): void;
+  cancelIdleCallback(handle: number): void;
+  captureEvents(): void;
   close(): void;
   confirm(message?: string): boolean;
   focus(): void;
+  getComputedStyle(
+    elt: Element,
+    pseudoElt?: string | null,
+  ): CSSStyleDeclaration;
+  getDigitalGoodsService(serviceProvider: string): Promise<DigitalGoodsService>;
+  getScreenDetails(): Promise<ScreenDetails>;
+  getSelection(): Selection | null;
+  matchMedia(query: string): MediaQueryList;
+  moveBy(x: number, y: number): void;
+  moveTo(x: number, y: number): void;
+  navigate(dir: SpatialNavigationDirection): void;
   open(url?: string, target?: string, features?: string): WindowProxy | null;
   postMessage(
     message: any,
@@ -6783,8 +7447,31 @@ declare class Window
   postMessage(message: any, options?: WindowPostMessageOptions): void;
   print(): void;
   prompt(message?: string, default_?: string): string | null;
+  queryLocalFonts(options?: QueryOptions): Promise<Array<FontData>>;
+  releaseEvents(): void;
+  requestIdleCallback(
+    callback: IdleRequestCallback,
+    options?: IdleRequestOptions,
+  ): number;
+  resizeBy(x: number, y: number): void;
+  resizeTo(width: number, height: number): void;
+  scroll(options?: ScrollToOptions): void;
+  scroll(x: number, y: number): void;
+  scrollBy(options?: ScrollToOptions): void;
+  scrollBy(x: number, y: number): void;
+  scrollTo(options?: ScrollToOptions): void;
+  scrollTo(x: number, y: number): void;
+  showDirectoryPicker(
+    options?: DirectoryPickerOptions,
+  ): Promise<FileSystemDirectoryHandle>;
+  showSaveFilePicker(
+    options?: SaveFilePickerOptions,
+  ): Promise<FileSystemFileHandle>;
   stop(): void;
   (name: string): Object;
+  showOpenFilePicker(
+    options?: OpenFilePickerOptions,
+  ): Promise<Array<FileSystemFileHandle>>;
 }
 
 declare class Worker
@@ -6835,7 +7522,15 @@ declare class WorkerNavigator
     mixin$NavigatorID,
     mixin$NavigatorLanguage,
     mixin$NavigatorOnLine,
-    mixin$NavigatorConcurrentHardware {}
+    mixin$NavigatorConcurrentHardware
+{
+  +hid: HID;
+  +mediaCapabilities: MediaCapabilities;
+  +permissions: Permissions;
+  +serial: Serial;
+  +serviceWorker: ServiceWorkerContainer;
+  +usb: USB;
+}
 
 declare class Worklet {
   addModule(moduleURL: string, options?: WorkletOptions): Promise<void>;
@@ -7096,14 +7791,20 @@ declare class mixin$ElementContentEditable {
   enterKeyHint: string;
   inputMode: string;
   +isContentEditable: boolean;
+  virtualKeyboardPolicy: string;
 }
 
 declare class mixin$GlobalEventHandlers {
   onabort: EventHandler;
+  onanimationcancel: EventHandler;
+  onanimationend: EventHandler;
+  onanimationiteration: EventHandler;
+  onanimationstart: EventHandler;
   onauxclick: EventHandler;
   onbeforeinput: EventHandler;
   onbeforematch: EventHandler;
   onbeforetoggle: EventHandler;
+  onbeforexrselect: EventHandler;
   onblur: EventHandler;
   oncancel: EventHandler;
   oncanplay: EventHandler;
@@ -7130,8 +7831,10 @@ declare class mixin$GlobalEventHandlers {
   onemptied: EventHandler;
   onended: EventHandler;
   onerror: OnErrorEventHandler;
+  onfencedtreeclick: EventHandler;
   onfocus: EventHandler;
   onformdata: EventHandler;
+  ongotpointercapture: EventHandler;
   oninput: EventHandler;
   oninvalid: EventHandler;
   onkeydown: EventHandler;
@@ -7141,6 +7844,7 @@ declare class mixin$GlobalEventHandlers {
   onloadeddata: EventHandler;
   onloadedmetadata: EventHandler;
   onloadstart: EventHandler;
+  onlostpointercapture: EventHandler;
   onmousedown: EventHandler;
   onmouseenter: EventHandler;
   onmouseleave: EventHandler;
@@ -7152,6 +7856,15 @@ declare class mixin$GlobalEventHandlers {
   onpause: EventHandler;
   onplay: EventHandler;
   onplaying: EventHandler;
+  onpointercancel: EventHandler;
+  onpointerdown: EventHandler;
+  onpointerenter: EventHandler;
+  onpointerleave: EventHandler;
+  onpointermove: EventHandler;
+  onpointerout: EventHandler;
+  onpointerover: EventHandler;
+  onpointerrawupdate: EventHandler;
+  onpointerup: EventHandler;
   onprogress: EventHandler;
   onratechange: EventHandler;
   onreset: EventHandler;
@@ -7162,12 +7875,24 @@ declare class mixin$GlobalEventHandlers {
   onseeked: EventHandler;
   onseeking: EventHandler;
   onselect: EventHandler;
+  onselectionchange: EventHandler;
+  onselectstart: EventHandler;
   onslotchange: EventHandler;
+  onsnapchanged: EventHandler;
+  onsnapchanging: EventHandler;
   onstalled: EventHandler;
   onsubmit: EventHandler;
   onsuspend: EventHandler;
   ontimeupdate: EventHandler;
   ontoggle: EventHandler;
+  ontouchcancel: EventHandler;
+  ontouchend: EventHandler;
+  ontouchmove: EventHandler;
+  ontouchstart: EventHandler;
+  ontransitioncancel: EventHandler;
+  ontransitionend: EventHandler;
+  ontransitionrun: EventHandler;
+  ontransitionstart: EventHandler;
   onvolumechange: EventHandler;
   onwaiting: EventHandler;
   onwebkitanimationend: EventHandler;
@@ -7223,12 +7948,15 @@ declare class mixin$NavigatorID {
   +appCodeName: string;
   +appName: string;
   +appVersion: string;
+  +oscpu: string;
   +platform: string;
   +product: string;
   +productSub: string;
   +userAgent: string;
   +vendor: string;
   +vendorSub: string;
+
+  taintEnabled(): boolean;
 }
 
 declare class mixin$NavigatorLanguage {
@@ -7257,6 +7985,8 @@ declare class mixin$WindowEventHandlers {
   onafterprint: EventHandler;
   onbeforeprint: EventHandler;
   onbeforeunload: OnBeforeUnloadEventHandler;
+  ongamepadconnected: EventHandler;
+  ongamepaddisconnected: EventHandler;
   onhashchange: EventHandler;
   onlanguagechange: EventHandler;
   onmessage: EventHandler;
@@ -7268,6 +7998,7 @@ declare class mixin$WindowEventHandlers {
   onpageshow: EventHandler;
   onpageswap: EventHandler;
   onpopstate: EventHandler;
+  onportalactivate: EventHandler;
   onrejectionhandled: EventHandler;
   onstorage: EventHandler;
   onunhandledrejection: EventHandler;
@@ -7279,9 +8010,15 @@ declare class mixin$WindowLocalStorage {
 }
 
 declare class mixin$WindowOrWorkerGlobalScope {
+  +caches: CacheStorage;
   +crossOriginIsolated: boolean;
+  +crypto: Crypto;
+  +indexedDB: IDBFactory;
   +isSecureContext: boolean;
   +origin: string;
+  +performance: Performance;
+  +scheduler: Scheduler;
+  +trustedTypes: TrustedTypePolicyFactory;
 
   atob(data: string): string;
   btoa(data: string): string;
@@ -7299,6 +8036,7 @@ declare class mixin$WindowOrWorkerGlobalScope {
     sh: number,
     options?: ImageBitmapOptions,
   ): Promise<ImageBitmap>;
+  fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
   queueMicrotask(callback: VoidFunction): void;
   reportError(e: any): void;
   setInterval(handler: TimerHandler, timeout?: number, arguments_: any): number;
@@ -7422,6 +8160,9 @@ type IDBTransactionOptions = {
 };
 
 type IDBVersionChangeEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   newVersion: number | null,
   oldVersion: number,
 };
@@ -7738,6 +8479,9 @@ declare class Profiler extends EventTarget {
 /*---------- keyboard-lock ----------*/
 
 declare class Keyboard extends EventTarget {
+  onlayoutchange: EventHandler;
+
+  getLayoutMap(): Promise<KeyboardLayoutMap>;
   lock(keyCodes?: Array<string>): Promise<void>;
   unlock(): void;
 }
@@ -7884,6 +8628,7 @@ declare class TaskAttributionTiming extends PerformanceEntry {
 type MagnetometerLocalCoordinateSystem = 'device' | 'screen';
 
 type MagnetometerSensorOptions = {
+  frequency: number,
   referenceFrame: MagnetometerLocalCoordinateSystem,
 };
 
@@ -7911,7 +8656,12 @@ declare class UncalibratedMagnetometer extends Sensor {
 declare class NavigatorManagedData extends EventTarget {
   onmanagedconfigurationchange: EventHandler;
 
+  getAnnotatedAssetId(): Promise<string>;
+  getAnnotatedLocation(): Promise<string>;
+  getDirectoryId(): Promise<string>;
+  getHostname(): Promise<string>;
   getManagedConfiguration(keys: Array<string>): Promise<{[string]: Object}>;
+  getSerialNumber(): Promise<string>;
 }
 
 /*---------- manifest-incubations ----------*/
@@ -7962,10 +8712,16 @@ type KeySystemTrackConfiguration = {
 type MediaCapabilitiesDecodingInfo = {
   configuration: MediaDecodingConfiguration,
   keySystemAccess: MediaKeySystemAccess | null,
+  powerEfficient: boolean,
+  smooth: boolean,
+  supported: boolean,
 };
 
 type MediaCapabilitiesEncodingInfo = {
   configuration: MediaEncodingConfiguration,
+  powerEfficient: boolean,
+  smooth: boolean,
+  supported: boolean,
 };
 
 type MediaCapabilitiesInfo = {
@@ -7990,12 +8746,16 @@ type MediaConfiguration = {
 };
 
 type MediaDecodingConfiguration = {
+  audio: AudioConfiguration,
   keySystemConfiguration: MediaCapabilitiesKeySystemConfiguration,
   type: MediaDecodingType,
+  video: VideoConfiguration,
 };
 
 type MediaEncodingConfiguration = {
+  audio: AudioConfiguration,
   type: MediaEncodingType,
+  video: VideoConfiguration,
 };
 
 type VideoConfiguration = {
@@ -8040,6 +8800,9 @@ type ReadyState = 'closed' | 'open' | 'ended';
 
 type BufferedChangeEventInit = {
   addedRanges: TimeRanges,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   removedRanges: TimeRanges,
 };
 
@@ -8121,7 +8884,10 @@ type MockCapturePromptResult = 'granted' | 'denied';
 
 type MockCameraConfiguration = {
   defaultFrameRate: number,
+  deviceId: string,
   facingMode: string,
+  groupId: string,
+  label: string,
 };
 
 type MockCaptureDeviceConfiguration = {
@@ -8137,6 +8903,9 @@ type MockCapturePromptResultConfiguration = {
 
 type MockMicrophoneConfiguration = {
   defaultSampleRate: number,
+  deviceId: string,
+  groupId: string,
+  label: string,
 };
 
 /*---------- mediacapture-fromelement ----------*/
@@ -8153,6 +8922,9 @@ type CaptureAction = 'next' | 'previous' | 'first' | 'last';
 
 type CaptureActionEventInit = {
   action: string,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
 };
 
 declare class CaptureActionEvent extends Event {
@@ -8166,6 +8938,7 @@ declare class CaptureActionEvent extends Event {
 declare class BrowserCaptureMediaStreamTrack extends MediaStreamTrack {
   clone(): BrowserCaptureMediaStreamTrack;
   cropTo(cropTarget: CropTarget | null): Promise<void>;
+  restrictTo(RestrictionTarget: RestrictionTarget | null): Promise<void>;
 }
 
 declare class CropTarget {
@@ -8191,6 +8964,7 @@ type VideoFacingModeEnum = 'user' | 'environment' | 'left' | 'right';
 type VideoResizeModeEnum = 'none' | 'crop-and-scale';
 
 type CameraDevicePermissionDescriptor = {
+  name: string,
   panTiltZoom: boolean,
 };
 
@@ -8207,14 +8981,21 @@ type ConstrainDOMStringParameters = {
 type ConstrainDoubleRange = {
   exact: number,
   ideal: number,
+  max: number,
+  min: number,
 };
 
 type ConstrainULongRange = {
   exact: number,
   ideal: number,
+  max: number,
+  min: number,
 };
 
 type DeviceChangeEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   devices: Array<MediaDeviceInfo>,
 };
 
@@ -8225,10 +9006,15 @@ type DoubleRange = {
 
 type MediaStreamConstraints = {
   audio: boolean | MediaTrackConstraints,
+  peerIdentity: string,
+  preferCurrentTab: boolean,
   video: boolean | MediaTrackConstraints,
 };
 
 type MediaStreamTrackEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   track: MediaStreamTrack,
 };
 
@@ -8236,80 +9022,199 @@ type MediaTrackCapabilities = {
   aspectRatio: DoubleRange,
   autoGainControl: Array<boolean>,
   backgroundBlur: Array<boolean>,
+  brightness: MediaSettingsRange,
   channelCount: ULongRange,
+  colorTemperature: MediaSettingsRange,
+  contrast: MediaSettingsRange,
+  cursor: Array<string>,
   deviceId: string,
+  displaySurface: string,
   echoCancellation: Array<boolean>,
+  exposureCompensation: MediaSettingsRange,
+  exposureMode: Array<string>,
+  exposureTime: MediaSettingsRange,
   facingMode: Array<string>,
+  focusDistance: MediaSettingsRange,
+  focusMode: Array<string>,
   frameRate: DoubleRange,
   groupId: string,
   height: ULongRange,
+  iso: MediaSettingsRange,
   latency: DoubleRange,
+  logicalSurface: boolean,
   noiseSuppression: Array<boolean>,
+  pan: MediaSettingsRange,
   resizeMode: Array<string>,
   sampleRate: ULongRange,
   sampleSize: ULongRange,
+  saturation: MediaSettingsRange,
+  sharpness: MediaSettingsRange,
+  tilt: MediaSettingsRange,
+  torch: Array<boolean>,
+  whiteBalanceMode: Array<string>,
   width: ULongRange,
+  zoom: MediaSettingsRange,
 };
 
 type MediaTrackConstraints = {
   advanced: Array<MediaTrackConstraintSet>,
+  aspectRatio: ConstrainDouble,
+  autoGainControl: ConstrainBoolean,
+  backgroundBlur: ConstrainBoolean,
+  brightness: ConstrainDouble,
+  channelCount: ConstrainULong,
+  colorTemperature: ConstrainDouble,
+  contrast: ConstrainDouble,
+  deviceId: ConstrainDOMString,
+  echoCancellation: ConstrainBoolean,
+  exposureCompensation: ConstrainDouble,
+  exposureMode: ConstrainDOMString,
+  exposureTime: ConstrainDouble,
+  facingMode: ConstrainDOMString,
+  focusDistance: ConstrainDouble,
+  focusMode: ConstrainDOMString,
+  frameRate: ConstrainDouble,
+  groupId: ConstrainDOMString,
+  height: ConstrainULong,
+  iso: ConstrainDouble,
+  latency: ConstrainDouble,
+  noiseSuppression: ConstrainBoolean,
+  pan: boolean | ConstrainDouble,
+  pointsOfInterest: ConstrainPoint2D,
+  resizeMode: ConstrainDOMString,
+  sampleRate: ConstrainULong,
+  sampleSize: ConstrainULong,
+  saturation: ConstrainDouble,
+  sharpness: ConstrainDouble,
+  tilt: boolean | ConstrainDouble,
+  torch: ConstrainBoolean,
+  whiteBalanceMode: ConstrainDOMString,
+  width: ConstrainULong,
+  zoom: boolean | ConstrainDouble,
 };
 
 type MediaTrackConstraintSet = {
   aspectRatio: ConstrainDouble,
   autoGainControl: ConstrainBoolean,
   backgroundBlur: ConstrainBoolean,
+  brightness: ConstrainDouble,
   channelCount: ConstrainULong,
+  colorTemperature: ConstrainDouble,
+  contrast: ConstrainDouble,
+  cursor: ConstrainDOMString,
   deviceId: ConstrainDOMString,
+  displaySurface: ConstrainDOMString,
   echoCancellation: ConstrainBoolean,
+  exposureCompensation: ConstrainDouble,
+  exposureMode: ConstrainDOMString,
+  exposureTime: ConstrainDouble,
   facingMode: ConstrainDOMString,
+  focusDistance: ConstrainDouble,
+  focusMode: ConstrainDOMString,
   frameRate: ConstrainDouble,
   groupId: ConstrainDOMString,
   height: ConstrainULong,
+  iso: ConstrainDouble,
   latency: ConstrainDouble,
+  logicalSurface: ConstrainBoolean,
   noiseSuppression: ConstrainBoolean,
+  pan: boolean | ConstrainDouble,
+  pointsOfInterest: ConstrainPoint2D,
   resizeMode: ConstrainDOMString,
+  restrictOwnAudio: ConstrainBoolean,
   sampleRate: ConstrainULong,
   sampleSize: ConstrainULong,
+  saturation: ConstrainDouble,
+  sharpness: ConstrainDouble,
+  suppressLocalAudioPlayback: ConstrainBoolean,
+  tilt: boolean | ConstrainDouble,
+  torch: ConstrainBoolean,
+  whiteBalanceMode: ConstrainDOMString,
   width: ConstrainULong,
+  zoom: boolean | ConstrainDouble,
 };
 
 type MediaTrackSettings = {
   aspectRatio: number,
   autoGainControl: boolean,
   backgroundBlur: boolean,
+  brightness: number,
   channelCount: number,
+  colorTemperature: number,
+  contrast: number,
+  cursor: string,
   deviceId: string,
+  displaySurface: string,
   echoCancellation: boolean,
+  exposureCompensation: number,
+  exposureMode: string,
+  exposureTime: number,
   facingMode: string,
+  focusDistance: number,
+  focusMode: string,
   frameRate: number,
   groupId: string,
   height: number,
+  iso: number,
   latency: number,
+  logicalSurface: boolean,
   noiseSuppression: boolean,
+  pan: number,
+  pointsOfInterest: Array<Point2D>,
   resizeMode: string,
+  restrictOwnAudio: boolean,
   sampleRate: number,
   sampleSize: number,
+  saturation: number,
+  screenPixelRatio: number,
+  sharpness: number,
+  suppressLocalAudioPlayback: boolean,
+  tilt: number,
+  torch: boolean,
+  whiteBalanceMode: string,
   width: number,
+  zoom: number,
 };
 
 type MediaTrackSupportedConstraints = {
   aspectRatio: boolean,
   autoGainControl: boolean,
   backgroundBlur: boolean,
+  brightness: boolean,
   channelCount: boolean,
+  colorTemperature: boolean,
+  contrast: boolean,
+  cursor: boolean,
   deviceId: boolean,
+  displaySurface: boolean,
   echoCancellation: boolean,
+  exposureCompensation: boolean,
+  exposureMode: boolean,
+  exposureTime: boolean,
   facingMode: boolean,
+  focusDistance: boolean,
+  focusMode: boolean,
   frameRate: boolean,
   groupId: boolean,
   height: boolean,
+  iso: boolean,
   latency: boolean,
+  logicalSurface: boolean,
   noiseSuppression: boolean,
+  pan: boolean,
+  pointsOfInterest: boolean,
   resizeMode: boolean,
+  restrictOwnAudio: boolean,
   sampleRate: boolean,
   sampleSize: boolean,
+  saturation: boolean,
+  sharpness: boolean,
+  suppressLocalAudioPlayback: boolean,
+  tilt: boolean,
+  torch: boolean,
+  whiteBalanceMode: boolean,
   width: boolean,
+  zoom: boolean,
 };
 
 type ULongRange = {
@@ -8338,9 +9243,17 @@ declare class MediaDeviceInfo {
 }
 
 declare class MediaDevices extends EventTarget {
+  oncaptureaction: EventHandler;
   ondevicechange: EventHandler;
 
   enumerateDevices(): Promise<Array<MediaDeviceInfo>>;
+  getDisplayMedia(options?: DisplayMediaStreamOptions): Promise<MediaStream>;
+  getSupportedConstraints(): MediaTrackSupportedConstraints;
+  getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
+  getViewportMedia(options?: DisplayMediaStreamOptions): Promise<MediaStream>;
+  selectAudioOutput(options?: AudioOutputOptions): Promise<MediaDeviceInfo>;
+  setCaptureHandleConfig(config?: CaptureHandleConfig): void;
+  setSupportedCaptureActions(actions: Array<string>): void;
 }
 
 declare class MediaStream extends EventTarget {
@@ -8363,12 +9276,16 @@ declare class MediaStream extends EventTarget {
 }
 
 declare class MediaStreamTrack extends EventTarget {
+  contentHint: string;
   enabled: boolean;
   +id: string;
+  +isolated: boolean;
   +kind: string;
   +label: string;
   +muted: boolean;
+  oncapturehandlechange: EventHandler;
   onended: EventHandler;
+  onisolationchange: EventHandler;
   onmute: EventHandler;
   onunmute: EventHandler;
   +readyState: MediaStreamTrackState;
@@ -8376,8 +9293,11 @@ declare class MediaStreamTrack extends EventTarget {
   applyConstraints(constraints?: MediaTrackConstraints): Promise<void>;
   clone(): MediaStreamTrack;
   getCapabilities(): MediaTrackCapabilities;
+  getCaptureHandle(): CaptureHandle | null;
   getConstraints(): MediaTrackConstraints;
   getSettings(): MediaTrackSettings;
+  getSupportedCaptureActions(): Array<string>;
+  sendCaptureAction(action: CaptureAction): Promise<void>;
   stop(): void;
 }
 
@@ -8534,6 +9454,9 @@ type BitrateMode = 'constant' | 'variable';
 type RecordingState = 'inactive' | 'recording' | 'paused';
 
 type BlobEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   data: Blob,
   timecode: number,
 };
@@ -8611,6 +9534,7 @@ declare class PerformanceNavigation {
 }
 
 declare class PerformanceNavigationTiming extends PerformanceResourceTiming {
+  +activationStart: number;
   +criticalCHRestart: number;
   +domComplete: number;
   +domContentLoadedEventEnd: number;
@@ -8862,6 +9786,9 @@ type DeviceMotionEventAccelerationInit = {
 type DeviceMotionEventInit = {
   acceleration: DeviceMotionEventAccelerationInit,
   accelerationIncludingGravity: DeviceMotionEventAccelerationInit,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   interval: number,
   rotationRate: DeviceMotionEventRotationRateInit,
 };
@@ -8876,6 +9803,9 @@ type DeviceOrientationEventInit = {
   absolute: boolean,
   alpha: number | null,
   beta: number | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   gamma: number | null,
 };
 
@@ -8920,6 +9850,7 @@ type RotationMatrixType = Float32Array | Float64Array | DOMMatrix;
 type OrientationSensorLocalCoordinateSystem = 'device' | 'screen';
 
 type OrientationSensorOptions = {
+  frequency: number,
   referenceFrame: OrientationSensorLocalCoordinateSystem,
 };
 
@@ -9082,7 +10013,10 @@ type PaymentDetailsBase = {
 };
 
 type PaymentDetailsInit = {
+  displayItems: Array<PaymentItem>,
   id: string,
+  modifiers: Array<PaymentDetailsModifier>,
+  shippingOptions: Array<PaymentShippingOption>,
   total: PaymentItem,
 };
 
@@ -9094,10 +10028,13 @@ type PaymentDetailsModifier = {
 };
 
 type PaymentDetailsUpdate = {
+  displayItems: Array<PaymentItem>,
   error: string,
+  modifiers: Array<PaymentDetailsModifier>,
   payerErrors: PayerErrors,
   paymentMethodErrors: Object,
   shippingAddressErrors: AddressErrors,
+  shippingOptions: Array<PaymentShippingOption>,
   total: PaymentItem,
 };
 
@@ -9126,7 +10063,11 @@ type PaymentOptions = {
   shippingType: PaymentShippingType,
 };
 
-type PaymentRequestUpdateEventInit = {};
+type PaymentRequestUpdateEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
+};
 
 type PaymentShippingOption = {
   amount: PaymentCurrencyAmount,
@@ -9164,6 +10105,7 @@ declare class PaymentRequest extends EventTarget {
     options?: PaymentOptions,
   ): void;
 
+  static securePaymentConfirmationAvailability(): Promise<SecurePaymentConfirmationAvailability>;
   abort(): Promise<void>;
   canMakePayment(): Promise<boolean>;
   show(
@@ -9233,6 +10175,7 @@ type PerformanceObserverCallbackOptions = {
 
 type PerformanceObserverInit = {
   buffered: boolean,
+  durationThreshold: number,
   entryTypes: Array<string>,
   type: string,
 };
@@ -9332,6 +10275,8 @@ type PermissionSetParameters = {
 
 declare class Permissions {
   query(permissionDesc: Object): Promise<PermissionStatus>;
+  request(permissionDesc: Object): Promise<PermissionStatus>;
+  revoke(permissionDesc: Object): Promise<PermissionStatus>;
 }
 
 declare class PermissionStatus extends EventTarget {
@@ -9343,6 +10288,9 @@ declare class PermissionStatus extends EventTarget {
 /*---------- picture-in-picture ----------*/
 
 type PictureInPictureEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   pictureInPictureWindow: PictureInPictureWindow,
 };
 
@@ -9363,6 +10311,10 @@ declare class PictureInPictureWindow extends EventTarget {
 type PointerEventInit = {
   altitudeAngle: number,
   azimuthAngle: number,
+  button: number,
+  buttons: number,
+  clientX: number,
+  clientY: number,
   coalescedEvents: Array<PointerEvent>,
   height: number,
   isPrimary: boolean,
@@ -9371,6 +10323,9 @@ type PointerEventInit = {
   pointerType: string,
   predictedEvents: Array<PointerEvent>,
   pressure: number,
+  relatedTarget: EventTarget | null,
+  screenX: number,
+  screenY: number,
   tangentialPressure: number,
   tiltX: number,
   tiltY: number,
@@ -9408,11 +10363,15 @@ type PointerLockOptions = {
 /*---------- portals ----------*/
 
 type PortalActivateEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   data: any,
 };
 
 type PortalActivateOptions = {
   data: any,
+  transfer: Array<Object>,
 };
 
 declare class HTMLPortalElement extends HTMLElement {
@@ -9478,6 +10437,11 @@ type PrivateAttributionImpressionOptions = {
 
 declare class PrivateAttribution {
   +aggregationServices: PrivateAttributionAggregationServices;
+
+  measureConversion(
+    options: PrivateAttributionConversionOptions,
+  ): Promise<PrivateAttributionConversionResult>;
+  saveImpression(options: PrivateAttributionImpressionOptions): void;
 }
 
 type PrivateAttributionAggregationServices = Map<
@@ -9500,15 +10464,24 @@ type PresentationConnectionState =
   | 'terminated';
 
 type PresentationConnectionAvailableEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   connection: PresentationConnection,
 };
 
 type PresentationConnectionCloseEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   message: string,
   reason: PresentationConnectionCloseReason,
 };
 
-declare class Presentation {}
+declare class Presentation {
+  defaultRequest: PresentationRequest | null;
+  +receiver: PresentationReceiver | null;
+}
 
 declare class PresentationAvailability extends EventTarget {
   onchange: EventHandler;
@@ -9601,6 +10574,7 @@ type IPAddressSpace = 'public' | 'private' | 'local';
 
 type PrivateNetworkAccessPermissionDescriptor = {
   id: string,
+  name: string,
 };
 
 /*---------- proximity ----------*/
@@ -9624,6 +10598,7 @@ type PushEventInit = {
 };
 
 type PushPermissionDescriptor = {
+  name: string,
   userVisibleOnly: boolean,
 };
 
@@ -9802,6 +10777,7 @@ declare class IdleDeadline {
 /*---------- requestStorageAccessFor ----------*/
 
 type TopLevelStorageAccessPermissionDescriptor = {
+  name: string,
   requestedOrigin: string,
 };
 
@@ -9868,6 +10844,7 @@ declare class PerformanceResourceTiming extends PerformanceEntry {
   +responseStart: number;
   +responseStatus: number;
   +secureConnectionStart: number;
+  +serverTiming: $ReadOnlyArray<PerformanceServerTiming>;
   +transferSize: number;
   +workerStart: number;
 
@@ -9879,7 +10856,10 @@ declare class PerformanceResourceTiming extends PerformanceEntry {
 type SameSiteCookiesType = 'all' | 'none';
 
 type SharedWorkerOptions = {
+  credentials: RequestCredentials,
+  name: string,
   sameSiteCookies: SameSiteCookiesType,
+  type: WorkerType,
 };
 
 type StorageAccessTypes = {
@@ -9950,6 +10930,8 @@ type SanitizerElementNamespace = {
 
 type SanitizerElementNamespaceWithAttributes = {
   attributes: Array<SanitizerAttribute>,
+  name: string,
+  namespace: string | null,
   removeAttributes: Array<SanitizerAttribute>,
 };
 
@@ -9996,6 +10978,9 @@ type TaskControllerInit = {
 };
 
 type TaskPriorityChangeEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   previousPriority: TaskPriority,
 };
 
@@ -10065,8 +11050,18 @@ type DisplayMediaStreamOptions = {
 };
 
 declare class CaptureController extends EventTarget {
+  oncapturedmousechange: EventHandler;
+  onzoomlevelchange: EventHandler;
+  +zoomLevel: number | null;
+
+  constructor(): void;
   constructor(): void;
 
+  decreaseZoomLevel(): Promise<void>;
+  forwardWheel(element: HTMLElement | null): Promise<void>;
+  getSupportedZoomLevels(): Array<number>;
+  increaseZoomLevel(): Promise<void>;
+  resetZoomLevel(): Promise<void>;
   setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
 }
 
@@ -10176,7 +11171,12 @@ type CollectedClientAdditionalPaymentData = {
 };
 
 type CollectedClientPaymentData = {
+  challenge: string,
+  crossOrigin: boolean,
+  origin: string,
   payment: CollectedClientAdditionalPaymentData,
+  topOrigin: string,
+  type: string,
 };
 
 type PaymentCredentialInstrument = {
@@ -10353,9 +11353,16 @@ type ClientQueryOptions = {
   type: ClientType,
 };
 
-type ExtendableEventInit = {};
+type ExtendableEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
+};
 
 type ExtendableMessageEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   data: any,
   lastEventId: string,
   origin: string,
@@ -10364,7 +11371,10 @@ type ExtendableMessageEventInit = {
 };
 
 type FetchEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   clientId: string,
+  composed: boolean,
   handled: Promise<void>,
   preloadResponse: Promise<any>,
   replacesClientId: string,
@@ -10374,6 +11384,9 @@ type FetchEventInit = {
 
 type MultiCacheQueryOptions = {
   cacheName: string,
+  ignoreMethod: boolean,
+  ignoreSearch: boolean,
+  ignoreVary: boolean,
 };
 
 type NavigationPreloadState = {
@@ -10439,6 +11452,7 @@ declare class CacheStorage {
 declare class Client {
   +frameType: FrameType;
   +id: string;
+  +lifecycleState: ClientLifecycleState;
   +type: ClientType;
   +url: string;
 
@@ -10524,11 +11538,26 @@ declare class ServiceWorkerContainer extends EventTarget {
 
 declare class ServiceWorkerGlobalScope extends WorkerGlobalScope {
   +clients: Clients;
+  +cookieStore: CookieStore;
   onactivate: EventHandler;
+  onbackgroundfetchabort: EventHandler;
+  onbackgroundfetchclick: EventHandler;
+  onbackgroundfetchfail: EventHandler;
+  onbackgroundfetchsuccess: EventHandler;
+  oncanmakepayment: EventHandler;
+  oncontentdelete: EventHandler;
+  oncookiechange: EventHandler;
   onfetch: EventHandler;
   oninstall: EventHandler;
   onmessage: EventHandler;
   onmessageerror: EventHandler;
+  onnotificationclick: EventHandler;
+  onnotificationclose: EventHandler;
+  onpaymentrequest: EventHandler;
+  onperiodicsync: EventHandler;
+  onpush: EventHandler;
+  onpushsubscriptionchange: EventHandler;
+  onsync: EventHandler;
   +registration: ServiceWorkerRegistration;
   +serviceWorker: ServiceWorker;
 
@@ -10537,13 +11566,24 @@ declare class ServiceWorkerGlobalScope extends WorkerGlobalScope {
 
 declare class ServiceWorkerRegistration extends EventTarget {
   +active: ServiceWorker | null;
+  +backgroundFetch: BackgroundFetchManager;
+  +cookies: CookieStoreManager;
+  +index: ContentIndex;
   +installing: ServiceWorker | null;
   +navigationPreload: NavigationPreloadManager;
   onupdatefound: EventHandler;
+  +paymentManager: PaymentManager;
+  +periodicSync: PeriodicSyncManager;
+  +pushManager: PushManager;
   +scope: string;
+  +sync: SyncManager;
   +updateViaCache: ServiceWorkerUpdateViaCache;
   +waiting: ServiceWorker | null;
 
+  getNotifications(
+    filter?: GetNotificationOptions,
+  ): Promise<Array<Notification>>;
+  showNotification(title: string, options?: NotificationOptions): Promise<void>;
   unregister(): Promise<boolean>;
   update(): Promise<ServiceWorkerRegistration>;
 }
@@ -10641,6 +11681,7 @@ type SharedStorageRunOperationMethodOptions = {
 
 type SharedStorageSetMethodOptions = {
   ignoreIfPresent: boolean,
+  withLock: string,
 };
 
 type SharedStorageUrlWithMetadata = {
@@ -10649,6 +11690,7 @@ type SharedStorageUrlWithMetadata = {
 };
 
 type SharedStorageWorkletOptions = {
+  credentials: RequestCredentials,
   dataOrigin: string,
 };
 
@@ -10790,22 +11832,39 @@ type SpeechSynthesisErrorCode =
   | 'not-allowed';
 
 type SpeechRecognitionErrorEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   error: SpeechRecognitionErrorCode,
   message: string,
 };
 
 type SpeechRecognitionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   resultIndex: number,
   results: SpeechRecognitionResultList,
 };
 
 type SpeechSynthesisErrorEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  charIndex: number,
+  charLength: number,
+  composed: boolean,
+  elapsedTime: number,
   error: SpeechSynthesisErrorCode,
+  name: string,
+  utterance: SpeechSynthesisUtterance,
 };
 
 type SpeechSynthesisEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   charIndex: number,
   charLength: number,
+  composed: boolean,
   elapsedTime: number,
   name: string,
   utterance: SpeechSynthesisUtterance,
@@ -10989,6 +12048,7 @@ type StorageEstimate = {
 
 declare class StorageManager {
   estimate(): Promise<StorageEstimate>;
+  getDirectory(): Promise<FileSystemDirectoryHandle>;
   persist(): Promise<boolean>;
   persisted(): Promise<boolean>;
 }
@@ -11340,14 +12400,24 @@ declare class SVGAElement
   mixins mixin$SVGURIReference
 {
   download: string;
+  hash: string;
+  host: string;
+  hostname: string;
   hreflang: string;
+  +origin: string;
+  password: string;
+  pathname: string;
   ping: string;
+  port: string;
+  protocol: string;
   referrerPolicy: string;
   rel: string;
   +relList: DOMTokenList;
+  search: string;
   +target: SVGAnimatedString;
   text: string;
   type: string;
+  username: string;
 }
 
 declare class SVGAngle {
@@ -11711,6 +12781,7 @@ declare class SVGSVGElement
   +x: SVGAnimatedLength;
   +y: SVGAnimatedLength;
 
+  animationsPaused(): boolean;
   checkEnclosure(element: SVGElement, rect: DOMRectReadOnly): boolean;
   checkIntersection(element: SVGElement, rect: DOMRectReadOnly): boolean;
   createSVGAngle(): SVGAngle;
@@ -11723,6 +12794,7 @@ declare class SVGSVGElement
   createSVGTransformFromMatrix(matrix?: DOMMatrix2DInit): SVGTransform;
   deselectAll(): void;
   forceRedraw(): void;
+  getCurrentTime(): number;
   getElementById(elementId: string): Element;
   getEnclosureList(
     rect: DOMRectReadOnly,
@@ -11732,7 +12804,10 @@ declare class SVGSVGElement
     rect: DOMRectReadOnly,
     referenceElement: SVGElement | null,
   ): NodeList;
+  pauseAnimations(): void;
+  setCurrentTime(seconds: number): void;
   suspendRedraw(maxWaitMilliseconds: number): number;
+  unpauseAnimations(): void;
   unsuspendRedraw(suspendHandleID: number): void;
   unsuspendRedrawAll(): void;
 }
@@ -11904,7 +12979,21 @@ declare class TextDetector {
 type TouchType = 'direct' | 'stylus';
 
 type TouchEventInit = {
+  altKey: boolean,
   changedTouches: Array<Touch>,
+  ctrlKey: boolean,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
+  shiftKey: boolean,
   targetTouches: Array<Touch>,
   touches: Array<Touch>,
 };
@@ -11979,6 +13068,7 @@ type LanguageDetectorCreateCoreOptions = {
 };
 
 type LanguageDetectorCreateOptions = {
+  expectedInputLanguages: Array<string>,
   monitor: CreateMonitorCallback,
   signal: AbortSignal,
 };
@@ -11995,6 +13085,8 @@ type TranslatorCreateCoreOptions = {
 type TranslatorCreateOptions = {
   monitor: CreateMonitorCallback,
   signal: AbortSignal,
+  sourceLanguage: string,
+  targetLanguage: string,
 };
 
 type TranslatorTranslateOptions = {
@@ -12234,11 +13326,30 @@ type AuctionAdConfig = {
 };
 
 type AuctionAdInterestGroup = {
+  adComponents: Array<AuctionAd>,
   additionalBidKey: string,
+  ads: Array<AuctionAd>,
+  adSizes: {[string]: AuctionAdInterestGroupSize},
+  biddingLogicURL: string,
+  biddingWasmHelperURL: string,
+  enableBiddingSignalsPrioritization: boolean,
+  executionMode: string,
   lifetimeMs: number,
+  maxTrustedBiddingSignalsURLLength: number,
+  name: string,
+  owner: string,
   priority: number,
   prioritySignalsOverrides: {[string]: number},
+  priorityVector: {[string]: number},
   privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
+  sellerCapabilities: {[string]: Array<string>},
+  sizeGroups: {[string]: Array<string>},
+  trustedBiddingSignalsCoordinator: string,
+  trustedBiddingSignalsKeys: Array<string>,
+  trustedBiddingSignalsSlotSizeMode: string,
+  trustedBiddingSignalsURL: string,
+  updateURL: string,
+  userBiddingSignals: any,
 };
 
 type AuctionAdInterestGroupKey = {
@@ -12365,21 +13476,43 @@ type ReportingBrowserSignals = {
 };
 
 type ReportResultBrowserSignals = {
+  bid: number,
+  bidCurrency: string,
+  buyerAndSellerReportingId: string,
+  componentSeller: string,
   dataVersion: number,
   desirability: number,
+  highestScoringOtherBid: number,
+  highestScoringOtherBidCurrency: string,
+  interestGroupOwner: string,
   modifiedBid: number,
+  renderURL: string,
+  selectedBuyerAndSellerReportingId: string,
+  topLevelSeller: string,
   topLevelSellerSignals: string,
+  topWindowHostname: string,
 };
 
 type ReportWinBrowserSignals = {
   adCost: number,
+  bid: number,
+  bidCurrency: string,
+  buyerAndSellerReportingId: string,
   buyerReportingId: string,
+  componentSeller: string,
   dataVersion: number,
+  highestScoringOtherBid: number,
+  highestScoringOtherBidCurrency: string,
   interestGroupName: string,
+  interestGroupOwner: string,
   kAnonStatus: KAnonStatus,
   madeHighestScoringOtherBid: boolean,
   modelingSignals: number,
+  renderURL: string,
+  selectedBuyerAndSellerReportingId: string,
   seller: string,
+  topLevelSeller: string,
+  topWindowHostname: string,
 };
 
 type ScoreAdOutput = {
@@ -12406,15 +13539,39 @@ type ScoringBrowserSignals = {
 };
 
 type StorageInterestGroup = {
+  adComponents: Array<AuctionAd>,
+  additionalBidKey: string,
+  ads: Array<AuctionAd>,
+  adSizes: {[string]: AuctionAdInterestGroupSize},
   bidCount: number,
+  biddingLogicURL: string,
+  biddingWasmHelperURL: string,
+  enableBiddingSignalsPrioritization: boolean,
   estimatedSize: number,
+  executionMode: string,
   joinCount: number,
   joiningOrigin: string,
+  lifetimeMs: number,
   lifetimeRemainingMs: number,
+  maxTrustedBiddingSignalsURLLength: number,
+  name: string,
+  owner: string,
   prevWinsMs: Array<PreviousWin>,
+  priority: number,
+  prioritySignalsOverrides: {[string]: number},
+  priorityVector: {[string]: number},
+  privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
+  sellerCapabilities: {[string]: Array<string>},
+  sizeGroups: {[string]: Array<string>},
   timeSinceGroupJoinedMs: number,
   timeSinceLastUpdateMs: number,
   timeUntilNextUpdateMs: number,
+  trustedBiddingSignalsCoordinator: string,
+  trustedBiddingSignalsKeys: Array<string>,
+  trustedBiddingSignalsSlotSizeMode: string,
+  trustedBiddingSignalsURL: string,
+  updateURL: string,
+  userBiddingSignals: any,
 };
 
 declare class ForDebuggingOnly {
@@ -12509,12 +13666,22 @@ declare class mixin$NavigatorUA {
 /*---------- uievents ----------*/
 
 type CompositionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   data: string,
+  detail: number,
+  sourceCapabilities: InputDeviceCapabilities | null,
+  view: Window | null,
 };
 
 type EventModifierInit = {
   altKey: boolean,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   ctrlKey: boolean,
+  detail: number,
   metaKey: boolean,
   modifierAltGraph: boolean,
   modifierCapsLock: boolean,
@@ -12527,52 +13694,142 @@ type EventModifierInit = {
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
   shiftKey: boolean,
+  sourceCapabilities: InputDeviceCapabilities | null,
+  view: Window | null,
 };
 
 type FocusEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
+  detail: number,
   relatedTarget: EventTarget | null,
+  sourceCapabilities: InputDeviceCapabilities | null,
+  view: Window | null,
 };
 
 type InputEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   data: string | null,
+  dataTransfer: DataTransfer | null,
+  detail: number,
   inputType: string,
   isComposing: boolean,
+  sourceCapabilities: InputDeviceCapabilities | null,
+  targetRanges: Array<StaticRange>,
+  view: Window | null,
 };
 
 type KeyboardEventInit = {
+  altKey: boolean,
+  bubbles: boolean,
+  cancelable: boolean,
+  charCode: number,
   code: string,
+  composed: boolean,
+  ctrlKey: boolean,
+  detail: number,
   isComposing: boolean,
   key: string,
+  keyCode: number,
   location: number,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
   repeat: boolean,
+  shiftKey: boolean,
+  sourceCapabilities: InputDeviceCapabilities | null,
+  view: Window | null,
 };
 
 type MouseEventInit = {
+  altKey: boolean,
   button: number,
   buttons: number,
   clientX: number,
   clientY: number,
+  ctrlKey: boolean,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
+  movementX: number,
+  movementY: number,
   relatedTarget: EventTarget | null,
   screenX: number,
   screenY: number,
+  shiftKey: boolean,
 };
 
 type UIEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   detail: number,
+  sourceCapabilities: InputDeviceCapabilities | null,
   view: Window | null,
+  which: number,
 };
 
 type WheelEventInit = {
+  altKey: boolean,
+  button: number,
+  buttons: number,
+  clientX: number,
+  clientY: number,
+  ctrlKey: boolean,
   deltaMode: number,
   deltaX: number,
   deltaY: number,
   deltaZ: number,
+  metaKey: boolean,
+  modifierAltGraph: boolean,
+  modifierCapsLock: boolean,
+  modifierFn: boolean,
+  modifierFnLock: boolean,
+  modifierHyper: boolean,
+  modifierNumLock: boolean,
+  modifierScrollLock: boolean,
+  modifierSuper: boolean,
+  modifierSymbol: boolean,
+  modifierSymbolLock: boolean,
+  movementX: number,
+  movementY: number,
+  relatedTarget: EventTarget | null,
+  screenX: number,
+  screenY: number,
+  shiftKey: boolean,
 };
 
 declare class CompositionEvent extends UIEvent {
   +data: string;
 
   constructor(type: string, eventInitDict?: CompositionEventInit): void;
+
+  initCompositionEvent(
+    typeArg: string,
+    bubblesArg?: boolean,
+    cancelableArg?: boolean,
+    viewArg?: WindowProxy | null,
+    dataArg?: string,
+  ): void;
 }
 
 declare class FocusEvent extends UIEvent {
@@ -12583,10 +13840,13 @@ declare class FocusEvent extends UIEvent {
 
 declare class InputEvent extends UIEvent {
   +data: string | null;
+  +dataTransfer: DataTransfer | null;
   +inputType: string;
   +isComposing: boolean;
 
   constructor(type: string, eventInitDict?: InputEventInit): void;
+
+  getTargetRanges(): Array<StaticRange>;
 }
 
 declare class KeyboardEvent extends UIEvent {
@@ -12596,10 +13856,12 @@ declare class KeyboardEvent extends UIEvent {
   static +DOM_KEY_LOCATION_STANDARD: 0x00;
 
   +altKey: boolean;
+  +charCode: number;
   +code: string;
   +ctrlKey: boolean;
   +isComposing: boolean;
   +key: string;
+  +keyCode: number;
   +location: number;
   +metaKey: boolean;
   +repeat: boolean;
@@ -12608,6 +13870,18 @@ declare class KeyboardEvent extends UIEvent {
   constructor(type: string, eventInitDict?: KeyboardEventInit): void;
 
   getModifierState(keyArg: string): boolean;
+  initKeyboardEvent(
+    typeArg: string,
+    bubblesArg?: boolean,
+    cancelableArg?: boolean,
+    viewArg?: Window | null,
+    keyArg?: string,
+    locationArg?: number,
+    ctrlKey?: boolean,
+    altKey?: boolean,
+    shiftKey?: boolean,
+    metaKey?: boolean,
+  ): void;
 }
 
 declare class MouseEvent extends UIEvent {
@@ -12620,14 +13894,39 @@ declare class MouseEvent extends UIEvent {
   +layerX: number;
   +layerY: number;
   +metaKey: boolean;
+  +movementX: number;
+  +movementY: number;
+  +offsetX: number;
+  +offsetY: number;
+  +pageX: number;
+  +pageY: number;
   +relatedTarget: EventTarget | null;
   +screenX: number;
   +screenY: number;
   +shiftKey: boolean;
+  +x: number;
+  +y: number;
 
   constructor(type: string, eventInitDict?: MouseEventInit): void;
 
   getModifierState(keyArg: string): boolean;
+  initMouseEvent(
+    typeArg: string,
+    bubblesArg?: boolean,
+    cancelableArg?: boolean,
+    viewArg?: Window | null,
+    detailArg?: number,
+    screenXArg?: number,
+    screenYArg?: number,
+    clientXArg?: number,
+    clientYArg?: number,
+    ctrlKeyArg?: boolean,
+    altKeyArg?: boolean,
+    shiftKeyArg?: boolean,
+    metaKeyArg?: boolean,
+    buttonArg?: number,
+    relatedTargetArg?: EventTarget | null,
+  ): void;
 }
 
 declare class TextEvent extends UIEvent {
@@ -12644,9 +13943,19 @@ declare class TextEvent extends UIEvent {
 
 declare class UIEvent extends Event {
   +detail: number;
+  +sourceCapabilities: InputDeviceCapabilities | null;
   +view: Window | null;
+  +which: number;
 
   constructor(type: string, eventInitDict?: UIEventInit): void;
+
+  initUIEvent(
+    typeArg: string,
+    bubblesArg?: boolean,
+    cancelableArg?: boolean,
+    viewArg?: Window | null,
+    detailArg?: number,
+  ): void;
 }
 
 declare class WheelEvent extends MouseEvent {
@@ -12681,7 +13990,9 @@ declare class URL {
   constructor(url: string, base?: string): void;
 
   static canParse(url: string, base?: string): boolean;
+  static createObjectURL(obj: Blob | MediaSource): string;
   static parse(url: string, base?: string): URL | null;
+  static revokeObjectURL(url: string): void;
   toJSON(): string;
 }
 
@@ -12928,6 +14239,7 @@ type WebAssemblyInstantiatedSource = {
 
 declare namespace WebAssembly {
   declare function compile(bytes: BufferSource): Promise<Module>;
+  declare function compileStreaming(source: Promise<Response>): Promise<Module>;
   declare function instantiate(
     bytes: BufferSource,
     importObject?: Object,
@@ -12936,6 +14248,10 @@ declare namespace WebAssembly {
     moduleObject: Module,
     importObject?: Object,
   ): Promise<Instance>;
+  declare function instantiateStreaming(
+    source: Promise<Response>,
+    importObject?: Object,
+  ): Promise<WebAssemblyInstantiatedSource>;
   declare function validate(bytes: BufferSource): boolean;
 }
 
@@ -12993,6 +14309,9 @@ type AnimationTriggerType = 'once' | 'repeat' | 'alternate' | 'state';
 type IterationCompositeOperation = 'replace' | 'accumulate';
 
 type AnimationPlaybackEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   currentTime: CSSNumberish | null,
   timelineTime: CSSNumberish | null,
 };
@@ -13111,8 +14430,21 @@ type BasePropertyIndexedKeyframe = {
 };
 
 type ComputedEffectTiming = {
+  activeDuration: CSSNumberish,
   currentIteration: number | null,
+  delay: number,
+  direction: PlaybackDirection,
+  duration: number | CSSNumericValue | string,
+  easing: string,
+  endDelay: number,
+  endTime: CSSNumberish,
+  fill: FillMode,
+  iterations: number,
+  iterationStart: number,
+  localTime: CSSNumberish | null,
+  playbackRate: number,
   progress: number | null,
+  startTime: CSSNumberish,
 };
 
 type DocumentTimelineOptions = {
@@ -13120,11 +14452,15 @@ type DocumentTimelineOptions = {
 };
 
 type EffectTiming = {
+  delay: number,
   direction: PlaybackDirection,
+  duration: number | CSSNumericValue | string,
   easing: string,
+  endDelay: number,
   fill: FillMode,
   iterations: number,
   iterationStart: number,
+  playbackRate: number,
 };
 
 type GetAnimationsOptions = {
@@ -13133,12 +14469,37 @@ type GetAnimationsOptions = {
 };
 
 type KeyframeAnimationOptions = {
+  composite: CompositeOperation,
+  delay: number,
+  direction: PlaybackDirection,
+  duration: number | CSSNumericValue | string,
+  easing: string,
+  endDelay: number,
+  fill: FillMode,
   id: string,
+  iterationComposite: IterationCompositeOperation,
+  iterations: number,
+  iterationStart: number,
+  playbackRate: number,
+  pseudoElement: string | null,
+  rangeEnd: TimelineRangeOffset | CSSNumericValue | CSSKeywordValue | string,
+  rangeStart: TimelineRangeOffset | CSSNumericValue | CSSKeywordValue | string,
   timeline: AnimationTimeline | null,
+  trigger: AnimationTrigger | null,
 };
 
 type KeyframeEffectOptions = {
   composite: CompositeOperation,
+  delay: number,
+  direction: PlaybackDirection,
+  duration: number | CSSNumericValue | string,
+  easing: string,
+  endDelay: number,
+  fill: FillMode,
+  iterationComposite: IterationCompositeOperation,
+  iterations: number,
+  iterationStart: number,
+  playbackRate: number,
   pseudoElement: string | null,
 };
 
@@ -13151,21 +14512,26 @@ type OptionalEffectTiming = {
   fill: FillMode,
   iterations: number,
   iterationStart: number,
+  playbackRate: number,
 };
 
 declare class Animation extends EventTarget {
+  currentTime: CSSNumberish | null;
   effect: AnimationEffect | null;
   +finished: Promise<Animation>;
   id: string;
   oncancel: EventHandler;
   onfinish: EventHandler;
   onremove: EventHandler;
+  +overallProgress: number | null;
   +pending: boolean;
   playbackRate: number;
   +playState: AnimationPlayState;
   +ready: Promise<Animation>;
   +replaceState: AnimationReplaceState;
+  startTime: CSSNumberish | null;
   timeline: AnimationTimeline | null;
+  trigger: AnimationTrigger | null;
 
   constructor(
     effect?: AnimationEffect | null,
@@ -13183,12 +14549,25 @@ declare class Animation extends EventTarget {
 }
 
 declare class AnimationEffect {
+  +nextSibling: AnimationEffect | null;
+  +parent: GroupEffect | null;
+  +previousSibling: AnimationEffect | null;
+
+  after(effects: AnimationEffect): void;
+  before(effects: AnimationEffect): void;
   getComputedTiming(): ComputedEffectTiming;
   getTiming(): EffectTiming;
+  remove(): void;
+  replace(effects: AnimationEffect): void;
   updateTiming(timing?: OptionalEffectTiming): void;
 }
 
-declare class AnimationTimeline {}
+declare class AnimationTimeline {
+  +currentTime: CSSNumberish | null;
+  +duration: CSSNumberish | null;
+
+  play(effect?: AnimationEffect | null): Animation;
+}
 
 declare class DocumentTimeline extends AnimationTimeline {
   constructor(options?: DocumentTimelineOptions): void;
@@ -13196,6 +14575,7 @@ declare class DocumentTimeline extends AnimationTimeline {
 
 declare class KeyframeEffect extends AnimationEffect {
   composite: CompositeOperation;
+  iterationComposite: IterationCompositeOperation;
   pseudoElement: string | null;
   target: Element | null;
 
@@ -13243,6 +14623,7 @@ type BluetoothLEScanPermissionDescriptor = {
   acceptAllAdvertisements: boolean,
   filters: Array<BluetoothLEScanFilterInit>,
   keepRepeatedDevices: boolean,
+  name: string,
 };
 
 declare class BluetoothDataFilter {
@@ -13302,6 +14683,9 @@ type AllowedBluetoothDevice = {
 
 type BluetoothAdvertisingEventInit = {
   appearance: number,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   device: BluetoothDevice,
   manufacturerData: BluetoothManufacturerDataMap,
   name: string,
@@ -13326,12 +14710,15 @@ type BluetoothLEScanFilterInit = {
 
 type BluetoothManufacturerDataFilterInit = {
   companyIdentifier: number,
+  dataPrefix: BufferSource,
+  mask: BufferSource,
 };
 
 type BluetoothPermissionDescriptor = {
   acceptAllDevices: boolean,
   deviceId: string,
   filters: Array<BluetoothLEScanFilterInit>,
+  name: string,
   optionalManufacturerData: Array<number>,
   optionalServices: Array<BluetoothServiceUUID>,
 };
@@ -13341,6 +14728,8 @@ type BluetoothPermissionStorage = {
 };
 
 type BluetoothServiceDataFilterInit = {
+  dataPrefix: BufferSource,
+  mask: BufferSource,
   service: BluetoothServiceUUID,
 };
 
@@ -13353,6 +14742,9 @@ type RequestDeviceOptions = {
 };
 
 type ValueEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   value: any,
 };
 
@@ -13373,6 +14765,7 @@ declare class Bluetooth
   getAvailability(): Promise<boolean>;
   getDevices(): Promise<Array<BluetoothDevice>>;
   requestDevice(options?: RequestDeviceOptions): Promise<BluetoothDevice>;
+  requestLEScan(options?: BluetoothLEScanOptions): Promise<BluetoothLEScan>;
 }
 
 declare class BluetoothAdvertisingEvent extends Event {
@@ -13576,6 +14969,9 @@ type NDEFMessageInit = {
 };
 
 type NDEFReadingEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   message: NDEFMessageInit,
   serialNumber: string | null,
 };
@@ -13691,6 +15087,9 @@ type OverSampleType = 'none' | '2x' | '4x';
 type PanningModelType = 'equalpower' | 'HRTF';
 
 type AnalyserOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   fftSize: number,
   maxDecibels: number,
   minDecibels: number,
@@ -13734,6 +15133,9 @@ type AudioParamDescriptor = {
 };
 
 type AudioProcessingEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   inputBuffer: AudioBuffer,
   outputBuffer: AudioBuffer,
   playbackTime: number,
@@ -13749,6 +15151,9 @@ type AudioTimestamp = {
 };
 
 type AudioWorkletNodeOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   numberOfInputs: number,
   numberOfOutputs: number,
   outputChannelCount: Array<number>,
@@ -13757,6 +15162,9 @@ type AudioWorkletNodeOptions = {
 };
 
 type BiquadFilterOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   detune: number,
   frequency: number,
   gain: number,
@@ -13765,10 +15173,16 @@ type BiquadFilterOptions = {
 };
 
 type ChannelMergerOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   numberOfInputs: number,
 };
 
 type ChannelSplitterOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   numberOfOutputs: number,
 };
 
@@ -13778,16 +15192,25 @@ type ConstantSourceOptions = {
 
 type ConvolverOptions = {
   buffer: AudioBuffer | null,
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   disableNormalization: boolean,
 };
 
 type DelayOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   delayTime: number,
   maxDelayTime: number,
 };
 
 type DynamicsCompressorOptions = {
   attack: number,
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   knee: number,
   ratio: number,
   release: number,
@@ -13795,10 +15218,16 @@ type DynamicsCompressorOptions = {
 };
 
 type GainOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   gain: number,
 };
 
 type IIRFilterOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   feedback: Array<number>,
   feedforward: Array<number>,
 };
@@ -13816,6 +15245,9 @@ type MediaStreamTrackAudioSourceOptions = {
 };
 
 type OfflineAudioCompletionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   renderedBuffer: AudioBuffer,
 };
 
@@ -13827,6 +15259,9 @@ type OfflineAudioContextOptions = {
 };
 
 type OscillatorOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   detune: number,
   frequency: number,
   periodicWave: PeriodicWave,
@@ -13834,6 +15269,9 @@ type OscillatorOptions = {
 };
 
 type PannerOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   coneInnerAngle: number,
   coneOuterAngle: number,
   coneOuterGain: number,
@@ -13855,15 +15293,22 @@ type PeriodicWaveConstraints = {
 };
 
 type PeriodicWaveOptions = {
+  disableNormalization: boolean,
   imag: Array<number>,
   real: Array<number>,
 };
 
 type StereoPannerOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   pan: number,
 };
 
 type WaveShaperOptions = {
+  channelCount: number,
+  channelCountMode: ChannelCountMode,
+  channelInterpretation: ChannelInterpretation,
   curve: Array<number>,
   oversample: OverSampleType,
 };
@@ -14378,13 +15823,47 @@ type AllAcceptedCredentialsOptions = {
   userId: Base64URLString,
 };
 
-type AuthenticationExtensionsClientInputs = {};
+type AuthenticationExtensionsClientInputs = {
+  appid: string,
+  appidExclude: string,
+  credBlob: ArrayBuffer,
+  credentialProtectionPolicy: string,
+  credProps: boolean,
+  enforceCredentialProtectionPolicy: boolean,
+  getCredBlob: boolean,
+  hmacCreateSecret: boolean,
+  hmacGetSecret: HMACGetSecretInput,
+  largeBlob: AuthenticationExtensionsLargeBlobInputs,
+  minPinLength: boolean,
+  payment: AuthenticationExtensionsPaymentInputs,
+  prf: AuthenticationExtensionsPRFInputs,
+};
 
-type AuthenticationExtensionsClientInputsJSON = {};
+type AuthenticationExtensionsClientInputsJSON = {
+  appid: string,
+  appidExclude: string,
+  credProps: boolean,
+  largeBlob: AuthenticationExtensionsLargeBlobInputsJSON,
+  prf: AuthenticationExtensionsPRFInputsJSON,
+};
 
-type AuthenticationExtensionsClientOutputs = {};
+type AuthenticationExtensionsClientOutputs = {
+  appid: boolean,
+  appidExclude: boolean,
+  credProps: CredentialPropertiesOutput,
+  hmacCreateSecret: boolean,
+  hmacGetSecret: HMACGetSecretOutput,
+  largeBlob: AuthenticationExtensionsLargeBlobOutputs,
+  prf: AuthenticationExtensionsPRFOutputs,
+};
 
-type AuthenticationExtensionsClientOutputsJSON = {};
+type AuthenticationExtensionsClientOutputsJSON = {
+  appid: boolean,
+  appidExclude: boolean,
+  credProps: CredentialPropertiesOutput,
+  largeBlob: AuthenticationExtensionsLargeBlobOutputsJSON,
+  prf: AuthenticationExtensionsPRFOutputsJSON,
+};
 
 type AuthenticationExtensionsLargeBlobInputs = {
   read: boolean,
@@ -14562,11 +16041,13 @@ type PublicKeyCredentialRequestOptionsJSON = {
 
 type PublicKeyCredentialRpEntity = {
   id: string,
+  name: string,
 };
 
 type PublicKeyCredentialUserEntity = {
   displayName: string,
   id: BufferSource,
+  name: string,
 };
 
 type PublicKeyCredentialUserEntityJSON = {
@@ -14618,7 +16099,24 @@ declare class PublicKeyCredential extends Credential {
   +rawId: ArrayBuffer;
   +response: AuthenticatorResponse;
 
+  static getClientCapabilities(): Promise<PublicKeyCredentialClientCapabilities>;
   static isConditionalMediationAvailable(): Promise<boolean>;
+  static isUserVerifyingPlatformAuthenticatorAvailable(): Promise<boolean>;
+  static parseCreationOptionsFromJSON(
+    options: PublicKeyCredentialCreationOptionsJSON,
+  ): PublicKeyCredentialCreationOptions;
+  static parseRequestOptionsFromJSON(
+    options: PublicKeyCredentialRequestOptionsJSON,
+  ): PublicKeyCredentialRequestOptions;
+  static signalAllAcceptedCredentials(
+    options: AllAcceptedCredentialsOptions,
+  ): Promise<void>;
+  static signalCurrentUserDetails(
+    options: CurrentUserDetailsOptions,
+  ): Promise<void>;
+  static signalUnknownCredential(
+    options: UnknownCredentialOptions,
+  ): Promise<void>;
   getClientExtensionResults(): AuthenticationExtensionsClientOutputs;
   toJSON(): PublicKeyCredentialJSON;
 }
@@ -15104,6 +16602,7 @@ declare class VideoFrame {
 
 type Ed448Params = {
   context: BufferSource,
+  name: string,
 };
 
 /*---------- webcrypto ----------*/
@@ -15132,29 +16631,35 @@ type KeyUsage =
 
 type AesCbcParams = {
   iv: BufferSource,
+  name: string,
 };
 
 type AesCtrParams = {
   counter: BufferSource,
   length: number,
+  name: string,
 };
 
 type AesDerivedKeyParams = {
   length: number,
+  name: string,
 };
 
 type AesGcmParams = {
   additionalData: BufferSource,
   iv: BufferSource,
+  name: string,
   tagLength: number,
 };
 
 type AesKeyAlgorithm = {
   length: number,
+  name: string,
 };
 
 type AesKeyGenParams = {
   length: number,
+  name: string,
 };
 
 type Algorithm = {
@@ -15167,44 +16672,53 @@ type CryptoKeyPair = {
 };
 
 type EcdhKeyDeriveParams = {
+  name: string,
   public: CryptoKey,
 };
 
 type EcdsaParams = {
   hash: HashAlgorithmIdentifier,
+  name: string,
 };
 
 type EcKeyAlgorithm = {
+  name: string,
   namedCurve: NamedCurve,
 };
 
 type EcKeyGenParams = {
+  name: string,
   namedCurve: NamedCurve,
 };
 
 type EcKeyImportParams = {
+  name: string,
   namedCurve: NamedCurve,
 };
 
 type HkdfParams = {
   hash: HashAlgorithmIdentifier,
   info: BufferSource,
+  name: string,
   salt: BufferSource,
 };
 
 type HmacImportParams = {
   hash: HashAlgorithmIdentifier,
   length: number,
+  name: string,
 };
 
 type HmacKeyAlgorithm = {
   hash: KeyAlgorithm,
   length: number,
+  name: string,
 };
 
 type HmacKeyGenParams = {
   hash: HashAlgorithmIdentifier,
   length: number,
+  name: string,
 };
 
 type JsonWebKey = {
@@ -15235,33 +16749,44 @@ type KeyAlgorithm = {
 type Pbkdf2Params = {
   hash: HashAlgorithmIdentifier,
   iterations: number,
+  name: string,
   salt: BufferSource,
 };
 
 type RsaHashedImportParams = {
   hash: HashAlgorithmIdentifier,
+  name: string,
 };
 
 type RsaHashedKeyAlgorithm = {
   hash: KeyAlgorithm,
+  modulusLength: number,
+  name: string,
+  publicExponent: BigInteger,
 };
 
 type RsaHashedKeyGenParams = {
   hash: HashAlgorithmIdentifier,
+  modulusLength: number,
+  name: string,
+  publicExponent: BigInteger,
 };
 
 type RsaKeyAlgorithm = {
   modulusLength: number,
+  name: string,
   publicExponent: BigInteger,
 };
 
 type RsaKeyGenParams = {
   modulusLength: number,
+  name: string,
   publicExponent: BigInteger,
 };
 
 type RsaOaepParams = {
   label: BufferSource,
+  name: string,
 };
 
 type RsaOtherPrimesInfo = {
@@ -15271,6 +16796,7 @@ type RsaOtherPrimesInfo = {
 };
 
 type RsaPssParams = {
+  name: string,
   saltLength: number,
 };
 
@@ -15420,9 +16946,13 @@ type WebGLContextAttributes = {
   premultipliedAlpha: boolean,
   preserveDrawingBuffer: boolean,
   stencil: boolean,
+  xrCompatible: boolean,
 };
 
 type WebGLContextEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   statusMessage: string,
 };
 
@@ -15931,6 +17461,7 @@ declare class mixin$WebGLRenderingContextBase {
   isTexture(texture: WebGLTexture | null): GLboolean;
   lineWidth(width: GLfloat): void;
   linkProgram(program: WebGLProgram): void;
+  makeXRCompatible(): Promise<void>;
   pixelStorei(pname: GLenum, param: GLint): void;
   polygonOffset(factor: GLfloat, units: GLfloat): void;
   renderbufferStorage(
@@ -17484,6 +19015,7 @@ type GPUVertexStepMode = 'vertex' | 'instance';
 
 type GPUBindGroupDescriptor = {
   entries: Array<GPUBindGroupEntry>,
+  label: string,
   layout: GPUBindGroupLayout,
 };
 
@@ -17494,6 +19026,7 @@ type GPUBindGroupEntry = {
 
 type GPUBindGroupLayoutDescriptor = {
   entries: Array<GPUBindGroupLayoutEntry>,
+  label: string,
 };
 
 type GPUBindGroupLayoutEntry = {
@@ -17530,6 +19063,7 @@ type GPUBufferBindingLayout = {
 };
 
 type GPUBufferDescriptor = {
+  label: string,
   mappedAtCreation: boolean,
   size: GPUSize64,
   usage: GPUBufferUsageFlags,
@@ -17562,11 +19096,16 @@ type GPUColorTargetState = {
   writeMask: GPUColorWriteFlags,
 };
 
-type GPUCommandBufferDescriptor = {};
+type GPUCommandBufferDescriptor = {
+  label: string,
+};
 
-type GPUCommandEncoderDescriptor = {};
+type GPUCommandEncoderDescriptor = {
+  label: string,
+};
 
 type GPUComputePassDescriptor = {
+  label: string,
   timestampWrites: GPUComputePassTimestampWrites,
 };
 
@@ -17578,11 +19117,17 @@ type GPUComputePassTimestampWrites = {
 
 type GPUComputePipelineDescriptor = {
   compute: GPUProgrammableStage,
+  label: string,
+  layout: GPUPipelineLayout | GPUAutoLayoutMode,
 };
 
 type GPUCopyExternalImageDestInfo = {
+  aspect: GPUTextureAspect,
   colorSpace: PredefinedColorSpace,
+  mipLevel: GPUIntegerCoordinate,
+  origin: GPUOrigin3D,
   premultipliedAlpha: boolean,
+  texture: GPUTexture,
 };
 
 type GPUCopyExternalImageSourceInfo = {
@@ -17606,6 +19151,7 @@ type GPUDepthStencilState = {
 
 type GPUDeviceDescriptor = {
   defaultQueue: GPUQueueDescriptor,
+  label: string,
   requiredFeatures: Array<GPUFeatureName>,
   requiredLimits: {[string]: GPUSize64 | void},
 };
@@ -17620,10 +19166,14 @@ type GPUExternalTextureBindingLayout = {};
 
 type GPUExternalTextureDescriptor = {
   colorSpace: PredefinedColorSpace,
+  label: string,
   source: HTMLVideoElement | VideoFrame,
 };
 
 type GPUFragmentState = {
+  constants: {[string]: GPUPipelineConstantValue},
+  entryPoint: string,
+  module: GPUShaderModule,
   targets: Array<GPUColorTargetState | null>,
 };
 
@@ -17649,6 +19199,7 @@ type GPUOrigin3DDict = {
 };
 
 type GPUPipelineDescriptorBase = {
+  label: string,
   layout: GPUPipelineLayout | GPUAutoLayoutMode,
 };
 
@@ -17658,6 +19209,7 @@ type GPUPipelineErrorInit = {
 
 type GPUPipelineLayoutDescriptor = {
   bindGroupLayouts: Array<GPUBindGroupLayout | null>,
+  label: string,
 };
 
 type GPUPrimitiveState = {
@@ -17676,15 +19228,24 @@ type GPUProgrammableStage = {
 
 type GPUQuerySetDescriptor = {
   count: GPUSize32,
+  label: string,
   type: GPUQueryType,
 };
 
-type GPUQueueDescriptor = {};
+type GPUQueueDescriptor = {
+  label: string,
+};
 
-type GPURenderBundleDescriptor = {};
+type GPURenderBundleDescriptor = {
+  label: string,
+};
 
 type GPURenderBundleEncoderDescriptor = {
+  colorFormats: Array<GPUTextureFormat | null>,
   depthReadOnly: boolean,
+  depthStencilFormat: GPUTextureFormat,
+  label: string,
+  sampleCount: GPUSize32,
   stencilReadOnly: boolean,
 };
 
@@ -17712,6 +19273,7 @@ type GPURenderPassDepthStencilAttachment = {
 type GPURenderPassDescriptor = {
   colorAttachments: Array<GPURenderPassColorAttachment | null>,
   depthStencilAttachment: GPURenderPassDepthStencilAttachment,
+  label: string,
   maxDrawCount: GPUSize64,
   occlusionQuerySet: GPUQuerySet,
   timestampWrites: GPURenderPassTimestampWrites,
@@ -17720,6 +19282,7 @@ type GPURenderPassDescriptor = {
 type GPURenderPassLayout = {
   colorFormats: Array<GPUTextureFormat | null>,
   depthStencilFormat: GPUTextureFormat,
+  label: string,
   sampleCount: GPUSize32,
 };
 
@@ -17732,6 +19295,8 @@ type GPURenderPassTimestampWrites = {
 type GPURenderPipelineDescriptor = {
   depthStencil: GPUDepthStencilState,
   fragment: GPUFragmentState,
+  label: string,
+  layout: GPUPipelineLayout | GPUAutoLayoutMode,
   multisample: GPUMultisampleState,
   primitive: GPUPrimitiveState,
   vertex: GPUVertexState,
@@ -17753,6 +19318,7 @@ type GPUSamplerDescriptor = {
   addressModeV: GPUAddressMode,
   addressModeW: GPUAddressMode,
   compare: GPUCompareFunction,
+  label: string,
   lodMaxClamp: number,
   lodMinClamp: number,
   magFilter: GPUFilterMode,
@@ -17769,6 +19335,7 @@ type GPUShaderModuleCompilationHint = {
 type GPUShaderModuleDescriptor = {
   code: string,
   compilationHints: Array<GPUShaderModuleCompilationHint>,
+  label: string,
 };
 
 type GPUStencilFaceState = {
@@ -17786,6 +19353,9 @@ type GPUStorageTextureBindingLayout = {
 
 type GPUTexelCopyBufferInfo = {
   buffer: GPUBuffer,
+  bytesPerRow: GPUSize32,
+  offset: GPUSize64,
+  rowsPerImage: GPUSize32,
 };
 
 type GPUTexelCopyBufferLayout = {
@@ -17810,6 +19380,7 @@ type GPUTextureBindingLayout = {
 type GPUTextureDescriptor = {
   dimension: GPUTextureDimension,
   format: GPUTextureFormat,
+  label: string,
   mipLevelCount: GPUIntegerCoordinate,
   sampleCount: GPUSize32,
   size: GPUExtent3D,
@@ -17824,11 +19395,15 @@ type GPUTextureViewDescriptor = {
   baseMipLevel: GPUIntegerCoordinate,
   dimension: GPUTextureViewDimension,
   format: GPUTextureFormat,
+  label: string,
   mipLevelCount: GPUIntegerCoordinate,
   usage: GPUTextureUsageFlags,
 };
 
 type GPUUncapturedErrorEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   error: GPUError,
 };
 
@@ -17846,6 +19421,9 @@ type GPUVertexBufferLayout = {
 
 type GPUVertexState = {
   buffers: Array<GPUVertexBufferLayout | null>,
+  constants: {[string]: GPUPipelineConstantValue},
+  entryPoint: string,
+  module: GPUShaderModule,
 };
 
 declare namespace GPUBufferUsage {
@@ -18033,6 +19611,8 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   +adapterInfo: GPUAdapterInfo;
   +features: GPUSupportedFeatures;
   +limits: GPUSupportedLimits;
+  +lost: Promise<GPUDeviceLostInfo>;
+  onuncapturederror: EventHandler;
   +queue: GPUQueue;
 
   createBindGroup(descriptor: GPUBindGroupDescriptor): GPUBindGroup;
@@ -18069,6 +19649,8 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   importExternalTexture(
     descriptor: GPUExternalTextureDescriptor,
   ): GPUExternalTexture;
+  popErrorScope(): Promise<GPUError | null>;
+  pushErrorScope(filter: GPUErrorFilter): void;
 }
 
 declare class GPUDeviceLostInfo {
@@ -18338,6 +19920,9 @@ type HIDCollectionInfo = {
 };
 
 type HIDConnectionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   device: HIDDevice,
 };
 
@@ -18354,6 +19939,9 @@ type HIDDeviceRequestOptions = {
 };
 
 type HIDInputReportEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   data: DataView,
   device: HIDDevice,
   reportId: number,
@@ -18504,10 +20092,16 @@ type MIDIPortDeviceState = 'disconnected' | 'connected';
 type MIDIPortType = 'input' | 'output';
 
 type MIDIConnectionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   port: MIDIPort,
 };
 
 type MIDIMessageEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   data: Uint8Array,
 };
 
@@ -18517,6 +20111,7 @@ type MIDIOptions = {
 };
 
 type MidiPermissionDescriptor = {
+  name: string,
   sysex: boolean,
 };
 
@@ -18610,6 +20205,7 @@ type MLRoundingType = 'floor' | 'ceil';
 
 type MLArgMinMaxOptions = {
   keepDimensions: boolean,
+  label: string,
   outputDataType: MLOperandDataType,
 };
 
@@ -18617,6 +20213,7 @@ type MLBatchNormalizationOptions = {
   axis: number,
   bias: MLOperand,
   epsilon: number,
+  label: string,
   scale: MLOperand,
 };
 
@@ -18636,6 +20233,7 @@ type MLBinarySupportLimits = {
 };
 
 type MLClampOptions = {
+  label: string,
   maxValue: MLNumber,
   minValue: MLNumber,
 };
@@ -18659,6 +20257,7 @@ type MLConv2dOptions = {
   filterLayout: MLConv2dFilterOperandLayout,
   groups: number,
   inputLayout: MLInputOperandLayout,
+  label: string,
   padding: Array<number>,
   strides: Array<number>,
 };
@@ -18676,6 +20275,7 @@ type MLConvTranspose2dOptions = {
   filterLayout: MLConvTranspose2dFilterOperandLayout,
   groups: number,
   inputLayout: MLInputOperandLayout,
+  label: string,
   outputPadding: Array<number>,
   outputSizes: Array<number>,
   padding: Array<number>,
@@ -18684,6 +20284,7 @@ type MLConvTranspose2dOptions = {
 
 type MLCumulativeSumOptions = {
   exclusive: boolean,
+  label: string,
   reversed: boolean,
 };
 
@@ -18693,10 +20294,12 @@ type MLDataTypeLimits = {
 
 type MLEluOptions = {
   alpha: number,
+  label: string,
 };
 
 type MLGatherOptions = {
   axis: number,
+  label: string,
 };
 
 type MLGatherSupportLimits = {
@@ -18711,6 +20314,7 @@ type MLGemmOptions = {
   beta: number,
   bTranspose: boolean,
   c: MLOperand,
+  label: string,
 };
 
 type MLGemmSupportLimits = {
@@ -18723,6 +20327,7 @@ type MLGemmSupportLimits = {
 type MLGruCellOptions = {
   activations: Array<MLRecurrentNetworkActivation>,
   bias: MLOperand,
+  label: string,
   layout: MLGruWeightLayout,
   recurrentBias: MLOperand,
   resetAfter: boolean,
@@ -18743,6 +20348,7 @@ type MLGruOptions = {
   bias: MLOperand,
   direction: MLRecurrentNetworkDirection,
   initialHiddenState: MLOperand,
+  label: string,
   layout: MLGruWeightLayout,
   recurrentBias: MLOperand,
   resetAfter: boolean,
@@ -18762,11 +20368,13 @@ type MLGruSupportLimits = {
 type MLHardSigmoidOptions = {
   alpha: number,
   beta: number,
+  label: string,
 };
 
 type MLInstanceNormalizationOptions = {
   bias: MLOperand,
   epsilon: number,
+  label: string,
   layout: MLInputOperandLayout,
   scale: MLOperand,
 };
@@ -18775,16 +20383,19 @@ type MLLayerNormalizationOptions = {
   axes: Array<number>,
   bias: MLOperand,
   epsilon: number,
+  label: string,
   scale: MLOperand,
 };
 
 type MLLeakyReluOptions = {
   alpha: number,
+  label: string,
 };
 
 type MLLinearOptions = {
   alpha: number,
   beta: number,
+  label: string,
 };
 
 type MLLogicalNotSupportLimits = {
@@ -18795,6 +20406,7 @@ type MLLogicalNotSupportLimits = {
 type MLLstmCellOptions = {
   activations: Array<MLRecurrentNetworkActivation>,
   bias: MLOperand,
+  label: string,
   layout: MLLstmWeightLayout,
   peepholeWeight: MLOperand,
   recurrentBias: MLOperand,
@@ -18818,6 +20430,7 @@ type MLLstmOptions = {
   direction: MLRecurrentNetworkDirection,
   initialCellState: MLOperand,
   initialHiddenState: MLOperand,
+  label: string,
   layout: MLLstmWeightLayout,
   peepholeWeight: MLOperand,
   recurrentBias: MLOperand,
@@ -18853,20 +20466,114 @@ type MLOperatorOptions = {
 };
 
 type MLOpSupportLimits = {
+  abs: MLSingleInputSupportLimits,
+  add: MLBinarySupportLimits,
+  argMax: MLSingleInputSupportLimits,
+  argMin: MLSingleInputSupportLimits,
+  averagePool2d: MLSingleInputSupportLimits,
+  batchNormalization: MLBatchNormalizationSupportLimits,
+  cast: MLSingleInputSupportLimits,
+  ceil: MLSingleInputSupportLimits,
+  clamp: MLSingleInputSupportLimits,
+  concat: MLConcatSupportLimits,
   constant: MLDataTypeLimits,
+  conv2d: MLConv2dSupportLimits,
+  convTranspose2d: MLConv2dSupportLimits,
+  cos: MLSingleInputSupportLimits,
+  cumulativeSum: MLSingleInputSupportLimits,
+  dequantizeLinear: MLQuantizeDequantizeLinearSupportLimits,
+  div: MLBinarySupportLimits,
+  elu: MLSingleInputSupportLimits,
+  equal: MLBinarySupportLimits,
+  erf: MLSingleInputSupportLimits,
+  exp: MLSingleInputSupportLimits,
+  expand: MLSingleInputSupportLimits,
+  floor: MLSingleInputSupportLimits,
+  gather: MLGatherSupportLimits,
+  gatherElements: MLGatherSupportLimits,
+  gatherND: MLGatherSupportLimits,
+  gelu: MLSingleInputSupportLimits,
+  gemm: MLGemmSupportLimits,
+  greater: MLBinarySupportLimits,
+  greaterOrEqual: MLBinarySupportLimits,
+  gru: MLGruSupportLimits,
+  gruCell: MLGruCellSupportLimits,
+  hardSigmoid: MLSingleInputSupportLimits,
+  hardSwish: MLSingleInputSupportLimits,
+  identity: MLSingleInputSupportLimits,
   input: MLDataTypeLimits,
+  instanceNormalization: MLNormalizationSupportLimits,
+  l2Pool2d: MLSingleInputSupportLimits,
+  layerNormalization: MLNormalizationSupportLimits,
+  leakyRelu: MLSingleInputSupportLimits,
+  lesser: MLBinarySupportLimits,
+  lesserOrEqual: MLBinarySupportLimits,
+  linear: MLSingleInputSupportLimits,
+  log: MLSingleInputSupportLimits,
+  logicalAnd: MLBinarySupportLimits,
+  logicalNot: MLLogicalNotSupportLimits,
+  logicalOr: MLBinarySupportLimits,
+  logicalXor: MLBinarySupportLimits,
+  lstm: MLLstmSupportLimits,
+  lstmCell: MLLstmCellSupportLimits,
+  matmul: MLBinarySupportLimits,
+  max: MLBinarySupportLimits,
+  maxPool2d: MLSingleInputSupportLimits,
   maxTensorByteLength: number,
+  min: MLBinarySupportLimits,
+  mul: MLBinarySupportLimits,
+  neg: MLSingleInputSupportLimits,
+  notEqual: MLBinarySupportLimits,
   output: MLDataTypeLimits,
+  pad: MLSingleInputSupportLimits,
+  pow: MLBinarySupportLimits,
   preferredInputLayout: MLInputOperandLayout,
+  prelu: MLPreluSupportLimits,
+  quantizeLinear: MLQuantizeDequantizeLinearSupportLimits,
+  reciprocal: MLSingleInputSupportLimits,
+  reduceL1: MLSingleInputSupportLimits,
+  reduceL2: MLSingleInputSupportLimits,
+  reduceLogSum: MLSingleInputSupportLimits,
+  reduceLogSumExp: MLSingleInputSupportLimits,
+  reduceMax: MLSingleInputSupportLimits,
+  reduceMean: MLSingleInputSupportLimits,
+  reduceMin: MLSingleInputSupportLimits,
+  reduceProduct: MLSingleInputSupportLimits,
+  reduceSum: MLSingleInputSupportLimits,
+  reduceSumSquare: MLSingleInputSupportLimits,
+  relu: MLSingleInputSupportLimits,
+  resample2d: MLSingleInputSupportLimits,
+  reshape: MLSingleInputSupportLimits,
+  reverse: MLSingleInputSupportLimits,
+  scatterElements: MLScatterSupportLimits,
+  scatterND: MLScatterSupportLimits,
+  sigmoid: MLSingleInputSupportLimits,
+  sign: MLSingleInputSupportLimits,
+  sin: MLSingleInputSupportLimits,
+  slice: MLSingleInputSupportLimits,
+  softmax: MLSingleInputSupportLimits,
+  softplus: MLSingleInputSupportLimits,
+  softsign: MLSingleInputSupportLimits,
+  split: MLSplitSupportLimits,
+  sqrt: MLSingleInputSupportLimits,
+  sub: MLBinarySupportLimits,
+  tan: MLSingleInputSupportLimits,
+  tanh: MLSingleInputSupportLimits,
+  tile: MLSingleInputSupportLimits,
+  transpose: MLSingleInputSupportLimits,
+  triangular: MLSingleInputSupportLimits,
+  where: MLWhereSupportLimits,
 };
 
 type MLPadOptions = {
+  label: string,
   mode: MLPaddingMode,
   value: MLNumber,
 };
 
 type MLPool2dOptions = {
   dilations: Array<number>,
+  label: string,
   layout: MLInputOperandLayout,
   outputSizes: Array<number>,
   padding: Array<number>,
@@ -18896,10 +20603,12 @@ type MLRankRange = {
 type MLReduceOptions = {
   axes: Array<number>,
   keepDimensions: boolean,
+  label: string,
 };
 
 type MLResample2dOptions = {
   axes: Array<number>,
+  label: string,
   mode: MLInterpolationMode,
   scales: Array<number>,
   sizes: Array<number>,
@@ -18907,10 +20616,12 @@ type MLResample2dOptions = {
 
 type MLReverseOptions = {
   axes: Array<number>,
+  label: string,
 };
 
 type MLScatterOptions = {
   axis: number,
+  label: string,
 };
 
 type MLScatterSupportLimits = {
@@ -18926,11 +20637,13 @@ type MLSingleInputSupportLimits = {
 };
 
 type MLSliceOptions = {
+  label: string,
   strides: Array<number>,
 };
 
 type MLSplitOptions = {
   axis: number,
+  label: string,
 };
 
 type MLSplitSupportLimits = {
@@ -18939,7 +20652,9 @@ type MLSplitSupportLimits = {
 };
 
 type MLTensorDescriptor = {
+  dataType: MLOperandDataType,
   readable: boolean,
+  shape: Array<number>,
   writable: boolean,
 };
 
@@ -18949,11 +20664,13 @@ type MLTensorLimits = {
 };
 
 type MLTransposeOptions = {
+  label: string,
   permutation: Array<number>,
 };
 
 type MLTriangularOptions = {
   diagonal: number,
+  label: string,
   upper: boolean,
 };
 
@@ -18999,14 +20716,261 @@ declare class MLGraph {
 declare class MLGraphBuilder {
   constructor(context: MLContext): void;
 
+  abs(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  add(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  argMax(
+    input: MLOperand,
+    axis: number,
+    options?: MLArgMinMaxOptions,
+  ): MLOperand;
+  argMin(
+    input: MLOperand,
+    axis: number,
+    options?: MLArgMinMaxOptions,
+  ): MLOperand;
+  averagePool2d(input: MLOperand, options?: MLPool2dOptions): MLOperand;
+  batchNormalization(
+    input: MLOperand,
+    mean: MLOperand,
+    variance: MLOperand,
+    options?: MLBatchNormalizationOptions,
+  ): MLOperand;
   build(outputs: MLNamedOperands): Promise<MLGraph>;
+  cast(
+    input: MLOperand,
+    type: MLOperandDataType,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  ceil(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  clamp(input: MLOperand, options?: MLClampOptions): MLOperand;
+  concat(
+    inputs: Array<MLOperand>,
+    axis: number,
+    options?: MLOperatorOptions,
+  ): MLOperand;
   constant(
     descriptor: MLOperandDescriptor,
     buffer: AllowSharedBufferSource,
   ): MLOperand;
   constant(type: MLOperandDataType, value: MLNumber): MLOperand;
   constant(tensor: MLTensor): MLOperand;
+  conv2d(
+    input: MLOperand,
+    filter: MLOperand,
+    options?: MLConv2dOptions,
+  ): MLOperand;
+  convTranspose2d(
+    input: MLOperand,
+    filter: MLOperand,
+    options?: MLConvTranspose2dOptions,
+  ): MLOperand;
+  cos(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  cumulativeSum(
+    input: MLOperand,
+    axis: number,
+    options?: MLCumulativeSumOptions,
+  ): MLOperand;
+  dequantizeLinear(
+    input: MLOperand,
+    scale: MLOperand,
+    zeroPoint: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  div(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  elu(input: MLOperand, options?: MLEluOptions): MLOperand;
+  equal(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  erf(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  exp(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  expand(
+    input: MLOperand,
+    newShape: Array<number>,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  floor(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  gather(
+    input: MLOperand,
+    indices: MLOperand,
+    options?: MLGatherOptions,
+  ): MLOperand;
+  gatherElements(
+    input: MLOperand,
+    indices: MLOperand,
+    options?: MLGatherOptions,
+  ): MLOperand;
+  gatherND(
+    input: MLOperand,
+    indices: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  gelu(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  gemm(a: MLOperand, b: MLOperand, options?: MLGemmOptions): MLOperand;
+  greater(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  greaterOrEqual(
+    a: MLOperand,
+    b: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  gru(
+    input: MLOperand,
+    weight: MLOperand,
+    recurrentWeight: MLOperand,
+    steps: number,
+    hiddenSize: number,
+    options?: MLGruOptions,
+  ): Array<MLOperand>;
+  gruCell(
+    input: MLOperand,
+    weight: MLOperand,
+    recurrentWeight: MLOperand,
+    hiddenState: MLOperand,
+    hiddenSize: number,
+    options?: MLGruCellOptions,
+  ): MLOperand;
+  hardSigmoid(input: MLOperand, options?: MLHardSigmoidOptions): MLOperand;
+  hardSwish(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  identity(input: MLOperand, options?: MLOperatorOptions): MLOperand;
   input(name: string, descriptor: MLOperandDescriptor): MLOperand;
+  instanceNormalization(
+    input: MLOperand,
+    options?: MLInstanceNormalizationOptions,
+  ): MLOperand;
+  l2Pool2d(input: MLOperand, options?: MLPool2dOptions): MLOperand;
+  layerNormalization(
+    input: MLOperand,
+    options?: MLLayerNormalizationOptions,
+  ): MLOperand;
+  leakyRelu(input: MLOperand, options?: MLLeakyReluOptions): MLOperand;
+  lesser(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  lesserOrEqual(
+    a: MLOperand,
+    b: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  linear(input: MLOperand, options?: MLLinearOptions): MLOperand;
+  log(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  logicalAnd(
+    a: MLOperand,
+    b: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  logicalNot(a: MLOperand, options?: MLOperatorOptions): MLOperand;
+  logicalOr(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  logicalXor(
+    a: MLOperand,
+    b: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  lstm(
+    input: MLOperand,
+    weight: MLOperand,
+    recurrentWeight: MLOperand,
+    steps: number,
+    hiddenSize: number,
+    options?: MLLstmOptions,
+  ): Array<MLOperand>;
+  lstmCell(
+    input: MLOperand,
+    weight: MLOperand,
+    recurrentWeight: MLOperand,
+    hiddenState: MLOperand,
+    cellState: MLOperand,
+    hiddenSize: number,
+    options?: MLLstmCellOptions,
+  ): Array<MLOperand>;
+  matmul(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  max(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  maxPool2d(input: MLOperand, options?: MLPool2dOptions): MLOperand;
+  min(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  mul(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  neg(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  notEqual(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  pad(
+    input: MLOperand,
+    beginningPadding: Array<number>,
+    endingPadding: Array<number>,
+    options?: MLPadOptions,
+  ): MLOperand;
+  pow(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  prelu(
+    input: MLOperand,
+    slope: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  quantizeLinear(
+    input: MLOperand,
+    scale: MLOperand,
+    zeroPoint: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  reciprocal(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  reduceL1(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  reduceL2(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  reduceLogSum(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  reduceLogSumExp(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  reduceMax(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  reduceMean(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  reduceMin(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  reduceProduct(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  reduceSum(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  reduceSumSquare(input: MLOperand, options?: MLReduceOptions): MLOperand;
+  relu(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  resample2d(input: MLOperand, options?: MLResample2dOptions): MLOperand;
+  reshape(
+    input: MLOperand,
+    newShape: Array<number>,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  reverse(input: MLOperand, options?: MLReverseOptions): MLOperand;
+  scatterElements(
+    input: MLOperand,
+    indices: MLOperand,
+    updates: MLOperand,
+    options?: MLScatterOptions,
+  ): MLOperand;
+  scatterND(
+    input: MLOperand,
+    indices: MLOperand,
+    updates: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  sigmoid(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  sign(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  sin(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  slice(
+    input: MLOperand,
+    starts: Array<number>,
+    sizes: Array<number>,
+    options?: MLSliceOptions,
+  ): MLOperand;
+  softmax(
+    input: MLOperand,
+    axis: number,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  softplus(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  softsign(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  split(
+    input: MLOperand,
+    splits: number | Array<number>,
+    options?: MLSplitOptions,
+  ): Array<MLOperand>;
+  sqrt(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  sub(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
+  tan(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  tanh(input: MLOperand, options?: MLOperatorOptions): MLOperand;
+  tile(
+    input: MLOperand,
+    repetitions: Array<number>,
+    options?: MLOperatorOptions,
+  ): MLOperand;
+  transpose(input: MLOperand, options?: MLTransposeOptions): MLOperand;
+  triangular(input: MLOperand, options?: MLTriangularOptions): MLOperand;
+  where(
+    condition: MLOperand,
+    trueValue: MLOperand,
+    falseValue: MLOperand,
+    options?: MLOperatorOptions,
+  ): MLOperand;
 }
 
 declare class MLOperand {
@@ -19081,6 +21045,9 @@ type RTCEncodedVideoFrameOptions = {
 };
 
 type SFrameTransformErrorEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   errorType: SFrameTransformErrorEventType,
   frame: any,
   keyID: CryptoKeyID | null,
@@ -19261,47 +21228,64 @@ type RTCStatsType =
   | 'certificate';
 
 type RTCAudioPlayoutStats = {
+  id: string,
   kind: string,
   synthesizedSamplesDuration: number,
   synthesizedSamplesEvents: number,
+  timestamp: number,
   totalPlayoutDelay: number,
   totalSamplesCount: number,
   totalSamplesDuration: number,
+  type: RTCStatsType,
 };
 
 type RTCAudioSourceStats = {
   audioLevel: number,
   echoReturnLoss: number,
   echoReturnLossEnhancement: number,
+  id: string,
+  kind: string,
+  timestamp: number,
   totalAudioEnergy: number,
   totalSamplesDuration: number,
+  trackIdentifier: string,
+  type: RTCStatsType,
 };
 
 type RTCCertificateStats = {
   base64Certificate: string,
   fingerprint: string,
   fingerprintAlgorithm: string,
+  id: string,
   issuerCertificateId: string,
+  timestamp: number,
+  type: RTCStatsType,
 };
 
 type RTCCodecStats = {
   channels: number,
   clockRate: number,
+  id: string,
   mimeType: string,
   payloadType: number,
   sdpFmtpLine: string,
+  timestamp: number,
   transportId: string,
+  type: RTCStatsType,
 };
 
 type RTCDataChannelStats = {
   bytesReceived: number,
   bytesSent: number,
   dataChannelIdentifier: number,
+  id: string,
   label: string,
   messagesReceived: number,
   messagesSent: number,
   protocol: string,
   state: RTCDataChannelState,
+  timestamp: number,
+  type: RTCStatsType,
 };
 
 type RTCIceCandidatePairStats = {
@@ -19312,6 +21296,7 @@ type RTCIceCandidatePairStats = {
   bytesSent: number,
   consentRequestsSent: number,
   currentRoundTripTime: number,
+  id: string,
   lastPacketReceivedTimestamp: number,
   lastPacketSentTimestamp: number,
   localCandidateId: string,
@@ -19325,14 +21310,17 @@ type RTCIceCandidatePairStats = {
   responsesReceived: number,
   responsesSent: number,
   state: RTCStatsIceCandidatePairState,
+  timestamp: number,
   totalRoundTripTime: number,
   transportId: string,
+  type: RTCStatsType,
 };
 
 type RTCIceCandidateStats = {
   address: string | null,
   candidateType: RTCIceCandidateType,
   foundation: string,
+  id: string,
   port: number,
   priority: number,
   protocol: string,
@@ -19340,7 +21328,9 @@ type RTCIceCandidateStats = {
   relatedPort: number,
   relayProtocol: RTCIceServerTransportProtocol,
   tcpType: RTCIceTcpCandidateType,
+  timestamp: number,
   transportId: string,
+  type: RTCStatsType,
   url: string,
   usernameFragment: string,
 };
@@ -19348,6 +21338,7 @@ type RTCIceCandidateStats = {
 type RTCInboundRtpStreamStats = {
   audioLevel: number,
   bytesReceived: number,
+  codecId: string,
   concealedSamples: number,
   concealmentEvents: number,
   corruptionMeasurements: number,
@@ -19368,16 +21359,25 @@ type RTCInboundRtpStreamStats = {
   frameWidth: number,
   freezeCount: number,
   headerBytesReceived: number,
+  id: string,
   insertedSamplesForDeceleration: number,
+  jitter: number,
   jitterBufferDelay: number,
   jitterBufferEmittedCount: number,
   jitterBufferMinimumDelay: number,
   jitterBufferTargetDelay: number,
   keyFramesDecoded: number,
+  kind: string,
   lastPacketReceivedTimestamp: number,
   mid: string,
   nackCount: number,
   packetsDiscarded: number,
+  packetsLost: number,
+  packetsReceived: number,
+  packetsReceivedWithCe: number,
+  packetsReceivedWithEct1: number,
+  packetsReportedAsLost: number,
+  packetsReportedAsLostButRecovered: number,
   pauseCount: number,
   playoutId: string,
   pliCount: number,
@@ -19389,6 +21389,8 @@ type RTCInboundRtpStreamStats = {
   retransmittedPacketsReceived: number,
   rtxSsrc: number,
   silentConcealedSamples: number,
+  ssrc: number,
+  timestamp: number,
   totalAssemblyTime: number,
   totalAudioEnergy: number,
   totalCorruptionProbability: number,
@@ -19402,15 +21404,22 @@ type RTCInboundRtpStreamStats = {
   totalSquaredCorruptionProbability: number,
   totalSquaredInterFrameDelay: number,
   trackIdentifier: string,
+  transportId: string,
+  type: RTCStatsType,
 };
 
 type RTCMediaSourceStats = {
+  id: string,
   kind: string,
+  timestamp: number,
   trackIdentifier: string,
+  type: RTCStatsType,
 };
 
 type RTCOutboundRtpStreamStats = {
   active: boolean,
+  bytesSent: number,
+  codecId: string,
   encoderImplementation: string,
   encodingIndex: number,
   firCount: number,
@@ -19421,10 +21430,14 @@ type RTCOutboundRtpStreamStats = {
   frameWidth: number,
   headerBytesSent: number,
   hugeFramesSent: number,
+  id: string,
   keyFramesEncoded: number,
+  kind: string,
   mediaSourceId: string,
   mid: string,
   nackCount: number,
+  packetsSent: number,
+  packetsSentWithEct1: number,
   pliCount: number,
   powerEfficientEncoder: boolean,
   qpSum: number,
@@ -19437,56 +21450,104 @@ type RTCOutboundRtpStreamStats = {
   rid: string,
   rtxSsrc: number,
   scalabilityMode: string,
+  ssrc: number,
   targetBitrate: number,
+  timestamp: number,
   totalEncodedBytesTarget: number,
   totalEncodeTime: number,
   totalPacketSendDelay: number,
+  transportId: string,
+  type: RTCStatsType,
 };
 
 type RTCPeerConnectionStats = {
   dataChannelsClosed: number,
   dataChannelsOpened: number,
+  id: string,
+  timestamp: number,
+  type: RTCStatsType,
 };
 
 type RTCReceivedRtpStreamStats = {
+  codecId: string,
+  id: string,
   jitter: number,
+  kind: string,
   packetsLost: number,
   packetsReceived: number,
   packetsReceivedWithCe: number,
   packetsReceivedWithEct1: number,
   packetsReportedAsLost: number,
   packetsReportedAsLostButRecovered: number,
+  ssrc: number,
+  timestamp: number,
+  transportId: string,
+  type: RTCStatsType,
 };
 
 type RTCRemoteInboundRtpStreamStats = {
+  codecId: string,
   fractionLost: number,
+  id: string,
+  jitter: number,
+  kind: string,
   localId: string,
+  packetsLost: number,
+  packetsReceived: number,
+  packetsReceivedWithCe: number,
+  packetsReceivedWithEct1: number,
+  packetsReportedAsLost: number,
+  packetsReportedAsLostButRecovered: number,
   packetsWithBleachedEct1Marking: number,
   roundTripTime: number,
   roundTripTimeMeasurements: number,
+  ssrc: number,
+  timestamp: number,
   totalRoundTripTime: number,
+  transportId: string,
+  type: RTCStatsType,
 };
 
 type RTCRemoteOutboundRtpStreamStats = {
+  bytesSent: number,
+  codecId: string,
+  id: string,
+  kind: string,
   localId: string,
+  packetsSent: number,
+  packetsSentWithEct1: number,
   remoteTimestamp: number,
   reportsSent: number,
   roundTripTime: number,
   roundTripTimeMeasurements: number,
+  ssrc: number,
+  timestamp: number,
   totalRoundTripTime: number,
+  transportId: string,
+  type: RTCStatsType,
 };
 
 type RTCRtpStreamStats = {
   codecId: string,
+  id: string,
   kind: string,
   ssrc: number,
+  timestamp: number,
   transportId: string,
+  type: RTCStatsType,
 };
 
 type RTCSentRtpStreamStats = {
   bytesSent: number,
+  codecId: string,
+  id: string,
+  kind: string,
   packetsSent: number,
   packetsSentWithEct1: number,
+  ssrc: number,
+  timestamp: number,
+  transportId: string,
+  type: RTCStatsType,
 };
 
 type RTCTransportStats = {
@@ -19500,6 +21561,7 @@ type RTCTransportStats = {
   iceLocalUsernameFragment: string,
   iceRole: RTCIceRole,
   iceState: RTCIceTransportState,
+  id: string,
   localCertificateId: string,
   packetsReceived: number,
   packetsSent: number,
@@ -19507,13 +21569,20 @@ type RTCTransportStats = {
   selectedCandidatePairChanges: number,
   selectedCandidatePairId: string,
   srtpCipher: string,
+  timestamp: number,
   tlsVersion: string,
+  type: RTCStatsType,
 };
 
 type RTCVideoSourceStats = {
   frames: number,
   framesPerSecond: number,
   height: number,
+  id: string,
+  kind: string,
+  timestamp: number,
+  trackIdentifier: string,
+  type: RTCStatsType,
   width: number,
 };
 
@@ -19618,11 +21687,15 @@ type RTCConfiguration = {
   iceCandidatePoolSize: number,
   iceServers: Array<RTCIceServer>,
   iceTransportPolicy: RTCIceTransportPolicy,
+  peerIdentity: string,
   rtcpMuxPolicy: RTCRtcpMuxPolicy,
 };
 
 type RTCDataChannelEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   channel: RTCDataChannel,
+  composed: boolean,
 };
 
 type RTCDataChannelInit = {
@@ -19631,6 +21704,7 @@ type RTCDataChannelInit = {
   maxRetransmits: number,
   negotiated: boolean,
   ordered: boolean,
+  priority: RTCPriorityType,
   protocol: string,
 };
 
@@ -19640,15 +21714,22 @@ type RTCDtlsFingerprint = {
 };
 
 type RTCDTMFToneChangeEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   tone: string,
 };
 
 type RTCErrorEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   error: RTCError,
 };
 
 type RTCErrorInit = {
   errorDetail: RTCErrorDetailType,
+  httpRequestStatusCode: number,
   receivedAlert: number,
   sctpCauseCode: number,
   sdpLineNumber: number,
@@ -19663,6 +21744,7 @@ type RTCIceCandidateInit = {
 };
 
 type RTCIceParameters = {
+  iceLite: boolean,
   password: string,
   usernameFragment: string,
 };
@@ -19674,8 +21756,12 @@ type RTCIceServer = {
 };
 
 type RTCLocalIceCandidateInit = {
+  candidate: string,
   relayProtocol: RTCIceServerTransportProtocol | null,
+  sdpMid: string | null,
+  sdpMLineIndex: number | null,
   url: string | null,
+  usernameFragment: string | null,
 };
 
 type RTCLocalSessionDescriptionInit = {
@@ -19687,10 +21773,15 @@ type RTCOfferAnswerOptions = {};
 
 type RTCOfferOptions = {
   iceRestart: boolean,
+  offerToReceiveAudio: boolean,
+  offerToReceiveVideo: boolean,
 };
 
 type RTCPeerConnectionIceErrorEventInit = {
   address: string | null,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   errorCode: number,
   errorText: string,
   port: number | null,
@@ -19698,7 +21789,10 @@ type RTCPeerConnectionIceErrorEventInit = {
 };
 
 type RTCPeerConnectionIceEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   candidate: RTCIceCandidate | null,
+  composed: boolean,
   url: string | null,
 };
 
@@ -19720,7 +21814,11 @@ type RTCRtpCodec = {
 };
 
 type RTCRtpCodecParameters = {
+  channels: number,
+  clockRate: number,
+  mimeType: string,
   payloadType: number,
+  sdpFmtpLine: string,
 };
 
 type RTCRtpCodingParameters = {
@@ -19739,6 +21837,10 @@ type RTCRtpEncodingParameters = {
   codec: RTCRtpCodec,
   maxBitrate: number,
   maxFramerate: number,
+  networkPriority: RTCPriorityType,
+  priority: RTCPriorityType,
+  rid: string,
+  scalabilityMode: string,
   scaleResolutionDownBy: number,
 };
 
@@ -19758,14 +21860,27 @@ type RTCRtpParameters = {
   rtcp: RTCRtcpParameters,
 };
 
-type RTCRtpReceiveParameters = {};
+type RTCRtpReceiveParameters = {
+  codecs: Array<RTCRtpCodecParameters>,
+  headerExtensions: Array<RTCRtpHeaderExtensionParameters>,
+  rtcp: RTCRtcpParameters,
+};
 
 type RTCRtpSendParameters = {
+  codecs: Array<RTCRtpCodecParameters>,
+  degradationPreference: RTCDegradationPreference,
   encodings: Array<RTCRtpEncodingParameters>,
+  headerExtensions: Array<RTCRtpHeaderExtensionParameters>,
+  rtcp: RTCRtcpParameters,
   transactionId: string,
 };
 
-type RTCRtpSynchronizationSource = {};
+type RTCRtpSynchronizationSource = {
+  audioLevel: number,
+  rtpTimestamp: number,
+  source: number,
+  timestamp: number,
+};
 
 type RTCRtpTransceiverInit = {
   direction: RTCRtpTransceiverDirection,
@@ -19787,6 +21902,9 @@ type RTCStats = {
 };
 
 type RTCTrackEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   receiver: RTCRtpReceiver,
   streams: Array<MediaStream>,
   track: MediaStreamTrack,
@@ -19821,6 +21939,7 @@ declare class RTCDataChannel extends EventTarget {
   onmessage: EventHandler;
   onopen: EventHandler;
   +ordered: boolean;
+  +priority: RTCPriorityType;
   +protocol: string;
   +readyState: RTCDataChannelState;
 
@@ -19862,6 +21981,7 @@ declare class RTCDTMFToneChangeEvent extends Event {
 
 declare class RTCError extends DOMException {
   +errorDetail: RTCErrorDetailType;
+  +httpRequestStatusCode: number | null;
   +receivedAlert: number | null;
   +sctpCauseCode: number | null;
   +sdpLineNumber: number | null;
@@ -19907,17 +22027,25 @@ declare class RTCIceCandidatePair {
 declare class RTCIceTransport extends EventTarget {
   +component: RTCIceComponent;
   +gatheringState: RTCIceGathererState;
+  onerror: EventHandler;
   ongatheringstatechange: EventHandler;
+  onicecandidate: EventHandler;
   onselectedcandidatepairchange: EventHandler;
   onstatechange: EventHandler;
   +role: RTCIceRole;
   +state: RTCIceTransportState;
 
+  constructor(): void;
+
+  addRemoteCandidate(remoteCandidate?: RTCIceCandidateInit): void;
+  gather(options?: RTCIceGatherOptions): void;
   getLocalCandidates(): Array<RTCIceCandidate>;
   getLocalParameters(): RTCIceParameters | null;
   getRemoteCandidates(): Array<RTCIceCandidate>;
   getRemoteParameters(): RTCIceParameters | null;
   getSelectedCandidatePair(): RTCIceCandidatePair | null;
+  start(remoteParameters?: RTCIceParameters, role?: RTCIceRole): void;
+  stop(): void;
 }
 
 declare class RTCPeerConnection extends EventTarget {
@@ -19927,33 +22055,51 @@ declare class RTCPeerConnection extends EventTarget {
   +currentRemoteDescription: RTCSessionDescription | null;
   +iceConnectionState: RTCIceConnectionState;
   +iceGatheringState: RTCIceGatheringState;
+  +idpErrorInfo: string | null;
+  +idpLoginUrl: string | null;
   +localDescription: RTCSessionDescription | null;
   onconnectionstatechange: EventHandler;
+  ondatachannel: EventHandler;
   onicecandidate: EventHandler;
   onicecandidateerror: EventHandler;
   oniceconnectionstatechange: EventHandler;
   onicegatheringstatechange: EventHandler;
   onnegotiationneeded: EventHandler;
   onsignalingstatechange: EventHandler;
+  ontrack: EventHandler;
+  +peerIdentity: Promise<RTCIdentityAssertion>;
   +pendingLocalDescription: RTCSessionDescription | null;
   +pendingRemoteDescription: RTCSessionDescription | null;
   +remoteDescription: RTCSessionDescription | null;
+  +sctp: RTCSctpTransport | null;
   +signalingState: RTCSignalingState;
 
   constructor(configuration?: RTCConfiguration): void;
 
+  static generateCertificate(
+    keygenAlgorithm: AlgorithmIdentifier,
+  ): Promise<RTCCertificate>;
   addIceCandidate(candidate?: RTCIceCandidateInit): Promise<void>;
   addIceCandidate(
     candidate: RTCIceCandidateInit,
     successCallback: VoidFunction,
     failureCallback: RTCPeerConnectionErrorCallback,
   ): Promise<void>;
+  addTrack(track: MediaStreamTrack, streams: MediaStream): RTCRtpSender;
+  addTransceiver(
+    trackOrKind: MediaStreamTrack | string,
+    init?: RTCRtpTransceiverInit,
+  ): RTCRtpTransceiver;
   close(): void;
   createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionInit>;
   createAnswer(
     successCallback: RTCSessionDescriptionCallback,
     failureCallback: RTCPeerConnectionErrorCallback,
   ): Promise<void>;
+  createDataChannel(
+    label: string,
+    dataChannelDict?: RTCDataChannelInit,
+  ): RTCDataChannel;
   createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
   createOffer(
     successCallback: RTCSessionDescriptionCallback,
@@ -19961,8 +22107,18 @@ declare class RTCPeerConnection extends EventTarget {
     options?: RTCOfferOptions,
   ): Promise<void>;
   getConfiguration(): RTCConfiguration;
+  getIdentityAssertion(): Promise<string>;
+  getReceivers(): Array<RTCRtpReceiver>;
+  getSenders(): Array<RTCRtpSender>;
+  getStats(selector?: MediaStreamTrack | null): Promise<RTCStatsReport>;
+  getTransceivers(): Array<RTCRtpTransceiver>;
+  removeTrack(sender: RTCRtpSender): void;
   restartIce(): void;
   setConfiguration(configuration?: RTCConfiguration): void;
+  setIdentityProvider(
+    provider: string,
+    options?: RTCIdentityProviderOptions,
+  ): void;
   setLocalDescription(
     description?: RTCLocalSessionDescriptionInit,
   ): Promise<void>;
@@ -20005,6 +22161,7 @@ declare class RTCPeerConnectionIceEvent extends Event {
 declare class RTCRtpReceiver {
   jitterBufferTarget: number | null;
   +track: MediaStreamTrack;
+  transform: RTCRtpTransform | null;
   +transport: RTCDtlsTransport | null;
 
   static getCapabilities(kind: string): RTCRtpCapabilities | null;
@@ -20015,10 +22172,13 @@ declare class RTCRtpReceiver {
 }
 
 declare class RTCRtpSender {
+  +dtmf: RTCDTMFSender | null;
   +track: MediaStreamTrack | null;
+  transform: RTCRtpTransform | null;
   +transport: RTCDtlsTransport | null;
 
   static getCapabilities(kind: string): RTCRtpCapabilities | null;
+  generateKeyFrame(rids?: Array<string>): Promise<void>;
   getParameters(): RTCRtpSendParameters;
   getStats(): Promise<RTCStatsReport>;
   replaceTrack(withTrack: MediaStreamTrack | null): Promise<void>;
@@ -20073,7 +22233,10 @@ declare class RTCTrackEvent extends Event {
 type BinaryType = 'blob' | 'arraybuffer';
 
 type CloseEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
   code: number,
+  composed: boolean,
   reason: string,
   wasClean: boolean,
 };
@@ -20178,6 +22341,8 @@ type WebTransportSendOptions = {
 };
 
 type WebTransportSendStreamOptions = {
+  sendGroup: WebTransportSendGroup | null,
+  sendOrder: number,
   waitUntilAvailable: boolean,
 };
 
@@ -20289,6 +22454,9 @@ type USBBlocklistEntry = {
 };
 
 type USBConnectionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   device: USBDevice,
 };
 
@@ -20317,6 +22485,7 @@ type USBDeviceRequestOptions = {
 type USBPermissionDescriptor = {
   exclusionFilters: Array<USBDeviceFilter>,
   filters: Array<USBDeviceFilter>,
+  name: string,
 };
 
 type USBPermissionStorage = {
@@ -20653,6 +22822,7 @@ type XRTransientInputHitTestOptionsInit = {
 };
 
 declare class XRHitTestResult {
+  createAnchor(): Promise<XRAnchor>;
   getPose(baseSpace: XRSpace): XRPose | null;
 }
 
@@ -20737,23 +22907,33 @@ type XRTargetRayMode =
 type XRVisibilityState = 'visible' | 'visible-blurred' | 'hidden';
 
 type XRInputSourceEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   frame: XRFrame,
   inputSource: XRInputSource,
 };
 
 type XRInputSourcesChangeEventInit = {
   added: Array<XRInputSource>,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   removed: Array<XRInputSource>,
   session: XRSession,
 };
 
 type XRPermissionDescriptor = {
   mode: XRSessionMode,
+  name: string,
   optionalFeatures: Array<string>,
   requiredFeatures: Array<string>,
 };
 
 type XRReferenceSpaceEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   referenceSpace: XRReferenceSpace,
   transform: XRRigidTransform | null,
 };
@@ -20768,16 +22948,22 @@ type XRRenderStateInit = {
 };
 
 type XRSessionEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   session: XRSession,
 };
 
 type XRSessionInit = {
+  depthSensing: XRDepthStateInit,
+  domOverlay: XRDOMOverlayInit | null,
   optionalFeatures: Array<string>,
   requiredFeatures: Array<string>,
 };
 
 type XRSessionSupportedPermissionDescriptor = {
   mode: XRSessionMode,
+  name: string,
 };
 
 type XRWebGLLayerInit = {
@@ -20796,15 +22982,37 @@ declare class XRBoundedReferenceSpace extends XRReferenceSpace {
 }
 
 declare class XRFrame {
+  +detectedMeshes: XRMeshSet;
+  +detectedPlanes: XRPlaneSet;
   +predictedDisplayTime: number;
   +session: XRSession;
+  +trackedAnchors: XRAnchorSet;
 
+  createAnchor(pose: XRRigidTransform, space: XRSpace): Promise<XRAnchor>;
+  fillJointRadii(
+    jointSpaces: Array<XRJointSpace>,
+    radii: Float32Array,
+  ): boolean;
+  fillPoses(
+    spaces: Array<XRSpace>,
+    baseSpace: XRSpace,
+    transforms: Float32Array,
+  ): boolean;
+  getDepthInformation(view: XRView): XRCPUDepthInformation | null;
+  getHitTestResults(hitTestSource: XRHitTestSource): Array<XRHitTestResult>;
+  getHitTestResultsForTransientInput(
+    hitTestSource: XRTransientInputHitTestSource,
+  ): Array<XRTransientInputHitTestResult>;
+  getJointPose(joint: XRJointSpace, baseSpace: XRSpace): XRJointPose | null;
+  getLightEstimate(lightProbe: XRLightProbe): XRLightEstimate | null;
   getPose(space: XRSpace, baseSpace: XRSpace): XRPose | null;
   getViewerPose(referenceSpace: XRReferenceSpace): XRViewerPose | null;
 }
 
 declare class XRInputSource {
+  +gamepad: Gamepad | null;
   +gripSpace: XRSpace | null;
+  +hand: XRHand | null;
   +handedness: XRHandedness;
   +profiles: $ReadOnlyArray<string>;
   +skipRendering: boolean;
@@ -20866,6 +23074,7 @@ declare class XRRenderState {
   +depthFar: number;
   +depthNear: number;
   +inlineVerticalFieldOfView: number | null;
+  +layers: $ReadOnlyArray<XRLayer>;
   +passthroughFullyObscured: boolean | null;
 }
 
@@ -20879,9 +23088,16 @@ declare class XRRigidTransform {
 }
 
 declare class XRSession extends EventTarget {
+  +depthActive: boolean | null;
+  +depthDataFormat: XRDepthDataFormat;
+  +depthType: XRDepthType | null;
+  +depthUsage: XRDepthUsage;
+  +domOverlayState: XRDOMOverlayState | null;
   +enabledFeatures: $ReadOnlyArray<string>;
+  +environmentBlendMode: XREnvironmentBlendMode;
   +frameRate: number | null;
   +inputSources: XRInputSourceArray;
+  +interactionMode: XRInteractionMode;
   +isSystemKeyboardSupported: boolean;
   onend: EventHandler;
   onframeratechange: EventHandler;
@@ -20893,15 +23109,27 @@ declare class XRSession extends EventTarget {
   onsqueezeend: EventHandler;
   onsqueezestart: EventHandler;
   onvisibilitychange: EventHandler;
+  +persistentAnchors: $ReadOnlyArray<string>;
+  +preferredReflectionFormat: XRReflectionFormat;
   +renderState: XRRenderState;
   +supportedFrameRates: Float32Array | null;
   +trackedSources: XRInputSourceArray;
   +visibilityState: XRVisibilityState;
 
   cancelAnimationFrame(handle: number): void;
+  deletePersistentAnchor(uuid: string): Promise<void>;
   end(): Promise<void>;
+  initiateRoomCapture(): Promise<void>;
+  pauseDepthSensing(): void;
   requestAnimationFrame(callback: XRFrameRequestCallback): number;
+  requestHitTestSource(options: XRHitTestOptionsInit): Promise<XRHitTestSource>;
+  requestHitTestSourceForTransientInput(
+    options: XRTransientInputHitTestOptionsInit,
+  ): Promise<XRTransientInputHitTestSource>;
+  requestLightProbe(options?: XRLightProbeInit): Promise<XRLightProbe>;
   requestReferenceSpace(type: XRReferenceSpaceType): Promise<XRReferenceSpace>;
+  restorePersistentAnchor(uuid: string): Promise<XRAnchor>;
+  resumeDepthSensing(): void;
   updateRenderState(state?: XRRenderStateInit): void;
   updateTargetFrameRate(rate: number): Promise<void>;
 }
@@ -20925,7 +23153,9 @@ declare class XRSystem extends EventTarget {
 }
 
 declare class XRView mixins mixin$XRViewGeometry {
+  +camera: XRCamera | null;
   +eye: XREye;
+  +isFirstPersonObserver: boolean;
   +recommendedViewportScale: number | null;
 
   requestViewportScale(scale: number | null): void;
@@ -20979,27 +23209,57 @@ type XRLayerQuality = 'default' | 'text-optimized' | 'graphics-optimized';
 type XRTextureType = 'texture' | 'texture-array';
 
 type XRCubeLayerInit = {
+  clearOnAccess: boolean,
+  colorFormat: GLenum,
+  depthFormat: GLenum | null,
+  isStatic: boolean,
+  layout: XRLayerLayout,
+  mipLevels: number,
   orientation: DOMPointReadOnly | null,
+  space: XRSpace,
+  viewPixelHeight: number,
+  viewPixelWidth: number,
 };
 
 type XRCylinderLayerInit = {
   aspectRatio: number,
   centralAngle: number,
+  clearOnAccess: boolean,
+  colorFormat: GLenum,
+  depthFormat: GLenum | null,
+  isStatic: boolean,
+  layout: XRLayerLayout,
+  mipLevels: number,
   radius: number,
+  space: XRSpace,
   textureType: XRTextureType,
   transform: XRRigidTransform | null,
+  viewPixelHeight: number,
+  viewPixelWidth: number,
 };
 
 type XREquirectLayerInit = {
   centralHorizontalAngle: number,
+  clearOnAccess: boolean,
+  colorFormat: GLenum,
+  depthFormat: GLenum | null,
+  isStatic: boolean,
+  layout: XRLayerLayout,
   lowerVerticalAngle: number,
+  mipLevels: number,
   radius: number,
+  space: XRSpace,
   textureType: XRTextureType,
   transform: XRRigidTransform | null,
   upperVerticalAngle: number,
+  viewPixelHeight: number,
+  viewPixelWidth: number,
 };
 
 type XRLayerEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   layer: XRLayer,
 };
 
@@ -21018,14 +23278,20 @@ type XRLayerInit = {
 type XRMediaCylinderLayerInit = {
   aspectRatio: number | null,
   centralAngle: number,
+  invertStereo: boolean,
+  layout: XRLayerLayout,
   radius: number,
+  space: XRSpace,
   transform: XRRigidTransform | null,
 };
 
 type XRMediaEquirectLayerInit = {
   centralHorizontalAngle: number,
+  invertStereo: boolean,
+  layout: XRLayerLayout,
   lowerVerticalAngle: number,
   radius: number,
+  space: XRSpace,
   transform: XRRigidTransform | null,
   upperVerticalAngle: number,
 };
@@ -21038,6 +23304,9 @@ type XRMediaLayerInit = {
 
 type XRMediaQuadLayerInit = {
   height: number | null,
+  invertStereo: boolean,
+  layout: XRLayerLayout,
+  space: XRSpace,
   transform: XRRigidTransform | null,
   width: number | null,
 };
@@ -21051,9 +23320,18 @@ type XRProjectionLayerInit = {
 };
 
 type XRQuadLayerInit = {
+  clearOnAccess: boolean,
+  colorFormat: GLenum,
+  depthFormat: GLenum | null,
   height: number,
+  isStatic: boolean,
+  layout: XRLayerLayout,
+  mipLevels: number,
+  space: XRSpace,
   textureType: XRTextureType,
   transform: XRRigidTransform | null,
+  viewPixelHeight: number,
+  viewPixelWidth: number,
   width: number,
 };
 
@@ -21150,6 +23428,9 @@ declare class XRWebGLBinding {
   createProjectionLayer(init?: XRProjectionLayerInit): XRProjectionLayer;
   createQuadLayer(init?: XRQuadLayerInit): XRQuadLayer;
   foveateBoundTexture(target: GLenum, fixed_foveation: number): void;
+  getCameraImage(camera: XRCamera): WebGLTexture | null;
+  getDepthInformation(view: XRView): XRWebGLDepthInformation | null;
+  getReflectionCubeMap(lightProbe: XRLightProbe): WebGLTexture | null;
   getSubImage(
     layer: XRCompositionLayer,
     frame: XRFrame,
@@ -21174,6 +23455,9 @@ declare class XRWebGLSubImage extends XRSubImage {
 /*---------- window-controls-overlay ----------*/
 
 type WindowControlsOverlayGeometryChangeEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   titlebarAreaRect: DOMRect,
   visible: boolean,
 };
@@ -21215,175 +23499,6 @@ declare class ScreenDetails extends EventTarget {
   +screens: $ReadOnlyArray<ScreenDetailed>;
 }
 
-/*---------- writing-assistance-apis ----------*/
-
-type Availability =
-  | 'unavailable'
-  | 'downloadable'
-  | 'downloading'
-  | 'available';
-
-type RewriterFormat = 'as-is' | 'plain-text' | 'markdown';
-
-type RewriterLength = 'as-is' | 'shorter' | 'longer';
-
-type RewriterTone = 'as-is' | 'more-formal' | 'more-casual';
-
-type SummarizerFormat = 'plain-text' | 'markdown';
-
-type SummarizerLength = 'short' | 'medium' | 'long';
-
-type SummarizerType = 'tl;dr' | 'teaser' | 'key-points' | 'headline';
-
-type WriterFormat = 'plain-text' | 'markdown';
-
-type WriterLength = 'short' | 'medium' | 'long';
-
-type WriterTone = 'formal' | 'neutral' | 'casual';
-
-type RewriterCreateCoreOptions = {
-  expectedContextLanguages: Array<string>,
-  expectedInputLanguages: Array<string>,
-  format: RewriterFormat,
-  length: RewriterLength,
-  outputLanguage: string,
-  tone: RewriterTone,
-};
-
-type RewriterCreateOptions = {
-  monitor: CreateMonitorCallback,
-  sharedContext: string,
-  signal: AbortSignal,
-};
-
-type RewriterRewriteOptions = {
-  context: string,
-  signal: AbortSignal,
-};
-
-type SummarizerCreateCoreOptions = {
-  expectedContextLanguages: Array<string>,
-  expectedInputLanguages: Array<string>,
-  format: SummarizerFormat,
-  length: SummarizerLength,
-  outputLanguage: string,
-  type: SummarizerType,
-};
-
-type SummarizerCreateOptions = {
-  monitor: CreateMonitorCallback,
-  sharedContext: string,
-  signal: AbortSignal,
-};
-
-type SummarizerSummarizeOptions = {
-  context: string,
-  signal: AbortSignal,
-};
-
-type WriterCreateCoreOptions = {
-  expectedContextLanguages: Array<string>,
-  expectedInputLanguages: Array<string>,
-  format: WriterFormat,
-  length: WriterLength,
-  outputLanguage: string,
-  tone: WriterTone,
-};
-
-type WriterCreateOptions = {
-  monitor: CreateMonitorCallback,
-  sharedContext: string,
-  signal: AbortSignal,
-};
-
-type WriterWriteOptions = {
-  context: string,
-  signal: AbortSignal,
-};
-
-type CreateMonitorCallback = (monitor: CreateMonitor) => void;
-
-declare class CreateMonitor extends EventTarget {
-  ondownloadprogress: EventHandler;
-}
-
-declare class Rewriter mixins mixin$DestroyableModel {
-  +expectedContextLanguages: $ReadOnlyArray<string> | null;
-  +expectedInputLanguages: $ReadOnlyArray<string> | null;
-  +format: RewriterFormat;
-  +inputQuota: number;
-  +length: RewriterLength;
-  +outputLanguage: string | null;
-  +sharedContext: string;
-  +tone: RewriterTone;
-
-  static availability(
-    options?: RewriterCreateCoreOptions,
-  ): Promise<Availability>;
-  static create(options?: RewriterCreateOptions): Promise<Rewriter>;
-  measureInputUsage(
-    input: string,
-    options?: RewriterRewriteOptions,
-  ): Promise<number>;
-  rewrite(input: string, options?: RewriterRewriteOptions): Promise<string>;
-  rewriteStreaming(
-    input: string,
-    options?: RewriterRewriteOptions,
-  ): ReadableStream;
-}
-
-declare class Summarizer mixins mixin$DestroyableModel {
-  +expectedContextLanguages: $ReadOnlyArray<string> | null;
-  +expectedInputLanguages: $ReadOnlyArray<string> | null;
-  +format: SummarizerFormat;
-  +inputQuota: number;
-  +length: SummarizerLength;
-  +outputLanguage: string | null;
-  +sharedContext: string;
-  +type: SummarizerType;
-
-  static availability(
-    options?: SummarizerCreateCoreOptions,
-  ): Promise<Availability>;
-  static create(options?: SummarizerCreateOptions): Promise<Summarizer>;
-  measureInputUsage(
-    input: string,
-    options?: SummarizerSummarizeOptions,
-  ): Promise<number>;
-  summarize(
-    input: string,
-    options?: SummarizerSummarizeOptions,
-  ): Promise<string>;
-  summarizeStreaming(
-    input: string,
-    options?: SummarizerSummarizeOptions,
-  ): ReadableStream;
-}
-
-declare class Writer mixins mixin$DestroyableModel {
-  +expectedContextLanguages: $ReadOnlyArray<string> | null;
-  +expectedInputLanguages: $ReadOnlyArray<string> | null;
-  +format: WriterFormat;
-  +inputQuota: number;
-  +length: WriterLength;
-  +outputLanguage: string | null;
-  +sharedContext: string;
-  +tone: WriterTone;
-
-  static availability(options?: WriterCreateCoreOptions): Promise<Availability>;
-  static create(options?: WriterCreateOptions): Promise<Writer>;
-  measureInputUsage(
-    input: string,
-    options?: WriterWriteOptions,
-  ): Promise<number>;
-  write(input: string, options?: WriterWriteOptions): Promise<string>;
-  writeStreaming(input: string, options?: WriterWriteOptions): ReadableStream;
-}
-
-declare class mixin$DestroyableModel {
-  destroy(): void;
-}
-
 /*---------- xhr ----------*/
 
 type FormDataEntryValue = File | string;
@@ -21397,6 +23512,9 @@ type XMLHttpRequestResponseType =
   | 'text';
 
 type ProgressEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   lengthComputable: boolean,
   loaded: number,
   total: number,
@@ -21460,6 +23578,8 @@ declare class XMLHttpRequest extends XMLHttpRequestEventTarget {
   ): void;
   overrideMimeType(mime: string): void;
   send(body?: Document | XMLHttpRequestBodyInit | null): void;
+  setAttributionReporting(options: AttributionReportingRequestOptions): void;
+  setPrivateToken(privateToken: PrivateToken): void;
   setRequestHeader(name: string, value: string): void;
 }
 

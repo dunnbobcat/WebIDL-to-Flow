@@ -158,16 +158,35 @@ export async function mergePartialSpecsMulti(idls: {
     const idl = idls[name];
     const processedIDL = [];
     for (const production of idl) {
-      const {partial, name} = production;
+      const {partial, name, type} = production;
 
-      if (!partial) {
+      if (partial) {
+        const root = LOOKUP[name];
+        if (root == null) {
+          process.stderr.write(`No root found for production ${name}`);
+          continue;
+        }
+
+        root.members = [...root.members, ...production.members];
+      } else if (type === 'dictionary') {
+        const {inheritance, name} = production;
+        if (inheritance == null) {
+          processedIDL.push(production);
+          continue;
+        }
+
+        const root = LOOKUP[inheritance];
+        if (root == null) {
+          process.stderr.write(
+            `No base ${inheritance} found for child dictionary ${name}\n`,
+          );
+          continue;
+        }
+
+        production.members = [...production.members, ...root.members];
         processedIDL.push(production);
-        continue;
-      }
-
-      const root = LOOKUP[name];
-      if (root == null) {
-        process.stderr.write(`No root found for production ${name}`);
+      } else {
+        processedIDL.push(production);
         continue;
       }
     }

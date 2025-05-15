@@ -100,7 +100,6 @@ export const WEB_SPECS = [
   'get-installed-related-apps',
   'gpc',
   'gyroscope',
-  'handwriting-recognition',
   'hr-time',
   'html-media-capture',
   'html',
@@ -269,6 +268,5 @@ export const WEB_SPECS = [
   'webxrlayers',
   'window-controls-overlay',
   'window-management',
-  'writing-assistance-apis',
   'xhr',
 ];
