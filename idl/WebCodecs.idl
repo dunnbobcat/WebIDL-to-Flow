@@ -199,6 +199,11 @@ dictionary VideoEncoderEncodeOptions {
   boolean keyFrame = false;
 };
 
+enum BitrateMode {
+  "constant",
+  "variable"
+};
+
 enum VideoEncoderBitrateMode {
   "constant",
   "variable",
