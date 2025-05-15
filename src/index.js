@@ -7,6 +7,14 @@ import path from 'path';
 import readline from 'readline';
 import * as webidl2 from 'webidl2';
 import {convertIDLToLibrary} from './converter.js';
+import {coalesceIDLs} from './coalesce.js';
+import {dirname} from 'path';
+import {fileURLToPath} from 'url';
+
+const __dirname = dirname(
+  // $FlowExpectedError
+  fileURLToPath(import.meta.url),
+);
 
 async function parseIDLFile(file: string): Promise<IDLTree> {
   const contents = await fs.promises.readFile(file, 'utf-8');
@@ -14,28 +22,31 @@ async function parseIDLFile(file: string): Promise<IDLTree> {
   return idl;
 }
 
-async function generateFlowDefinitions(output: ?string): Promise<void> {
-  if (output == null || output.length === 0) {
-    process.stderr.write('No output directory specified');
-    return;
+async function createOutputDirectory(outputDir: ?string): Promise<string> {
+  if (outputDir == null || outputDir.length === 0) {
+    throw new Error('No output directory specified');
   }
 
-  const outputDir = output.replace(/\/+$/, '');
-  if (outputDir.length === 0) {
-    process.stderr.write('No output directory specified');
-    return;
+  const dir = outputDir.replace(/\/+$/, '');
+  if (dir.length === 0) {
+    throw new Error('No output directory specified');
   }
 
-  if (!fs.existsSync(outputDir)) {
+  if (!fs.existsSync(dir)) {
     try {
-      await fs.promises.mkdir(outputDir);
+      await fs.promises.mkdir(dir);
     } catch (e) {
-      process.stderr.write(
-        `Failed to create output directory ${outputDir}:\n${e.message}\n\n${e.stack}\n`,
+      throw new Error(
+        `Failed to create output directory ${dir}:\n${e.message}\n\n${e.stack}\n`,
       );
-      return;
     }
   }
+
+  return dir;
+}
+
+async function generateFlowDefinitions(outputDir: ?string): Promise<void> {
+  const dir = await createOutputDirectory(outputDir);
 
   const rl = readline.createInterface({
     input: process.stdin,
@@ -49,7 +60,7 @@ async function generateFlowDefinitions(output: ?string): Promise<void> {
       const idl = await parseIDLFile(file);
       const lib = await convertIDLToLibrary(idl);
       const name = path.basename(file, '.idl');
-      await fs.promises.writeFile(`${outputDir}/${name}.js`, lib);
+      await fs.promises.writeFile(`${dir}/${name}.js`, lib);
     } catch (e) {
       process.stderr.write(
         `Failed to parse ${file}:\n${e.message}\n\n${e.stack}\n`,
@@ -57,6 +68,39 @@ async function generateFlowDefinitions(output: ?string): Promise<void> {
       continue;
     }
   }
+}
+
+async function generateSingleFlowDefinition(
+  inputs: $ReadOnlyArray<string>,
+  outputFile: string,
+): Promise<void> {
+  const thisDir = __dirname.split('/');
+  thisDir.pop();
+
+  const idlDir = [...thisDir, 'idl'].join('/');
+  const outputDir = [...thisDir, 'coalesced'].join('/');
+  const dir = await createOutputDirectory(outputDir);
+
+  const idls = [];
+  for (const input of inputs) {
+    const file = `${idlDir}/${input}.idl`;
+
+    try {
+      process.stdout.write(`Reading IDL file: ${file}...\n`);
+      const idl = await parseIDLFile(file);
+      idls.push(idl);
+    } catch (e) {
+      process.stderr.write(
+        `Failed to parse ${file}:\n${e.message}\n\n${e.stack}\n`,
+      );
+      continue;
+    }
+  }
+
+  const combinedIDL = await coalesceIDLs(idls);
+  const lib = await convertIDLToLibrary(combinedIDL, true);
+  const name = path.basename(outputFile, '.js');
+  await fs.promises.writeFile(`${dir}/${name}.js`, lib);
 }
 
 async function prettifyIDLs(): Promise<void> {
@@ -76,7 +120,7 @@ async function prettifyIDLs(): Promise<void> {
   }
 }
 
-async function main() {
+async function main(): Promise<void> {
   const args = process.argv.slice(2);
   if (args.length === 0) {
     process.stderr.write(
@@ -91,8 +135,19 @@ async function main() {
     case 'generate':
       return await generateFlowDefinitions(args[1]);
 
+    case 'web':
+      return await generateSingleFlowDefinition(
+        // ['CSSOM', 'DOM', 'HTML', 'SVG', 'WebIDL'],
+        ['HTML'],
+        'web',
+      );
+
     case 'prettify':
       return await prettifyIDLs();
+
+    default:
+      process.stderr.write(`Unexpected command: "${cmd}"`);
+      return;
   }
 }
 

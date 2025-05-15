@@ -27,10 +27,12 @@
     "build": "yarn pretty && babel src/ -d dist/",
     "flow": "flow",
     "go": "yarn build && yarn generate && yarn pretty_output",
+    "web": "yarn build && yarn generate_web && yarn pretty_output",
     "lint": "yarn eslint src",
     "pretty_idl": "yarn build && node dist/index.js prettify",
-    "pretty_output": "yarn prettier definitions/ --write",
+    "pretty_output": "yarn prettier definitions/ coalesced/ --write",
     "pretty": "yarn prettier src/ --write",
-    "generate": "find idl -type f | node dist/index.js generate definitions"
+    "generate": "find idl -type f | node dist/index.js generate definitions",
+    "generate_web": "node dist/index.js web"
   }
 }

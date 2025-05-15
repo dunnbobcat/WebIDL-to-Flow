@@ -73,6 +73,46 @@ type UnderlyingSource = {
   autoAllocateChunkSize: number,
 };
 
+type QueuingStrategySize = (chunk: any) => number;
+
+type TransformerCancelCallback = (reason: any) => void;
+
+type TransformerFlushCallback = (
+  controller: TransformStreamDefaultController,
+) => void;
+
+type TransformerStartCallback = (
+  controller: TransformStreamDefaultController,
+) => any;
+
+type TransformerTransformCallback = (
+  chunk: any,
+  controller: TransformStreamDefaultController,
+) => void;
+
+type UnderlyingSinkAbortCallback = (reason?: any) => void;
+
+type UnderlyingSinkCloseCallback = () => void;
+
+type UnderlyingSinkStartCallback = (
+  controller: WritableStreamDefaultController,
+) => any;
+
+type UnderlyingSinkWriteCallback = (
+  chunk: any,
+  controller: WritableStreamDefaultController,
+) => void;
+
+type UnderlyingSourceCancelCallback = (reason?: any) => void;
+
+type UnderlyingSourcePullCallback = (
+  controller: ReadableStreamController,
+) => void;
+
+type UnderlyingSourceStartCallback = (
+  controller: ReadableStreamController,
+) => any;
+
 /* mixin */ class GenericTransformStream {
   +readable: ReadableStream;
   +writable: WritableStream;
@@ -204,43 +244,3 @@ declare class WritableStreamDefaultWriter {
   releaseLock(): void;
   write(chunk?: any): void;
 }
-
-type QueuingStrategySize = (chunk: any) => number;
-
-type TransformerCancelCallback = (reason: any) => void;
-
-type TransformerFlushCallback = (
-  controller: TransformStreamDefaultController,
-) => void;
-
-type TransformerStartCallback = (
-  controller: TransformStreamDefaultController,
-) => any;
-
-type TransformerTransformCallback = (
-  chunk: any,
-  controller: TransformStreamDefaultController,
-) => void;
-
-type UnderlyingSinkAbortCallback = (reason?: any) => void;
-
-type UnderlyingSinkCloseCallback = () => void;
-
-type UnderlyingSinkStartCallback = (
-  controller: WritableStreamDefaultController,
-) => any;
-
-type UnderlyingSinkWriteCallback = (
-  chunk: any,
-  controller: WritableStreamDefaultController,
-) => void;
-
-type UnderlyingSourceCancelCallback = (reason?: any) => void;
-
-type UnderlyingSourcePullCallback = (
-  controller: ReadableStreamController,
-) => void;
-
-type UnderlyingSourceStartCallback = (
-  controller: ReadableStreamController,
-) => any;

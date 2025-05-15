@@ -19,6 +19,7 @@ const TYPE_MAP = ({
   DOMHighResTimeStamp: 'number',
   DOMString: 'string',
   float: 'number',
+  double: 'number',
   'long long': 'number',
   long: 'number',
   object: 'Object',
@@ -373,7 +374,10 @@ function convertTopLevelProduction(
   }
 }
 
-export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
+export async function convertIDLToLibrary(
+  idl: IDLTree,
+  includeFlowFlag?: boolean,
+): Promise<string> {
   const sorted = idl.toSorted(compareProductions);
   const interfaceMixins = ({}: {[string]: Array<string>});
   const mixinConsts = ({}: {[string]: Array<IDLProduction>});
@@ -399,9 +403,13 @@ export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
     }
   }
 
-  return sorted
-    .map((production) =>
-      convertTopLevelProduction(production, interfaceMixins, mixinConsts),
-    )
-    .join('\n');
+  const lines = sorted.map((production) =>
+    convertTopLevelProduction(production, interfaceMixins, mixinConsts),
+  );
+
+  if (includeFlowFlag === true) {
+    lines.unshift('// @flow', '');
+  }
+
+  return lines.join('\n');
 }

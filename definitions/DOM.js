@@ -55,6 +55,11 @@ type StaticRangeInit = {
   endOffset: number,
 };
 
+type MutationCallback = (
+  mutations: Array<MutationRecord>,
+  observer: MutationObserver,
+) => void;
+
 /* mixin */ class ChildNode {
   after(nodes: Node | string): void {}
   before(nodes: Node | string): void {}
@@ -643,8 +648,3 @@ declare class XSLTProcessor {
   transformToDocument(source: Node): Document;
   transformToFragment(source: Node, output: Document): DocumentFragment;
 }
-
-type MutationCallback = (
-  mutations: Array<MutationRecord>,
-  observer: MutationObserver,
-) => void;

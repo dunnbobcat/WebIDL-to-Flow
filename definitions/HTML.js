@@ -1,3 +1,5 @@
+// @flow
+
 type CanvasImageSource =
   | HTMLOrSVGImageElement
   | HTMLVideoElement
@@ -361,6 +363,30 @@ type WorkletOptions = {
   credentials: RequestCredentials,
 };
 
+type BlobCallback = (blob: Blob | null) => void;
+
+type CustomElementConstructor = () => HTMLElement;
+
+type EventHandler = (event: Event) => any;
+
+type EventHandlerNonNull = (event: Event) => any;
+
+type FrameRequestCallback = (time: number) => void;
+
+type FunctionStringCallback = (data: string) => void;
+
+type NavigationInterceptHandler = () => void;
+
+type OnBeforeUnloadEventHandlerNonNull = (event: Event) => string | null;
+
+type OnErrorEventHandlerNonNull = (
+  event: Event | string,
+  source?: string,
+  lineno?: number,
+  colno?: number,
+  error?: any,
+) => any;
+
 /* mixin */ class AbstractWorker {
   onerror: EventHandler;
 }
@@ -421,27 +447,27 @@ type WorkletOptions = {
   strokeStyle: string | CanvasGradient | CanvasPattern;
 
   createConicGradient(
-    startAngle: double,
-    x: double,
-    y: double,
+    startAngle: number,
+    x: number,
+    y: number,
   ): CanvasGradient {}
   createLinearGradient(
-    x0: double,
-    y0: double,
-    x1: double,
-    y1: double,
+    x0: number,
+    y0: number,
+    x1: number,
+    y1: number,
   ): CanvasGradient {}
   createPattern(
     image: CanvasImageSource,
     repetition: string,
   ): CanvasPattern | null {}
   createRadialGradient(
-    x0: double,
-    y0: double,
-    r0: double,
-    x1: double,
-    y1: double,
-    r1: double,
+    x0: number,
+    y0: number,
+    r0: number,
+    x1: number,
+    y1: number,
+    r1: number,
   ): CanvasGradient {}
 }
 
@@ -882,7 +908,7 @@ declare class BroadcastChannel extends EventTarget {
 }
 
 declare class CanvasGradient {
-  addColorStop(offset: double, color: string): void;
+  addColorStop(offset: number, color: string): void;
 }
 
 declare class CanvasPattern {
@@ -1737,9 +1763,9 @@ declare class HTMLMediaElement extends HTMLElement {
   controls: boolean;
   crossOrigin: string | null;
   +currentSrc: string;
-  currentTime: double;
+  currentTime: number;
   defaultMuted: boolean;
-  defaultPlaybackRate: double;
+  defaultPlaybackRate: number;
   +duration: number;
   +ended: boolean;
   +error: MediaError | null;
@@ -1747,7 +1773,7 @@ declare class HTMLMediaElement extends HTMLElement {
   muted: boolean;
   +networkState: number;
   +paused: boolean;
-  playbackRate: double;
+  playbackRate: number;
   +played: TimeRanges;
   preload: string;
   preservesPitch: boolean;
@@ -1758,7 +1784,7 @@ declare class HTMLMediaElement extends HTMLElement {
   srcObject: MediaProvider | null;
   +textTracks: TextTrackList;
   +videoTracks: VideoTrackList;
-  volume: double;
+  volume: number;
 
   addTextTrack(
     kind: TextTrackKind,
@@ -1766,7 +1792,7 @@ declare class HTMLMediaElement extends HTMLElement {
     language?: string,
   ): TextTrack;
   canPlayType(type: string): CanPlayTypeResult;
-  fastSeek(time: double): void;
+  fastSeek(time: number): void;
   getStartDate(): Object;
   load(): void;
   pause(): void;
@@ -1795,13 +1821,13 @@ declare class HTMLMetaElement extends HTMLElement {
 }
 
 declare class HTMLMeterElement extends HTMLElement {
-  high: double;
+  high: number;
   +labels: NodeList;
-  low: double;
-  max: double;
-  min: double;
-  optimum: double;
-  value: double;
+  low: number;
+  max: number;
+  min: number;
+  optimum: number;
+  value: number;
 
   constructor(): void;
 }
@@ -1942,9 +1968,9 @@ declare class HTMLPreElement extends HTMLElement {
 
 declare class HTMLProgressElement extends HTMLElement {
   +labels: NodeList;
-  max: double;
-  +position: double;
-  value: double;
+  max: number;
+  +position: number;
+  value: number;
 
   constructor(): void;
 }
@@ -2660,18 +2686,18 @@ declare class SubmitEvent extends Event {
 }
 
 declare class TextMetrics {
-  +actualBoundingBoxAscent: double;
-  +actualBoundingBoxDescent: double;
-  +actualBoundingBoxLeft: double;
-  +actualBoundingBoxRight: double;
-  +alphabeticBaseline: double;
-  +emHeightAscent: double;
-  +emHeightDescent: double;
-  +fontBoundingBoxAscent: double;
-  +fontBoundingBoxDescent: double;
-  +hangingBaseline: double;
-  +ideographicBaseline: double;
-  +width: double;
+  +actualBoundingBoxAscent: number;
+  +actualBoundingBoxDescent: number;
+  +actualBoundingBoxLeft: number;
+  +actualBoundingBoxRight: number;
+  +alphabeticBaseline: number;
+  +emHeightAscent: number;
+  +emHeightDescent: number;
+  +fontBoundingBoxAscent: number;
+  +fontBoundingBoxDescent: number;
+  +hangingBaseline: number;
+  +ideographicBaseline: number;
+  +width: number;
 }
 
 declare class TextTrack extends EventTarget {
@@ -2695,7 +2721,7 @@ declare class TextTrackCue extends EventTarget {
   onenter: EventHandler;
   onexit: EventHandler;
   pauseOnExit: boolean;
-  startTime: double;
+  startTime: number;
   +track: TextTrack | null;
 }
 
@@ -2719,8 +2745,8 @@ declare class TextTrackList extends EventTarget {
 declare class TimeRanges {
   +length: number;
 
-  end(index: number): double;
-  start(index: number): double;
+  end(index: number): number;
+  start(index: number): number;
 }
 
 declare class ToggleEvent extends Event {
@@ -2925,27 +2951,3 @@ declare class XMLSerializer {
 
   serializeToString(root: Node): string;
 }
-
-type BlobCallback = (blob: Blob | null) => void;
-
-type CustomElementConstructor = () => HTMLElement;
-
-type EventHandler = (event: Event) => any;
-
-type EventHandlerNonNull = (event: Event) => any;
-
-type FrameRequestCallback = (time: number) => void;
-
-type FunctionStringCallback = (data: string) => void;
-
-type NavigationInterceptHandler = () => void;
-
-type OnBeforeUnloadEventHandlerNonNull = (event: Event) => string | null;
-
-type OnErrorEventHandlerNonNull = (
-  event: Event | string,
-  source?: string,
-  lineno?: number,
-  colno?: number,
-  error?: any,
-) => any;

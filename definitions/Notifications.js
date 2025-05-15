@@ -34,6 +34,10 @@ type NotificationOptions = {
   actions: Array<NotificationAction>,
 };
 
+type NotificationPermissionCallback = (
+  permission: NotificationPermission,
+) => void;
+
 declare class Notification extends EventTarget {
   +actions: NotificationAction;
   +badge: string;
@@ -81,7 +85,3 @@ declare class NotificationEvent extends ExtendableEvent {
   getNotifications(filter?: GetNotificationOptions): Array<Notification>;
   showNotification(title: string, options?: NotificationOptions): void;
 }
-
-type NotificationPermissionCallback = (
-  permission: NotificationPermission,
-) => void;
