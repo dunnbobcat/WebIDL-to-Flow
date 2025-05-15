@@ -385,477 +385,6 @@ type OnErrorEventHandlerNonNull = (
   error?: any,
 ) => any;
 
-/* mixin */ declare class mixin$AbstractWorker {
-  onerror: EventHandler;
-}
-
-/* mixin */ declare class mixin$AnimationFrameProvider {
-  cancelAnimationFrame(handle: number): void;
-  requestAnimationFrame(callback: FrameRequestCallback): number;
-}
-
-/* mixin */ declare class mixin$CanvasCompositing {
-  globalAlpha: number;
-  globalCompositeOperation: string;
-}
-
-/* mixin */ declare class mixin$CanvasDrawImage {
-  drawImage(image: CanvasImageSource, dx: number, dy: number): void;
-  drawImage(
-    image: CanvasImageSource,
-    dx: number,
-    dy: number,
-    dw: number,
-    dh: number,
-  ): void;
-  drawImage(
-    image: CanvasImageSource,
-    sx: number,
-    sy: number,
-    sw: number,
-    sh: number,
-    dx: number,
-    dy: number,
-    dw: number,
-    dh: number,
-  ): void;
-}
-
-/* mixin */ declare class mixin$CanvasDrawPath {
-  beginPath(): void;
-  clip(fillRule?: CanvasFillRule): void;
-  clip(path: Path2D, fillRule?: CanvasFillRule): void;
-  fill(fillRule?: CanvasFillRule): void;
-  fill(path: Path2D, fillRule?: CanvasFillRule): void;
-  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
-  isPointInPath(
-    path: Path2D,
-    x: number,
-    y: number,
-    fillRule?: CanvasFillRule,
-  ): boolean;
-  isPointInStroke(x: number, y: number): boolean;
-  isPointInStroke(path: Path2D, x: number, y: number): boolean;
-  stroke(): void;
-  stroke(path: Path2D): void;
-}
-
-/* mixin */ declare class mixin$CanvasFillStrokeStyles {
-  fillStyle: string | CanvasGradient | CanvasPattern;
-  strokeStyle: string | CanvasGradient | CanvasPattern;
-
-  createConicGradient(startAngle: number, x: number, y: number): CanvasGradient;
-  createLinearGradient(
-    x0: number,
-    y0: number,
-    x1: number,
-    y1: number,
-  ): CanvasGradient;
-  createPattern(
-    image: CanvasImageSource,
-    repetition: string,
-  ): CanvasPattern | null;
-  createRadialGradient(
-    x0: number,
-    y0: number,
-    r0: number,
-    x1: number,
-    y1: number,
-    r1: number,
-  ): CanvasGradient;
-}
-
-/* mixin */ declare class mixin$CanvasFilters {
-  filter: string;
-}
-
-/* mixin */ declare class mixin$CanvasImageData {
-  createImageData(
-    sw: number,
-    sh: number,
-    settings?: ImageDataSettings,
-  ): ImageData;
-  createImageData(imageData: ImageData): ImageData;
-  getImageData(
-    sx: number,
-    sy: number,
-    sw: number,
-    sh: number,
-    settings?: ImageDataSettings,
-  ): ImageData;
-  putImageData(imageData: ImageData, dx: number, dy: number): void;
-  putImageData(
-    imageData: ImageData,
-    dx: number,
-    dy: number,
-    dirtyX: number,
-    dirtyY: number,
-    dirtyWidth: number,
-    dirtyHeight: number,
-  ): void;
-}
-
-/* mixin */ declare class mixin$CanvasImageSmoothing {
-  imageSmoothingEnabled: boolean;
-  imageSmoothingQuality: ImageSmoothingQuality;
-}
-
-/* mixin */ declare class mixin$CanvasPath {
-  arc(
-    x: number,
-    y: number,
-    radius: number,
-    startAngle: number,
-    endAngle: number,
-    counterclockwise?: boolean,
-  ): void;
-  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
-  bezierCurveTo(
-    cp1x: number,
-    cp1y: number,
-    cp2x: number,
-    cp2y: number,
-    x: number,
-    y: number,
-  ): void;
-  closePath(): void;
-  ellipse(
-    x: number,
-    y: number,
-    radiusX: number,
-    radiusY: number,
-    rotation: number,
-    startAngle: number,
-    endAngle: number,
-    counterclockwise?: boolean,
-  ): void;
-  lineTo(x: number, y: number): void;
-  moveTo(x: number, y: number): void;
-  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
-  rect(x: number, y: number, w: number, h: number): void;
-  roundRect(
-    x: number,
-    y: number,
-    w: number,
-    h: number,
-    radii?: number | DOMPointInit | Array<number | DOMPointInit>,
-  ): void;
-}
-
-/* mixin */ declare class mixin$CanvasPathDrawingStyles {
-  lineCap: CanvasLineCap;
-  lineDashOffset: number;
-  lineJoin: CanvasLineJoin;
-  lineWidth: number;
-  miterLimit: number;
-
-  getLineDash(): Array<number>;
-  setLineDash(segments: Array<number>): void;
-}
-
-/* mixin */ declare class mixin$CanvasRect {
-  clearRect(x: number, y: number, w: number, h: number): void;
-  fillRect(x: number, y: number, w: number, h: number): void;
-  strokeRect(x: number, y: number, w: number, h: number): void;
-}
-
-/* mixin */ declare class mixin$CanvasSettings {
-  getContextAttributes(): CanvasRenderingContext2DSettings;
-}
-
-/* mixin */ declare class mixin$CanvasShadowStyles {
-  shadowBlur: number;
-  shadowColor: string;
-  shadowOffsetX: number;
-  shadowOffsetY: number;
-}
-
-/* mixin */ declare class mixin$CanvasState {
-  isContextLost(): boolean;
-  reset(): void;
-  restore(): void;
-  save(): void;
-}
-
-/* mixin */ declare class mixin$CanvasText {
-  fillText(text: string, x: number, y: number, maxWidth?: number): void;
-  measureText(text: string): TextMetrics;
-  strokeText(text: string, x: number, y: number, maxWidth?: number): void;
-}
-
-/* mixin */ declare class mixin$CanvasTextDrawingStyles {
-  direction: CanvasDirection;
-  font: string;
-  fontKerning: CanvasFontKerning;
-  fontStretch: CanvasFontStretch;
-  fontVariantCaps: CanvasFontVariantCaps;
-  lang: string;
-  letterSpacing: string;
-  textAlign: CanvasTextAlign;
-  textBaseline: CanvasTextBaseline;
-  textRendering: CanvasTextRendering;
-  wordSpacing: string;
-}
-
-/* mixin */ declare class mixin$CanvasTransform {
-  getTransform(): DOMMatrix;
-  resetTransform(): void;
-  rotate(angle: number): void;
-  scale(x: number, y: number): void;
-  setTransform(
-    a: number,
-    b: number,
-    c: number,
-    d: number,
-    e: number,
-    f: number,
-  ): void;
-  setTransform(transform?: DOMMatrix2DInit): void;
-  transform(
-    a: number,
-    b: number,
-    c: number,
-    d: number,
-    e: number,
-    f: number,
-  ): void;
-  translate(x: number, y: number): void;
-}
-
-/* mixin */ declare class mixin$CanvasUserInterface {
-  drawFocusIfNeeded(element: Element): void;
-  drawFocusIfNeeded(path: Path2D, element: Element): void;
-}
-
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  +activeElement: Element | null;
-}
-
-/* mixin */ declare class mixin$ElementContentEditable {
-  contentEditable: string;
-  enterKeyHint: string;
-  inputMode: string;
-  +isContentEditable: boolean;
-}
-
-/* mixin */ declare class mixin$GlobalEventHandlers {
-  onabort: EventHandler;
-  onauxclick: EventHandler;
-  onbeforeinput: EventHandler;
-  onbeforematch: EventHandler;
-  onbeforetoggle: EventHandler;
-  onblur: EventHandler;
-  oncancel: EventHandler;
-  oncanplay: EventHandler;
-  oncanplaythrough: EventHandler;
-  onchange: EventHandler;
-  onclick: EventHandler;
-  onclose: EventHandler;
-  oncommand: EventHandler;
-  oncontextlost: EventHandler;
-  oncontextmenu: EventHandler;
-  oncontextrestored: EventHandler;
-  oncopy: EventHandler;
-  oncuechange: EventHandler;
-  oncut: EventHandler;
-  ondblclick: EventHandler;
-  ondrag: EventHandler;
-  ondragend: EventHandler;
-  ondragenter: EventHandler;
-  ondragleave: EventHandler;
-  ondragover: EventHandler;
-  ondragstart: EventHandler;
-  ondrop: EventHandler;
-  ondurationchange: EventHandler;
-  onemptied: EventHandler;
-  onended: EventHandler;
-  onerror: OnErrorEventHandler;
-  onfocus: EventHandler;
-  onformdata: EventHandler;
-  oninput: EventHandler;
-  oninvalid: EventHandler;
-  onkeydown: EventHandler;
-  onkeypress: EventHandler;
-  onkeyup: EventHandler;
-  onload: EventHandler;
-  onloadeddata: EventHandler;
-  onloadedmetadata: EventHandler;
-  onloadstart: EventHandler;
-  onmousedown: EventHandler;
-  onmouseenter: EventHandler;
-  onmouseleave: EventHandler;
-  onmousemove: EventHandler;
-  onmouseout: EventHandler;
-  onmouseover: EventHandler;
-  onmouseup: EventHandler;
-  onpaste: EventHandler;
-  onpause: EventHandler;
-  onplay: EventHandler;
-  onplaying: EventHandler;
-  onprogress: EventHandler;
-  onratechange: EventHandler;
-  onreset: EventHandler;
-  onresize: EventHandler;
-  onscroll: EventHandler;
-  onscrollend: EventHandler;
-  onsecuritypolicyviolation: EventHandler;
-  onseeked: EventHandler;
-  onseeking: EventHandler;
-  onselect: EventHandler;
-  onslotchange: EventHandler;
-  onstalled: EventHandler;
-  onsubmit: EventHandler;
-  onsuspend: EventHandler;
-  ontimeupdate: EventHandler;
-  ontoggle: EventHandler;
-  onvolumechange: EventHandler;
-  onwaiting: EventHandler;
-  onwebkitanimationend: EventHandler;
-  onwebkitanimationiteration: EventHandler;
-  onwebkitanimationstart: EventHandler;
-  onwebkittransitionend: EventHandler;
-  onwheel: EventHandler;
-}
-
-/* mixin */ declare class mixin$HTMLHyperlinkElementUtils {
-  hash: string;
-  host: string;
-  hostname: string;
-  href: string;
-  +origin: string;
-  password: string;
-  pathname: string;
-  port: string;
-  protocol: string;
-  search: string;
-  username: string;
-}
-
-/* mixin */ declare class mixin$HTMLOrSVGElement {
-  autofocus: boolean;
-  +dataset: DOMStringMap;
-  nonce: string;
-  tabIndex: number;
-
-  blur(): void;
-  focus(options?: FocusOptions): void;
-}
-
-/* mixin */ declare class mixin$MessageEventTarget {
-  onmessage: EventHandler;
-  onmessageerror: EventHandler;
-}
-
-/* mixin */ declare class mixin$NavigatorConcurrentHardware {
-  +hardwareConcurrency: number;
-}
-
-/* mixin */ declare class mixin$NavigatorContentUtils {
-  registerProtocolHandler(scheme: string, url: string): void;
-  unregisterProtocolHandler(scheme: string, url: string): void;
-}
-
-/* mixin */ declare class mixin$NavigatorCookies {
-  +cookieEnabled: boolean;
-}
-
-/* mixin */ declare class mixin$NavigatorID {
-  +appCodeName: string;
-  +appName: string;
-  +appVersion: string;
-  +platform: string;
-  +product: string;
-  +productSub: string;
-  +userAgent: string;
-  +vendor: string;
-  +vendorSub: string;
-}
-
-/* partial mixin */ declare class mixin$NavigatorID {
-  +oscpu: string;
-
-  taintEnabled(): boolean;
-}
-
-/* mixin */ declare class mixin$NavigatorLanguage {
-  +language: string;
-  +languages: string;
-}
-
-/* mixin */ declare class mixin$NavigatorOnLine {
-  +onLine: boolean;
-}
-
-/* mixin */ declare class mixin$NavigatorPlugins {
-  +mimeTypes: MimeTypeArray;
-  +pdfViewerEnabled: boolean;
-  +plugins: PluginArray;
-
-  javaEnabled(): boolean;
-}
-
-/* mixin */ declare class mixin$PopoverInvokerElement {
-  popoverTargetAction: string;
-  popoverTargetElement: Element | null;
-}
-
-/* mixin */ declare class mixin$WindowEventHandlers {
-  onafterprint: EventHandler;
-  onbeforeprint: EventHandler;
-  onbeforeunload: OnBeforeUnloadEventHandler;
-  onhashchange: EventHandler;
-  onlanguagechange: EventHandler;
-  onmessage: EventHandler;
-  onmessageerror: EventHandler;
-  onoffline: EventHandler;
-  ononline: EventHandler;
-  onpagehide: EventHandler;
-  onpagereveal: EventHandler;
-  onpageshow: EventHandler;
-  onpageswap: EventHandler;
-  onpopstate: EventHandler;
-  onrejectionhandled: EventHandler;
-  onstorage: EventHandler;
-  onunhandledrejection: EventHandler;
-  onunload: EventHandler;
-}
-
-/* mixin */ declare class mixin$WindowLocalStorage {
-  +localStorage: Storage;
-}
-
-/* mixin */ declare class mixin$WindowOrWorkerGlobalScope {
-  +crossOriginIsolated: boolean;
-  +isSecureContext: boolean;
-  +origin: string;
-
-  atob(data: string): ByteString;
-  btoa(data: string): string;
-  clearInterval(id?: number): void;
-  clearTimeout(id?: number): void;
-  createImageBitmap(
-    image: ImageBitmapSource,
-    options?: ImageBitmapOptions,
-  ): ImageBitmap;
-  createImageBitmap(
-    image: ImageBitmapSource,
-    sx: number,
-    sy: number,
-    sw: number,
-    sh: number,
-    options?: ImageBitmapOptions,
-  ): ImageBitmap;
-  queueMicrotask(callback: VoidFunction): void;
-  reportError(e: any): void;
-  setInterval(handler: TimerHandler, timeout?: number, arguments_: any): number;
-  setTimeout(handler: TimerHandler, timeout?: number, arguments_: any): number;
-  structuredClone(value: any, options?: StructuredSerializeOptions): any;
-}
-
-/* mixin */ declare class mixin$WindowSessionStorage {
-  +sessionStorage: Storage;
-}
-
 declare class AudioTrack {
   enabled: boolean;
   +id: string;
@@ -2948,4 +2477,475 @@ declare class XMLSerializer {
   constructor(): void;
 
   serializeToString(root: Node): string;
+}
+
+/* mixin */ declare class mixin$AbstractWorker {
+  onerror: EventHandler;
+}
+
+/* mixin */ declare class mixin$AnimationFrameProvider {
+  cancelAnimationFrame(handle: number): void;
+  requestAnimationFrame(callback: FrameRequestCallback): number;
+}
+
+/* mixin */ declare class mixin$CanvasCompositing {
+  globalAlpha: number;
+  globalCompositeOperation: string;
+}
+
+/* mixin */ declare class mixin$CanvasDrawImage {
+  drawImage(image: CanvasImageSource, dx: number, dy: number): void;
+  drawImage(
+    image: CanvasImageSource,
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number,
+  ): void;
+  drawImage(
+    image: CanvasImageSource,
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number,
+  ): void;
+}
+
+/* mixin */ declare class mixin$CanvasDrawPath {
+  beginPath(): void;
+  clip(fillRule?: CanvasFillRule): void;
+  clip(path: Path2D, fillRule?: CanvasFillRule): void;
+  fill(fillRule?: CanvasFillRule): void;
+  fill(path: Path2D, fillRule?: CanvasFillRule): void;
+  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
+  isPointInPath(
+    path: Path2D,
+    x: number,
+    y: number,
+    fillRule?: CanvasFillRule,
+  ): boolean;
+  isPointInStroke(x: number, y: number): boolean;
+  isPointInStroke(path: Path2D, x: number, y: number): boolean;
+  stroke(): void;
+  stroke(path: Path2D): void;
+}
+
+/* mixin */ declare class mixin$CanvasFillStrokeStyles {
+  fillStyle: string | CanvasGradient | CanvasPattern;
+  strokeStyle: string | CanvasGradient | CanvasPattern;
+
+  createConicGradient(startAngle: number, x: number, y: number): CanvasGradient;
+  createLinearGradient(
+    x0: number,
+    y0: number,
+    x1: number,
+    y1: number,
+  ): CanvasGradient;
+  createPattern(
+    image: CanvasImageSource,
+    repetition: string,
+  ): CanvasPattern | null;
+  createRadialGradient(
+    x0: number,
+    y0: number,
+    r0: number,
+    x1: number,
+    y1: number,
+    r1: number,
+  ): CanvasGradient;
+}
+
+/* mixin */ declare class mixin$CanvasFilters {
+  filter: string;
+}
+
+/* mixin */ declare class mixin$CanvasImageData {
+  createImageData(
+    sw: number,
+    sh: number,
+    settings?: ImageDataSettings,
+  ): ImageData;
+  createImageData(imageData: ImageData): ImageData;
+  getImageData(
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+    settings?: ImageDataSettings,
+  ): ImageData;
+  putImageData(imageData: ImageData, dx: number, dy: number): void;
+  putImageData(
+    imageData: ImageData,
+    dx: number,
+    dy: number,
+    dirtyX: number,
+    dirtyY: number,
+    dirtyWidth: number,
+    dirtyHeight: number,
+  ): void;
+}
+
+/* mixin */ declare class mixin$CanvasImageSmoothing {
+  imageSmoothingEnabled: boolean;
+  imageSmoothingQuality: ImageSmoothingQuality;
+}
+
+/* mixin */ declare class mixin$CanvasPath {
+  arc(
+    x: number,
+    y: number,
+    radius: number,
+    startAngle: number,
+    endAngle: number,
+    counterclockwise?: boolean,
+  ): void;
+  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+  bezierCurveTo(
+    cp1x: number,
+    cp1y: number,
+    cp2x: number,
+    cp2y: number,
+    x: number,
+    y: number,
+  ): void;
+  closePath(): void;
+  ellipse(
+    x: number,
+    y: number,
+    radiusX: number,
+    radiusY: number,
+    rotation: number,
+    startAngle: number,
+    endAngle: number,
+    counterclockwise?: boolean,
+  ): void;
+  lineTo(x: number, y: number): void;
+  moveTo(x: number, y: number): void;
+  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+  rect(x: number, y: number, w: number, h: number): void;
+  roundRect(
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    radii?: number | DOMPointInit | Array<number | DOMPointInit>,
+  ): void;
+}
+
+/* mixin */ declare class mixin$CanvasPathDrawingStyles {
+  lineCap: CanvasLineCap;
+  lineDashOffset: number;
+  lineJoin: CanvasLineJoin;
+  lineWidth: number;
+  miterLimit: number;
+
+  getLineDash(): Array<number>;
+  setLineDash(segments: Array<number>): void;
+}
+
+/* mixin */ declare class mixin$CanvasRect {
+  clearRect(x: number, y: number, w: number, h: number): void;
+  fillRect(x: number, y: number, w: number, h: number): void;
+  strokeRect(x: number, y: number, w: number, h: number): void;
+}
+
+/* mixin */ declare class mixin$CanvasSettings {
+  getContextAttributes(): CanvasRenderingContext2DSettings;
+}
+
+/* mixin */ declare class mixin$CanvasShadowStyles {
+  shadowBlur: number;
+  shadowColor: string;
+  shadowOffsetX: number;
+  shadowOffsetY: number;
+}
+
+/* mixin */ declare class mixin$CanvasState {
+  isContextLost(): boolean;
+  reset(): void;
+  restore(): void;
+  save(): void;
+}
+
+/* mixin */ declare class mixin$CanvasText {
+  fillText(text: string, x: number, y: number, maxWidth?: number): void;
+  measureText(text: string): TextMetrics;
+  strokeText(text: string, x: number, y: number, maxWidth?: number): void;
+}
+
+/* mixin */ declare class mixin$CanvasTextDrawingStyles {
+  direction: CanvasDirection;
+  font: string;
+  fontKerning: CanvasFontKerning;
+  fontStretch: CanvasFontStretch;
+  fontVariantCaps: CanvasFontVariantCaps;
+  lang: string;
+  letterSpacing: string;
+  textAlign: CanvasTextAlign;
+  textBaseline: CanvasTextBaseline;
+  textRendering: CanvasTextRendering;
+  wordSpacing: string;
+}
+
+/* mixin */ declare class mixin$CanvasTransform {
+  getTransform(): DOMMatrix;
+  resetTransform(): void;
+  rotate(angle: number): void;
+  scale(x: number, y: number): void;
+  setTransform(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    e: number,
+    f: number,
+  ): void;
+  setTransform(transform?: DOMMatrix2DInit): void;
+  transform(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    e: number,
+    f: number,
+  ): void;
+  translate(x: number, y: number): void;
+}
+
+/* mixin */ declare class mixin$CanvasUserInterface {
+  drawFocusIfNeeded(element: Element): void;
+  drawFocusIfNeeded(path: Path2D, element: Element): void;
+}
+
+/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
+  +activeElement: Element | null;
+}
+
+/* mixin */ declare class mixin$ElementContentEditable {
+  contentEditable: string;
+  enterKeyHint: string;
+  inputMode: string;
+  +isContentEditable: boolean;
+}
+
+/* mixin */ declare class mixin$GlobalEventHandlers {
+  onabort: EventHandler;
+  onauxclick: EventHandler;
+  onbeforeinput: EventHandler;
+  onbeforematch: EventHandler;
+  onbeforetoggle: EventHandler;
+  onblur: EventHandler;
+  oncancel: EventHandler;
+  oncanplay: EventHandler;
+  oncanplaythrough: EventHandler;
+  onchange: EventHandler;
+  onclick: EventHandler;
+  onclose: EventHandler;
+  oncommand: EventHandler;
+  oncontextlost: EventHandler;
+  oncontextmenu: EventHandler;
+  oncontextrestored: EventHandler;
+  oncopy: EventHandler;
+  oncuechange: EventHandler;
+  oncut: EventHandler;
+  ondblclick: EventHandler;
+  ondrag: EventHandler;
+  ondragend: EventHandler;
+  ondragenter: EventHandler;
+  ondragleave: EventHandler;
+  ondragover: EventHandler;
+  ondragstart: EventHandler;
+  ondrop: EventHandler;
+  ondurationchange: EventHandler;
+  onemptied: EventHandler;
+  onended: EventHandler;
+  onerror: OnErrorEventHandler;
+  onfocus: EventHandler;
+  onformdata: EventHandler;
+  oninput: EventHandler;
+  oninvalid: EventHandler;
+  onkeydown: EventHandler;
+  onkeypress: EventHandler;
+  onkeyup: EventHandler;
+  onload: EventHandler;
+  onloadeddata: EventHandler;
+  onloadedmetadata: EventHandler;
+  onloadstart: EventHandler;
+  onmousedown: EventHandler;
+  onmouseenter: EventHandler;
+  onmouseleave: EventHandler;
+  onmousemove: EventHandler;
+  onmouseout: EventHandler;
+  onmouseover: EventHandler;
+  onmouseup: EventHandler;
+  onpaste: EventHandler;
+  onpause: EventHandler;
+  onplay: EventHandler;
+  onplaying: EventHandler;
+  onprogress: EventHandler;
+  onratechange: EventHandler;
+  onreset: EventHandler;
+  onresize: EventHandler;
+  onscroll: EventHandler;
+  onscrollend: EventHandler;
+  onsecuritypolicyviolation: EventHandler;
+  onseeked: EventHandler;
+  onseeking: EventHandler;
+  onselect: EventHandler;
+  onslotchange: EventHandler;
+  onstalled: EventHandler;
+  onsubmit: EventHandler;
+  onsuspend: EventHandler;
+  ontimeupdate: EventHandler;
+  ontoggle: EventHandler;
+  onvolumechange: EventHandler;
+  onwaiting: EventHandler;
+  onwebkitanimationend: EventHandler;
+  onwebkitanimationiteration: EventHandler;
+  onwebkitanimationstart: EventHandler;
+  onwebkittransitionend: EventHandler;
+  onwheel: EventHandler;
+}
+
+/* mixin */ declare class mixin$HTMLHyperlinkElementUtils {
+  hash: string;
+  host: string;
+  hostname: string;
+  href: string;
+  +origin: string;
+  password: string;
+  pathname: string;
+  port: string;
+  protocol: string;
+  search: string;
+  username: string;
+}
+
+/* mixin */ declare class mixin$HTMLOrSVGElement {
+  autofocus: boolean;
+  +dataset: DOMStringMap;
+  nonce: string;
+  tabIndex: number;
+
+  blur(): void;
+  focus(options?: FocusOptions): void;
+}
+
+/* mixin */ declare class mixin$MessageEventTarget {
+  onmessage: EventHandler;
+  onmessageerror: EventHandler;
+}
+
+/* mixin */ declare class mixin$NavigatorConcurrentHardware {
+  +hardwareConcurrency: number;
+}
+
+/* mixin */ declare class mixin$NavigatorContentUtils {
+  registerProtocolHandler(scheme: string, url: string): void;
+  unregisterProtocolHandler(scheme: string, url: string): void;
+}
+
+/* mixin */ declare class mixin$NavigatorCookies {
+  +cookieEnabled: boolean;
+}
+
+/* mixin */ declare class mixin$NavigatorID {
+  +appCodeName: string;
+  +appName: string;
+  +appVersion: string;
+  +platform: string;
+  +product: string;
+  +productSub: string;
+  +userAgent: string;
+  +vendor: string;
+  +vendorSub: string;
+}
+
+/* partial mixin */ declare class mixin$NavigatorID {
+  +oscpu: string;
+
+  taintEnabled(): boolean;
+}
+
+/* mixin */ declare class mixin$NavigatorLanguage {
+  +language: string;
+  +languages: string;
+}
+
+/* mixin */ declare class mixin$NavigatorOnLine {
+  +onLine: boolean;
+}
+
+/* mixin */ declare class mixin$NavigatorPlugins {
+  +mimeTypes: MimeTypeArray;
+  +pdfViewerEnabled: boolean;
+  +plugins: PluginArray;
+
+  javaEnabled(): boolean;
+}
+
+/* mixin */ declare class mixin$PopoverInvokerElement {
+  popoverTargetAction: string;
+  popoverTargetElement: Element | null;
+}
+
+/* mixin */ declare class mixin$WindowEventHandlers {
+  onafterprint: EventHandler;
+  onbeforeprint: EventHandler;
+  onbeforeunload: OnBeforeUnloadEventHandler;
+  onhashchange: EventHandler;
+  onlanguagechange: EventHandler;
+  onmessage: EventHandler;
+  onmessageerror: EventHandler;
+  onoffline: EventHandler;
+  ononline: EventHandler;
+  onpagehide: EventHandler;
+  onpagereveal: EventHandler;
+  onpageshow: EventHandler;
+  onpageswap: EventHandler;
+  onpopstate: EventHandler;
+  onrejectionhandled: EventHandler;
+  onstorage: EventHandler;
+  onunhandledrejection: EventHandler;
+  onunload: EventHandler;
+}
+
+/* mixin */ declare class mixin$WindowLocalStorage {
+  +localStorage: Storage;
+}
+
+/* mixin */ declare class mixin$WindowOrWorkerGlobalScope {
+  +crossOriginIsolated: boolean;
+  +isSecureContext: boolean;
+  +origin: string;
+
+  atob(data: string): string;
+  btoa(data: string): string;
+  clearInterval(id?: number): void;
+  clearTimeout(id?: number): void;
+  createImageBitmap(
+    image: ImageBitmapSource,
+    options?: ImageBitmapOptions,
+  ): ImageBitmap;
+  createImageBitmap(
+    image: ImageBitmapSource,
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+    options?: ImageBitmapOptions,
+  ): ImageBitmap;
+  queueMicrotask(callback: VoidFunction): void;
+  reportError(e: any): void;
+  setInterval(handler: TimerHandler, timeout?: number, arguments_: any): number;
+  setTimeout(handler: TimerHandler, timeout?: number, arguments_: any): number;
+  structuredClone(value: any, options?: StructuredSerializeOptions): any;
+}
+
+/* mixin */ declare class mixin$WindowSessionStorage {
+  +sessionStorage: Storage;
 }

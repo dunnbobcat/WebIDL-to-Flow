@@ -12,16 +12,6 @@ type TextEncoderEncodeIntoResult = {
   written: number,
 };
 
-/* mixin */ declare class mixin$TextDecoderCommon {
-  +encoding: string;
-  +fatal: boolean;
-  +ignoreBOM: boolean;
-}
-
-/* mixin */ declare class mixin$TextEncoderCommon {
-  +encoding: string;
-}
-
 declare class TextDecoder mixins mixin$TextDecoderCommon {
   constructor(label?: string, options?: TextDecoderOptions): void;
 
@@ -48,4 +38,14 @@ declare class TextEncoderStream
   mixins mixin$TextEncoderCommon, mixin$GenericTransformStream
 {
   constructor(): void;
+}
+
+/* mixin */ declare class mixin$TextDecoderCommon {
+  +encoding: string;
+  +fatal: boolean;
+  +ignoreBOM: boolean;
+}
+
+/* mixin */ declare class mixin$TextEncoderCommon {
+  +encoding: string;
 }

@@ -15,6 +15,7 @@ const KEYWORD_REPLACEMENTS = ({
 }: {[string]: string});
 
 const TYPE_MAP = ({
+  ByteString: 'string',
   CSSOMString: 'string',
   DOMHighResTimeStamp: 'number',
   DOMString: 'string',

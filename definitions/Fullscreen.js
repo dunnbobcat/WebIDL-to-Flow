@@ -4,10 +4,6 @@ type FullscreenOptions = {
   navigationUI: FullscreenNavigationUI,
 };
 
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  +fullscreenElement: Element | null;
-}
-
 /* partial */ interface Document {
   +fullscreen: boolean;
   +fullscreenEnabled: boolean;
@@ -22,4 +18,8 @@ type FullscreenOptions = {
   onfullscreenerror: EventHandler;
 
   requestFullscreen(options?: FullscreenOptions): void;
+}
+
+/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
+  +fullscreenElement: Element | null;
 }

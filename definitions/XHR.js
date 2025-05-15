@@ -52,7 +52,7 @@ declare class XMLHttpRequest extends XMLHttpRequestEventTarget {
   +responseURL: string;
   +responseXML: Document | null;
   +status: number;
-  +statusText: ByteString;
+  +statusText: string;
   timeout: number;
   +upload: XMLHttpRequestUpload;
   withCredentials: boolean;
@@ -60,11 +60,11 @@ declare class XMLHttpRequest extends XMLHttpRequestEventTarget {
   constructor(): void;
 
   abort(): void;
-  getAllResponseHeaders(): ByteString;
-  getResponseHeader(name: ByteString): ByteString | null;
-  open(method: ByteString, url: string): void;
+  getAllResponseHeaders(): string;
+  getResponseHeader(name: string): string | null;
+  open(method: string, url: string): void;
   open(
-    method: ByteString,
+    method: string,
     url: string,
     async: boolean,
     username?: string | null,
@@ -72,7 +72,7 @@ declare class XMLHttpRequest extends XMLHttpRequestEventTarget {
   ): void;
   overrideMimeType(mime: string): void;
   send(body?: Document | XMLHttpRequestBodyInit | null): void;
-  setRequestHeader(name: ByteString, value: ByteString): void;
+  setRequestHeader(name: string, value: string): void;
 }
 
 declare class XMLHttpRequestEventTarget extends EventTarget {

@@ -113,17 +113,6 @@ type UnderlyingSourceStartCallback = (
   controller: ReadableStreamController,
 ) => any;
 
-/* mixin */ declare class mixin$GenericTransformStream {
-  +readable: ReadableStream;
-  +writable: WritableStream;
-}
-
-/* mixin */ declare class mixin$ReadableStreamGenericReader {
-  +closed: void;
-
-  cancel(reason?: any): void;
-}
-
 declare class ByteLengthQueuingStrategy {
   +highWaterMark: number;
   +size: Function;
@@ -247,4 +236,15 @@ declare class WritableStreamDefaultWriter {
   close(): void;
   releaseLock(): void;
   write(chunk?: any): void;
+}
+
+/* mixin */ declare class mixin$GenericTransformStream {
+  +readable: ReadableStream;
+  +writable: WritableStream;
+}
+
+/* mixin */ declare class mixin$ReadableStreamGenericReader {
+  +closed: void;
+
+  cancel(reason?: any): void;
 }

@@ -18,6 +18,10 @@ type ArrayBufferView =
   | Float64Array
   | DataView;
 
+type BlobPart = BufferSource | Blob | string;
+
+type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
+
 type BufferSource = ArrayBufferView | ArrayBuffer;
 
 type CanvasImageSource =
@@ -30,11 +34,47 @@ type CanvasImageSource =
 
 type EventHandler = EventHandlerNonNull | null;
 
+type Float32List = Float32Array | Array<GLfloat>;
+
+type FormDataEntryValue = File | string;
+
+type GLbitfield = number;
+
+type GLboolean = boolean;
+
+type GLbyte = byte;
+
+type GLclampf = number;
+
+type GLenum = number;
+
+type GLfloat = number;
+
+type GLint = number;
+
+type GLintptr = number;
+
+type GLshort = number;
+
+type GLsizei = number;
+
+type GLsizeiptr = number;
+
+type GLubyte = octet;
+
+type GLuint = number;
+
+type GLushort = number;
+
+type HeadersInit = Array<Array<string>> | string | string;
+
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 
 type HTMLOrSVGScriptElement = HTMLScriptElement | SVGScriptElement;
 
 type ImageBitmapSource = CanvasImageSource | Blob | ImageData;
+
+type Int32List = Int32Array | Array<GLint>;
 
 type MediaProvider = MediaStream | MediaSource | Blob;
 
@@ -51,6 +91,14 @@ type OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull | null;
 
 type OnErrorEventHandler = OnErrorEventHandlerNonNull | null;
 
+type ReadableStreamController =
+  | ReadableStreamDefaultController
+  | ReadableByteStreamController;
+
+type ReadableStreamReader =
+  | ReadableStreamDefaultReader
+  | ReadableStreamBYOBReader;
+
 type RenderingContext =
   | CanvasRenderingContext2D
   | ImageBitmapRenderingContext
@@ -58,7 +106,31 @@ type RenderingContext =
   | WebGL2RenderingContext
   | GPUCanvasContext;
 
+type RequestInfo = Request | string;
+
+type TexImageSource =
+  | ImageBitmap
+  | ImageData
+  | HTMLImageElement
+  | HTMLCanvasElement
+  | HTMLVideoElement
+  | OffscreenCanvas
+  | VideoFrame;
+
 type TimerHandler = string | Function | TrustedScript;
+
+type URLPatternCompatible = string | URLPatternInit | URLPattern;
+
+type URLPatternInput = string | URLPatternInit;
+
+type VibratePattern = number | Array<number>;
+
+type XMLHttpRequestBodyInit =
+  | Blob
+  | BufferSource
+  | FormData
+  | URLSearchParams
+  | string;
 
 type CanPlayTypeResult = '' | 'maybe' | 'probably';
 
@@ -123,6 +195,10 @@ type DOMParserSupportedType =
   | 'application/xhtml+xml'
   | 'image/svg+xml';
 
+type EndingType = 'transparent' | 'native';
+
+type FullscreenNavigationUI = 'auto' | 'show' | 'hide';
+
 type ImageOrientation = 'from-image' | 'flipY';
 
 type ImageSmoothingQuality = 'low' | 'medium' | 'high';
@@ -135,6 +211,10 @@ type NavigationScrollBehavior = 'after-transition' | 'manual';
 
 type NavigationType = 'push' | 'replace' | 'reload' | 'traverse';
 
+type NotificationDirection = 'auto' | 'ltr' | 'rtl';
+
+type NotificationPermission = 'default' | 'denied' | 'granted';
+
 type OffscreenRenderingContextId =
   | '2d'
   | 'bitmaprenderer'
@@ -146,7 +226,60 @@ type PredefinedColorSpace = 'srgb' | 'display-p3';
 
 type PremultiplyAlpha = 'none' | 'premultiply' | 'default';
 
+type ReadableStreamReaderMode = 'byob';
+
+type ReadableStreamType = 'bytes';
+
+type RequestCache =
+  | 'default'
+  | 'no-store'
+  | 'reload'
+  | 'no-cache'
+  | 'force-cache'
+  | 'only-if-cached';
+
+type RequestCredentials = 'omit' | 'same-origin' | 'include';
+
+type RequestDestination =
+  | ''
+  | 'audio'
+  | 'audioworklet'
+  | 'document'
+  | 'embed'
+  | 'font'
+  | 'frame'
+  | 'iframe'
+  | 'image'
+  | 'json'
+  | 'manifest'
+  | 'object'
+  | 'paintworklet'
+  | 'report'
+  | 'script'
+  | 'sharedworker'
+  | 'style'
+  | 'track'
+  | 'video'
+  | 'worker'
+  | 'xslt';
+
+type RequestDuplex = 'half';
+
+type RequestMode = 'navigate' | 'same-origin' | 'no-cors' | 'cors';
+
+type RequestPriority = 'high' | 'low' | 'auto';
+
+type RequestRedirect = 'follow' | 'error' | 'manual';
+
 type ResizeQuality = 'pixelated' | 'low' | 'medium' | 'high';
+
+type ResponseType =
+  | 'basic'
+  | 'cors'
+  | 'default'
+  | 'error'
+  | 'opaque'
+  | 'opaqueredirect';
 
 type ScrollRestoration = 'auto' | 'manual';
 
@@ -165,7 +298,17 @@ type TextTrackKind =
 
 type TextTrackMode = 'disabled' | 'hidden' | 'showing';
 
+type WebGLPowerPreference = 'default' | 'low-power' | 'high-performance';
+
 type WorkerType = 'classic' | 'module';
+
+type XMLHttpRequestResponseType =
+  | ''
+  | 'arraybuffer'
+  | 'blob'
+  | 'document'
+  | 'json'
+  | 'text';
 
 type AddEventListenerOptions = {
   passive: boolean,
@@ -175,6 +318,11 @@ type AddEventListenerOptions = {
 
 type AssignedNodesOptions = {
   flatten: boolean,
+};
+
+type BlobPropertyBag = {
+  type: string,
+  endings: EndingType,
 };
 
 type CanvasRenderingContext2DSettings = {
@@ -202,6 +350,56 @@ type CSSStyleSheetInit = {
 
 type CustomEventInit = {
   detail: any,
+};
+
+type DOMMatrix2DInit = {
+  a: number,
+  b: number,
+  c: number,
+  d: number,
+  e: number,
+  f: number,
+  m11: number,
+  m12: number,
+  m21: number,
+  m22: number,
+  m41: number,
+  m42: number,
+};
+
+type DOMMatrixInit = {
+  m13: number,
+  m14: number,
+  m23: number,
+  m24: number,
+  m31: number,
+  m32: number,
+  m33: number,
+  m34: number,
+  m43: number,
+  m44: number,
+  is2D: boolean,
+};
+
+type DOMPointInit = {
+  x: number,
+  y: number,
+  z: number,
+  w: number,
+};
+
+type DOMQuadInit = {
+  p1: DOMPointInit,
+  p2: DOMPointInit,
+  p3: DOMPointInit,
+  p4: DOMPointInit,
+};
+
+type DOMRectInit = {
+  x: number,
+  y: number,
+  width: number,
+  height: number,
 };
 
 type DragEventInit = {
@@ -238,6 +436,10 @@ type EventSourceInit = {
   withCredentials: boolean,
 };
 
+type FilePropertyBag = {
+  lastModified: number,
+};
+
 type FocusOptions = {
   preventScroll: boolean,
   focusVisible: boolean,
@@ -247,9 +449,17 @@ type FormDataEventInit = {
   formData: FormData,
 };
 
+type FullscreenOptions = {
+  navigationUI: FullscreenNavigationUI,
+};
+
 type GetHTMLOptions = {
   serializableShadowRoots: boolean,
   shadowRoots: Array<ShadowRoot>,
+};
+
+type GetNotificationOptions = {
+  tag: string,
 };
 
 type GetRootNodeOptions = {
@@ -348,6 +558,34 @@ type NavigationUpdateCurrentEntryOptions = {
   state: any,
 };
 
+type NotificationAction = {
+  action: string,
+  title: string,
+  icon: string,
+};
+
+type NotificationEventInit = {
+  notification: Notification,
+  action: string,
+};
+
+type NotificationOptions = {
+  dir: NotificationDirection,
+  lang: string,
+  body: string,
+  tag: string,
+  image: string,
+  icon: string,
+  badge: string,
+  vibrate: VibratePattern,
+  timestamp: EpochTimeStamp,
+  renotify: boolean,
+  silent: boolean | null,
+  requireInteraction: boolean,
+  data: any,
+  actions: Array<NotificationAction>,
+};
+
 type PageRevealEventInit = {
   viewTransition: ViewTransition | null,
 };
@@ -366,9 +604,70 @@ type PopStateEventInit = {
   hasUAVisualTransition: boolean,
 };
 
+type ProgressEventInit = {
+  lengthComputable: boolean,
+  loaded: number,
+  total: number,
+};
+
 type PromiseRejectionEventInit = {
   promise: Object,
   reason: any,
+};
+
+type QueuingStrategy = {
+  highWaterMark: number,
+  size: QueuingStrategySize,
+};
+
+type QueuingStrategyInit = {
+  highWaterMark: number,
+};
+
+type ReadableStreamBYOBReaderReadOptions = {
+  min: number,
+};
+
+type ReadableStreamGetReaderOptions = {
+  mode: ReadableStreamReaderMode,
+};
+
+type ReadableStreamIteratorOptions = {
+  preventCancel: boolean,
+};
+
+type ReadableStreamReadResult = {
+  value: any,
+  done: boolean,
+};
+
+type ReadableWritablePair = {
+  readable: ReadableStream,
+  writable: WritableStream,
+};
+
+type RequestInit = {
+  method: string,
+  headers: HeadersInit,
+  body: BodyInit | null,
+  referrer: string,
+  referrerPolicy: ReferrerPolicy,
+  mode: RequestMode,
+  credentials: RequestCredentials,
+  cache: RequestCache,
+  redirect: RequestRedirect,
+  integrity: string,
+  keepalive: boolean,
+  signal: AbortSignal | null,
+  duplex: RequestDuplex,
+  priority: RequestPriority,
+  window: any,
+};
+
+type ResponseInit = {
+  status: number,
+  statusText: string,
+  headers: HeadersInit,
 };
 
 type ShadowRootInit = {
@@ -398,6 +697,13 @@ type StorageEventInit = {
   storageArea: Storage | null,
 };
 
+type StreamPipeOptions = {
+  preventClose: boolean,
+  preventAbort: boolean,
+  preventCancel: boolean,
+  signal: AbortSignal,
+};
+
 type StructuredSerializeOptions = {
   transfer: Array<Object>,
 };
@@ -413,6 +719,20 @@ type SVGBoundingBoxOptions = {
   clipped: boolean,
 };
 
+type TextDecodeOptions = {
+  stream: boolean,
+};
+
+type TextDecoderOptions = {
+  fatal: boolean,
+  ignoreBOM: boolean,
+};
+
+type TextEncoderEncodeIntoResult = {
+  read: number,
+  written: number,
+};
+
 type ToggleEventInit = {
   oldState: string,
   newState: string,
@@ -426,6 +746,64 @@ type TrackEventInit = {
   track: VideoTrack | AudioTrack | TextTrack | null,
 };
 
+type Transformer = {
+  start: TransformerStartCallback,
+  transform: TransformerTransformCallback,
+  flush: TransformerFlushCallback,
+  cancel: TransformerCancelCallback,
+  readableType: any,
+  writableType: any,
+};
+
+type UnderlyingSink = {
+  start: UnderlyingSinkStartCallback,
+  write: UnderlyingSinkWriteCallback,
+  close: UnderlyingSinkCloseCallback,
+  abort: UnderlyingSinkAbortCallback,
+  type: any,
+};
+
+type UnderlyingSource = {
+  start: UnderlyingSourceStartCallback,
+  pull: UnderlyingSourcePullCallback,
+  cancel: UnderlyingSourceCancelCallback,
+  type: ReadableStreamType,
+  autoAllocateChunkSize: number,
+};
+
+type URLPatternComponentResult = {
+  input: string,
+  groups: string | string | void,
+};
+
+type URLPatternInit = {
+  protocol: string,
+  username: string,
+  password: string,
+  hostname: string,
+  port: string,
+  pathname: string,
+  search: string,
+  hash: string,
+  baseURL: string,
+};
+
+type URLPatternOptions = {
+  ignoreCase: boolean,
+};
+
+type URLPatternResult = {
+  inputs: Array<URLPatternInput>,
+  protocol: URLPatternComponentResult,
+  username: URLPatternComponentResult,
+  password: URLPatternComponentResult,
+  hostname: URLPatternComponentResult,
+  port: URLPatternComponentResult,
+  pathname: URLPatternComponentResult,
+  search: URLPatternComponentResult,
+  hash: URLPatternComponentResult,
+};
+
 type ValidityStateFlags = {
   valueMissing: boolean,
   typeMismatch: boolean,
@@ -437,6 +815,22 @@ type ValidityStateFlags = {
   stepMismatch: boolean,
   badInput: boolean,
   customError: boolean,
+};
+
+type WebGLContextAttributes = {
+  alpha: boolean,
+  depth: boolean,
+  stencil: boolean,
+  antialias: boolean,
+  premultipliedAlpha: boolean,
+  preserveDrawingBuffer: boolean,
+  powerPreference: WebGLPowerPreference,
+  failIfMajorPerformanceCaveat: boolean,
+  desynchronized: boolean,
+};
+
+type WebGLContextEventInit = {
+  statusMessage: string,
 };
 
 type WindowPostMessageOptions = {
@@ -472,6 +866,10 @@ type MutationCallback = (
 
 type NavigationInterceptHandler = () => void;
 
+type NotificationPermissionCallback = (
+  permission: NotificationPermission,
+) => void;
+
 type OnBeforeUnloadEventHandlerNonNull = (event: Event) => string | null;
 
 type OnErrorEventHandlerNonNull = (
@@ -482,618 +880,47 @@ type OnErrorEventHandlerNonNull = (
   error?: any,
 ) => any;
 
+type QueuingStrategySize = (chunk: any) => number;
+
+type TransformerCancelCallback = (reason: any) => void;
+
+type TransformerFlushCallback = (
+  controller: TransformStreamDefaultController,
+) => void;
+
+type TransformerStartCallback = (
+  controller: TransformStreamDefaultController,
+) => any;
+
+type TransformerTransformCallback = (
+  chunk: any,
+  controller: TransformStreamDefaultController,
+) => void;
+
+type UnderlyingSinkAbortCallback = (reason?: any) => void;
+
+type UnderlyingSinkCloseCallback = () => void;
+
+type UnderlyingSinkStartCallback = (
+  controller: WritableStreamDefaultController,
+) => any;
+
+type UnderlyingSinkWriteCallback = (
+  chunk: any,
+  controller: WritableStreamDefaultController,
+) => void;
+
+type UnderlyingSourceCancelCallback = (reason?: any) => void;
+
+type UnderlyingSourcePullCallback = (
+  controller: ReadableStreamController,
+) => void;
+
+type UnderlyingSourceStartCallback = (
+  controller: ReadableStreamController,
+) => any;
+
 type VoidFunction = () => void;
-
-/* mixin */ declare class mixin$AbstractWorker {
-  onerror: EventHandler;
-}
-
-/* mixin */ declare class mixin$AnimationFrameProvider {
-  cancelAnimationFrame(handle: number): void;
-  requestAnimationFrame(callback: FrameRequestCallback): number;
-}
-
-/* mixin */ declare class mixin$CanvasCompositing {
-  globalAlpha: number;
-  globalCompositeOperation: string;
-}
-
-/* mixin */ declare class mixin$CanvasDrawImage {
-  drawImage(image: CanvasImageSource, dx: number, dy: number): void;
-  drawImage(
-    image: CanvasImageSource,
-    dx: number,
-    dy: number,
-    dw: number,
-    dh: number,
-  ): void;
-  drawImage(
-    image: CanvasImageSource,
-    sx: number,
-    sy: number,
-    sw: number,
-    sh: number,
-    dx: number,
-    dy: number,
-    dw: number,
-    dh: number,
-  ): void;
-}
-
-/* mixin */ declare class mixin$CanvasDrawPath {
-  beginPath(): void;
-  clip(fillRule?: CanvasFillRule): void;
-  clip(path: Path2D, fillRule?: CanvasFillRule): void;
-  fill(fillRule?: CanvasFillRule): void;
-  fill(path: Path2D, fillRule?: CanvasFillRule): void;
-  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
-  isPointInPath(
-    path: Path2D,
-    x: number,
-    y: number,
-    fillRule?: CanvasFillRule,
-  ): boolean;
-  isPointInStroke(x: number, y: number): boolean;
-  isPointInStroke(path: Path2D, x: number, y: number): boolean;
-  stroke(): void;
-  stroke(path: Path2D): void;
-}
-
-/* mixin */ declare class mixin$CanvasFillStrokeStyles {
-  fillStyle: string | CanvasGradient | CanvasPattern;
-  strokeStyle: string | CanvasGradient | CanvasPattern;
-
-  createConicGradient(startAngle: number, x: number, y: number): CanvasGradient;
-  createLinearGradient(
-    x0: number,
-    y0: number,
-    x1: number,
-    y1: number,
-  ): CanvasGradient;
-  createPattern(
-    image: CanvasImageSource,
-    repetition: string,
-  ): CanvasPattern | null;
-  createRadialGradient(
-    x0: number,
-    y0: number,
-    r0: number,
-    x1: number,
-    y1: number,
-    r1: number,
-  ): CanvasGradient;
-}
-
-/* mixin */ declare class mixin$CanvasFilters {
-  filter: string;
-}
-
-/* mixin */ declare class mixin$CanvasImageData {
-  createImageData(
-    sw: number,
-    sh: number,
-    settings?: ImageDataSettings,
-  ): ImageData;
-  createImageData(imageData: ImageData): ImageData;
-  getImageData(
-    sx: number,
-    sy: number,
-    sw: number,
-    sh: number,
-    settings?: ImageDataSettings,
-  ): ImageData;
-  putImageData(imageData: ImageData, dx: number, dy: number): void;
-  putImageData(
-    imageData: ImageData,
-    dx: number,
-    dy: number,
-    dirtyX: number,
-    dirtyY: number,
-    dirtyWidth: number,
-    dirtyHeight: number,
-  ): void;
-}
-
-/* mixin */ declare class mixin$CanvasImageSmoothing {
-  imageSmoothingEnabled: boolean;
-  imageSmoothingQuality: ImageSmoothingQuality;
-}
-
-/* mixin */ declare class mixin$CanvasPath {
-  arc(
-    x: number,
-    y: number,
-    radius: number,
-    startAngle: number,
-    endAngle: number,
-    counterclockwise?: boolean,
-  ): void;
-  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
-  bezierCurveTo(
-    cp1x: number,
-    cp1y: number,
-    cp2x: number,
-    cp2y: number,
-    x: number,
-    y: number,
-  ): void;
-  closePath(): void;
-  ellipse(
-    x: number,
-    y: number,
-    radiusX: number,
-    radiusY: number,
-    rotation: number,
-    startAngle: number,
-    endAngle: number,
-    counterclockwise?: boolean,
-  ): void;
-  lineTo(x: number, y: number): void;
-  moveTo(x: number, y: number): void;
-  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
-  rect(x: number, y: number, w: number, h: number): void;
-  roundRect(
-    x: number,
-    y: number,
-    w: number,
-    h: number,
-    radii?: number | DOMPointInit | Array<number | DOMPointInit>,
-  ): void;
-}
-
-/* mixin */ declare class mixin$CanvasPathDrawingStyles {
-  lineCap: CanvasLineCap;
-  lineDashOffset: number;
-  lineJoin: CanvasLineJoin;
-  lineWidth: number;
-  miterLimit: number;
-
-  getLineDash(): Array<number>;
-  setLineDash(segments: Array<number>): void;
-}
-
-/* mixin */ declare class mixin$CanvasRect {
-  clearRect(x: number, y: number, w: number, h: number): void;
-  fillRect(x: number, y: number, w: number, h: number): void;
-  strokeRect(x: number, y: number, w: number, h: number): void;
-}
-
-/* mixin */ declare class mixin$CanvasSettings {
-  getContextAttributes(): CanvasRenderingContext2DSettings;
-}
-
-/* mixin */ declare class mixin$CanvasShadowStyles {
-  shadowBlur: number;
-  shadowColor: string;
-  shadowOffsetX: number;
-  shadowOffsetY: number;
-}
-
-/* mixin */ declare class mixin$CanvasState {
-  isContextLost(): boolean;
-  reset(): void;
-  restore(): void;
-  save(): void;
-}
-
-/* mixin */ declare class mixin$CanvasText {
-  fillText(text: string, x: number, y: number, maxWidth?: number): void;
-  measureText(text: string): TextMetrics;
-  strokeText(text: string, x: number, y: number, maxWidth?: number): void;
-}
-
-/* mixin */ declare class mixin$CanvasTextDrawingStyles {
-  direction: CanvasDirection;
-  font: string;
-  fontKerning: CanvasFontKerning;
-  fontStretch: CanvasFontStretch;
-  fontVariantCaps: CanvasFontVariantCaps;
-  lang: string;
-  letterSpacing: string;
-  textAlign: CanvasTextAlign;
-  textBaseline: CanvasTextBaseline;
-  textRendering: CanvasTextRendering;
-  wordSpacing: string;
-}
-
-/* mixin */ declare class mixin$CanvasTransform {
-  getTransform(): DOMMatrix;
-  resetTransform(): void;
-  rotate(angle: number): void;
-  scale(x: number, y: number): void;
-  setTransform(
-    a: number,
-    b: number,
-    c: number,
-    d: number,
-    e: number,
-    f: number,
-  ): void;
-  setTransform(transform?: DOMMatrix2DInit): void;
-  transform(
-    a: number,
-    b: number,
-    c: number,
-    d: number,
-    e: number,
-    f: number,
-  ): void;
-  translate(x: number, y: number): void;
-}
-
-/* mixin */ declare class mixin$CanvasUserInterface {
-  drawFocusIfNeeded(element: Element): void;
-  drawFocusIfNeeded(path: Path2D, element: Element): void;
-}
-
-/* mixin */ declare class mixin$ChildNode {
-  after(nodes: Node | string): void;
-  before(nodes: Node | string): void;
-  remove(): void;
-  replaceWith(nodes: Node | string): void;
-}
-
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  adoptedStyleSheets: CSSStyleSheet;
-  +styleSheets: StyleSheetList;
-}
-
-/* mixin */ declare class mixin$DocumentOrShadowRoot {}
-
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  +activeElement: Element | null;
-}
-
-/* mixin */ declare class mixin$ElementContentEditable {
-  contentEditable: string;
-  enterKeyHint: string;
-  inputMode: string;
-  +isContentEditable: boolean;
-}
-
-/* mixin */ declare class mixin$ElementCSSInlineStyle {
-  +style: CSSStyleDeclaration;
-}
-
-/* mixin */ declare class mixin$GetSVGDocument {
-  getSVGDocument(): Document;
-}
-
-/* mixin */ declare class mixin$GlobalEventHandlers {
-  onabort: EventHandler;
-  onauxclick: EventHandler;
-  onbeforeinput: EventHandler;
-  onbeforematch: EventHandler;
-  onbeforetoggle: EventHandler;
-  onblur: EventHandler;
-  oncancel: EventHandler;
-  oncanplay: EventHandler;
-  oncanplaythrough: EventHandler;
-  onchange: EventHandler;
-  onclick: EventHandler;
-  onclose: EventHandler;
-  oncommand: EventHandler;
-  oncontextlost: EventHandler;
-  oncontextmenu: EventHandler;
-  oncontextrestored: EventHandler;
-  oncopy: EventHandler;
-  oncuechange: EventHandler;
-  oncut: EventHandler;
-  ondblclick: EventHandler;
-  ondrag: EventHandler;
-  ondragend: EventHandler;
-  ondragenter: EventHandler;
-  ondragleave: EventHandler;
-  ondragover: EventHandler;
-  ondragstart: EventHandler;
-  ondrop: EventHandler;
-  ondurationchange: EventHandler;
-  onemptied: EventHandler;
-  onended: EventHandler;
-  onerror: OnErrorEventHandler;
-  onfocus: EventHandler;
-  onformdata: EventHandler;
-  oninput: EventHandler;
-  oninvalid: EventHandler;
-  onkeydown: EventHandler;
-  onkeypress: EventHandler;
-  onkeyup: EventHandler;
-  onload: EventHandler;
-  onloadeddata: EventHandler;
-  onloadedmetadata: EventHandler;
-  onloadstart: EventHandler;
-  onmousedown: EventHandler;
-  onmouseenter: EventHandler;
-  onmouseleave: EventHandler;
-  onmousemove: EventHandler;
-  onmouseout: EventHandler;
-  onmouseover: EventHandler;
-  onmouseup: EventHandler;
-  onpaste: EventHandler;
-  onpause: EventHandler;
-  onplay: EventHandler;
-  onplaying: EventHandler;
-  onprogress: EventHandler;
-  onratechange: EventHandler;
-  onreset: EventHandler;
-  onresize: EventHandler;
-  onscroll: EventHandler;
-  onscrollend: EventHandler;
-  onsecuritypolicyviolation: EventHandler;
-  onseeked: EventHandler;
-  onseeking: EventHandler;
-  onselect: EventHandler;
-  onslotchange: EventHandler;
-  onstalled: EventHandler;
-  onsubmit: EventHandler;
-  onsuspend: EventHandler;
-  ontimeupdate: EventHandler;
-  ontoggle: EventHandler;
-  onvolumechange: EventHandler;
-  onwaiting: EventHandler;
-  onwebkitanimationend: EventHandler;
-  onwebkitanimationiteration: EventHandler;
-  onwebkitanimationstart: EventHandler;
-  onwebkittransitionend: EventHandler;
-  onwheel: EventHandler;
-}
-
-/* mixin */ declare class mixin$HTMLHyperlinkElementUtils {
-  hash: string;
-  host: string;
-  hostname: string;
-  href: string;
-  +origin: string;
-  password: string;
-  pathname: string;
-  port: string;
-  protocol: string;
-  search: string;
-  username: string;
-}
-
-/* mixin */ declare class mixin$HTMLOrSVGElement {
-  autofocus: boolean;
-  +dataset: DOMStringMap;
-  nonce: string;
-  tabIndex: number;
-
-  blur(): void;
-  focus(options?: FocusOptions): void;
-}
-
-/* mixin */ declare class mixin$LinkStyle {
-  +sheet: CSSStyleSheet | null;
-}
-
-/* mixin */ declare class mixin$MessageEventTarget {
-  onmessage: EventHandler;
-  onmessageerror: EventHandler;
-}
-
-/* mixin */ declare class mixin$NavigatorConcurrentHardware {
-  +hardwareConcurrency: number;
-}
-
-/* mixin */ declare class mixin$NavigatorContentUtils {
-  registerProtocolHandler(scheme: string, url: string): void;
-  unregisterProtocolHandler(scheme: string, url: string): void;
-}
-
-/* mixin */ declare class mixin$NavigatorCookies {
-  +cookieEnabled: boolean;
-}
-
-/* mixin */ declare class mixin$NavigatorID {
-  +appCodeName: string;
-  +appName: string;
-  +appVersion: string;
-  +platform: string;
-  +product: string;
-  +productSub: string;
-  +userAgent: string;
-  +vendor: string;
-  +vendorSub: string;
-}
-
-/* partial mixin */ declare class mixin$NavigatorID {
-  +oscpu: string;
-
-  taintEnabled(): boolean;
-}
-
-/* mixin */ declare class mixin$NavigatorLanguage {
-  +language: string;
-  +languages: string;
-}
-
-/* mixin */ declare class mixin$NavigatorOnLine {
-  +onLine: boolean;
-}
-
-/* mixin */ declare class mixin$NavigatorPlugins {
-  +mimeTypes: MimeTypeArray;
-  +pdfViewerEnabled: boolean;
-  +plugins: PluginArray;
-
-  javaEnabled(): boolean;
-}
-
-/* mixin */ declare class mixin$NonDocumentTypeChildNode {
-  +nextElementSibling: Element | null;
-  +previousElementSibling: Element | null;
-}
-
-/* mixin */ declare class mixin$NonElementParentNode {
-  getElementById(elementId: string): Element | null;
-}
-
-/* mixin */ declare class mixin$ParentNode {
-  +childElementCount: number;
-  +children: HTMLCollection;
-  +firstElementChild: Element | null;
-  +lastElementChild: Element | null;
-
-  append(nodes: Node | string): void;
-  moveBefore(node: Node, child: Node | null): void;
-  prepend(nodes: Node | string): void;
-  querySelector(selectors: string): Element | null;
-  querySelectorAll(selectors: string): NodeList;
-  replaceChildren(nodes: Node | string): void;
-}
-
-/* mixin */ declare class mixin$PopoverInvokerElement {
-  popoverTargetAction: string;
-  popoverTargetElement: Element | null;
-}
-
-/* mixin */ declare class mixin$Slottable {
-  +assignedSlot: HTMLSlotElement | null;
-}
-
-/* mixin */ declare class mixin$SVGAnimatedPoints {
-  +animatedPoints: SVGPointList;
-  +points: SVGPointList;
-}
-
-/* mixin */ declare class mixin$SVGCSSRule {}
-
-/* mixin */ declare class mixin$SVGElementInstance {
-  +correspondingElement: SVGElement | null;
-  +correspondingUseElement: SVGUseElement | null;
-}
-
-/* mixin */ declare class mixin$SVGExternalResourcesRequired {
-  +externalResourcesRequired: SVGAnimatedBoolean;
-}
-
-/* mixin */ declare class mixin$SVGFitToViewBox {
-  +preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
-  +viewBox: SVGAnimatedRect;
-}
-
-/* mixin */ declare class mixin$SVGLangSpace {
-  xmllang: string;
-  xmlspace: string;
-}
-
-/* mixin */ declare class mixin$SVGLocatable {
-  +farthestViewportElement: SVGElement;
-  +nearestViewportElement: SVGElement;
-
-  getBBox(): SVGRect;
-  getCTM(): SVGMatrix;
-  getScreenCTM(): SVGMatrix;
-  getTransformToElement(element: SVGElement): SVGMatrix;
-}
-
-/* mixin */ declare class mixin$SVGStylable {
-  +className: SVGAnimatedString;
-  +style: CSSStyleDeclaration;
-
-  getPresentationAttribute(name: string): CSSValue;
-}
-
-/* mixin */ declare class mixin$SVGTests {
-  +requiredExtensions: SVGStringList;
-  +requiredFeatures: SVGStringList;
-  +systemLanguage: SVGStringList;
-
-  hasExtension(extension: string): boolean;
-}
-
-/* mixin */ declare class mixin$SVGTransformable {
-  +transform: SVGAnimatedTransformList;
-}
-
-/* mixin */ declare class mixin$SVGURIReference {
-  +href: SVGAnimatedString;
-}
-
-/* mixin */ declare class mixin$SVGViewSpec {
-  +preserveAspectRatioString: string;
-  +transform: SVGTransformList;
-  +transformString: string;
-  +viewBoxString: string;
-  +viewTarget: SVGElement;
-  +viewTargetString: string;
-}
-
-/* mixin */ declare class mixin$SVGZoomAndPan {
-  zoomAndPan: number;
-}
-
-/* mixin */ declare class mixin$WindowEventHandlers {
-  onafterprint: EventHandler;
-  onbeforeprint: EventHandler;
-  onbeforeunload: OnBeforeUnloadEventHandler;
-  onhashchange: EventHandler;
-  onlanguagechange: EventHandler;
-  onmessage: EventHandler;
-  onmessageerror: EventHandler;
-  onoffline: EventHandler;
-  ononline: EventHandler;
-  onpagehide: EventHandler;
-  onpagereveal: EventHandler;
-  onpageshow: EventHandler;
-  onpageswap: EventHandler;
-  onpopstate: EventHandler;
-  onrejectionhandled: EventHandler;
-  onstorage: EventHandler;
-  onunhandledrejection: EventHandler;
-  onunload: EventHandler;
-}
-
-/* mixin */ declare class mixin$WindowLocalStorage {
-  +localStorage: Storage;
-}
-
-/* mixin */ declare class mixin$WindowOrWorkerGlobalScope {
-  +crossOriginIsolated: boolean;
-  +isSecureContext: boolean;
-  +origin: string;
-
-  atob(data: string): ByteString;
-  btoa(data: string): string;
-  clearInterval(id?: number): void;
-  clearTimeout(id?: number): void;
-  createImageBitmap(
-    image: ImageBitmapSource,
-    options?: ImageBitmapOptions,
-  ): ImageBitmap;
-  createImageBitmap(
-    image: ImageBitmapSource,
-    sx: number,
-    sy: number,
-    sw: number,
-    sh: number,
-    options?: ImageBitmapOptions,
-  ): ImageBitmap;
-  queueMicrotask(callback: VoidFunction): void;
-  reportError(e: any): void;
-  setInterval(handler: TimerHandler, timeout?: number, arguments_: any): number;
-  setTimeout(handler: TimerHandler, timeout?: number, arguments_: any): number;
-  structuredClone(value: any, options?: StructuredSerializeOptions): any;
-}
-
-/* mixin */ declare class mixin$WindowSessionStorage {
-  +sessionStorage: Storage;
-}
-
-/* mixin */ declare class mixin$XPathEvaluatorBase {
-  createExpression(
-    expression: string,
-    resolver?: XPathNSResolver | null,
-  ): XPathExpression;
-  createNSResolver(nodeResolver: Node): Node;
-  evaluate(
-    expression: string,
-    contextNode: Node,
-    resolver?: XPathNSResolver | null,
-    type?: number,
-    result?: XPathResult | null,
-  ): XPathResult;
-}
 
 interface EventListener {
   handleEvent(event: Event): void;
@@ -1187,6 +1014,19 @@ declare class BeforeUnloadEvent extends Event {
   returnValue: string;
 }
 
+declare class Blob {
+  +size: number;
+  +type: string;
+
+  constructor(blobParts?: Array<BlobPart>, options?: BlobPropertyBag): void;
+
+  arrayBuffer(): ArrayBuffer;
+  bytes(): Uint8Array;
+  slice(start?: number, end?: number, contentType?: string): Blob;
+  stream(): ReadableStream;
+  text(): string;
+}
+
 declare class BroadcastChannel extends EventTarget {
   +name: string;
   onmessage: EventHandler;
@@ -1196,6 +1036,13 @@ declare class BroadcastChannel extends EventTarget {
 
   close(): void;
   postMessage(message: any): void;
+}
+
+declare class ByteLengthQueuingStrategy {
+  +highWaterMark: number;
+  +size: Function;
+
+  constructor(init: QueuingStrategyInit): void;
 }
 
 declare class CanvasGradient {
@@ -1265,6 +1112,13 @@ declare class CommandEvent extends Event {
 
 declare class Comment extends CharacterData {
   constructor(data?: string): void;
+}
+
+declare class CountQueuingStrategy {
+  +highWaterMark: number;
+  +size: Function;
+
+  constructor(init: QueuingStrategyInit): void;
 }
 
 declare class CSSGroupingRule extends CSSRule {
@@ -1496,6 +1350,22 @@ declare class Document
     mixin$XPathEvaluatorBase,
     mixin$GlobalEventHandlers
 {
+  +fullscreen: boolean;
+  +fullscreenEnabled: boolean;
+  onfullscreenchange: EventHandler;
+  onfullscreenerror: EventHandler;
+
+  exitFullscreen(): void;
+}
+
+/* partial */ declare class Document
+  mixins
+    mixin$NonElementParentNode,
+    mixin$DocumentOrShadowRoot,
+    mixin$ParentNode,
+    mixin$XPathEvaluatorBase,
+    mixin$GlobalEventHandlers
+{
   body: HTMLElement | null;
   cookie: string;
   +currentScript: HTMLOrSVGScriptElement | null;
@@ -1632,6 +1502,130 @@ declare class DOMImplementation {
   hasFeature(): boolean;
 }
 
+declare class DOMMatrix extends DOMMatrixReadOnly {
+  a: number;
+  b: number;
+  c: number;
+  d: number;
+  e: number;
+  f: number;
+  m11: number;
+  m12: number;
+  m13: number;
+  m14: number;
+  m21: number;
+  m22: number;
+  m23: number;
+  m24: number;
+  m31: number;
+  m32: number;
+  m33: number;
+  m34: number;
+  m41: number;
+  m42: number;
+  m43: number;
+  m44: number;
+
+  static fromFloat32Array(array32: Float32Array): DOMMatrix;
+  static fromFloat64Array(array64: Float64Array): DOMMatrix;
+  static fromMatrix(other?: DOMMatrixInit): DOMMatrix;
+  invertSelf(): DOMMatrix;
+  multiplySelf(other?: DOMMatrixInit): DOMMatrix;
+  preMultiplySelf(other?: DOMMatrixInit): DOMMatrix;
+  rotateAxisAngleSelf(
+    x?: number,
+    y?: number,
+    z?: number,
+    angle?: number,
+  ): DOMMatrix;
+  rotateFromVectorSelf(x?: number, y?: number): DOMMatrix;
+  rotateSelf(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
+  scale3dSelf(
+    scale?: number,
+    originX?: number,
+    originY?: number,
+    originZ?: number,
+  ): DOMMatrix;
+  scaleSelf(
+    scaleX?: number,
+    scaleY?: number,
+    scaleZ?: number,
+    originX?: number,
+    originY?: number,
+    originZ?: number,
+  ): DOMMatrix;
+  setMatrixValue(transformList: string): DOMMatrix;
+  skewXSelf(sx?: number): DOMMatrix;
+  skewYSelf(sy?: number): DOMMatrix;
+  translateSelf(tx?: number, ty?: number, tz?: number): DOMMatrix;
+}
+
+declare class DOMMatrixReadOnly {
+  +a: number;
+  +b: number;
+  +c: number;
+  +d: number;
+  +e: number;
+  +f: number;
+  +is2D: boolean;
+  +isIdentity: boolean;
+  +m11: number;
+  +m12: number;
+  +m13: number;
+  +m14: number;
+  +m21: number;
+  +m22: number;
+  +m23: number;
+  +m24: number;
+  +m31: number;
+  +m32: number;
+  +m33: number;
+  +m34: number;
+  +m41: number;
+  +m42: number;
+  +m43: number;
+  +m44: number;
+
+  static fromFloat32Array(array32: Float32Array): DOMMatrixReadOnly;
+  static fromFloat64Array(array64: Float64Array): DOMMatrixReadOnly;
+  static fromMatrix(other?: DOMMatrixInit): DOMMatrixReadOnly;
+  flipX(): DOMMatrix;
+  flipY(): DOMMatrix;
+  inverse(): DOMMatrix;
+  multiply(other?: DOMMatrixInit): DOMMatrix;
+  rotate(rotX?: number, rotY?: number, rotZ?: number): DOMMatrix;
+  rotateAxisAngle(
+    x?: number,
+    y?: number,
+    z?: number,
+    angle?: number,
+  ): DOMMatrix;
+  rotateFromVector(x?: number, y?: number): DOMMatrix;
+  scale(
+    scaleX?: number,
+    scaleY?: number,
+    scaleZ?: number,
+    originX?: number,
+    originY?: number,
+    originZ?: number,
+  ): DOMMatrix;
+  scale3d(
+    scale?: number,
+    originX?: number,
+    originY?: number,
+    originZ?: number,
+  ): DOMMatrix;
+  scaleNonUniform(scaleX?: number, scaleY?: number): DOMMatrix;
+  skewX(sx?: number): DOMMatrix;
+  skewY(sy?: number): DOMMatrix;
+  toFloat32Array(): Float32Array;
+  toFloat64Array(): Float64Array;
+  toJSON(): Object;
+  transformPoint(point?: DOMPointInit): DOMPoint;
+  translate(tx?: number, ty?: number, tz?: number): DOMMatrix;
+  toString(): string;
+}
+
 declare class DOMParser {
   constructor(): void;
 
@@ -1639,6 +1633,67 @@ declare class DOMParser {
     string: TrustedHTML | string,
     type: DOMParserSupportedType,
   ): Document;
+}
+
+declare class DOMPoint extends DOMPointReadOnly {
+  w: number;
+  x: number;
+  y: number;
+  z: number;
+
+  static fromPoint(other?: DOMPointInit): DOMPoint;
+}
+
+declare class DOMPointReadOnly {
+  +w: number;
+  +x: number;
+  +y: number;
+  +z: number;
+
+  static fromPoint(other?: DOMPointInit): DOMPointReadOnly;
+  matrixTransform(matrix?: DOMMatrixInit): DOMPoint;
+  toJSON(): Object;
+}
+
+declare class DOMQuad {
+  +p1: DOMPoint;
+  +p2: DOMPoint;
+  +p3: DOMPoint;
+  +p4: DOMPoint;
+
+  static fromQuad(other?: DOMQuadInit): DOMQuad;
+  static fromRect(other?: DOMRectInit): DOMQuad;
+  getBounds(): DOMRect;
+  toJSON(): Object;
+}
+
+declare class DOMRect extends DOMRectReadOnly {
+  height: number;
+  width: number;
+  x: number;
+  y: number;
+
+  static fromRect(other?: DOMRectInit): DOMRect;
+}
+
+interface DOMRectList {
+  +length: number;
+
+  item(index: number): DOMRect | null;
+}
+
+declare class DOMRectReadOnly {
+  +bottom: number;
+  +height: number;
+  +left: number;
+  +right: number;
+  +top: number;
+  +width: number;
+  +x: number;
+  +y: number;
+
+  static fromRect(other?: DOMRectInit): DOMRectReadOnly;
+  toJSON(): Object;
 }
 
 declare class DOMStringList {
@@ -1735,6 +1790,19 @@ declare class Element
     mixin$ChildNode,
     mixin$Slottable
 {
+  onfullscreenchange: EventHandler;
+  onfullscreenerror: EventHandler;
+
+  requestFullscreen(options?: FullscreenOptions): void;
+}
+
+/* partial */ declare class Element
+  mixins
+    mixin$ParentNode,
+    mixin$NonDocumentTypeChildNode,
+    mixin$ChildNode,
+    mixin$Slottable
+{
   innerHTML: TrustedHTML | string;
   outerHTML: TrustedHTML | string;
 
@@ -1763,6 +1831,13 @@ declare class ElementInternals mixins mixin$ARIAMixin {
     message?: string,
     anchor?: HTMLElement,
   ): void;
+}
+
+interface ElementTimeControl {
+  beginElement(): void;
+  beginElementAt(offset: number): void;
+  endElement(): void;
+  endElementAt(offset: number): void;
 }
 
 declare class ErrorEvent extends Event {
@@ -1846,6 +1921,71 @@ declare class FakeWorkletGlobalScope extends WorkletGlobalScope {
   registerFake(type: string, classConstructor: Function): void;
 }
 
+declare class File extends Blob {
+  +lastModified: number;
+  +name: string;
+
+  constructor(
+    fileBits: Array<BlobPart>,
+    fileName: string,
+    options?: FilePropertyBag,
+  ): void;
+}
+
+declare class FileList {
+  +length: number;
+
+  item(index: number): File | null;
+}
+
+declare class FileReader extends EventTarget {
+  static +DONE: 2;
+  static +EMPTY: 0;
+  static +LOADING: 1;
+
+  +error: DOMException | null;
+  onabort: EventHandler;
+  onerror: EventHandler;
+  onload: EventHandler;
+  onloadend: EventHandler;
+  onloadstart: EventHandler;
+  onprogress: EventHandler;
+  +readyState: number;
+  +result: string | ArrayBuffer | null;
+
+  constructor(): void;
+
+  abort(): void;
+  readAsArrayBuffer(blob: Blob): void;
+  readAsBinaryString(blob: Blob): void;
+  readAsDataURL(blob: Blob): void;
+  readAsText(blob: Blob, encoding?: string): void;
+}
+
+declare class FileReaderSync {
+  constructor(): void;
+
+  readAsArrayBuffer(blob: Blob): ArrayBuffer;
+  readAsBinaryString(blob: Blob): string;
+  readAsDataURL(blob: Blob): string;
+  readAsText(blob: Blob, encoding?: string): string;
+}
+
+declare class FormData {
+  constructor(form?: HTMLFormElement, submitter?: HTMLElement | null): void;
+
+  @@iterator(): Iterator<string, FormDataEntryValue>;
+
+  append(name: string, value: string): void;
+  append(name: string, blobValue: Blob, filename?: string): void;
+  delete(name: string): void;
+  get(name: string): FormDataEntryValue | null;
+  getAll(name: string): Array<FormDataEntryValue>;
+  has(name: string): boolean;
+  set(name: string, value: string): void;
+  set(name: string, blobValue: Blob, filename?: string): void;
+}
+
 declare class FormDataEvent extends Event {
   +formData: FormData;
 
@@ -1857,6 +1997,19 @@ declare class HashChangeEvent extends Event {
   +oldURL: string;
 
   constructor(type: string, eventInitDict?: HashChangeEventInit): void;
+}
+
+declare class Headers {
+  constructor(init?: HeadersInit): void;
+
+  @@iterator(): Iterator<string, string>;
+
+  append(name: string, value: string): void;
+  delete(name: string): void;
+  get(name: string): string | null;
+  getSetCookie(): Array<string>;
+  has(name: string): boolean;
+  set(name: string, value: string): void;
 }
 
 declare class History {
@@ -3039,6 +3192,13 @@ declare class Location {
   replace(url: string): void;
 }
 
+declare class MathMLElement
+  extends Element
+  mixins
+    mixin$ElementCSSInlineStyle,
+    mixin$GlobalEventHandlers,
+    mixin$HTMLOrSVGElement {}
+
 declare class MediaError {
   static +MEDIA_ERR_ABORTED: 1;
   static +MEDIA_ERR_DECODE: 3;
@@ -3246,6 +3406,19 @@ declare class Navigator
     mixin$NavigatorPlugins,
     mixin$NavigatorConcurrentHardware {}
 
+/* partial */ declare class Navigator
+  mixins
+    mixin$NavigatorID,
+    mixin$NavigatorLanguage,
+    mixin$NavigatorOnLine,
+    mixin$NavigatorContentUtils,
+    mixin$NavigatorCookies,
+    mixin$NavigatorPlugins,
+    mixin$NavigatorConcurrentHardware
+{
+  vibrate(pattern: VibratePattern): boolean;
+}
+
 declare class Node extends EventTarget {
   static +ATTRIBUTE_NODE: 2;
   static +CDATA_SECTION_NODE: 4;
@@ -3316,6 +3489,44 @@ declare class NodeList {
   @@iterator(): Iterator<Node>;
 
   item(index: number): Node | null;
+}
+
+declare class Notification extends EventTarget {
+  +actions: NotificationAction;
+  +badge: string;
+  +body: string;
+  +data: any;
+  +dir: NotificationDirection;
+  +icon: string;
+  +image: string;
+  +lang: string;
+  +maxActions: number;
+  onclick: EventHandler;
+  onclose: EventHandler;
+  onerror: EventHandler;
+  onshow: EventHandler;
+  +permission: NotificationPermission;
+  +renotify: boolean;
+  +requireInteraction: boolean;
+  +silent: boolean | null;
+  +tag: string;
+  +timestamp: EpochTimeStamp;
+  +title: string;
+  +vibrate: number;
+
+  constructor(title: string, options?: NotificationOptions): void;
+
+  static requestPermission(
+    deprecatedCallback?: NotificationPermissionCallback,
+  ): NotificationPermission;
+  close(): void;
+}
+
+declare class NotificationEvent extends ExtendableEvent {
+  +action: string;
+  +notification: Notification;
+
+  constructor(type: string, eventInitDict: NotificationEventInit): void;
 }
 
 declare class NotRestoredReasonDetails {
@@ -3430,6 +3641,14 @@ declare class ProcessingInstruction
   +target: string;
 }
 
+declare class ProgressEvent extends Event {
+  +lengthComputable: boolean;
+  +loaded: number;
+  +total: number;
+
+  constructor(type: string, eventInitDict?: ProgressEventInit): void;
+}
+
 declare class PromiseRejectionEvent extends Event {
   +promise: Object;
   +reason: any;
@@ -3476,6 +3695,119 @@ declare class Range extends AbstractRange {
 
 /* partial */ interface Range {
   createContextualFragment(string: TrustedHTML | string): DocumentFragment;
+}
+
+declare class ReadableByteStreamController {
+  +byobRequest: ReadableStreamBYOBRequest | null;
+  +desiredSize: number | null;
+
+  close(): void;
+  enqueue(chunk: ArrayBufferView): void;
+  error(e?: any): void;
+}
+
+declare class ReadableStream {
+  +locked: boolean;
+
+  constructor(underlyingSource?: Object, strategy?: QueuingStrategy): void;
+
+  @@iterator(): Iterator<any>;
+
+  static from(asyncIterable: any): ReadableStream;
+  cancel(reason?: any): void;
+  getReader(options?: ReadableStreamGetReaderOptions): ReadableStreamReader;
+  pipeThrough(
+    transform: ReadableWritablePair,
+    options?: StreamPipeOptions,
+  ): ReadableStream;
+  pipeTo(destination: WritableStream, options?: StreamPipeOptions): void;
+  tee(): Array<ReadableStream>;
+}
+
+declare class ReadableStreamBYOBReader
+  mixins mixin$ReadableStreamGenericReader
+{
+  constructor(stream: ReadableStream): void;
+
+  read(
+    view: ArrayBufferView,
+    options?: ReadableStreamBYOBReaderReadOptions,
+  ): ReadableStreamReadResult;
+  releaseLock(): void;
+}
+
+declare class ReadableStreamBYOBRequest {
+  +view: ArrayBufferView | null;
+
+  respond(bytesWritten: number): void;
+  respondWithNewView(view: ArrayBufferView): void;
+}
+
+declare class ReadableStreamDefaultController {
+  +desiredSize: number | null;
+
+  close(): void;
+  enqueue(chunk?: any): void;
+  error(e?: any): void;
+}
+
+declare class ReadableStreamDefaultReader
+  mixins mixin$ReadableStreamGenericReader
+{
+  constructor(stream: ReadableStream): void;
+
+  read(): ReadableStreamReadResult;
+  releaseLock(): void;
+}
+
+declare class Request mixins mixin$Body {
+  +cache: RequestCache;
+  +credentials: RequestCredentials;
+  +destination: RequestDestination;
+  +duplex: RequestDuplex;
+  +headers: Headers;
+  +integrity: string;
+  +isHistoryNavigation: boolean;
+  +isReloadNavigation: boolean;
+  +keepalive: boolean;
+  +method: string;
+  +mode: RequestMode;
+  +redirect: RequestRedirect;
+  +referrer: string;
+  +referrerPolicy: ReferrerPolicy;
+  +signal: AbortSignal;
+  +url: string;
+
+  constructor(input: RequestInfo, init?: RequestInit): void;
+
+  clone(): Request;
+}
+
+declare class Response mixins mixin$Body {
+  +headers: Headers;
+  +ok: boolean;
+  +redirected: boolean;
+  +status: number;
+  +statusText: string;
+  +type: ResponseType;
+  +url: string;
+
+  constructor(body?: BodyInit | null, init?: ResponseInit): void;
+
+  static error(): Response;
+  static json(data: any, init?: ResponseInit): Response;
+  static redirect(url: string, status?: number): Response;
+  clone(): Response;
+}
+
+/* partial */ interface ServiceWorkerGlobalScope {
+  onnotificationclick: EventHandler;
+  onnotificationclose: EventHandler;
+}
+
+/* partial */ interface ServiceWorkerRegistration {
+  getNotifications(filter?: GetNotificationOptions): Array<Notification>;
+  showNotification(title: string, options?: NotificationOptions): void;
 }
 
 declare class ShadowAnimation extends Animation {
@@ -3606,6 +3938,10 @@ declare class SVGAngle {
   newValueSpecifiedUnits(unitType: number, valueInSpecifiedUnits: number): void;
 }
 
+declare class SVGAnimateColorElement
+  extends SVGAnimationElement
+  mixins mixin$SVGStylable {}
+
 declare class SVGAnimatedAngle {
   +animVal: SVGAngle;
   +baseVal: SVGAngle;
@@ -3666,10 +4002,49 @@ declare class SVGAnimatedTransformList {
   +baseVal: SVGTransformList;
 }
 
+declare class SVGAnimateElement
+  extends SVGAnimationElement
+  mixins mixin$SVGStylable {}
+
+declare class SVGAnimateMotionElement extends SVGAnimationElement {}
+
+interface SVGAnimateTransformElement extends SVGAnimationElement {}
+
+declare class SVGAnimationElement
+  extends SVGElement
+  mixins
+    mixin$SVGTests,
+    mixin$SVGExternalResourcesRequired,
+    mixin$ElementTimeControl
+{
+  +targetElement: SVGElement;
+
+  getCurrentTime(): number;
+  getSimpleDuration(): number;
+  getStartTime(): number;
+}
+
 declare class SVGCircleElement extends SVGGeometryElement {
   +cx: SVGAnimatedLength;
   +cy: SVGAnimatedLength;
   +r: SVGAnimatedLength;
+}
+
+declare class SVGComponentTransferFunctionElement extends SVGElement {
+  static +SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE: 3;
+  static +SVG_FECOMPONENTTRANSFER_TYPE_GAMMA: 5;
+  static +SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY: 1;
+  static +SVG_FECOMPONENTTRANSFER_TYPE_LINEAR: 4;
+  static +SVG_FECOMPONENTTRANSFER_TYPE_TABLE: 2;
+  static +SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN: 0;
+
+  +amplitude: SVGAnimatedNumber;
+  +exponent: SVGAnimatedNumber;
+  +intercept: SVGAnimatedNumber;
+  +offset: SVGAnimatedNumber;
+  +slope: SVGAnimatedNumber;
+  +tableValues: SVGAnimatedNumberList;
+  +type: SVGAnimatedEnumeration;
 }
 
 declare class SVGDefsElement extends SVGGraphicsElement {}
@@ -3695,6 +4070,277 @@ declare class SVGEllipseElement extends SVGGeometryElement {
   +cy: SVGAnimatedLength;
   +rx: SVGAnimatedLength;
   +ry: SVGAnimatedLength;
+}
+
+declare class SVGFEBlendElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  static +SVG_FEBLEND_MODE_COLOR: 15;
+  static +SVG_FEBLEND_MODE_COLOR_BURN: 8;
+  static +SVG_FEBLEND_MODE_COLOR_DODGE: 7;
+  static +SVG_FEBLEND_MODE_DARKEN: 4;
+  static +SVG_FEBLEND_MODE_DIFFERENCE: 11;
+  static +SVG_FEBLEND_MODE_EXCLUSION: 12;
+  static +SVG_FEBLEND_MODE_HARD_LIGHT: 9;
+  static +SVG_FEBLEND_MODE_HUE: 13;
+  static +SVG_FEBLEND_MODE_LIGHTEN: 5;
+  static +SVG_FEBLEND_MODE_LUMINOSITY: 16;
+  static +SVG_FEBLEND_MODE_MULTIPLY: 2;
+  static +SVG_FEBLEND_MODE_NORMAL: 1;
+  static +SVG_FEBLEND_MODE_OVERLAY: 6;
+  static +SVG_FEBLEND_MODE_SATURATION: 14;
+  static +SVG_FEBLEND_MODE_SCREEN: 3;
+  static +SVG_FEBLEND_MODE_SOFT_LIGHT: 10;
+  static +SVG_FEBLEND_MODE_UNKNOWN: 0;
+
+  +in1: SVGAnimatedString;
+  +in2: SVGAnimatedString;
+  +mode: SVGAnimatedEnumeration;
+}
+
+declare class SVGFEColorMatrixElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  static +SVG_FECOLORMATRIX_TYPE_HUEROTATE: 3;
+  static +SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA: 4;
+  static +SVG_FECOLORMATRIX_TYPE_MATRIX: 1;
+  static +SVG_FECOLORMATRIX_TYPE_SATURATE: 2;
+  static +SVG_FECOLORMATRIX_TYPE_UNKNOWN: 0;
+
+  +in1: SVGAnimatedString;
+  +type: SVGAnimatedEnumeration;
+  +values: SVGAnimatedNumberList;
+}
+
+declare class SVGFEComponentTransferElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  +in1: SVGAnimatedString;
+}
+
+declare class SVGFECompositeElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  static +SVG_FECOMPOSITE_OPERATOR_ARITHMETIC: 6;
+  static +SVG_FECOMPOSITE_OPERATOR_ATOP: 4;
+  static +SVG_FECOMPOSITE_OPERATOR_IN: 2;
+  static +SVG_FECOMPOSITE_OPERATOR_OUT: 3;
+  static +SVG_FECOMPOSITE_OPERATOR_OVER: 1;
+  static +SVG_FECOMPOSITE_OPERATOR_UNKNOWN: 0;
+  static +SVG_FECOMPOSITE_OPERATOR_XOR: 5;
+
+  +in1: SVGAnimatedString;
+  +in2: SVGAnimatedString;
+  +k1: SVGAnimatedNumber;
+  +k2: SVGAnimatedNumber;
+  +k3: SVGAnimatedNumber;
+  +k4: SVGAnimatedNumber;
+  +operator: SVGAnimatedEnumeration;
+}
+
+declare class SVGFEConvolveMatrixElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  static +SVG_EDGEMODE_DUPLICATE: 1;
+  static +SVG_EDGEMODE_NONE: 3;
+  static +SVG_EDGEMODE_UNKNOWN: 0;
+  static +SVG_EDGEMODE_WRAP: 2;
+
+  +bias: SVGAnimatedNumber;
+  +divisor: SVGAnimatedNumber;
+  +edgeMode: SVGAnimatedEnumeration;
+  +in1: SVGAnimatedString;
+  +kernelMatrix: SVGAnimatedNumberList;
+  +kernelUnitLengthX: SVGAnimatedNumber;
+  +kernelUnitLengthY: SVGAnimatedNumber;
+  +orderX: SVGAnimatedInteger;
+  +orderY: SVGAnimatedInteger;
+  +preserveAlpha: SVGAnimatedBoolean;
+  +targetX: SVGAnimatedInteger;
+  +targetY: SVGAnimatedInteger;
+}
+
+declare class SVGFEDiffuseLightingElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  +diffuseConstant: SVGAnimatedNumber;
+  +in1: SVGAnimatedString;
+  +kernelUnitLengthX: SVGAnimatedNumber;
+  +kernelUnitLengthY: SVGAnimatedNumber;
+  +surfaceScale: SVGAnimatedNumber;
+}
+
+declare class SVGFEDisplacementMapElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  static +SVG_CHANNEL_A: 4;
+  static +SVG_CHANNEL_B: 3;
+  static +SVG_CHANNEL_G: 2;
+  static +SVG_CHANNEL_R: 1;
+  static +SVG_CHANNEL_UNKNOWN: 0;
+
+  +in1: SVGAnimatedString;
+  +in2: SVGAnimatedString;
+  +scale: SVGAnimatedNumber;
+  +xChannelSelector: SVGAnimatedEnumeration;
+  +yChannelSelector: SVGAnimatedEnumeration;
+}
+
+interface SVGFEDistantLightElement extends SVGElement {
+  +azimuth: SVGAnimatedNumber;
+  +elevation: SVGAnimatedNumber;
+}
+
+declare class SVGFEDropShadowElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  +dx: SVGAnimatedNumber;
+  +dy: SVGAnimatedNumber;
+  +in1: SVGAnimatedString;
+  +stdDeviationX: SVGAnimatedNumber;
+  +stdDeviationY: SVGAnimatedNumber;
+
+  setStdDeviation(stdDeviationX: number, stdDeviationY: number): void;
+}
+
+declare class SVGFEFloodElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes {}
+
+interface SVGFEFuncAElement extends SVGComponentTransferFunctionElement {}
+
+interface SVGFEFuncBElement extends SVGComponentTransferFunctionElement {}
+
+interface SVGFEFuncGElement extends SVGComponentTransferFunctionElement {}
+
+interface SVGFEFuncRElement extends SVGComponentTransferFunctionElement {}
+
+declare class SVGFEGaussianBlurElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  static +SVG_EDGEMODE_DUPLICATE: 1;
+  static +SVG_EDGEMODE_NONE: 3;
+  static +SVG_EDGEMODE_UNKNOWN: 0;
+  static +SVG_EDGEMODE_WRAP: 2;
+
+  +edgeMode: SVGAnimatedEnumeration;
+  +in1: SVGAnimatedString;
+  +stdDeviationX: SVGAnimatedNumber;
+  +stdDeviationY: SVGAnimatedNumber;
+
+  setStdDeviation(stdDeviationX: number, stdDeviationY: number): void;
+}
+
+declare class SVGFEImageElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes, mixin$SVGURIReference
+{
+  +crossOrigin: SVGAnimatedString;
+  +preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
+}
+
+declare class SVGFEMergeElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes {}
+
+interface SVGFEMergeNodeElement extends SVGElement {
+  +in1: SVGAnimatedString;
+}
+
+declare class SVGFEMorphologyElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  static +SVG_MORPHOLOGY_OPERATOR_DILATE: 2;
+  static +SVG_MORPHOLOGY_OPERATOR_ERODE: 1;
+  static +SVG_MORPHOLOGY_OPERATOR_UNKNOWN: 0;
+
+  +in1: SVGAnimatedString;
+  +operator: SVGAnimatedEnumeration;
+  +radiusX: SVGAnimatedNumber;
+  +radiusY: SVGAnimatedNumber;
+}
+
+declare class SVGFEOffsetElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  +dx: SVGAnimatedNumber;
+  +dy: SVGAnimatedNumber;
+  +in1: SVGAnimatedString;
+}
+
+interface SVGFEPointLightElement extends SVGElement {
+  +x: SVGAnimatedNumber;
+  +y: SVGAnimatedNumber;
+  +z: SVGAnimatedNumber;
+}
+
+declare class SVGFESpecularLightingElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  +in1: SVGAnimatedString;
+  +kernelUnitLengthX: SVGAnimatedNumber;
+  +kernelUnitLengthY: SVGAnimatedNumber;
+  +specularConstant: SVGAnimatedNumber;
+  +specularExponent: SVGAnimatedNumber;
+  +surfaceScale: SVGAnimatedNumber;
+}
+
+interface SVGFESpotLightElement extends SVGElement {
+  +limitingConeAngle: SVGAnimatedNumber;
+  +pointsAtX: SVGAnimatedNumber;
+  +pointsAtY: SVGAnimatedNumber;
+  +pointsAtZ: SVGAnimatedNumber;
+  +specularExponent: SVGAnimatedNumber;
+  +x: SVGAnimatedNumber;
+  +y: SVGAnimatedNumber;
+  +z: SVGAnimatedNumber;
+}
+
+declare class SVGFETileElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  +in1: SVGAnimatedString;
+}
+
+declare class SVGFETurbulenceElement
+  extends SVGElement
+  mixins mixin$SVGFilterPrimitiveStandardAttributes
+{
+  static +SVG_STITCHTYPE_NOSTITCH: 2;
+  static +SVG_STITCHTYPE_STITCH: 1;
+  static +SVG_STITCHTYPE_UNKNOWN: 0;
+  static +SVG_TURBULENCE_TYPE_FRACTALNOISE: 1;
+  static +SVG_TURBULENCE_TYPE_TURBULENCE: 2;
+  static +SVG_TURBULENCE_TYPE_UNKNOWN: 0;
+
+  +baseFrequencyX: SVGAnimatedNumber;
+  +baseFrequencyY: SVGAnimatedNumber;
+  +numOctaves: SVGAnimatedInteger;
+  +seed: SVGAnimatedNumber;
+  +stitchTiles: SVGAnimatedEnumeration;
+  +type: SVGAnimatedEnumeration;
+}
+
+declare class SVGFilterElement extends SVGElement mixins mixin$SVGURIReference {
+  +filterUnits: SVGAnimatedEnumeration;
+  +height: SVGAnimatedLength;
+  +primitiveUnits: SVGAnimatedEnumeration;
+  +width: SVGAnimatedLength;
+  +x: SVGAnimatedLength;
+  +y: SVGAnimatedLength;
 }
 
 declare class SVGForeignObjectElement extends SVGGraphicsElement {
@@ -3822,6 +4468,10 @@ declare class SVGMarkerElement extends SVGElement mixins mixin$SVGFitToViewBox {
 
 declare class SVGMetadataElement extends SVGElement {}
 
+declare class SVGMPathElement
+  extends SVGElement
+  mixins mixin$SVGURIReference, mixin$SVGExternalResourcesRequired {}
+
 declare class SVGNumber {
   value: number;
 }
@@ -3919,6 +4569,8 @@ declare class SVGScriptElement extends SVGElement mixins mixin$SVGURIReference {
   crossOrigin: string | null;
   type: string;
 }
+
+declare class SVGSetElement extends SVGAnimationElement {}
 
 declare class SVGStopElement extends SVGElement {
   +offset: SVGAnimatedNumber;
@@ -4116,6 +4768,34 @@ declare class Text extends CharacterData mixins mixin$Slottable {
   splitText(offset: number): Text;
 }
 
+declare class TextDecoder mixins mixin$TextDecoderCommon {
+  constructor(label?: string, options?: TextDecoderOptions): void;
+
+  decode(input?: AllowSharedBufferSource, options?: TextDecodeOptions): string;
+}
+
+declare class TextDecoderStream
+  mixins mixin$TextDecoderCommon, mixin$GenericTransformStream
+{
+  constructor(label?: string, options?: TextDecoderOptions): void;
+}
+
+declare class TextEncoder mixins mixin$TextEncoderCommon {
+  constructor(): void;
+
+  encode(input?: string): Uint8Array;
+  encodeInto(
+    source: string,
+    destination: Uint8Array,
+  ): TextEncoderEncodeIntoResult;
+}
+
+declare class TextEncoderStream
+  mixins mixin$TextEncoderCommon, mixin$GenericTransformStream
+{
+  constructor(): void;
+}
+
 declare class TextMetrics {
   +actualBoundingBoxAscent: number;
   +actualBoundingBoxDescent: number;
@@ -4173,6 +4853,17 @@ declare class TextTrackList extends EventTarget {
   getTrackById(id: string): TextTrack | null;
 }
 
+interface TimeEvent extends Event {
+  +detail: number;
+  +view: AbstractView;
+
+  initTimeEvent(
+    typeArg: string,
+    viewArg: AbstractView,
+    detailArg: number,
+  ): void;
+}
+
 declare class TimeRanges {
   +length: number;
 
@@ -4193,6 +4884,25 @@ declare class TrackEvent extends Event {
   constructor(type: string, eventInitDict?: TrackEventInit): void;
 }
 
+declare class TransformStream {
+  +readable: ReadableStream;
+  +writable: WritableStream;
+
+  constructor(
+    transformer?: Object,
+    writableStrategy?: QueuingStrategy,
+    readableStrategy?: QueuingStrategy,
+  ): void;
+}
+
+declare class TransformStreamDefaultController {
+  +desiredSize: number | null;
+
+  enqueue(chunk?: any): void;
+  error(reason?: any): void;
+  terminate(): void;
+}
+
 declare class TreeWalker {
   currentNode: Node;
   +filter: NodeFilter | null;
@@ -4206,6 +4916,71 @@ declare class TreeWalker {
   parentNode(): Node | null;
   previousNode(): Node | null;
   previousSibling(): Node | null;
+}
+
+/* partial */ declare class URL {
+  static createObjectURL(obj: Blob | MediaSource): string;
+  static revokeObjectURL(url: string): void;
+}
+
+declare class URL {
+  hash: string;
+  host: string;
+  hostname: string;
+  href: string;
+  +origin: string;
+  password: string;
+  pathname: string;
+  port: string;
+  protocol: string;
+  search: string;
+  +searchParams: URLSearchParams;
+  username: string;
+
+  constructor(url: string, base?: string): void;
+
+  static canParse(url: string, base?: string): boolean;
+  static parse(url: string, base?: string): URL | null;
+  toJSON(): string;
+}
+
+declare class URLPattern {
+  +hash: string;
+  +hasRegExpGroups: boolean;
+  +hostname: string;
+  +password: string;
+  +pathname: string;
+  +port: string;
+  +protocol: string;
+  +search: string;
+  +username: string;
+
+  constructor(
+    input: URLPatternInput,
+    baseURL: string,
+    options?: URLPatternOptions,
+  ): void;
+  constructor(input?: URLPatternInput, options?: URLPatternOptions): void;
+
+  exec(input?: URLPatternInput, baseURL?: string): URLPatternResult | null;
+  test(input?: URLPatternInput, baseURL?: string): boolean;
+}
+
+declare class URLSearchParams {
+  +size: number;
+
+  constructor(init?: Array<Array<string>> | string | string | string): void;
+
+  @@iterator(): Iterator<string, string>;
+
+  append(name: string, value: string): void;
+  delete(name: string, value?: string): void;
+  get(name: string): string | null;
+  getAll(name: string): Array<string>;
+  has(name: string, value?: string): boolean;
+  set(name: string, value: string): void;
+  sort(): void;
+  toString(): string;
 }
 
 declare class UserActivation {
@@ -4252,6 +5027,344 @@ declare class VisibilityStateEntry extends PerformanceEntry {
   +name: string;
   +startTime: number;
 }
+
+declare class WebGLActiveInfo {
+  +name: string;
+  +size: GLint;
+  +type: GLenum;
+}
+
+declare class WebGLBuffer extends WebGLObject {}
+
+declare class WebGLContextEvent extends Event {
+  +statusMessage: string;
+
+  constructor(type: string, eventInit?: WebGLContextEventInit): void;
+}
+
+declare class WebGLFramebuffer extends WebGLObject {}
+
+declare class WebGLObject {
+  label: string;
+}
+
+declare class WebGLProgram extends WebGLObject {}
+
+declare class WebGLRenderbuffer extends WebGLObject {}
+
+declare class WebGLRenderingContext
+  mixins mixin$WebGLRenderingContextBase, mixin$WebGLRenderingContextOverloads
+{
+  static +ACTIVE_ATTRIBUTES: 0x8b89;
+  static +ACTIVE_TEXTURE: 0x84e0;
+  static +ACTIVE_UNIFORMS: 0x8b86;
+  static +ALIASED_LINE_WIDTH_RANGE: 0x846e;
+  static +ALIASED_POINT_SIZE_RANGE: 0x846d;
+  static +ALPHA: 0x1906;
+  static +ALPHA_BITS: 0x0d55;
+  static +ALWAYS: 0x0207;
+  static +ARRAY_BUFFER: 0x8892;
+  static +ARRAY_BUFFER_BINDING: 0x8894;
+  static +ATTACHED_SHADERS: 0x8b85;
+  static +BACK: 0x0405;
+  static +BLEND: 0x0be2;
+  static +BLEND_COLOR: 0x8005;
+  static +BLEND_DST_ALPHA: 0x80ca;
+  static +BLEND_DST_RGB: 0x80c8;
+  static +BLEND_EQUATION: 0x8009;
+  static +BLEND_EQUATION_ALPHA: 0x883d;
+  static +BLEND_EQUATION_RGB: 0x8009;
+  static +BLEND_SRC_ALPHA: 0x80cb;
+  static +BLEND_SRC_RGB: 0x80c9;
+  static +BLUE_BITS: 0x0d54;
+  static +BOOL: 0x8b56;
+  static +BOOL_VEC2: 0x8b57;
+  static +BOOL_VEC3: 0x8b58;
+  static +BOOL_VEC4: 0x8b59;
+  static +BROWSER_DEFAULT_WEBGL: 0x9244;
+  static +BUFFER_SIZE: 0x8764;
+  static +BUFFER_USAGE: 0x8765;
+  static +BYTE: 0x1400;
+  static +CCW: 0x0901;
+  static +CLAMP_TO_EDGE: 0x812f;
+  static +COLOR_ATTACHMENT0: 0x8ce0;
+  static +COLOR_BUFFER_BIT: 0x00004000;
+  static +COLOR_CLEAR_VALUE: 0x0c22;
+  static +COLOR_WRITEMASK: 0x0c23;
+  static +COMPILE_STATUS: 0x8b81;
+  static +COMPRESSED_TEXTURE_FORMATS: 0x86a3;
+  static +CONSTANT_ALPHA: 0x8003;
+  static +CONSTANT_COLOR: 0x8001;
+  static +CONTEXT_LOST_WEBGL: 0x9242;
+  static +CULL_FACE: 0x0b44;
+  static +CULL_FACE_MODE: 0x0b45;
+  static +CURRENT_PROGRAM: 0x8b8d;
+  static +CURRENT_VERTEX_ATTRIB: 0x8626;
+  static +CW: 0x0900;
+  static +DECR: 0x1e03;
+  static +DECR_WRAP: 0x8508;
+  static +DELETE_STATUS: 0x8b80;
+  static +DEPTH_ATTACHMENT: 0x8d00;
+  static +DEPTH_BITS: 0x0d56;
+  static +DEPTH_BUFFER_BIT: 0x00000100;
+  static +DEPTH_CLEAR_VALUE: 0x0b73;
+  static +DEPTH_COMPONENT: 0x1902;
+  static +DEPTH_COMPONENT16: 0x81a5;
+  static +DEPTH_FUNC: 0x0b74;
+  static +DEPTH_RANGE: 0x0b70;
+  static +DEPTH_STENCIL: 0x84f9;
+  static +DEPTH_STENCIL_ATTACHMENT: 0x821a;
+  static +DEPTH_TEST: 0x0b71;
+  static +DEPTH_WRITEMASK: 0x0b72;
+  static +DITHER: 0x0bd0;
+  static +DONT_CARE: 0x1100;
+  static +DST_ALPHA: 0x0304;
+  static +DST_COLOR: 0x0306;
+  static +DYNAMIC_DRAW: 0x88e8;
+  static +ELEMENT_ARRAY_BUFFER: 0x8893;
+  static +ELEMENT_ARRAY_BUFFER_BINDING: 0x8895;
+  static +EQUAL: 0x0202;
+  static +FASTEST: 0x1101;
+  static +FLOAT: 0x1406;
+  static +FLOAT_MAT2: 0x8b5a;
+  static +FLOAT_MAT3: 0x8b5b;
+  static +FLOAT_MAT4: 0x8b5c;
+  static +FLOAT_VEC2: 0x8b50;
+  static +FLOAT_VEC3: 0x8b51;
+  static +FLOAT_VEC4: 0x8b52;
+  static +FRAGMENT_SHADER: 0x8b30;
+  static +FRAMEBUFFER: 0x8d40;
+  static +FRAMEBUFFER_ATTACHMENT_OBJECT_NAME: 0x8cd1;
+  static +FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE: 0x8cd0;
+  static +FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE: 0x8cd3;
+  static +FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL: 0x8cd2;
+  static +FRAMEBUFFER_BINDING: 0x8ca6;
+  static +FRAMEBUFFER_COMPLETE: 0x8cd5;
+  static +FRAMEBUFFER_INCOMPLETE_ATTACHMENT: 0x8cd6;
+  static +FRAMEBUFFER_INCOMPLETE_DIMENSIONS: 0x8cd9;
+  static +FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT: 0x8cd7;
+  static +FRAMEBUFFER_UNSUPPORTED: 0x8cdd;
+  static +FRONT: 0x0404;
+  static +FRONT_AND_BACK: 0x0408;
+  static +FRONT_FACE: 0x0b46;
+  static +FUNC_ADD: 0x8006;
+  static +FUNC_REVERSE_SUBTRACT: 0x800b;
+  static +FUNC_SUBTRACT: 0x800a;
+  static +GENERATE_MIPMAP_HINT: 0x8192;
+  static +GEQUAL: 0x0206;
+  static +GREATER: 0x0204;
+  static +GREEN_BITS: 0x0d53;
+  static +HIGH_FLOAT: 0x8df2;
+  static +HIGH_INT: 0x8df5;
+  static +IMPLEMENTATION_COLOR_READ_FORMAT: 0x8b9b;
+  static +IMPLEMENTATION_COLOR_READ_TYPE: 0x8b9a;
+  static +INCR: 0x1e02;
+  static +INCR_WRAP: 0x8507;
+  static +INT: 0x1404;
+  static +INT_VEC2: 0x8b53;
+  static +INT_VEC3: 0x8b54;
+  static +INT_VEC4: 0x8b55;
+  static +INVALID_ENUM: 0x0500;
+  static +INVALID_FRAMEBUFFER_OPERATION: 0x0506;
+  static +INVALID_OPERATION: 0x0502;
+  static +INVALID_VALUE: 0x0501;
+  static +INVERT: 0x150a;
+  static +KEEP: 0x1e00;
+  static +LEQUAL: 0x0203;
+  static +LESS: 0x0201;
+  static +LINE_LOOP: 0x0002;
+  static +LINE_STRIP: 0x0003;
+  static +LINE_WIDTH: 0x0b21;
+  static +LINEAR: 0x2601;
+  static +LINEAR_MIPMAP_LINEAR: 0x2703;
+  static +LINEAR_MIPMAP_NEAREST: 0x2701;
+  static +LINES: 0x0001;
+  static +LINK_STATUS: 0x8b82;
+  static +LOW_FLOAT: 0x8df0;
+  static +LOW_INT: 0x8df3;
+  static +LUMINANCE: 0x1909;
+  static +LUMINANCE_ALPHA: 0x190a;
+  static +MAX_COMBINED_TEXTURE_IMAGE_UNITS: 0x8b4d;
+  static +MAX_CUBE_MAP_TEXTURE_SIZE: 0x851c;
+  static +MAX_FRAGMENT_UNIFORM_VECTORS: 0x8dfd;
+  static +MAX_RENDERBUFFER_SIZE: 0x84e8;
+  static +MAX_TEXTURE_IMAGE_UNITS: 0x8872;
+  static +MAX_TEXTURE_SIZE: 0x0d33;
+  static +MAX_VARYING_VECTORS: 0x8dfc;
+  static +MAX_VERTEX_ATTRIBS: 0x8869;
+  static +MAX_VERTEX_TEXTURE_IMAGE_UNITS: 0x8b4c;
+  static +MAX_VERTEX_UNIFORM_VECTORS: 0x8dfb;
+  static +MAX_VIEWPORT_DIMS: 0x0d3a;
+  static +MEDIUM_FLOAT: 0x8df1;
+  static +MEDIUM_INT: 0x8df4;
+  static +MIRRORED_REPEAT: 0x8370;
+  static +NEAREST: 0x2600;
+  static +NEAREST_MIPMAP_LINEAR: 0x2702;
+  static +NEAREST_MIPMAP_NEAREST: 0x2700;
+  static +NEVER: 0x0200;
+  static +NICEST: 0x1102;
+  static +NO_ERROR: 0;
+  static +NONE: 0;
+  static +NOTEQUAL: 0x0205;
+  static +ONE: 1;
+  static +ONE_MINUS_CONSTANT_ALPHA: 0x8004;
+  static +ONE_MINUS_CONSTANT_COLOR: 0x8002;
+  static +ONE_MINUS_DST_ALPHA: 0x0305;
+  static +ONE_MINUS_DST_COLOR: 0x0307;
+  static +ONE_MINUS_SRC_ALPHA: 0x0303;
+  static +ONE_MINUS_SRC_COLOR: 0x0301;
+  static +OUT_OF_MEMORY: 0x0505;
+  static +PACK_ALIGNMENT: 0x0d05;
+  static +POINTS: 0x0000;
+  static +POLYGON_OFFSET_FACTOR: 0x8038;
+  static +POLYGON_OFFSET_FILL: 0x8037;
+  static +POLYGON_OFFSET_UNITS: 0x2a00;
+  static +RED_BITS: 0x0d52;
+  static +RENDERBUFFER: 0x8d41;
+  static +RENDERBUFFER_ALPHA_SIZE: 0x8d53;
+  static +RENDERBUFFER_BINDING: 0x8ca7;
+  static +RENDERBUFFER_BLUE_SIZE: 0x8d52;
+  static +RENDERBUFFER_DEPTH_SIZE: 0x8d54;
+  static +RENDERBUFFER_GREEN_SIZE: 0x8d51;
+  static +RENDERBUFFER_HEIGHT: 0x8d43;
+  static +RENDERBUFFER_INTERNAL_FORMAT: 0x8d44;
+  static +RENDERBUFFER_RED_SIZE: 0x8d50;
+  static +RENDERBUFFER_STENCIL_SIZE: 0x8d55;
+  static +RENDERBUFFER_WIDTH: 0x8d42;
+  static +RENDERER: 0x1f01;
+  static +REPEAT: 0x2901;
+  static +REPLACE: 0x1e01;
+  static +RGB: 0x1907;
+  static +RGB5_A1: 0x8057;
+  static +RGB565: 0x8d62;
+  static +RGBA: 0x1908;
+  static +RGBA4: 0x8056;
+  static +RGBA8: 0x8058;
+  static +SAMPLE_ALPHA_TO_COVERAGE: 0x809e;
+  static +SAMPLE_BUFFERS: 0x80a8;
+  static +SAMPLE_COVERAGE: 0x80a0;
+  static +SAMPLE_COVERAGE_INVERT: 0x80ab;
+  static +SAMPLE_COVERAGE_VALUE: 0x80aa;
+  static +SAMPLER_2D: 0x8b5e;
+  static +SAMPLER_CUBE: 0x8b60;
+  static +SAMPLES: 0x80a9;
+  static +SCISSOR_BOX: 0x0c10;
+  static +SCISSOR_TEST: 0x0c11;
+  static +SHADER_TYPE: 0x8b4f;
+  static +SHADING_LANGUAGE_VERSION: 0x8b8c;
+  static +SHORT: 0x1402;
+  static +SRC_ALPHA: 0x0302;
+  static +SRC_ALPHA_SATURATE: 0x0308;
+  static +SRC_COLOR: 0x0300;
+  static +STATIC_DRAW: 0x88e4;
+  static +STENCIL_ATTACHMENT: 0x8d20;
+  static +STENCIL_BACK_FAIL: 0x8801;
+  static +STENCIL_BACK_FUNC: 0x8800;
+  static +STENCIL_BACK_PASS_DEPTH_FAIL: 0x8802;
+  static +STENCIL_BACK_PASS_DEPTH_PASS: 0x8803;
+  static +STENCIL_BACK_REF: 0x8ca3;
+  static +STENCIL_BACK_VALUE_MASK: 0x8ca4;
+  static +STENCIL_BACK_WRITEMASK: 0x8ca5;
+  static +STENCIL_BITS: 0x0d57;
+  static +STENCIL_BUFFER_BIT: 0x00000400;
+  static +STENCIL_CLEAR_VALUE: 0x0b91;
+  static +STENCIL_FAIL: 0x0b94;
+  static +STENCIL_FUNC: 0x0b92;
+  static +STENCIL_INDEX8: 0x8d48;
+  static +STENCIL_PASS_DEPTH_FAIL: 0x0b95;
+  static +STENCIL_PASS_DEPTH_PASS: 0x0b96;
+  static +STENCIL_REF: 0x0b97;
+  static +STENCIL_TEST: 0x0b90;
+  static +STENCIL_VALUE_MASK: 0x0b93;
+  static +STENCIL_WRITEMASK: 0x0b98;
+  static +STREAM_DRAW: 0x88e0;
+  static +SUBPIXEL_BITS: 0x0d50;
+  static +TEXTURE: 0x1702;
+  static +TEXTURE_2D: 0x0de1;
+  static +TEXTURE_BINDING_2D: 0x8069;
+  static +TEXTURE_BINDING_CUBE_MAP: 0x8514;
+  static +TEXTURE_CUBE_MAP: 0x8513;
+  static +TEXTURE_CUBE_MAP_NEGATIVE_X: 0x8516;
+  static +TEXTURE_CUBE_MAP_NEGATIVE_Y: 0x8518;
+  static +TEXTURE_CUBE_MAP_NEGATIVE_Z: 0x851a;
+  static +TEXTURE_CUBE_MAP_POSITIVE_X: 0x8515;
+  static +TEXTURE_CUBE_MAP_POSITIVE_Y: 0x8517;
+  static +TEXTURE_CUBE_MAP_POSITIVE_Z: 0x8519;
+  static +TEXTURE_MAG_FILTER: 0x2800;
+  static +TEXTURE_MIN_FILTER: 0x2801;
+  static +TEXTURE_WRAP_S: 0x2802;
+  static +TEXTURE_WRAP_T: 0x2803;
+  static +TEXTURE0: 0x84c0;
+  static +TEXTURE1: 0x84c1;
+  static +TEXTURE10: 0x84ca;
+  static +TEXTURE11: 0x84cb;
+  static +TEXTURE12: 0x84cc;
+  static +TEXTURE13: 0x84cd;
+  static +TEXTURE14: 0x84ce;
+  static +TEXTURE15: 0x84cf;
+  static +TEXTURE16: 0x84d0;
+  static +TEXTURE17: 0x84d1;
+  static +TEXTURE18: 0x84d2;
+  static +TEXTURE19: 0x84d3;
+  static +TEXTURE2: 0x84c2;
+  static +TEXTURE20: 0x84d4;
+  static +TEXTURE21: 0x84d5;
+  static +TEXTURE22: 0x84d6;
+  static +TEXTURE23: 0x84d7;
+  static +TEXTURE24: 0x84d8;
+  static +TEXTURE25: 0x84d9;
+  static +TEXTURE26: 0x84da;
+  static +TEXTURE27: 0x84db;
+  static +TEXTURE28: 0x84dc;
+  static +TEXTURE29: 0x84dd;
+  static +TEXTURE3: 0x84c3;
+  static +TEXTURE30: 0x84de;
+  static +TEXTURE31: 0x84df;
+  static +TEXTURE4: 0x84c4;
+  static +TEXTURE5: 0x84c5;
+  static +TEXTURE6: 0x84c6;
+  static +TEXTURE7: 0x84c7;
+  static +TEXTURE8: 0x84c8;
+  static +TEXTURE9: 0x84c9;
+  static +TRIANGLE_FAN: 0x0006;
+  static +TRIANGLE_STRIP: 0x0005;
+  static +TRIANGLES: 0x0004;
+  static +UNPACK_ALIGNMENT: 0x0cf5;
+  static +UNPACK_COLORSPACE_CONVERSION_WEBGL: 0x9243;
+  static +UNPACK_FLIP_Y_WEBGL: 0x9240;
+  static +UNPACK_PREMULTIPLY_ALPHA_WEBGL: 0x9241;
+  static +UNSIGNED_BYTE: 0x1401;
+  static +UNSIGNED_INT: 0x1405;
+  static +UNSIGNED_SHORT: 0x1403;
+  static +UNSIGNED_SHORT_4_4_4_4: 0x8033;
+  static +UNSIGNED_SHORT_5_5_5_1: 0x8034;
+  static +UNSIGNED_SHORT_5_6_5: 0x8363;
+  static +VALIDATE_STATUS: 0x8b83;
+  static +VENDOR: 0x1f00;
+  static +VERSION: 0x1f02;
+  static +VERTEX_ATTRIB_ARRAY_BUFFER_BINDING: 0x889f;
+  static +VERTEX_ATTRIB_ARRAY_ENABLED: 0x8622;
+  static +VERTEX_ATTRIB_ARRAY_NORMALIZED: 0x886a;
+  static +VERTEX_ATTRIB_ARRAY_POINTER: 0x8645;
+  static +VERTEX_ATTRIB_ARRAY_SIZE: 0x8623;
+  static +VERTEX_ATTRIB_ARRAY_STRIDE: 0x8624;
+  static +VERTEX_ATTRIB_ARRAY_TYPE: 0x8625;
+  static +VERTEX_SHADER: 0x8b31;
+  static +VIEWPORT: 0x0ba2;
+  static +ZERO: 0;
+}
+
+declare class WebGLShader extends WebGLObject {}
+
+declare class WebGLShaderPrecisionFormat {
+  +precision: GLint;
+  +rangeMax: GLint;
+  +rangeMin: GLint;
+}
+
+declare class WebGLTexture extends WebGLObject {}
+
+declare class WebGLUniformLocation {}
 
 /* partial */ declare class Window
   mixins
@@ -4419,7 +5532,86 @@ declare class Worklet {
 
 declare class WorkletGlobalScope {}
 
+declare class WritableStream {
+  +locked: boolean;
+
+  constructor(underlyingSink?: Object, strategy?: QueuingStrategy): void;
+
+  abort(reason?: any): void;
+  close(): void;
+  getWriter(): WritableStreamDefaultWriter;
+}
+
+declare class WritableStreamDefaultController {
+  +signal: AbortSignal;
+
+  error(e?: any): void;
+}
+
+declare class WritableStreamDefaultWriter {
+  +closed: void;
+  +desiredSize: number | null;
+  +ready: void;
+
+  constructor(stream: WritableStream): void;
+
+  abort(reason?: any): void;
+  close(): void;
+  releaseLock(): void;
+  write(chunk?: any): void;
+}
+
 declare class XMLDocument extends Document {}
+
+declare class XMLHttpRequest extends XMLHttpRequestEventTarget {
+  static +DONE: 4;
+  static +HEADERS_RECEIVED: 2;
+  static +LOADING: 3;
+  static +OPENED: 1;
+  static +UNSENT: 0;
+
+  onreadystatechange: EventHandler;
+  +readyState: number;
+  +response: any;
+  +responseText: string;
+  responseType: XMLHttpRequestResponseType;
+  +responseURL: string;
+  +responseXML: Document | null;
+  +status: number;
+  +statusText: string;
+  timeout: number;
+  +upload: XMLHttpRequestUpload;
+  withCredentials: boolean;
+
+  constructor(): void;
+
+  abort(): void;
+  getAllResponseHeaders(): string;
+  getResponseHeader(name: string): string | null;
+  open(method: string, url: string): void;
+  open(
+    method: string,
+    url: string,
+    async: boolean,
+    username?: string | null,
+    password?: string | null,
+  ): void;
+  overrideMimeType(mime: string): void;
+  send(body?: Document | XMLHttpRequestBodyInit | null): void;
+  setRequestHeader(name: string, value: string): void;
+}
+
+declare class XMLHttpRequestEventTarget extends EventTarget {
+  onabort: EventHandler;
+  onerror: EventHandler;
+  onload: EventHandler;
+  onloadend: EventHandler;
+  onloadstart: EventHandler;
+  onprogress: EventHandler;
+  ontimeout: EventHandler;
+}
+
+declare class XMLHttpRequestUpload extends XMLHttpRequestEventTarget {}
 
 declare class XMLSerializer {
   constructor(): void;
@@ -4474,6 +5666,1027 @@ declare class XSLTProcessor {
   setParameter(namespaceURI: string, localName: string, value: any): void;
   transformToDocument(source: Node): Document;
   transformToFragment(source: Node, output: Document): DocumentFragment;
+}
+
+/* mixin */ declare class mixin$AbstractWorker {
+  onerror: EventHandler;
+}
+
+/* mixin */ declare class mixin$AnimationFrameProvider {
+  cancelAnimationFrame(handle: number): void;
+  requestAnimationFrame(callback: FrameRequestCallback): number;
+}
+
+/* mixin */ declare class mixin$Body {
+  +body: ReadableStream | null;
+  +bodyUsed: boolean;
+
+  arrayBuffer(): ArrayBuffer;
+  blob(): Blob;
+  bytes(): Uint8Array;
+  formData(): FormData;
+  json(): any;
+  text(): string;
+}
+
+/* mixin */ declare class mixin$CanvasCompositing {
+  globalAlpha: number;
+  globalCompositeOperation: string;
+}
+
+/* mixin */ declare class mixin$CanvasDrawImage {
+  drawImage(image: CanvasImageSource, dx: number, dy: number): void;
+  drawImage(
+    image: CanvasImageSource,
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number,
+  ): void;
+  drawImage(
+    image: CanvasImageSource,
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+    dx: number,
+    dy: number,
+    dw: number,
+    dh: number,
+  ): void;
+}
+
+/* mixin */ declare class mixin$CanvasDrawPath {
+  beginPath(): void;
+  clip(fillRule?: CanvasFillRule): void;
+  clip(path: Path2D, fillRule?: CanvasFillRule): void;
+  fill(fillRule?: CanvasFillRule): void;
+  fill(path: Path2D, fillRule?: CanvasFillRule): void;
+  isPointInPath(x: number, y: number, fillRule?: CanvasFillRule): boolean;
+  isPointInPath(
+    path: Path2D,
+    x: number,
+    y: number,
+    fillRule?: CanvasFillRule,
+  ): boolean;
+  isPointInStroke(x: number, y: number): boolean;
+  isPointInStroke(path: Path2D, x: number, y: number): boolean;
+  stroke(): void;
+  stroke(path: Path2D): void;
+}
+
+/* mixin */ declare class mixin$CanvasFillStrokeStyles {
+  fillStyle: string | CanvasGradient | CanvasPattern;
+  strokeStyle: string | CanvasGradient | CanvasPattern;
+
+  createConicGradient(startAngle: number, x: number, y: number): CanvasGradient;
+  createLinearGradient(
+    x0: number,
+    y0: number,
+    x1: number,
+    y1: number,
+  ): CanvasGradient;
+  createPattern(
+    image: CanvasImageSource,
+    repetition: string,
+  ): CanvasPattern | null;
+  createRadialGradient(
+    x0: number,
+    y0: number,
+    r0: number,
+    x1: number,
+    y1: number,
+    r1: number,
+  ): CanvasGradient;
+}
+
+/* mixin */ declare class mixin$CanvasFilters {
+  filter: string;
+}
+
+/* mixin */ declare class mixin$CanvasImageData {
+  createImageData(
+    sw: number,
+    sh: number,
+    settings?: ImageDataSettings,
+  ): ImageData;
+  createImageData(imageData: ImageData): ImageData;
+  getImageData(
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+    settings?: ImageDataSettings,
+  ): ImageData;
+  putImageData(imageData: ImageData, dx: number, dy: number): void;
+  putImageData(
+    imageData: ImageData,
+    dx: number,
+    dy: number,
+    dirtyX: number,
+    dirtyY: number,
+    dirtyWidth: number,
+    dirtyHeight: number,
+  ): void;
+}
+
+/* mixin */ declare class mixin$CanvasImageSmoothing {
+  imageSmoothingEnabled: boolean;
+  imageSmoothingQuality: ImageSmoothingQuality;
+}
+
+/* mixin */ declare class mixin$CanvasPath {
+  arc(
+    x: number,
+    y: number,
+    radius: number,
+    startAngle: number,
+    endAngle: number,
+    counterclockwise?: boolean,
+  ): void;
+  arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
+  bezierCurveTo(
+    cp1x: number,
+    cp1y: number,
+    cp2x: number,
+    cp2y: number,
+    x: number,
+    y: number,
+  ): void;
+  closePath(): void;
+  ellipse(
+    x: number,
+    y: number,
+    radiusX: number,
+    radiusY: number,
+    rotation: number,
+    startAngle: number,
+    endAngle: number,
+    counterclockwise?: boolean,
+  ): void;
+  lineTo(x: number, y: number): void;
+  moveTo(x: number, y: number): void;
+  quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
+  rect(x: number, y: number, w: number, h: number): void;
+  roundRect(
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    radii?: number | DOMPointInit | Array<number | DOMPointInit>,
+  ): void;
+}
+
+/* mixin */ declare class mixin$CanvasPathDrawingStyles {
+  lineCap: CanvasLineCap;
+  lineDashOffset: number;
+  lineJoin: CanvasLineJoin;
+  lineWidth: number;
+  miterLimit: number;
+
+  getLineDash(): Array<number>;
+  setLineDash(segments: Array<number>): void;
+}
+
+/* mixin */ declare class mixin$CanvasRect {
+  clearRect(x: number, y: number, w: number, h: number): void;
+  fillRect(x: number, y: number, w: number, h: number): void;
+  strokeRect(x: number, y: number, w: number, h: number): void;
+}
+
+/* mixin */ declare class mixin$CanvasSettings {
+  getContextAttributes(): CanvasRenderingContext2DSettings;
+}
+
+/* mixin */ declare class mixin$CanvasShadowStyles {
+  shadowBlur: number;
+  shadowColor: string;
+  shadowOffsetX: number;
+  shadowOffsetY: number;
+}
+
+/* mixin */ declare class mixin$CanvasState {
+  isContextLost(): boolean;
+  reset(): void;
+  restore(): void;
+  save(): void;
+}
+
+/* mixin */ declare class mixin$CanvasText {
+  fillText(text: string, x: number, y: number, maxWidth?: number): void;
+  measureText(text: string): TextMetrics;
+  strokeText(text: string, x: number, y: number, maxWidth?: number): void;
+}
+
+/* mixin */ declare class mixin$CanvasTextDrawingStyles {
+  direction: CanvasDirection;
+  font: string;
+  fontKerning: CanvasFontKerning;
+  fontStretch: CanvasFontStretch;
+  fontVariantCaps: CanvasFontVariantCaps;
+  lang: string;
+  letterSpacing: string;
+  textAlign: CanvasTextAlign;
+  textBaseline: CanvasTextBaseline;
+  textRendering: CanvasTextRendering;
+  wordSpacing: string;
+}
+
+/* mixin */ declare class mixin$CanvasTransform {
+  getTransform(): DOMMatrix;
+  resetTransform(): void;
+  rotate(angle: number): void;
+  scale(x: number, y: number): void;
+  setTransform(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    e: number,
+    f: number,
+  ): void;
+  setTransform(transform?: DOMMatrix2DInit): void;
+  transform(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    e: number,
+    f: number,
+  ): void;
+  translate(x: number, y: number): void;
+}
+
+/* mixin */ declare class mixin$CanvasUserInterface {
+  drawFocusIfNeeded(element: Element): void;
+  drawFocusIfNeeded(path: Path2D, element: Element): void;
+}
+
+/* mixin */ declare class mixin$ChildNode {
+  after(nodes: Node | string): void;
+  before(nodes: Node | string): void;
+  remove(): void;
+  replaceWith(nodes: Node | string): void;
+}
+
+/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
+  adoptedStyleSheets: CSSStyleSheet;
+  +styleSheets: StyleSheetList;
+}
+
+/* mixin */ declare class mixin$DocumentOrShadowRoot {}
+
+/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
+  +fullscreenElement: Element | null;
+}
+
+/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
+  +activeElement: Element | null;
+}
+
+/* mixin */ declare class mixin$ElementContentEditable {
+  contentEditable: string;
+  enterKeyHint: string;
+  inputMode: string;
+  +isContentEditable: boolean;
+}
+
+/* mixin */ declare class mixin$ElementCSSInlineStyle {
+  +style: CSSStyleDeclaration;
+}
+
+/* mixin */ declare class mixin$GenericTransformStream {
+  +readable: ReadableStream;
+  +writable: WritableStream;
+}
+
+/* mixin */ declare class mixin$GetSVGDocument {
+  getSVGDocument(): Document;
+}
+
+/* mixin */ declare class mixin$GlobalEventHandlers {
+  onabort: EventHandler;
+  onauxclick: EventHandler;
+  onbeforeinput: EventHandler;
+  onbeforematch: EventHandler;
+  onbeforetoggle: EventHandler;
+  onblur: EventHandler;
+  oncancel: EventHandler;
+  oncanplay: EventHandler;
+  oncanplaythrough: EventHandler;
+  onchange: EventHandler;
+  onclick: EventHandler;
+  onclose: EventHandler;
+  oncommand: EventHandler;
+  oncontextlost: EventHandler;
+  oncontextmenu: EventHandler;
+  oncontextrestored: EventHandler;
+  oncopy: EventHandler;
+  oncuechange: EventHandler;
+  oncut: EventHandler;
+  ondblclick: EventHandler;
+  ondrag: EventHandler;
+  ondragend: EventHandler;
+  ondragenter: EventHandler;
+  ondragleave: EventHandler;
+  ondragover: EventHandler;
+  ondragstart: EventHandler;
+  ondrop: EventHandler;
+  ondurationchange: EventHandler;
+  onemptied: EventHandler;
+  onended: EventHandler;
+  onerror: OnErrorEventHandler;
+  onfocus: EventHandler;
+  onformdata: EventHandler;
+  oninput: EventHandler;
+  oninvalid: EventHandler;
+  onkeydown: EventHandler;
+  onkeypress: EventHandler;
+  onkeyup: EventHandler;
+  onload: EventHandler;
+  onloadeddata: EventHandler;
+  onloadedmetadata: EventHandler;
+  onloadstart: EventHandler;
+  onmousedown: EventHandler;
+  onmouseenter: EventHandler;
+  onmouseleave: EventHandler;
+  onmousemove: EventHandler;
+  onmouseout: EventHandler;
+  onmouseover: EventHandler;
+  onmouseup: EventHandler;
+  onpaste: EventHandler;
+  onpause: EventHandler;
+  onplay: EventHandler;
+  onplaying: EventHandler;
+  onprogress: EventHandler;
+  onratechange: EventHandler;
+  onreset: EventHandler;
+  onresize: EventHandler;
+  onscroll: EventHandler;
+  onscrollend: EventHandler;
+  onsecuritypolicyviolation: EventHandler;
+  onseeked: EventHandler;
+  onseeking: EventHandler;
+  onselect: EventHandler;
+  onslotchange: EventHandler;
+  onstalled: EventHandler;
+  onsubmit: EventHandler;
+  onsuspend: EventHandler;
+  ontimeupdate: EventHandler;
+  ontoggle: EventHandler;
+  onvolumechange: EventHandler;
+  onwaiting: EventHandler;
+  onwebkitanimationend: EventHandler;
+  onwebkitanimationiteration: EventHandler;
+  onwebkitanimationstart: EventHandler;
+  onwebkittransitionend: EventHandler;
+  onwheel: EventHandler;
+}
+
+/* mixin */ declare class mixin$HTMLHyperlinkElementUtils {
+  hash: string;
+  host: string;
+  hostname: string;
+  href: string;
+  +origin: string;
+  password: string;
+  pathname: string;
+  port: string;
+  protocol: string;
+  search: string;
+  username: string;
+}
+
+/* mixin */ declare class mixin$HTMLOrSVGElement {
+  autofocus: boolean;
+  +dataset: DOMStringMap;
+  nonce: string;
+  tabIndex: number;
+
+  blur(): void;
+  focus(options?: FocusOptions): void;
+}
+
+/* mixin */ declare class mixin$LinkStyle {
+  +sheet: CSSStyleSheet | null;
+}
+
+/* mixin */ declare class mixin$MessageEventTarget {
+  onmessage: EventHandler;
+  onmessageerror: EventHandler;
+}
+
+/* mixin */ declare class mixin$NavigatorConcurrentHardware {
+  +hardwareConcurrency: number;
+}
+
+/* mixin */ declare class mixin$NavigatorContentUtils {
+  registerProtocolHandler(scheme: string, url: string): void;
+  unregisterProtocolHandler(scheme: string, url: string): void;
+}
+
+/* mixin */ declare class mixin$NavigatorCookies {
+  +cookieEnabled: boolean;
+}
+
+/* mixin */ declare class mixin$NavigatorID {
+  +appCodeName: string;
+  +appName: string;
+  +appVersion: string;
+  +platform: string;
+  +product: string;
+  +productSub: string;
+  +userAgent: string;
+  +vendor: string;
+  +vendorSub: string;
+}
+
+/* partial mixin */ declare class mixin$NavigatorID {
+  +oscpu: string;
+
+  taintEnabled(): boolean;
+}
+
+/* mixin */ declare class mixin$NavigatorLanguage {
+  +language: string;
+  +languages: string;
+}
+
+/* mixin */ declare class mixin$NavigatorOnLine {
+  +onLine: boolean;
+}
+
+/* mixin */ declare class mixin$NavigatorPlugins {
+  +mimeTypes: MimeTypeArray;
+  +pdfViewerEnabled: boolean;
+  +plugins: PluginArray;
+
+  javaEnabled(): boolean;
+}
+
+/* mixin */ declare class mixin$NonDocumentTypeChildNode {
+  +nextElementSibling: Element | null;
+  +previousElementSibling: Element | null;
+}
+
+/* mixin */ declare class mixin$NonElementParentNode {
+  getElementById(elementId: string): Element | null;
+}
+
+/* mixin */ declare class mixin$ParentNode {
+  +childElementCount: number;
+  +children: HTMLCollection;
+  +firstElementChild: Element | null;
+  +lastElementChild: Element | null;
+
+  append(nodes: Node | string): void;
+  moveBefore(node: Node, child: Node | null): void;
+  prepend(nodes: Node | string): void;
+  querySelector(selectors: string): Element | null;
+  querySelectorAll(selectors: string): NodeList;
+  replaceChildren(nodes: Node | string): void;
+}
+
+/* mixin */ declare class mixin$PopoverInvokerElement {
+  popoverTargetAction: string;
+  popoverTargetElement: Element | null;
+}
+
+/* mixin */ declare class mixin$ReadableStreamGenericReader {
+  +closed: void;
+
+  cancel(reason?: any): void;
+}
+
+/* mixin */ declare class mixin$Slottable {
+  +assignedSlot: HTMLSlotElement | null;
+}
+
+/* mixin */ declare class mixin$SVGAnimatedPoints {
+  +animatedPoints: SVGPointList;
+  +points: SVGPointList;
+}
+
+/* mixin */ declare class mixin$SVGCSSRule {}
+
+/* mixin */ declare class mixin$SVGElementInstance {
+  +correspondingElement: SVGElement | null;
+  +correspondingUseElement: SVGUseElement | null;
+}
+
+/* mixin */ declare class mixin$SVGExternalResourcesRequired {
+  +externalResourcesRequired: SVGAnimatedBoolean;
+}
+
+/* mixin */ declare class mixin$SVGFilterPrimitiveStandardAttributes {
+  +height: SVGAnimatedLength;
+  +result: SVGAnimatedString;
+  +width: SVGAnimatedLength;
+  +x: SVGAnimatedLength;
+  +y: SVGAnimatedLength;
+}
+
+/* mixin */ declare class mixin$SVGFitToViewBox {
+  +preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
+  +viewBox: SVGAnimatedRect;
+}
+
+/* mixin */ declare class mixin$SVGLangSpace {
+  xmllang: string;
+  xmlspace: string;
+}
+
+/* mixin */ declare class mixin$SVGLocatable {
+  +farthestViewportElement: SVGElement;
+  +nearestViewportElement: SVGElement;
+
+  getBBox(): SVGRect;
+  getCTM(): SVGMatrix;
+  getScreenCTM(): SVGMatrix;
+  getTransformToElement(element: SVGElement): SVGMatrix;
+}
+
+/* mixin */ declare class mixin$SVGStylable {
+  +className: SVGAnimatedString;
+  +style: CSSStyleDeclaration;
+
+  getPresentationAttribute(name: string): CSSValue;
+}
+
+/* mixin */ declare class mixin$SVGTests {
+  +requiredExtensions: SVGStringList;
+  +requiredFeatures: SVGStringList;
+  +systemLanguage: SVGStringList;
+
+  hasExtension(extension: string): boolean;
+}
+
+/* mixin */ declare class mixin$SVGTransformable {
+  +transform: SVGAnimatedTransformList;
+}
+
+/* mixin */ declare class mixin$SVGURIReference {
+  +href: SVGAnimatedString;
+}
+
+/* mixin */ declare class mixin$SVGViewSpec {
+  +preserveAspectRatioString: string;
+  +transform: SVGTransformList;
+  +transformString: string;
+  +viewBoxString: string;
+  +viewTarget: SVGElement;
+  +viewTargetString: string;
+}
+
+/* mixin */ declare class mixin$SVGZoomAndPan {
+  zoomAndPan: number;
+}
+
+/* mixin */ declare class mixin$TextDecoderCommon {
+  +encoding: string;
+  +fatal: boolean;
+  +ignoreBOM: boolean;
+}
+
+/* mixin */ declare class mixin$TextEncoderCommon {
+  +encoding: string;
+}
+
+/* mixin */ declare class mixin$WebGLRenderingContextBase {
+  +canvas: HTMLCanvasElement | OffscreenCanvas;
+  drawingBufferColorSpace: PredefinedColorSpace;
+  +drawingBufferFormat: GLenum;
+  +drawingBufferHeight: GLsizei;
+  +drawingBufferWidth: GLsizei;
+  unpackColorSpace: PredefinedColorSpace;
+
+  activeTexture(texture: GLenum): void;
+  attachShader(program: WebGLProgram, shader: WebGLShader): void;
+  bindAttribLocation(program: WebGLProgram, index: GLuint, name: string): void;
+  bindBuffer(target: GLenum, buffer: WebGLBuffer | null): void;
+  bindFramebuffer(target: GLenum, framebuffer: WebGLFramebuffer | null): void;
+  bindRenderbuffer(
+    target: GLenum,
+    renderbuffer: WebGLRenderbuffer | null,
+  ): void;
+  bindTexture(target: GLenum, texture: WebGLTexture | null): void;
+  blendColor(
+    red: GLclampf,
+    green: GLclampf,
+    blue: GLclampf,
+    alpha: GLclampf,
+  ): void;
+  blendEquation(mode: GLenum): void;
+  blendEquationSeparate(modeRGB: GLenum, modeAlpha: GLenum): void;
+  blendFunc(sfactor: GLenum, dfactor: GLenum): void;
+  blendFuncSeparate(
+    srcRGB: GLenum,
+    dstRGB: GLenum,
+    srcAlpha: GLenum,
+    dstAlpha: GLenum,
+  ): void;
+  checkFramebufferStatus(target: GLenum): GLenum;
+  clear(mask: GLbitfield): void;
+  clearColor(
+    red: GLclampf,
+    green: GLclampf,
+    blue: GLclampf,
+    alpha: GLclampf,
+  ): void;
+  clearDepth(depth: GLclampf): void;
+  clearStencil(s: GLint): void;
+  colorMask(
+    red: GLboolean,
+    green: GLboolean,
+    blue: GLboolean,
+    alpha: GLboolean,
+  ): void;
+  compileShader(shader: WebGLShader): void;
+  copyTexImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLenum,
+    x: GLint,
+    y: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+  ): void;
+  copyTexSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    x: GLint,
+    y: GLint,
+    width: GLsizei,
+    height: GLsizei,
+  ): void;
+  createBuffer(): WebGLBuffer;
+  createFramebuffer(): WebGLFramebuffer;
+  createProgram(): WebGLProgram;
+  createRenderbuffer(): WebGLRenderbuffer;
+  createShader(type: GLenum): WebGLShader | null;
+  createTexture(): WebGLTexture;
+  cullFace(mode: GLenum): void;
+  deleteBuffer(buffer: WebGLBuffer | null): void;
+  deleteFramebuffer(framebuffer: WebGLFramebuffer | null): void;
+  deleteProgram(program: WebGLProgram | null): void;
+  deleteRenderbuffer(renderbuffer: WebGLRenderbuffer | null): void;
+  deleteShader(shader: WebGLShader | null): void;
+  deleteTexture(texture: WebGLTexture | null): void;
+  depthFunc(func: GLenum): void;
+  depthMask(flag: GLboolean): void;
+  depthRange(zNear: GLclampf, zFar: GLclampf): void;
+  detachShader(program: WebGLProgram, shader: WebGLShader): void;
+  disable(cap: GLenum): void;
+  disableVertexAttribArray(index: GLuint): void;
+  drawArrays(mode: GLenum, first: GLint, count: GLsizei): void;
+  drawElements(
+    mode: GLenum,
+    count: GLsizei,
+    type: GLenum,
+    offset: GLintptr,
+  ): void;
+  drawingBufferStorage(
+    sizedFormat: GLenum,
+    width: number,
+    height: number,
+  ): void;
+  enable(cap: GLenum): void;
+  enableVertexAttribArray(index: GLuint): void;
+  finish(): void;
+  flush(): void;
+  framebufferRenderbuffer(
+    target: GLenum,
+    attachment: GLenum,
+    renderbuffertarget: GLenum,
+    renderbuffer: WebGLRenderbuffer | null,
+  ): void;
+  framebufferTexture2D(
+    target: GLenum,
+    attachment: GLenum,
+    textarget: GLenum,
+    texture: WebGLTexture | null,
+    level: GLint,
+  ): void;
+  frontFace(mode: GLenum): void;
+  generateMipmap(target: GLenum): void;
+  getActiveAttrib(program: WebGLProgram, index: GLuint): WebGLActiveInfo | null;
+  getActiveUniform(
+    program: WebGLProgram,
+    index: GLuint,
+  ): WebGLActiveInfo | null;
+  getAttachedShaders(program: WebGLProgram): Array<WebGLShader> | null;
+  getAttribLocation(program: WebGLProgram, name: string): GLint;
+  getBufferParameter(target: GLenum, pname: GLenum): any;
+  getContextAttributes(): WebGLContextAttributes | null;
+  getError(): GLenum;
+  getExtension(name: string): Object | null;
+  getFramebufferAttachmentParameter(
+    target: GLenum,
+    attachment: GLenum,
+    pname: GLenum,
+  ): any;
+  getParameter(pname: GLenum): any;
+  getProgramInfoLog(program: WebGLProgram): string | null;
+  getProgramParameter(program: WebGLProgram, pname: GLenum): any;
+  getRenderbufferParameter(target: GLenum, pname: GLenum): any;
+  getShaderInfoLog(shader: WebGLShader): string | null;
+  getShaderParameter(shader: WebGLShader, pname: GLenum): any;
+  getShaderPrecisionFormat(
+    shadertype: GLenum,
+    precisiontype: GLenum,
+  ): WebGLShaderPrecisionFormat | null;
+  getShaderSource(shader: WebGLShader): string | null;
+  getSupportedExtensions(): Array<string> | null;
+  getTexParameter(target: GLenum, pname: GLenum): any;
+  getUniform(program: WebGLProgram, location: WebGLUniformLocation): any;
+  getUniformLocation(
+    program: WebGLProgram,
+    name: string,
+  ): WebGLUniformLocation | null;
+  getVertexAttrib(index: GLuint, pname: GLenum): any;
+  getVertexAttribOffset(index: GLuint, pname: GLenum): GLintptr;
+  hint(target: GLenum, mode: GLenum): void;
+  isBuffer(buffer: WebGLBuffer | null): GLboolean;
+  isContextLost(): boolean;
+  isEnabled(cap: GLenum): GLboolean;
+  isFramebuffer(framebuffer: WebGLFramebuffer | null): GLboolean;
+  isProgram(program: WebGLProgram | null): GLboolean;
+  isRenderbuffer(renderbuffer: WebGLRenderbuffer | null): GLboolean;
+  isShader(shader: WebGLShader | null): GLboolean;
+  isTexture(texture: WebGLTexture | null): GLboolean;
+  lineWidth(width: GLfloat): void;
+  linkProgram(program: WebGLProgram): void;
+  pixelStorei(pname: GLenum, param: GLint): void;
+  polygonOffset(factor: GLfloat, units: GLfloat): void;
+  renderbufferStorage(
+    target: GLenum,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+  ): void;
+  sampleCoverage(value: GLclampf, invert: GLboolean): void;
+  scissor(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void;
+  shaderSource(shader: WebGLShader, source: string): void;
+  stencilFunc(func: GLenum, ref: GLint, mask: GLuint): void;
+  stencilFuncSeparate(
+    face: GLenum,
+    func: GLenum,
+    ref: GLint,
+    mask: GLuint,
+  ): void;
+  stencilMask(mask: GLuint): void;
+  stencilMaskSeparate(face: GLenum, mask: GLuint): void;
+  stencilOp(fail: GLenum, zfail: GLenum, zpass: GLenum): void;
+  stencilOpSeparate(
+    face: GLenum,
+    fail: GLenum,
+    zfail: GLenum,
+    zpass: GLenum,
+  ): void;
+  texParameterf(target: GLenum, pname: GLenum, param: GLfloat): void;
+  texParameteri(target: GLenum, pname: GLenum, param: GLint): void;
+  uniform1f(location: WebGLUniformLocation | null, x: GLfloat): void;
+  uniform1i(location: WebGLUniformLocation | null, x: GLint): void;
+  uniform2f(
+    location: WebGLUniformLocation | null,
+    x: GLfloat,
+    y: GLfloat,
+  ): void;
+  uniform2i(location: WebGLUniformLocation | null, x: GLint, y: GLint): void;
+  uniform3f(
+    location: WebGLUniformLocation | null,
+    x: GLfloat,
+    y: GLfloat,
+    z: GLfloat,
+  ): void;
+  uniform3i(
+    location: WebGLUniformLocation | null,
+    x: GLint,
+    y: GLint,
+    z: GLint,
+  ): void;
+  uniform4f(
+    location: WebGLUniformLocation | null,
+    x: GLfloat,
+    y: GLfloat,
+    z: GLfloat,
+    w: GLfloat,
+  ): void;
+  uniform4i(
+    location: WebGLUniformLocation | null,
+    x: GLint,
+    y: GLint,
+    z: GLint,
+    w: GLint,
+  ): void;
+  useProgram(program: WebGLProgram | null): void;
+  validateProgram(program: WebGLProgram): void;
+  vertexAttrib1f(index: GLuint, x: GLfloat): void;
+  vertexAttrib1fv(index: GLuint, values: Float32List): void;
+  vertexAttrib2f(index: GLuint, x: GLfloat, y: GLfloat): void;
+  vertexAttrib2fv(index: GLuint, values: Float32List): void;
+  vertexAttrib3f(index: GLuint, x: GLfloat, y: GLfloat, z: GLfloat): void;
+  vertexAttrib3fv(index: GLuint, values: Float32List): void;
+  vertexAttrib4f(
+    index: GLuint,
+    x: GLfloat,
+    y: GLfloat,
+    z: GLfloat,
+    w: GLfloat,
+  ): void;
+  vertexAttrib4fv(index: GLuint, values: Float32List): void;
+  vertexAttribPointer(
+    index: GLuint,
+    size: GLint,
+    type: GLenum,
+    normalized: GLboolean,
+    stride: GLsizei,
+    offset: GLintptr,
+  ): void;
+  viewport(x: GLint, y: GLint, width: GLsizei, height: GLsizei): void;
+}
+
+/* mixin */ declare class mixin$WebGLRenderingContextOverloads {
+  bufferData(target: GLenum, size: GLsizeiptr, usage: GLenum): void;
+  bufferData(
+    target: GLenum,
+    data: AllowSharedBufferSource | null,
+    usage: GLenum,
+  ): void;
+  bufferSubData(
+    target: GLenum,
+    offset: GLintptr,
+    data: AllowSharedBufferSource,
+  ): void;
+  compressedTexImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLenum,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    data: ArrayBufferView,
+  ): void;
+  compressedTexSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    data: ArrayBufferView,
+  ): void;
+  readPixels(
+    x: GLint,
+    y: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    pixels: ArrayBufferView | null,
+  ): void;
+  texImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    border: GLint,
+    format: GLenum,
+    type: GLenum,
+    pixels: ArrayBufferView | null,
+  ): void;
+  texImage2D(
+    target: GLenum,
+    level: GLint,
+    internalformat: GLint,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
+  ): void;
+  texSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    width: GLsizei,
+    height: GLsizei,
+    format: GLenum,
+    type: GLenum,
+    pixels: ArrayBufferView | null,
+  ): void;
+  texSubImage2D(
+    target: GLenum,
+    level: GLint,
+    xoffset: GLint,
+    yoffset: GLint,
+    format: GLenum,
+    type: GLenum,
+    source: TexImageSource,
+  ): void;
+  uniform1fv(location: WebGLUniformLocation | null, v: Float32List): void;
+  uniform1iv(location: WebGLUniformLocation | null, v: Int32List): void;
+  uniform2fv(location: WebGLUniformLocation | null, v: Float32List): void;
+  uniform2iv(location: WebGLUniformLocation | null, v: Int32List): void;
+  uniform3fv(location: WebGLUniformLocation | null, v: Float32List): void;
+  uniform3iv(location: WebGLUniformLocation | null, v: Int32List): void;
+  uniform4fv(location: WebGLUniformLocation | null, v: Float32List): void;
+  uniform4iv(location: WebGLUniformLocation | null, v: Int32List): void;
+  uniformMatrix2fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    value: Float32List,
+  ): void;
+  uniformMatrix3fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    value: Float32List,
+  ): void;
+  uniformMatrix4fv(
+    location: WebGLUniformLocation | null,
+    transpose: GLboolean,
+    value: Float32List,
+  ): void;
+}
+
+/* mixin */ declare class mixin$WindowEventHandlers {
+  onafterprint: EventHandler;
+  onbeforeprint: EventHandler;
+  onbeforeunload: OnBeforeUnloadEventHandler;
+  onhashchange: EventHandler;
+  onlanguagechange: EventHandler;
+  onmessage: EventHandler;
+  onmessageerror: EventHandler;
+  onoffline: EventHandler;
+  ononline: EventHandler;
+  onpagehide: EventHandler;
+  onpagereveal: EventHandler;
+  onpageshow: EventHandler;
+  onpageswap: EventHandler;
+  onpopstate: EventHandler;
+  onrejectionhandled: EventHandler;
+  onstorage: EventHandler;
+  onunhandledrejection: EventHandler;
+  onunload: EventHandler;
+}
+
+/* mixin */ declare class mixin$WindowLocalStorage {
+  +localStorage: Storage;
+}
+
+/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
+  fetch(input: RequestInfo, init?: RequestInit): Response;
+}
+
+/* mixin */ declare class mixin$WindowOrWorkerGlobalScope {
+  +crossOriginIsolated: boolean;
+  +isSecureContext: boolean;
+  +origin: string;
+
+  atob(data: string): string;
+  btoa(data: string): string;
+  clearInterval(id?: number): void;
+  clearTimeout(id?: number): void;
+  createImageBitmap(
+    image: ImageBitmapSource,
+    options?: ImageBitmapOptions,
+  ): ImageBitmap;
+  createImageBitmap(
+    image: ImageBitmapSource,
+    sx: number,
+    sy: number,
+    sw: number,
+    sh: number,
+    options?: ImageBitmapOptions,
+  ): ImageBitmap;
+  queueMicrotask(callback: VoidFunction): void;
+  reportError(e: any): void;
+  setInterval(handler: TimerHandler, timeout?: number, arguments_: any): number;
+  setTimeout(handler: TimerHandler, timeout?: number, arguments_: any): number;
+  structuredClone(value: any, options?: StructuredSerializeOptions): any;
+}
+
+/* mixin */ declare class mixin$WindowSessionStorage {
+  +sessionStorage: Storage;
+}
+
+/* mixin */ declare class mixin$XPathEvaluatorBase {
+  createExpression(
+    expression: string,
+    resolver?: XPathNSResolver | null,
+  ): XPathExpression;
+  createNSResolver(nodeResolver: Node): Node;
+  evaluate(
+    expression: string,
+    contextNode: Node,
+    resolver?: XPathNSResolver | null,
+    type?: number,
+    result?: XPathResult | null,
+  ): XPathResult;
 }
 
 declare namespace CSS {

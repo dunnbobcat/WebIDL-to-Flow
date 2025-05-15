@@ -1,6 +1,6 @@
 type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
 
-type HeadersInit = Array<Array<ByteString>> | ByteString | ByteString;
+type HeadersInit = Array<Array<string>> | string | string;
 
 type RequestInfo = Request | string;
 
@@ -61,7 +61,7 @@ type ResponseType =
   | 'opaqueredirect';
 
 type RequestInit = {
-  method: ByteString,
+  method: string,
   headers: HeadersInit,
   body: BodyInit | null,
   referrer: string,
@@ -80,37 +80,21 @@ type RequestInit = {
 
 type ResponseInit = {
   status: number,
-  statusText: ByteString,
+  statusText: string,
   headers: HeadersInit,
 };
-
-/* mixin */ declare class mixin$Body {
-  +body: ReadableStream | null;
-  +bodyUsed: boolean;
-
-  arrayBuffer(): ArrayBuffer;
-  blob(): Blob;
-  bytes(): Uint8Array;
-  formData(): FormData;
-  json(): any;
-  text(): string;
-}
-
-/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
-  fetch(input: RequestInfo, init?: RequestInit): Response;
-}
 
 declare class Headers {
   constructor(init?: HeadersInit): void;
 
-  @@iterator(): Iterator<ByteString, ByteString>;
+  @@iterator(): Iterator<string, string>;
 
-  append(name: ByteString, value: ByteString): void;
-  delete(name: ByteString): void;
-  get(name: ByteString): ByteString | null;
-  getSetCookie(): Array<ByteString>;
-  has(name: ByteString): boolean;
-  set(name: ByteString, value: ByteString): void;
+  append(name: string, value: string): void;
+  delete(name: string): void;
+  get(name: string): string | null;
+  getSetCookie(): Array<string>;
+  has(name: string): boolean;
+  set(name: string, value: string): void;
 }
 
 declare class Request mixins mixin$Body {
@@ -123,7 +107,7 @@ declare class Request mixins mixin$Body {
   +isHistoryNavigation: boolean;
   +isReloadNavigation: boolean;
   +keepalive: boolean;
-  +method: ByteString;
+  +method: string;
   +mode: RequestMode;
   +redirect: RequestRedirect;
   +referrer: string;
@@ -141,7 +125,7 @@ declare class Response mixins mixin$Body {
   +ok: boolean;
   +redirected: boolean;
   +status: number;
-  +statusText: ByteString;
+  +statusText: string;
   +type: ResponseType;
   +url: string;
 
@@ -151,4 +135,20 @@ declare class Response mixins mixin$Body {
   static json(data: any, init?: ResponseInit): Response;
   static redirect(url: string, status?: number): Response;
   clone(): Response;
+}
+
+/* mixin */ declare class mixin$Body {
+  +body: ReadableStream | null;
+  +bodyUsed: boolean;
+
+  arrayBuffer(): ArrayBuffer;
+  blob(): Blob;
+  bytes(): Uint8Array;
+  formData(): FormData;
+  json(): any;
+  text(): string;
+}
+
+/* partial mixin */ declare class mixin$WindowOrWorkerGlobalScope {
+  fetch(input: RequestInfo, init?: RequestInit): Response;
 }

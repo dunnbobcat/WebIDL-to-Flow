@@ -7,7 +7,6 @@ const PRODUCTION_ORDER = ([
   'enum',
   'dictionary',
   'callback',
-  'interface mixin',
   'callback interface',
   'interface',
   'const',
@@ -15,6 +14,7 @@ const PRODUCTION_ORDER = ([
   'constructor',
   'iterable',
   'operation',
+  'interface mixin',
 ]: $ReadOnlyArray<string>);
 
 function getPrecedence(type: string): number {

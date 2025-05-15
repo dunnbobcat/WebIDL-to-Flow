@@ -138,7 +138,28 @@ async function main(): Promise<void> {
 
     case 'web':
       return await generateSingleFlowDefinition(
-        ['CSSOM', 'DOM', 'HTML', 'SVG', 'WebIDL'],
+        [
+          'CSSOM',
+          'DOM',
+          'Encoding',
+          'Fetch',
+          'FileAPI',
+          'FilterEffects',
+          'Fullscreen',
+          'Geometry',
+          'HTML',
+          'MathMLCore',
+          'Notifications',
+          'Streams',
+          'SVG',
+          'SVGAnimation',
+          'URL',
+          'URLPattern',
+          'Vibration',
+          'WebGL',
+          'WebIDL',
+          'XHR',
+        ],
         'web',
       );
 

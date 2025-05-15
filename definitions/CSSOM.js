@@ -4,19 +4,6 @@ type CSSStyleSheetInit = {
   disabled: boolean,
 };
 
-/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
-  adoptedStyleSheets: CSSStyleSheet;
-  +styleSheets: StyleSheetList;
-}
-
-/* mixin */ declare class mixin$ElementCSSInlineStyle {
-  +style: CSSStyleDeclaration;
-}
-
-/* mixin */ declare class mixin$LinkStyle {
-  +sheet: CSSStyleSheet | null;
-}
-
 declare class CSSGroupingRule extends CSSRule {
   +cssRules: CSSRuleList;
 
@@ -134,6 +121,19 @@ declare class StyleSheetList {
     elt: Element,
     pseudoElt?: string | null,
   ): CSSStyleDeclaration;
+}
+
+/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
+  adoptedStyleSheets: CSSStyleSheet;
+  +styleSheets: StyleSheetList;
+}
+
+/* mixin */ declare class mixin$ElementCSSInlineStyle {
+  +style: CSSStyleDeclaration;
+}
+
+/* mixin */ declare class mixin$LinkStyle {
+  +sheet: CSSStyleSheet | null;
 }
 
 declare namespace CSS {

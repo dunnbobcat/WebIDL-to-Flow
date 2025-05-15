@@ -1,11 +1,3 @@
-/* mixin */ declare class mixin$SVGFilterPrimitiveStandardAttributes {
-  +height: SVGAnimatedLength;
-  +result: SVGAnimatedString;
-  +width: SVGAnimatedLength;
-  +x: SVGAnimatedLength;
-  +y: SVGAnimatedLength;
-}
-
 declare class SVGComponentTransferFunctionElement extends SVGElement {
   static +SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE: 3;
   static +SVG_FECOMPONENTTRANSFER_TYPE_GAMMA: 5;
@@ -289,6 +281,14 @@ declare class SVGFilterElement extends SVGElement mixins mixin$SVGURIReference {
   +filterUnits: SVGAnimatedEnumeration;
   +height: SVGAnimatedLength;
   +primitiveUnits: SVGAnimatedEnumeration;
+  +width: SVGAnimatedLength;
+  +x: SVGAnimatedLength;
+  +y: SVGAnimatedLength;
+}
+
+/* mixin */ declare class mixin$SVGFilterPrimitiveStandardAttributes {
+  +height: SVGAnimatedLength;
+  +result: SVGAnimatedString;
   +width: SVGAnimatedLength;
   +x: SVGAnimatedLength;
   +y: SVGAnimatedLength;
