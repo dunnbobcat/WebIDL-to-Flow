@@ -340,6 +340,11 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
+"@webref/idl@^3.63.0":
+  version "3.63.0"
+  resolved "https://registry.yarnpkg.com/@webref/idl/-/idl-3.63.0.tgz#6b84c31818b91b46ff29a6df186152556e665657"
+  integrity sha512-ccHJi1I4jMSJ0ojpJ7Tnwc78V7aWxGVVyNx4pkQujepAG6RTVVQg0VAfNYvUFGaOISv4FM9BlhRCS4En69g4zg==
+
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"

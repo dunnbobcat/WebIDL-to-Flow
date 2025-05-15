@@ -7,6 +7,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "@webref/idl": "^3.63.0",
     "webidl2": "^24.4.1"
   },
   "devDependencies": {
@@ -16,9 +17,9 @@
     "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.21.0",
     "babel-plugin-syntax-hermes-parser": "^0.27.0",
+    "eslint": "^9.21.0",
     "eslint-plugin-ft-flow": "^3.0.11",
     "eslint-plugin-import": "^2.31.0",
-    "eslint": "^9.21.0",
     "flow-bin": "^0.265.3",
     "hermes-eslint": "^0.26.0",
     "prettier": "^3.4.2"
