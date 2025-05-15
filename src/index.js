@@ -98,7 +98,8 @@ async function generateSingleFlowDefinition(
   }
 
   const combinedIDL = await coalesceIDLs(idls);
-  const lib = await convertIDLToLibrary(combinedIDL, true);
+  // const lib = await convertIDLToLibrary(combinedIDL, true);
+  const lib = await convertIDLToLibrary(combinedIDL);
   const name = path.basename(outputFile, '.js');
   await fs.promises.writeFile(`${dir}/${name}.js`, lib);
 }
@@ -137,8 +138,7 @@ async function main(): Promise<void> {
 
     case 'web':
       return await generateSingleFlowDefinition(
-        // ['CSSOM', 'DOM', 'HTML', 'SVG', 'WebIDL'],
-        ['HTML'],
+        ['CSSOM', 'DOM', 'HTML', 'SVG', 'WebIDL'],
         'web',
       );
 

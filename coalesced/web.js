@@ -1,4 +1,24 @@
-// @flow
+type AllowSharedBufferSource =
+  | ArrayBuffer
+  | SharedArrayBuffer
+  | ArrayBufferView;
+
+type ArrayBufferView =
+  | Int8Array
+  | Int16Array
+  | Int32Array
+  | Uint8Array
+  | Uint16Array
+  | Uint32Array
+  | Uint8ClampedArray
+  | BigInt64Array
+  | BigUint64Array
+  | Float16Array
+  | Float32Array
+  | Float64Array
+  | DataView;
+
+type BufferSource = ArrayBufferView | ArrayBuffer;
 
 type CanvasImageSource =
   | HTMLOrSVGImageElement
@@ -132,6 +152,10 @@ type ScrollRestoration = 'auto' | 'manual';
 
 type SelectionMode = 'select' | 'start' | 'end' | 'preserve';
 
+type ShadowRootMode = 'open' | 'closed';
+
+type SlotAssignmentMode = 'manual' | 'named';
+
 type TextTrackKind =
   | 'subtitles'
   | 'captions'
@@ -142,6 +166,12 @@ type TextTrackKind =
 type TextTrackMode = 'disabled' | 'hidden' | 'showing';
 
 type WorkerType = 'classic' | 'module';
+
+type AddEventListenerOptions = {
+  passive: boolean,
+  once: boolean,
+  signal: AbortSignal,
+};
 
 type AssignedNodesOptions = {
   flatten: boolean,
@@ -164,8 +194,22 @@ type CommandEventInit = {
   command: string,
 };
 
+type CSSStyleSheetInit = {
+  baseURL: string,
+  media: MediaList | string,
+  disabled: boolean,
+};
+
+type CustomEventInit = {
+  detail: any,
+};
+
 type DragEventInit = {
   dataTransfer: DataTransfer | null,
+};
+
+type ElementCreationOptions = {
+  is: string,
 };
 
 type ElementDefinitionOptions = {
@@ -178,6 +222,16 @@ type ErrorEventInit = {
   lineno: number,
   colno: number,
   error: any,
+};
+
+type EventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
+};
+
+type EventListenerOptions = {
+  capture: boolean,
 };
 
 type EventSourceInit = {
@@ -196,6 +250,10 @@ type FormDataEventInit = {
 type GetHTMLOptions = {
   serializableShadowRoots: boolean,
   shadowRoots: Array<ShadowRoot>,
+};
+
+type GetRootNodeOptions = {
+  composed: boolean,
 };
 
 type HashChangeEventInit = {
@@ -231,6 +289,16 @@ type MessageEventInit = {
   lastEventId: string,
   source: MessageEventSource | null,
   ports: Array<MessagePort>,
+};
+
+type MutationObserverInit = {
+  childList: boolean,
+  attributes: boolean,
+  characterData: boolean,
+  subtree: boolean,
+  attributeOldValue: boolean,
+  characterDataOldValue: boolean,
+  attributeFilter: Array<string>,
 };
 
 type NavigateEventInit = {
@@ -303,8 +371,23 @@ type PromiseRejectionEventInit = {
   reason: any,
 };
 
+type ShadowRootInit = {
+  mode: ShadowRootMode,
+  delegatesFocus: boolean,
+  slotAssignment: SlotAssignmentMode,
+  clonable: boolean,
+  serializable: boolean,
+};
+
 type ShowPopoverOptions = {
   source: HTMLElement,
+};
+
+type StaticRangeInit = {
+  startContainer: Node,
+  startOffset: number,
+  endContainer: Node,
+  endOffset: number,
 };
 
 type StorageEventInit = {
@@ -321,6 +404,13 @@ type StructuredSerializeOptions = {
 
 type SubmitEventInit = {
   submitter: HTMLElement | null,
+};
+
+type SVGBoundingBoxOptions = {
+  fill: boolean,
+  stroke: boolean,
+  markers: boolean,
+  clipped: boolean,
 };
 
 type ToggleEventInit = {
@@ -375,6 +465,11 @@ type FrameRequestCallback = (time: number) => void;
 
 type FunctionStringCallback = (data: string) => void;
 
+type MutationCallback = (
+  mutations: Array<MutationRecord>,
+  observer: MutationObserver,
+) => void;
+
 type NavigationInterceptHandler = () => void;
 
 type OnBeforeUnloadEventHandlerNonNull = (event: Event) => string | null;
@@ -386,6 +481,8 @@ type OnErrorEventHandlerNonNull = (
   colno?: number,
   error?: any,
 ) => any;
+
+type VoidFunction = () => void;
 
 /* mixin */ declare class mixin$AbstractWorker {
   onerror: EventHandler;
@@ -629,6 +726,20 @@ type OnErrorEventHandlerNonNull = (
   drawFocusIfNeeded(path: Path2D, element: Element): void;
 }
 
+/* mixin */ declare class mixin$ChildNode {
+  after(nodes: Node | string): void;
+  before(nodes: Node | string): void;
+  remove(): void;
+  replaceWith(nodes: Node | string): void;
+}
+
+/* partial mixin */ declare class mixin$DocumentOrShadowRoot {
+  adoptedStyleSheets: CSSStyleSheet;
+  +styleSheets: StyleSheetList;
+}
+
+/* mixin */ declare class mixin$DocumentOrShadowRoot {}
+
 /* partial mixin */ declare class mixin$DocumentOrShadowRoot {
   +activeElement: Element | null;
 }
@@ -638,6 +749,14 @@ type OnErrorEventHandlerNonNull = (
   enterKeyHint: string;
   inputMode: string;
   +isContentEditable: boolean;
+}
+
+/* mixin */ declare class mixin$ElementCSSInlineStyle {
+  +style: CSSStyleDeclaration;
+}
+
+/* mixin */ declare class mixin$GetSVGDocument {
+  getSVGDocument(): Document;
 }
 
 /* mixin */ declare class mixin$GlobalEventHandlers {
@@ -743,6 +862,10 @@ type OnErrorEventHandlerNonNull = (
   focus(options?: FocusOptions): void;
 }
 
+/* mixin */ declare class mixin$LinkStyle {
+  +sheet: CSSStyleSheet | null;
+}
+
 /* mixin */ declare class mixin$MessageEventTarget {
   onmessage: EventHandler;
   onmessageerror: EventHandler;
@@ -796,9 +919,108 @@ type OnErrorEventHandlerNonNull = (
   javaEnabled(): boolean;
 }
 
+/* mixin */ declare class mixin$NonDocumentTypeChildNode {
+  +nextElementSibling: Element | null;
+  +previousElementSibling: Element | null;
+}
+
+/* mixin */ declare class mixin$NonElementParentNode {
+  getElementById(elementId: string): Element | null;
+}
+
+/* mixin */ declare class mixin$ParentNode {
+  +childElementCount: number;
+  +children: HTMLCollection;
+  +firstElementChild: Element | null;
+  +lastElementChild: Element | null;
+
+  append(nodes: Node | string): void;
+  moveBefore(node: Node, child: Node | null): void;
+  prepend(nodes: Node | string): void;
+  querySelector(selectors: string): Element | null;
+  querySelectorAll(selectors: string): NodeList;
+  replaceChildren(nodes: Node | string): void;
+}
+
 /* mixin */ declare class mixin$PopoverInvokerElement {
   popoverTargetAction: string;
   popoverTargetElement: Element | null;
+}
+
+/* mixin */ declare class mixin$Slottable {
+  +assignedSlot: HTMLSlotElement | null;
+}
+
+/* mixin */ declare class mixin$SVGAnimatedPoints {
+  +animatedPoints: SVGPointList;
+  +points: SVGPointList;
+}
+
+/* mixin */ declare class mixin$SVGCSSRule {}
+
+/* mixin */ declare class mixin$SVGElementInstance {
+  +correspondingElement: SVGElement | null;
+  +correspondingUseElement: SVGUseElement | null;
+}
+
+/* mixin */ declare class mixin$SVGExternalResourcesRequired {
+  +externalResourcesRequired: SVGAnimatedBoolean;
+}
+
+/* mixin */ declare class mixin$SVGFitToViewBox {
+  +preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
+  +viewBox: SVGAnimatedRect;
+}
+
+/* mixin */ declare class mixin$SVGLangSpace {
+  xmllang: string;
+  xmlspace: string;
+}
+
+/* mixin */ declare class mixin$SVGLocatable {
+  +farthestViewportElement: SVGElement;
+  +nearestViewportElement: SVGElement;
+
+  getBBox(): SVGRect;
+  getCTM(): SVGMatrix;
+  getScreenCTM(): SVGMatrix;
+  getTransformToElement(element: SVGElement): SVGMatrix;
+}
+
+/* mixin */ declare class mixin$SVGStylable {
+  +className: SVGAnimatedString;
+  +style: CSSStyleDeclaration;
+
+  getPresentationAttribute(name: string): CSSValue;
+}
+
+/* mixin */ declare class mixin$SVGTests {
+  +requiredExtensions: SVGStringList;
+  +requiredFeatures: SVGStringList;
+  +systemLanguage: SVGStringList;
+
+  hasExtension(extension: string): boolean;
+}
+
+/* mixin */ declare class mixin$SVGTransformable {
+  +transform: SVGAnimatedTransformList;
+}
+
+/* mixin */ declare class mixin$SVGURIReference {
+  +href: SVGAnimatedString;
+}
+
+/* mixin */ declare class mixin$SVGViewSpec {
+  +preserveAspectRatioString: string;
+  +transform: SVGTransformList;
+  +transformString: string;
+  +viewBoxString: string;
+  +viewTarget: SVGElement;
+  +viewTargetString: string;
+}
+
+/* mixin */ declare class mixin$SVGZoomAndPan {
+  zoomAndPan: number;
 }
 
 /* mixin */ declare class mixin$WindowEventHandlers {
@@ -856,6 +1078,87 @@ type OnErrorEventHandlerNonNull = (
 
 /* mixin */ declare class mixin$WindowSessionStorage {
   +sessionStorage: Storage;
+}
+
+/* mixin */ declare class mixin$XPathEvaluatorBase {
+  createExpression(
+    expression: string,
+    resolver?: XPathNSResolver | null,
+  ): XPathExpression;
+  createNSResolver(nodeResolver: Node): Node;
+  evaluate(
+    expression: string,
+    contextNode: Node,
+    resolver?: XPathNSResolver | null,
+    type?: number,
+    result?: XPathResult | null,
+  ): XPathResult;
+}
+
+interface EventListener {
+  handleEvent(event: Event): void;
+}
+
+declare class NodeFilter {
+  static +FILTER_ACCEPT: 1;
+  static +FILTER_REJECT: 2;
+  static +FILTER_SKIP: 3;
+  static +SHOW_ALL: 0xffffffff;
+  static +SHOW_ATTRIBUTE: 0x2;
+  static +SHOW_CDATA_SECTION: 0x8;
+  static +SHOW_COMMENT: 0x80;
+  static +SHOW_DOCUMENT: 0x100;
+  static +SHOW_DOCUMENT_FRAGMENT: 0x400;
+  static +SHOW_DOCUMENT_TYPE: 0x200;
+  static +SHOW_ELEMENT: 0x1;
+  static +SHOW_ENTITY: 0x20;
+  static +SHOW_ENTITY_REFERENCE: 0x10;
+  static +SHOW_NOTATION: 0x800;
+  static +SHOW_PROCESSING_INSTRUCTION: 0x40;
+  static +SHOW_TEXT: 0x4;
+
+  acceptNode(node: Node): number;
+}
+
+interface XPathNSResolver {
+  lookupNamespaceURI(prefix: string | null): string | null;
+}
+
+declare class AbortController {
+  +signal: AbortSignal;
+
+  constructor(): void;
+
+  abort(reason?: any): void;
+}
+
+declare class AbortSignal extends EventTarget {
+  +aborted: boolean;
+  onabort: EventHandler;
+  +reason: any;
+
+  static abort(reason?: any): AbortSignal;
+  static any(signals: Array<AbortSignal>): AbortSignal;
+  static timeout(milliseconds: number): AbortSignal;
+  throwIfAborted(): void;
+}
+
+declare class AbstractRange {
+  +collapsed: boolean;
+  +endContainer: Node;
+  +endOffset: number;
+  +startContainer: Node;
+  +startOffset: number;
+}
+
+declare class Attr extends Node {
+  +localName: string;
+  +name: string;
+  +namespaceURI: string | null;
+  +ownerElement: Element | null;
+  +prefix: string | null;
+  +specified: boolean;
+  value: string;
 }
 
 declare class AudioTrack {
@@ -926,6 +1229,22 @@ declare class CanvasRenderingContext2D
   +canvas: HTMLCanvasElement;
 }
 
+declare class CDATASection extends Text {}
+
+declare class CharacterData
+  extends Node
+  mixins mixin$NonDocumentTypeChildNode, mixin$ChildNode
+{
+  data: string;
+  +length: number;
+
+  appendData(data: string): void;
+  deleteData(offset: number, count: number): void;
+  insertData(offset: number, data: string): void;
+  replaceData(offset: number, count: number, data: string): void;
+  substringData(offset: number, count: number): string;
+}
+
 declare class CloseWatcher extends EventTarget {
   oncancel: EventHandler;
   onclose: EventHandler;
@@ -944,6 +1263,97 @@ declare class CommandEvent extends Event {
   constructor(type: string, eventInitDict?: CommandEventInit): void;
 }
 
+declare class Comment extends CharacterData {
+  constructor(data?: string): void;
+}
+
+declare class CSSGroupingRule extends CSSRule {
+  +cssRules: CSSRuleList;
+
+  deleteRule(index: number): void;
+  insertRule(rule: string, index?: number): number;
+}
+
+declare class CSSImportRule extends CSSRule {
+  +href: string;
+  +media: MediaList;
+  +styleSheet: CSSStyleSheet;
+}
+
+declare class CSSMarginRule extends CSSRule {
+  +name: string;
+  +style: CSSStyleDeclaration;
+}
+
+declare class CSSNamespaceRule extends CSSRule {
+  +namespaceURI: string;
+  +prefix: string;
+}
+
+declare class CSSPageRule extends CSSGroupingRule {
+  selectorText: string;
+  +style: CSSStyleDeclaration;
+}
+
+declare class CSSRule {
+  static +CHARSET_RULE: 2;
+  static +FONT_FACE_RULE: 5;
+  static +IMPORT_RULE: 3;
+  static +MARGIN_RULE: 9;
+  static +MEDIA_RULE: 4;
+  static +NAMESPACE_RULE: 10;
+  static +PAGE_RULE: 6;
+  static +STYLE_RULE: 1;
+
+  cssText: string;
+  +parentRule: CSSRule | null;
+  +parentStyleSheet: CSSStyleSheet | null;
+  +type: number;
+}
+
+declare class CSSRuleList {
+  +length: number;
+
+  item(index: number): CSSRule | null;
+}
+
+declare class CSSStyleDeclaration {
+  cssFloat: string;
+  cssText: string;
+  +length: number;
+  +parentRule: CSSRule | null;
+
+  item(index: number): string;
+  getPropertyPriority(property: string): string;
+  getPropertyValue(property: string): string;
+  removeProperty(property: string): string;
+  setProperty(property: string, value: string, priority?: string): void;
+}
+
+declare class CSSStyleRule extends CSSRule {
+  selectorText: string;
+  +style: CSSStyleDeclaration;
+}
+
+declare class CSSStyleSheet extends StyleSheet {
+  +cssRules: CSSRuleList;
+  +ownerRule: CSSRule | null;
+
+  constructor(options?: CSSStyleSheetInit): void;
+
+  deleteRule(index: number): void;
+  insertRule(rule: string, index?: number): number;
+  replace(text: string): CSSStyleSheet;
+  replaceSync(text: string): void;
+}
+
+/* partial */ interface CSSStyleSheet {
+  +rules: CSSRuleList;
+
+  addRule(selector?: string, style?: string, index?: number): number;
+  removeRule(index?: number): void;
+}
+
 declare class CustomElementRegistry {
   define(
     name: string,
@@ -954,6 +1364,19 @@ declare class CustomElementRegistry {
   getName(constructor_: CustomElementConstructor): string | null;
   upgrade(root: Node): void;
   whenDefined(name: string): CustomElementConstructor;
+}
+
+declare class CustomEvent extends Event {
+  +detail: any;
+
+  constructor(type: string, eventInitDict?: CustomEventInit): void;
+
+  initCustomEvent(
+    type: string,
+    bubbles?: boolean,
+    cancelable?: boolean,
+    detail?: any,
+  ): void;
 }
 
 type CustomStateSet = Set<string>;
@@ -1002,7 +1425,77 @@ declare class DedicatedWorkerGlobalScope
   postMessage(message: any, options?: StructuredSerializeOptions): void;
 }
 
-/* partial */ declare class Document mixins mixin$GlobalEventHandlers {
+declare class Document
+  extends Node
+  mixins
+    mixin$NonElementParentNode,
+    mixin$DocumentOrShadowRoot,
+    mixin$ParentNode,
+    mixin$XPathEvaluatorBase,
+    mixin$GlobalEventHandlers
+{
+  +characterSet: string;
+  +charset: string;
+  +compatMode: string;
+  +contentType: string;
+  +doctype: DocumentType | null;
+  +documentElement: Element | null;
+  +documentURI: string;
+  +implementation: DOMImplementation;
+  +inputEncoding: string;
+  +URL: string;
+
+  constructor(): void;
+
+  adoptNode(node: Node): Node;
+  createAttribute(localName: string): Attr;
+  createAttributeNS(namespace: string | null, qualifiedName: string): Attr;
+  createCDATASection(data: string): CDATASection;
+  createComment(data: string): Comment;
+  createDocumentFragment(): DocumentFragment;
+  createElement(
+    localName: string,
+    options?: string | ElementCreationOptions,
+  ): Element;
+  createElementNS(
+    namespace: string | null,
+    qualifiedName: string,
+    options?: string | ElementCreationOptions,
+  ): Element;
+  createEvent(interface_: string): Event;
+  createNodeIterator(
+    root: Node,
+    whatToShow?: number,
+    filter?: NodeFilter | null,
+  ): NodeIterator;
+  createProcessingInstruction(
+    target: string,
+    data: string,
+  ): ProcessingInstruction;
+  createRange(): Range;
+  createTextNode(data: string): Text;
+  createTreeWalker(
+    root: Node,
+    whatToShow?: number,
+    filter?: NodeFilter | null,
+  ): TreeWalker;
+  getElementsByClassName(classNames: string): HTMLCollection;
+  getElementsByTagName(qualifiedName: string): HTMLCollection;
+  getElementsByTagNameNS(
+    namespace: string | null,
+    localName: string,
+  ): HTMLCollection;
+  importNode(node: Node, subtree?: boolean): Node;
+}
+
+/* partial */ declare class Document
+  mixins
+    mixin$NonElementParentNode,
+    mixin$DocumentOrShadowRoot,
+    mixin$ParentNode,
+    mixin$XPathEvaluatorBase,
+    mixin$GlobalEventHandlers
+{
   body: HTMLElement | null;
   cookie: string;
   +currentScript: HTMLOrSVGScriptElement | null;
@@ -1044,7 +1537,14 @@ declare class DedicatedWorkerGlobalScope
   writeln(text: TrustedHTML | string): void;
 }
 
-/* partial */ declare class Document mixins mixin$GlobalEventHandlers {
+/* partial */ declare class Document
+  mixins
+    mixin$NonElementParentNode,
+    mixin$DocumentOrShadowRoot,
+    mixin$ParentNode,
+    mixin$XPathEvaluatorBase,
+    mixin$GlobalEventHandlers
+{
   alinkColor: string;
   +all: HTMLAllCollection;
   +anchors: HTMLCollection;
@@ -1057,6 +1557,79 @@ declare class DedicatedWorkerGlobalScope
   captureEvents(): void;
   clear(): void;
   releaseEvents(): void;
+}
+
+/* partial */ declare class Document
+  mixins
+    mixin$NonElementParentNode,
+    mixin$DocumentOrShadowRoot,
+    mixin$ParentNode,
+    mixin$XPathEvaluatorBase,
+    mixin$GlobalEventHandlers
+{
+  +rootElement: SVGSVGElement | null;
+}
+
+declare class DocumentFragment
+  extends Node
+  mixins mixin$NonElementParentNode, mixin$ParentNode
+{
+  constructor(): void;
+}
+
+declare class DocumentType extends Node mixins mixin$ChildNode {
+  +name: string;
+  +publicId: string;
+  +systemId: string;
+}
+
+declare class DOMException {
+  static +ABORT_ERR: 20;
+  static +DATA_CLONE_ERR: 25;
+  static +DOMSTRING_SIZE_ERR: 2;
+  static +HIERARCHY_REQUEST_ERR: 3;
+  static +INDEX_SIZE_ERR: 1;
+  static +INUSE_ATTRIBUTE_ERR: 10;
+  static +INVALID_ACCESS_ERR: 15;
+  static +INVALID_CHARACTER_ERR: 5;
+  static +INVALID_MODIFICATION_ERR: 13;
+  static +INVALID_NODE_TYPE_ERR: 24;
+  static +INVALID_STATE_ERR: 11;
+  static +NAMESPACE_ERR: 14;
+  static +NETWORK_ERR: 19;
+  static +NO_DATA_ALLOWED_ERR: 6;
+  static +NO_MODIFICATION_ALLOWED_ERR: 7;
+  static +NOT_FOUND_ERR: 8;
+  static +NOT_SUPPORTED_ERR: 9;
+  static +QUOTA_EXCEEDED_ERR: 22;
+  static +SECURITY_ERR: 18;
+  static +SYNTAX_ERR: 12;
+  static +TIMEOUT_ERR: 23;
+  static +TYPE_MISMATCH_ERR: 17;
+  static +URL_MISMATCH_ERR: 21;
+  static +VALIDATION_ERR: 16;
+  static +WRONG_DOCUMENT_ERR: 4;
+
+  +code: number;
+  +message: string;
+  +name: string;
+
+  constructor(message?: string, name?: string): void;
+}
+
+declare class DOMImplementation {
+  createDocument(
+    namespace: string | null,
+    qualifiedName: string,
+    doctype?: DocumentType | null,
+  ): XMLDocument;
+  createDocumentType(
+    qualifiedName: string,
+    publicId: string,
+    systemId: string,
+  ): DocumentType;
+  createHTMLDocument(title?: string): Document;
+  hasFeature(): boolean;
 }
 
 declare class DOMParser {
@@ -1081,13 +1654,87 @@ declare class DOMStringMap {
   (name: string): void;
 }
 
+declare class DOMTokenList {
+  +length: number;
+  value: string;
+
+  @@iterator(): Iterator<string>;
+
+  item(index: number): string | null;
+  add(tokens: string): void;
+  contains(token: string): boolean;
+  remove(tokens: string): void;
+  replace(token: string, newToken: string): boolean;
+  supports(token: string): boolean;
+  toggle(token: string, force?: boolean): boolean;
+}
+
 declare class DragEvent extends MouseEvent {
   +dataTransfer: DataTransfer | null;
 
   constructor(type: string, eventInitDict?: DragEventInit): void;
 }
 
-/* partial */ interface Element {
+declare class Element
+  extends Node
+  mixins
+    mixin$ParentNode,
+    mixin$NonDocumentTypeChildNode,
+    mixin$ChildNode,
+    mixin$Slottable
+{
+  +attributes: NamedNodeMap;
+  +classList: DOMTokenList;
+  className: string;
+  id: string;
+  +localName: string;
+  +namespaceURI: string | null;
+  +prefix: string | null;
+  +shadowRoot: ShadowRoot | null;
+  slot: string;
+  +tagName: string;
+
+  attachShadow(init: ShadowRootInit): ShadowRoot;
+  closest(selectors: string): Element | null;
+  getAttribute(qualifiedName: string): string | null;
+  getAttributeNames(): Array<string>;
+  getAttributeNode(qualifiedName: string): Attr | null;
+  getAttributeNodeNS(namespace: string | null, localName: string): Attr | null;
+  getAttributeNS(namespace: string | null, localName: string): string | null;
+  getElementsByClassName(classNames: string): HTMLCollection;
+  getElementsByTagName(qualifiedName: string): HTMLCollection;
+  getElementsByTagNameNS(
+    namespace: string | null,
+    localName: string,
+  ): HTMLCollection;
+  hasAttribute(qualifiedName: string): boolean;
+  hasAttributeNS(namespace: string | null, localName: string): boolean;
+  hasAttributes(): boolean;
+  insertAdjacentElement(where: string, element: Element): Element | null;
+  insertAdjacentText(where: string, data: string): void;
+  matches(selectors: string): boolean;
+  removeAttribute(qualifiedName: string): void;
+  removeAttributeNode(attr: Attr): Attr;
+  removeAttributeNS(namespace: string | null, localName: string): void;
+  setAttribute(qualifiedName: string, value: string): void;
+  setAttributeNode(attr: Attr): Attr | null;
+  setAttributeNodeNS(attr: Attr): Attr | null;
+  setAttributeNS(
+    namespace: string | null,
+    qualifiedName: string,
+    value: string,
+  ): void;
+  toggleAttribute(qualifiedName: string, force?: boolean): boolean;
+  webkitMatchesSelector(selectors: string): boolean;
+}
+
+/* partial */ declare class Element
+  mixins
+    mixin$ParentNode,
+    mixin$NonDocumentTypeChildNode,
+    mixin$ChildNode,
+    mixin$Slottable
+{
   innerHTML: TrustedHTML | string;
   outerHTML: TrustedHTML | string;
 
@@ -1128,6 +1775,35 @@ declare class ErrorEvent extends Event {
   constructor(type: string, eventInitDict?: ErrorEventInit): void;
 }
 
+declare class Event {
+  static +AT_TARGET: 2;
+  static +BUBBLING_PHASE: 3;
+  static +CAPTURING_PHASE: 1;
+  static +NONE: 0;
+
+  +bubbles: boolean;
+  +cancelable: boolean;
+  cancelBubble: boolean;
+  +composed: boolean;
+  +currentTarget: EventTarget | null;
+  +defaultPrevented: boolean;
+  +eventPhase: number;
+  +isTrusted: boolean;
+  returnValue: boolean;
+  +srcElement: EventTarget | null;
+  +target: EventTarget | null;
+  +timeStamp: number;
+  +type: string;
+
+  constructor(type: string, eventInitDict?: EventInit): void;
+
+  composedPath(): Array<EventTarget>;
+  initEvent(type: string, bubbles?: boolean, cancelable?: boolean): void;
+  preventDefault(): void;
+  stopImmediatePropagation(): void;
+  stopPropagation(): void;
+}
+
 declare class EventSource extends EventTarget {
   static +CLOSED: 2;
   static +CONNECTING: 0;
@@ -1143,6 +1819,22 @@ declare class EventSource extends EventTarget {
   constructor(url: string, eventSourceInitDict?: EventSourceInit): void;
 
   close(): void;
+}
+
+declare class EventTarget {
+  constructor(): void;
+
+  addEventListener(
+    type: string,
+    callback: EventListener | null,
+    options?: AddEventListenerOptions | boolean,
+  ): void;
+  dispatchEvent(event: Event): boolean;
+  removeEventListener(
+    type: string,
+    callback: EventListener | null,
+    options?: EventListenerOptions | boolean,
+  ): void;
 }
 
 declare class External {
@@ -1312,6 +2004,13 @@ declare class HTMLCanvasElement extends HTMLElement {
   transferControlToOffscreen(): OffscreenCanvas;
 }
 
+declare class HTMLCollection {
+  +length: number;
+
+  item(index: number): Element | null;
+  namedItem(name: string): Element | null;
+}
+
 declare class HTMLDataElement extends HTMLElement {
   value: string;
 
@@ -1369,6 +2068,7 @@ declare class HTMLDListElement extends HTMLElement {
 declare class HTMLElement
   extends Element
   mixins
+    mixin$ElementCSSInlineStyle,
     mixin$GlobalEventHandlers,
     mixin$ElementContentEditable,
     mixin$HTMLOrSVGElement
@@ -2349,6 +3049,15 @@ declare class MediaError {
   +message: string;
 }
 
+declare class MediaList {
+  +length: number;
+  mediaText: string;
+
+  item(index: number): string | null;
+  appendMedium(medium: string): void;
+  deleteMedium(medium: string): void;
+}
+
 declare class MessageChannel {
   +port1: MessagePort;
   +port2: MessagePort;
@@ -2398,6 +3107,38 @@ declare class MimeTypeArray {
 
   item(index: number): MimeType | null;
   namedItem(name: string): MimeType | null;
+}
+
+declare class MutationObserver {
+  constructor(callback: MutationCallback): void;
+
+  disconnect(): void;
+  observe(target: Node, options?: MutationObserverInit): void;
+  takeRecords(): Array<MutationRecord>;
+}
+
+declare class MutationRecord {
+  +addedNodes: NodeList;
+  +attributeName: string | null;
+  +attributeNamespace: string | null;
+  +nextSibling: Node | null;
+  +oldValue: string | null;
+  +previousSibling: Node | null;
+  +removedNodes: NodeList;
+  +target: Node;
+  +type: string;
+}
+
+declare class NamedNodeMap {
+  +length: number;
+
+  getNamedItem(qualifiedName: string): Attr | null;
+  item(index: number): Attr | null;
+  getNamedItemNS(namespace: string | null, localName: string): Attr | null;
+  removeNamedItem(qualifiedName: string): Attr;
+  removeNamedItemNS(namespace: string | null, localName: string): Attr;
+  setNamedItem(attr: Attr): Attr | null;
+  setNamedItemNS(attr: Attr): Attr | null;
 }
 
 declare class NavigateEvent extends Event {
@@ -2505,6 +3246,78 @@ declare class Navigator
     mixin$NavigatorPlugins,
     mixin$NavigatorConcurrentHardware {}
 
+declare class Node extends EventTarget {
+  static +ATTRIBUTE_NODE: 2;
+  static +CDATA_SECTION_NODE: 4;
+  static +COMMENT_NODE: 8;
+  static +DOCUMENT_FRAGMENT_NODE: 11;
+  static +DOCUMENT_NODE: 9;
+  static +DOCUMENT_POSITION_CONTAINED_BY: 0x10;
+  static +DOCUMENT_POSITION_CONTAINS: 0x08;
+  static +DOCUMENT_POSITION_DISCONNECTED: 0x01;
+  static +DOCUMENT_POSITION_FOLLOWING: 0x04;
+  static +DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: 0x20;
+  static +DOCUMENT_POSITION_PRECEDING: 0x02;
+  static +DOCUMENT_TYPE_NODE: 10;
+  static +ELEMENT_NODE: 1;
+  static +ENTITY_NODE: 6;
+  static +ENTITY_REFERENCE_NODE: 5;
+  static +NOTATION_NODE: 12;
+  static +PROCESSING_INSTRUCTION_NODE: 7;
+  static +TEXT_NODE: 3;
+
+  +baseURI: string;
+  +childNodes: NodeList;
+  +firstChild: Node | null;
+  +isConnected: boolean;
+  +lastChild: Node | null;
+  +nextSibling: Node | null;
+  +nodeName: string;
+  +nodeType: number;
+  nodeValue: string | null;
+  +ownerDocument: Document | null;
+  +parentElement: Element | null;
+  +parentNode: Node | null;
+  +previousSibling: Node | null;
+  textContent: string | null;
+
+  appendChild(node: Node): Node;
+  cloneNode(subtree?: boolean): Node;
+  compareDocumentPosition(other: Node): number;
+  contains(other: Node | null): boolean;
+  getRootNode(options?: GetRootNodeOptions): Node;
+  hasChildNodes(): boolean;
+  insertBefore(node: Node, child: Node | null): Node;
+  isDefaultNamespace(namespace: string | null): boolean;
+  isEqualNode(otherNode: Node | null): boolean;
+  isSameNode(otherNode: Node | null): boolean;
+  lookupNamespaceURI(prefix: string | null): string | null;
+  lookupPrefix(namespace: string | null): string | null;
+  normalize(): void;
+  removeChild(child: Node): Node;
+  replaceChild(node: Node, child: Node): Node;
+}
+
+declare class NodeIterator {
+  +filter: NodeFilter | null;
+  +pointerBeforeReferenceNode: boolean;
+  +referenceNode: Node;
+  +root: Node;
+  +whatToShow: number;
+
+  detach(): void;
+  nextNode(): Node | null;
+  previousNode(): Node | null;
+}
+
+declare class NodeList {
+  +length: number;
+
+  @@iterator(): Iterator<Node>;
+
+  item(index: number): Node | null;
+}
+
 declare class NotRestoredReasonDetails {
   +reason: string;
 
@@ -2610,6 +3423,13 @@ declare class PopStateEvent extends Event {
   constructor(type: string, eventInitDict?: PopStateEventInit): void;
 }
 
+declare class ProcessingInstruction
+  extends CharacterData
+  mixins mixin$LinkStyle
+{
+  +target: string;
+}
+
 declare class PromiseRejectionEvent extends Event {
   +promise: Object;
   +reason: any;
@@ -2621,11 +3441,61 @@ declare class RadioNodeList extends NodeList {
   value: string;
 }
 
+declare class Range extends AbstractRange {
+  static +END_TO_END: 2;
+  static +END_TO_START: 3;
+  static +START_TO_END: 1;
+  static +START_TO_START: 0;
+
+  +commonAncestorContainer: Node;
+
+  constructor(): void;
+
+  cloneContents(): DocumentFragment;
+  cloneRange(): Range;
+  collapse(toStart?: boolean): void;
+  compareBoundaryPoints(how: number, sourceRange: Range): number;
+  comparePoint(node: Node, offset: number): number;
+  deleteContents(): void;
+  detach(): void;
+  extractContents(): DocumentFragment;
+  insertNode(node: Node): void;
+  intersectsNode(node: Node): boolean;
+  isPointInRange(node: Node, offset: number): boolean;
+  selectNode(node: Node): void;
+  selectNodeContents(node: Node): void;
+  setEnd(node: Node, offset: number): void;
+  setEndAfter(node: Node): void;
+  setEndBefore(node: Node): void;
+  setStart(node: Node, offset: number): void;
+  setStartAfter(node: Node): void;
+  setStartBefore(node: Node): void;
+  surroundContents(newParent: Node): void;
+  toString(): string;
+}
+
 /* partial */ interface Range {
   createContextualFragment(string: TrustedHTML | string): DocumentFragment;
 }
 
-/* partial */ interface ShadowRoot {
+declare class ShadowAnimation extends Animation {
+  +sourceAnimation: Animation;
+}
+
+declare class ShadowRoot
+  extends DocumentFragment
+  mixins mixin$DocumentOrShadowRoot
+{
+  +clonable: boolean;
+  +delegatesFocus: boolean;
+  +host: Element;
+  +mode: ShadowRootMode;
+  onslotchange: EventHandler;
+  +serializable: boolean;
+  +slotAssignment: SlotAssignmentMode;
+}
+
+/* partial */ declare class ShadowRoot mixins mixin$DocumentOrShadowRoot {
   innerHTML: TrustedHTML | string;
 
   getHTML(options?: GetHTMLOptions): string;
@@ -2646,6 +3516,10 @@ declare class SharedWorkerGlobalScope extends WorkerGlobalScope {
   onconnect: EventHandler;
 
   close(): void;
+}
+
+declare class StaticRange extends AbstractRange {
+  constructor(init: StaticRangeInit): void;
 }
 
 declare class Storage {
@@ -2679,10 +3553,567 @@ declare class StorageEvent extends Event {
   ): void;
 }
 
+declare class StyleSheet {
+  disabled: boolean;
+  +href: string | null;
+  +media: MediaList;
+  +ownerNode: Element | ProcessingInstruction | null;
+  +parentStyleSheet: CSSStyleSheet | null;
+  +title: string | null;
+  +type: string;
+}
+
+declare class StyleSheetList {
+  +length: number;
+
+  item(index: number): CSSStyleSheet | null;
+}
+
 declare class SubmitEvent extends Event {
   +submitter: HTMLElement | null;
 
   constructor(type: string, eventInitDict?: SubmitEventInit): void;
+}
+
+declare class SVGAElement
+  extends SVGGraphicsElement
+  mixins mixin$SVGURIReference, mixin$HTMLHyperlinkElementUtils
+{
+  download: string;
+  hreflang: string;
+  ping: string;
+  referrerPolicy: string;
+  rel: string;
+  +relList: DOMTokenList;
+  +target: SVGAnimatedString;
+  text: string;
+  type: string;
+}
+
+declare class SVGAngle {
+  static +SVG_ANGLETYPE_DEG: 2;
+  static +SVG_ANGLETYPE_GRAD: 4;
+  static +SVG_ANGLETYPE_RAD: 3;
+  static +SVG_ANGLETYPE_UNKNOWN: 0;
+  static +SVG_ANGLETYPE_UNSPECIFIED: 1;
+
+  +unitType: number;
+  value: number;
+  valueAsString: string;
+  valueInSpecifiedUnits: number;
+
+  convertToSpecifiedUnits(unitType: number): void;
+  newValueSpecifiedUnits(unitType: number, valueInSpecifiedUnits: number): void;
+}
+
+declare class SVGAnimatedAngle {
+  +animVal: SVGAngle;
+  +baseVal: SVGAngle;
+}
+
+declare class SVGAnimatedBoolean {
+  +animVal: boolean;
+  baseVal: boolean;
+}
+
+declare class SVGAnimatedEnumeration {
+  +animVal: number;
+  baseVal: number;
+}
+
+declare class SVGAnimatedInteger {
+  +animVal: number;
+  baseVal: number;
+}
+
+declare class SVGAnimatedLength {
+  +animVal: SVGLength;
+  +baseVal: SVGLength;
+}
+
+declare class SVGAnimatedLengthList {
+  +animVal: SVGLengthList;
+  +baseVal: SVGLengthList;
+}
+
+declare class SVGAnimatedNumber {
+  +animVal: number;
+  baseVal: number;
+}
+
+declare class SVGAnimatedNumberList {
+  +animVal: SVGNumberList;
+  +baseVal: SVGNumberList;
+}
+
+declare class SVGAnimatedPreserveAspectRatio {
+  +animVal: SVGPreserveAspectRatio;
+  +baseVal: SVGPreserveAspectRatio;
+}
+
+declare class SVGAnimatedRect {
+  +animVal: DOMRectReadOnly;
+  +baseVal: DOMRect;
+}
+
+declare class SVGAnimatedString {
+  +animVal: string;
+  baseVal: string;
+}
+
+declare class SVGAnimatedTransformList {
+  +animVal: SVGTransformList;
+  +baseVal: SVGTransformList;
+}
+
+declare class SVGCircleElement extends SVGGeometryElement {
+  +cx: SVGAnimatedLength;
+  +cy: SVGAnimatedLength;
+  +r: SVGAnimatedLength;
+}
+
+declare class SVGDefsElement extends SVGGraphicsElement {}
+
+declare class SVGDescElement extends SVGElement {}
+
+declare class SVGElement
+  extends Element
+  mixins
+    mixin$ElementCSSInlineStyle,
+    mixin$GlobalEventHandlers,
+    mixin$DocumentAndElementEventHandlers,
+    mixin$SVGElementInstance,
+    mixin$HTMLOrSVGElement
+{
+  +className: SVGAnimatedString;
+  +ownerSVGElement: SVGSVGElement | null;
+  +viewportElement: SVGElement | null;
+}
+
+declare class SVGEllipseElement extends SVGGeometryElement {
+  +cx: SVGAnimatedLength;
+  +cy: SVGAnimatedLength;
+  +rx: SVGAnimatedLength;
+  +ry: SVGAnimatedLength;
+}
+
+declare class SVGForeignObjectElement extends SVGGraphicsElement {
+  +height: SVGAnimatedLength;
+  +width: SVGAnimatedLength;
+  +x: SVGAnimatedLength;
+  +y: SVGAnimatedLength;
+}
+
+declare class SVGGElement extends SVGGraphicsElement {}
+
+declare class SVGGeometryElement extends SVGGraphicsElement {
+  +pathLength: SVGAnimatedNumber;
+
+  getPointAtLength(distance: number): DOMPoint;
+  getTotalLength(): number;
+  isPointInFill(point?: DOMPointInit): boolean;
+  isPointInStroke(point?: DOMPointInit): boolean;
+}
+
+declare class SVGGradientElement
+  extends SVGElement
+  mixins mixin$SVGURIReference
+{
+  static +SVG_SPREADMETHOD_PAD: 1;
+  static +SVG_SPREADMETHOD_REFLECT: 2;
+  static +SVG_SPREADMETHOD_REPEAT: 3;
+  static +SVG_SPREADMETHOD_UNKNOWN: 0;
+
+  +gradientTransform: SVGAnimatedTransformList;
+  +gradientUnits: SVGAnimatedEnumeration;
+  +spreadMethod: SVGAnimatedEnumeration;
+}
+
+declare class SVGGraphicsElement extends SVGElement mixins mixin$SVGTests {
+  +transform: SVGAnimatedTransformList;
+
+  getBBox(options?: SVGBoundingBoxOptions): DOMRect;
+  getCTM(): DOMMatrix | null;
+  getScreenCTM(): DOMMatrix | null;
+}
+
+declare class SVGImageElement
+  extends SVGGraphicsElement
+  mixins mixin$SVGURIReference
+{
+  crossOrigin: string | null;
+  +height: SVGAnimatedLength;
+  +preserveAspectRatio: SVGAnimatedPreserveAspectRatio;
+  +width: SVGAnimatedLength;
+  +x: SVGAnimatedLength;
+  +y: SVGAnimatedLength;
+}
+
+declare class SVGLength {
+  static +SVG_LENGTHTYPE_CM: 6;
+  static +SVG_LENGTHTYPE_EMS: 3;
+  static +SVG_LENGTHTYPE_EXS: 4;
+  static +SVG_LENGTHTYPE_IN: 8;
+  static +SVG_LENGTHTYPE_MM: 7;
+  static +SVG_LENGTHTYPE_NUMBER: 1;
+  static +SVG_LENGTHTYPE_PC: 10;
+  static +SVG_LENGTHTYPE_PERCENTAGE: 2;
+  static +SVG_LENGTHTYPE_PT: 9;
+  static +SVG_LENGTHTYPE_PX: 5;
+  static +SVG_LENGTHTYPE_UNKNOWN: 0;
+
+  +unitType: number;
+  value: number;
+  valueAsString: string;
+  valueInSpecifiedUnits: number;
+
+  convertToSpecifiedUnits(unitType: number): void;
+  newValueSpecifiedUnits(unitType: number, valueInSpecifiedUnits: number): void;
+}
+
+declare class SVGLengthList {
+  +length: number;
+  +numberOfItems: number;
+
+  appendItem(newItem: SVGLength): SVGLength;
+  clear(): void;
+  initialize(newItem: SVGLength): SVGLength;
+  getItem(index: number): SVGLength;
+  insertItemBefore(newItem: SVGLength, index: number): SVGLength;
+  removeItem(index: number): SVGLength;
+  replaceItem(newItem: SVGLength, index: number): SVGLength;
+  (index: number, newItem: SVGLength): void;
+}
+
+declare class SVGLinearGradientElement extends SVGGradientElement {
+  +x1: SVGAnimatedLength;
+  +x2: SVGAnimatedLength;
+  +y1: SVGAnimatedLength;
+  +y2: SVGAnimatedLength;
+}
+
+declare class SVGLineElement extends SVGGeometryElement {
+  +x1: SVGAnimatedLength;
+  +x2: SVGAnimatedLength;
+  +y1: SVGAnimatedLength;
+  +y2: SVGAnimatedLength;
+}
+
+declare class SVGMarkerElement extends SVGElement mixins mixin$SVGFitToViewBox {
+  static +SVG_MARKER_ORIENT_ANGLE: 2;
+  static +SVG_MARKER_ORIENT_AUTO: 1;
+  static +SVG_MARKER_ORIENT_UNKNOWN: 0;
+  static +SVG_MARKERUNITS_STROKEWIDTH: 2;
+  static +SVG_MARKERUNITS_UNKNOWN: 0;
+  static +SVG_MARKERUNITS_USERSPACEONUSE: 1;
+
+  +markerHeight: SVGAnimatedLength;
+  +markerUnits: SVGAnimatedEnumeration;
+  +markerWidth: SVGAnimatedLength;
+  orient: string;
+  +orientAngle: SVGAnimatedAngle;
+  +orientType: SVGAnimatedEnumeration;
+  +refX: SVGAnimatedLength;
+  +refY: SVGAnimatedLength;
+
+  setOrientToAngle(angle: SVGAngle): void;
+  setOrientToAuto(): void;
+}
+
+declare class SVGMetadataElement extends SVGElement {}
+
+declare class SVGNumber {
+  value: number;
+}
+
+declare class SVGNumberList {
+  +length: number;
+  +numberOfItems: number;
+
+  appendItem(newItem: SVGNumber): SVGNumber;
+  clear(): void;
+  initialize(newItem: SVGNumber): SVGNumber;
+  getItem(index: number): SVGNumber;
+  insertItemBefore(newItem: SVGNumber, index: number): SVGNumber;
+  removeItem(index: number): SVGNumber;
+  replaceItem(newItem: SVGNumber, index: number): SVGNumber;
+  (index: number, newItem: SVGNumber): void;
+}
+
+declare class SVGPathElement extends SVGGeometryElement {}
+
+declare class SVGPatternElement
+  extends SVGElement
+  mixins mixin$SVGFitToViewBox, mixin$SVGURIReference
+{
+  +height: SVGAnimatedLength;
+  +patternContentUnits: SVGAnimatedEnumeration;
+  +patternTransform: SVGAnimatedTransformList;
+  +patternUnits: SVGAnimatedEnumeration;
+  +width: SVGAnimatedLength;
+  +x: SVGAnimatedLength;
+  +y: SVGAnimatedLength;
+}
+
+declare class SVGPointList {
+  +length: number;
+  +numberOfItems: number;
+
+  appendItem(newItem: DOMPoint): DOMPoint;
+  clear(): void;
+  initialize(newItem: DOMPoint): DOMPoint;
+  getItem(index: number): DOMPoint;
+  insertItemBefore(newItem: DOMPoint, index: number): DOMPoint;
+  removeItem(index: number): DOMPoint;
+  replaceItem(newItem: DOMPoint, index: number): DOMPoint;
+  (index: number, newItem: DOMPoint): void;
+}
+
+declare class SVGPolygonElement
+  extends SVGGeometryElement
+  mixins mixin$SVGAnimatedPoints {}
+
+declare class SVGPolylineElement
+  extends SVGGeometryElement
+  mixins mixin$SVGAnimatedPoints {}
+
+declare class SVGPreserveAspectRatio {
+  static +SVG_MEETORSLICE_MEET: 1;
+  static +SVG_MEETORSLICE_SLICE: 2;
+  static +SVG_MEETORSLICE_UNKNOWN: 0;
+  static +SVG_PRESERVEASPECTRATIO_NONE: 1;
+  static +SVG_PRESERVEASPECTRATIO_UNKNOWN: 0;
+  static +SVG_PRESERVEASPECTRATIO_XMAXYMAX: 10;
+  static +SVG_PRESERVEASPECTRATIO_XMAXYMID: 7;
+  static +SVG_PRESERVEASPECTRATIO_XMAXYMIN: 4;
+  static +SVG_PRESERVEASPECTRATIO_XMIDYMAX: 9;
+  static +SVG_PRESERVEASPECTRATIO_XMIDYMID: 6;
+  static +SVG_PRESERVEASPECTRATIO_XMIDYMIN: 3;
+  static +SVG_PRESERVEASPECTRATIO_XMINYMAX: 8;
+  static +SVG_PRESERVEASPECTRATIO_XMINYMID: 5;
+  static +SVG_PRESERVEASPECTRATIO_XMINYMIN: 2;
+
+  align: number;
+  meetOrSlice: number;
+}
+
+declare class SVGRadialGradientElement extends SVGGradientElement {
+  +cx: SVGAnimatedLength;
+  +cy: SVGAnimatedLength;
+  +fr: SVGAnimatedLength;
+  +fx: SVGAnimatedLength;
+  +fy: SVGAnimatedLength;
+  +r: SVGAnimatedLength;
+}
+
+declare class SVGRectElement extends SVGGeometryElement {
+  +height: SVGAnimatedLength;
+  +rx: SVGAnimatedLength;
+  +ry: SVGAnimatedLength;
+  +width: SVGAnimatedLength;
+  +x: SVGAnimatedLength;
+  +y: SVGAnimatedLength;
+}
+
+declare class SVGScriptElement extends SVGElement mixins mixin$SVGURIReference {
+  crossOrigin: string | null;
+  type: string;
+}
+
+declare class SVGStopElement extends SVGElement {
+  +offset: SVGAnimatedNumber;
+}
+
+declare class SVGStringList {
+  +length: number;
+  +numberOfItems: number;
+
+  appendItem(newItem: string): string;
+  clear(): void;
+  initialize(newItem: string): string;
+  getItem(index: number): string;
+  insertItemBefore(newItem: string, index: number): string;
+  removeItem(index: number): string;
+  replaceItem(newItem: string, index: number): string;
+  (index: number, newItem: string): void;
+}
+
+declare class SVGStyleElement extends SVGElement mixins mixin$LinkStyle {
+  media: string;
+  title: string;
+  type: string;
+}
+
+declare class SVGSVGElement
+  extends SVGGraphicsElement
+  mixins mixin$SVGFitToViewBox, mixin$SVGZoomAndPan, mixin$WindowEventHandlers
+{
+  static +SVG_ZOOMANDPAN_DISABLE: 1;
+  static +SVG_ZOOMANDPAN_MAGNIFY: 2;
+  static +SVG_ZOOMANDPAN_UNKNOWN: 0;
+
+  currentScale: number;
+  +currentTranslate: DOMPointReadOnly;
+  +height: SVGAnimatedLength;
+  +width: SVGAnimatedLength;
+  +x: SVGAnimatedLength;
+  +y: SVGAnimatedLength;
+
+  checkEnclosure(element: SVGElement, rect: DOMRectReadOnly): boolean;
+  checkIntersection(element: SVGElement, rect: DOMRectReadOnly): boolean;
+  createSVGAngle(): SVGAngle;
+  createSVGLength(): SVGLength;
+  createSVGMatrix(): DOMMatrix;
+  createSVGNumber(): SVGNumber;
+  createSVGPoint(): DOMPoint;
+  createSVGRect(): DOMRect;
+  createSVGTransform(): SVGTransform;
+  createSVGTransformFromMatrix(matrix: DOMMatrixReadOnly): SVGTransform;
+  deselectAll(): void;
+  forceRedraw(): void;
+  getElementById(elementId: string): Element;
+  getEnclosureList(
+    rect: DOMRectReadOnly,
+    referenceElement: SVGElement | null,
+  ): NodeList;
+  getIntersectionList(
+    rect: DOMRectReadOnly,
+    referenceElement: SVGElement | null,
+  ): NodeList;
+  suspendRedraw(maxWaitMilliseconds: number): number;
+  unsuspendRedraw(suspendHandleID: number): void;
+  unsuspendRedrawAll(): void;
+}
+
+declare class SVGSwitchElement extends SVGGraphicsElement {}
+
+declare class SVGSymbolElement
+  extends SVGGraphicsElement
+  mixins mixin$SVGFitToViewBox {}
+
+declare class SVGTextContentElement extends SVGGraphicsElement {
+  static +LENGTHADJUST_SPACING: 1;
+  static +LENGTHADJUST_SPACINGANDGLYPHS: 2;
+  static +LENGTHADJUST_UNKNOWN: 0;
+
+  +lengthAdjust: SVGAnimatedEnumeration;
+  +textLength: SVGAnimatedLength;
+
+  getCharNumAtPosition(point?: DOMPointInit): number;
+  getComputedTextLength(): number;
+  getEndPositionOfChar(charnum: number): DOMPoint;
+  getExtentOfChar(charnum: number): DOMRect;
+  getNumberOfChars(): number;
+  getRotationOfChar(charnum: number): number;
+  getStartPositionOfChar(charnum: number): DOMPoint;
+  getSubStringLength(charnum: number, nchars: number): number;
+  selectSubString(charnum: number, nchars: number): void;
+}
+
+declare class SVGTextElement extends SVGTextPositioningElement {}
+
+declare class SVGTextPathElement
+  extends SVGTextContentElement
+  mixins mixin$SVGURIReference
+{
+  static +TEXTPATH_METHODTYPE_ALIGN: 1;
+  static +TEXTPATH_METHODTYPE_STRETCH: 2;
+  static +TEXTPATH_METHODTYPE_UNKNOWN: 0;
+  static +TEXTPATH_SPACINGTYPE_AUTO: 1;
+  static +TEXTPATH_SPACINGTYPE_EXACT: 2;
+  static +TEXTPATH_SPACINGTYPE_UNKNOWN: 0;
+
+  +method: SVGAnimatedEnumeration;
+  +spacing: SVGAnimatedEnumeration;
+  +startOffset: SVGAnimatedLength;
+}
+
+declare class SVGTextPositioningElement extends SVGTextContentElement {
+  +dx: SVGAnimatedLengthList;
+  +dy: SVGAnimatedLengthList;
+  +rotate: SVGAnimatedNumberList;
+  +x: SVGAnimatedLengthList;
+  +y: SVGAnimatedLengthList;
+}
+
+declare class SVGTitleElement extends SVGElement {}
+
+declare class SVGTransform {
+  static +SVG_TRANSFORM_MATRIX: 1;
+  static +SVG_TRANSFORM_ROTATE: 4;
+  static +SVG_TRANSFORM_SCALE: 3;
+  static +SVG_TRANSFORM_SKEWX: 5;
+  static +SVG_TRANSFORM_SKEWY: 6;
+  static +SVG_TRANSFORM_TRANSLATE: 2;
+  static +SVG_TRANSFORM_UNKNOWN: 0;
+
+  +angle: number;
+  +matrix: DOMMatrix;
+  +type: number;
+
+  setMatrix(matrix: DOMMatrixReadOnly): void;
+  setRotate(angle: number, cx: number, cy: number): void;
+  setScale(sx: number, sy: number): void;
+  setSkewX(angle: number): void;
+  setSkewY(angle: number): void;
+  setTranslate(tx: number, ty: number): void;
+}
+
+declare class SVGTransformList {
+  +length: number;
+  +numberOfItems: number;
+
+  appendItem(newItem: SVGTransform): SVGTransform;
+  clear(): void;
+  createSVGTransformFromMatrix(matrix: DOMMatrixReadOnly): SVGTransform;
+  initialize(newItem: SVGTransform): SVGTransform;
+  getItem(index: number): SVGTransform;
+  consolidate(): SVGTransform | null;
+  insertItemBefore(newItem: SVGTransform, index: number): SVGTransform;
+  removeItem(index: number): SVGTransform;
+  replaceItem(newItem: SVGTransform, index: number): SVGTransform;
+  (index: number, newItem: SVGTransform): void;
+}
+
+declare class SVGTSpanElement extends SVGTextPositioningElement {}
+
+declare class SVGUnitTypes {
+  static +SVG_UNIT_TYPE_OBJECTBOUNDINGBOX: 2;
+  static +SVG_UNIT_TYPE_UNKNOWN: 0;
+  static +SVG_UNIT_TYPE_USERSPACEONUSE: 1;
+}
+
+declare class SVGUnknownElement extends SVGGraphicsElement {}
+
+declare class SVGUseElement
+  extends SVGGraphicsElement
+  mixins mixin$SVGURIReference
+{
+  +animatedInstanceRoot: SVGElement | null;
+  +height: SVGAnimatedLength;
+  +instanceRoot: SVGElement | null;
+  +width: SVGAnimatedLength;
+  +x: SVGAnimatedLength;
+  +y: SVGAnimatedLength;
+}
+
+declare class SVGUseElementShadowRoot extends ShadowRoot {}
+
+declare class SVGViewElement
+  extends SVGElement
+  mixins mixin$SVGFitToViewBox, mixin$SVGZoomAndPan
+{
+  static +SVG_ZOOMANDPAN_DISABLE: 1;
+  static +SVG_ZOOMANDPAN_MAGNIFY: 2;
+  static +SVG_ZOOMANDPAN_UNKNOWN: 0;
+}
+
+declare class Text extends CharacterData mixins mixin$Slottable {
+  +wholeText: string;
+
+  constructor(data?: string): void;
+
+  splitText(offset: number): Text;
 }
 
 declare class TextMetrics {
@@ -2762,6 +4193,21 @@ declare class TrackEvent extends Event {
   constructor(type: string, eventInitDict?: TrackEventInit): void;
 }
 
+declare class TreeWalker {
+  currentNode: Node;
+  +filter: NodeFilter | null;
+  +root: Node;
+  +whatToShow: number;
+
+  firstChild(): Node | null;
+  lastChild(): Node | null;
+  nextNode(): Node | null;
+  nextSibling(): Node | null;
+  parentNode(): Node | null;
+  previousNode(): Node | null;
+  previousSibling(): Node | null;
+}
+
 declare class UserActivation {
   +hasBeenActive: boolean;
   +isActive: boolean;
@@ -2805,6 +4251,33 @@ declare class VisibilityStateEntry extends PerformanceEntry {
   +entryType: string;
   +name: string;
   +startTime: number;
+}
+
+/* partial */ declare class Window
+  mixins
+    mixin$GlobalEventHandlers,
+    mixin$WindowEventHandlers,
+    mixin$WindowOrWorkerGlobalScope,
+    mixin$AnimationFrameProvider,
+    mixin$WindowSessionStorage,
+    mixin$WindowLocalStorage
+{
+  getComputedStyle(
+    elt: Element,
+    pseudoElt?: string | null,
+  ): CSSStyleDeclaration;
+}
+
+/* partial */ declare class Window
+  mixins
+    mixin$GlobalEventHandlers,
+    mixin$WindowEventHandlers,
+    mixin$WindowOrWorkerGlobalScope,
+    mixin$AnimationFrameProvider,
+    mixin$WindowSessionStorage,
+    mixin$WindowLocalStorage
+{
+  +event: Event | void;
 }
 
 declare class Window
@@ -2946,8 +4419,63 @@ declare class Worklet {
 
 declare class WorkletGlobalScope {}
 
+declare class XMLDocument extends Document {}
+
 declare class XMLSerializer {
   constructor(): void;
 
   serializeToString(root: Node): string;
+}
+
+declare class XPathEvaluator mixins mixin$XPathEvaluatorBase {
+  constructor(): void;
+}
+
+declare class XPathExpression {
+  evaluate(
+    contextNode: Node,
+    type?: number,
+    result?: XPathResult | null,
+  ): XPathResult;
+}
+
+declare class XPathResult {
+  static +ANY_TYPE: 0;
+  static +ANY_UNORDERED_NODE_TYPE: 8;
+  static +BOOLEAN_TYPE: 3;
+  static +FIRST_ORDERED_NODE_TYPE: 9;
+  static +NUMBER_TYPE: 1;
+  static +ORDERED_NODE_ITERATOR_TYPE: 5;
+  static +ORDERED_NODE_SNAPSHOT_TYPE: 7;
+  static +STRING_TYPE: 2;
+  static +UNORDERED_NODE_ITERATOR_TYPE: 4;
+  static +UNORDERED_NODE_SNAPSHOT_TYPE: 6;
+
+  +booleanValue: boolean;
+  +invalidIteratorState: boolean;
+  +numberValue: number;
+  +resultType: number;
+  +singleNodeValue: Node | null;
+  +snapshotLength: number;
+  +stringValue: string;
+
+  iterateNext(): Node | null;
+  snapshotItem(index: number): Node | null;
+}
+
+declare class XSLTProcessor {
+  constructor(): void;
+
+  clearParameters(): void;
+  getParameter(namespaceURI: string, localName: string): any;
+  importStylesheet(style: Node): void;
+  removeParameter(namespaceURI: string, localName: string): void;
+  reset(): void;
+  setParameter(namespaceURI: string, localName: string, value: any): void;
+  transformToDocument(source: Node): Document;
+  transformToFragment(source: Node, output: Document): DocumentFragment;
+}
+
+declare namespace CSS {
+  declare function escape(ident: string): string;
 }
