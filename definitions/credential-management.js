@@ -13,14 +13,6 @@ type CredentialCreationOptions = {
   signal: AbortSignal,
 };
 
-/* partial */ type CredentialCreationOptions = {
-  password: PasswordCredentialInit,
-};
-
-/* partial */ type CredentialCreationOptions = {
-  federated: FederatedCredentialInit,
-};
-
 type CredentialData = {
   id: string,
 };
@@ -30,14 +22,6 @@ type CredentialRequestOptions = {
   mediation: CredentialMediationRequirement,
   password: boolean,
   signal: AbortSignal,
-};
-
-/* partial */ type CredentialRequestOptions = {
-  password: boolean,
-};
-
-/* partial */ type CredentialRequestOptions = {
-  federated: FederatedCredentialRequestOptions,
 };
 
 type FederatedCredentialInit = {

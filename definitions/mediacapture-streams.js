@@ -189,11 +189,6 @@ declare class MediaDevices extends EventTarget {
   getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
 }
 
-/* partial */ declare class MediaDevices {
-  getSupportedConstraints(): MediaTrackSupportedConstraints;
-  getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
-}
-
 declare class MediaStream extends EventTarget {
   +active: boolean;
   +id: string;

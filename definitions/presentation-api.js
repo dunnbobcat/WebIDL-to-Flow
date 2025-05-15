@@ -24,14 +24,6 @@ declare class Presentation {
   +receiver: PresentationReceiver | null;
 }
 
-/* partial */ declare class Presentation {
-  defaultRequest: PresentationRequest | null;
-}
-
-/* partial */ declare class Presentation {
-  +receiver: PresentationReceiver | null;
-}
-
 declare class PresentationAvailability extends EventTarget {
   onchange: EventHandler;
   +value: boolean;

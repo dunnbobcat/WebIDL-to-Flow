@@ -742,16 +742,6 @@ declare class HTMLAnchorElement
   constructor(): void;
 }
 
-/* partial */ declare class HTMLAnchorElement
-  mixins mixin$HTMLHyperlinkElementUtils
-{
-  charset: string;
-  coords: string;
-  name: string;
-  rev: string;
-  shape: string;
-}
-
 declare class HTMLAreaElement
   extends HTMLElement
   mixins mixin$HTMLHyperlinkElementUtils
@@ -768,12 +758,6 @@ declare class HTMLAreaElement
   target: string;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLAreaElement
-  mixins mixin$HTMLHyperlinkElementUtils
-{
-  noHref: boolean;
 }
 
 declare class HTMLAudioElement extends HTMLMediaElement {
@@ -801,23 +785,10 @@ declare class HTMLBodyElement
   constructor(): void;
 }
 
-/* partial */ declare class HTMLBodyElement mixins mixin$WindowEventHandlers {
-  aLink: string;
-  background: string;
-  bgColor: string;
-  link: string;
-  text: string;
-  vLink: string;
-}
-
 declare class HTMLBRElement extends HTMLElement {
   clear: string;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLBRElement {
-  clear: string;
 }
 
 declare class HTMLButtonElement
@@ -904,18 +875,10 @@ declare class HTMLDivElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLDivElement {
-  align: string;
-}
-
 declare class HTMLDListElement extends HTMLElement {
   compact: boolean;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLDListElement {
-  compact: boolean;
 }
 
 declare class HTMLElement
@@ -962,11 +925,6 @@ declare class HTMLEmbedElement extends HTMLElement {
   constructor(): void;
 
   getSVGDocument(): Document | null;
-}
-
-/* partial */ declare class HTMLEmbedElement {
-  align: string;
-  name: string;
 }
 
 declare class HTMLFieldSetElement extends HTMLElement {
@@ -1059,10 +1017,6 @@ declare class HTMLHeadingElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLHeadingElement {
-  align: string;
-}
-
 declare class HTMLHRElement extends HTMLElement {
   align: string;
   color: string;
@@ -1073,22 +1027,10 @@ declare class HTMLHRElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLHRElement {
-  align: string;
-  color: string;
-  noShade: boolean;
-  size: string;
-  width: string;
-}
-
 declare class HTMLHtmlElement extends HTMLElement {
   version: string;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLHtmlElement {
-  version: string;
 }
 
 declare class HTMLIFrameElement extends HTMLElement {
@@ -1114,15 +1056,6 @@ declare class HTMLIFrameElement extends HTMLElement {
   constructor(): void;
 
   getSVGDocument(): Document | null;
-}
-
-/* partial */ declare class HTMLIFrameElement {
-  align: string;
-  frameBorder: string;
-  longDesc: string;
-  marginHeight: string;
-  marginWidth: string;
-  scrolling: string;
 }
 
 declare class HTMLImageElement extends HTMLElement {
@@ -1154,16 +1087,6 @@ declare class HTMLImageElement extends HTMLElement {
   constructor(): void;
 
   decode(): Promise<void>;
-}
-
-/* partial */ declare class HTMLImageElement {
-  align: string;
-  border: string;
-  hspace: number;
-  longDesc: string;
-  lowsrc: string;
-  name: string;
-  vspace: number;
 }
 
 declare class HTMLInputElement
@@ -1237,13 +1160,6 @@ declare class HTMLInputElement
   stepUp(n?: number): void;
 }
 
-/* partial */ declare class HTMLInputElement
-  mixins mixin$PopoverInvokerElement
-{
-  align: string;
-  useMap: string;
-}
-
 declare class HTMLLabelElement extends HTMLElement {
   +control: HTMLElement | null;
   +form: HTMLFormElement | null;
@@ -1259,19 +1175,11 @@ declare class HTMLLegendElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLLegendElement {
-  align: string;
-}
-
 declare class HTMLLIElement extends HTMLElement {
   type: string;
   value: number;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLLIElement {
-  type: string;
 }
 
 declare class HTMLLinkElement extends HTMLElement mixins mixin$LinkStyle {
@@ -1296,12 +1204,6 @@ declare class HTMLLinkElement extends HTMLElement mixins mixin$LinkStyle {
   type: string;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLLinkElement mixins mixin$LinkStyle {
-  charset: string;
-  rev: string;
-  target: string;
 }
 
 declare class HTMLMapElement extends HTMLElement {
@@ -1389,10 +1291,6 @@ declare class HTMLMenuElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLMenuElement {
-  compact: boolean;
-}
-
 declare class HTMLMetaElement extends HTMLElement {
   content: string;
   httpEquiv: string;
@@ -1401,10 +1299,6 @@ declare class HTMLMetaElement extends HTMLElement {
   scheme: string;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLMetaElement {
-  scheme: string;
 }
 
 declare class HTMLMeterElement extends HTMLElement {
@@ -1458,20 +1352,6 @@ declare class HTMLObjectElement extends HTMLElement {
   setCustomValidity(error: string): void;
 }
 
-/* partial */ declare class HTMLObjectElement {
-  align: string;
-  archive: string;
-  border: string;
-  code: string;
-  codeBase: string;
-  codeType: string;
-  declare: boolean;
-  hspace: number;
-  standby: string;
-  useMap: string;
-  vspace: number;
-}
-
 declare class HTMLOListElement extends HTMLElement {
   compact: boolean;
   reversed: boolean;
@@ -1479,10 +1359,6 @@ declare class HTMLOListElement extends HTMLElement {
   type: string;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLOListElement {
-  compact: boolean;
 }
 
 declare class HTMLOptGroupElement extends HTMLElement {
@@ -1542,10 +1418,6 @@ declare class HTMLParagraphElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLParagraphElement {
-  align: string;
-}
-
 declare class HTMLParamElement extends HTMLElement {
   name: string;
   type: string;
@@ -1563,10 +1435,6 @@ declare class HTMLPreElement extends HTMLElement {
   width: number;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLPreElement {
-  width: number;
 }
 
 declare class HTMLProgressElement extends HTMLElement {
@@ -1603,12 +1471,6 @@ declare class HTMLScriptElement extends HTMLElement {
   constructor(): void;
 
   static supports(type: string): boolean;
-}
-
-/* partial */ declare class HTMLScriptElement {
-  charset: string;
-  event: string;
-  htmlFor: string;
 }
 
 declare class HTMLSelectElement extends HTMLElement {
@@ -1682,18 +1544,10 @@ declare class HTMLStyleElement extends HTMLElement mixins mixin$LinkStyle {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLStyleElement mixins mixin$LinkStyle {
-  type: string;
-}
-
 declare class HTMLTableCaptionElement extends HTMLElement {
   align: string;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLTableCaptionElement {
-  align: string;
 }
 
 declare class HTMLTableCellElement extends HTMLElement {
@@ -1716,18 +1570,6 @@ declare class HTMLTableCellElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ declare class HTMLTableCellElement {
-  align: string;
-  axis: string;
-  bgColor: string;
-  ch: string;
-  chOff: string;
-  height: string;
-  noWrap: boolean;
-  vAlign: string;
-  width: string;
-}
-
 declare class HTMLTableColElement extends HTMLElement {
   align: string;
   ch: string;
@@ -1737,14 +1579,6 @@ declare class HTMLTableColElement extends HTMLElement {
   width: string;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLTableColElement {
-  align: string;
-  ch: string;
-  chOff: string;
-  vAlign: string;
-  width: string;
 }
 
 declare class HTMLTableElement extends HTMLElement {
@@ -1776,18 +1610,6 @@ declare class HTMLTableElement extends HTMLElement {
   insertRow(index?: number): HTMLTableRowElement;
 }
 
-/* partial */ declare class HTMLTableElement {
-  align: string;
-  bgColor: string;
-  border: string;
-  cellPadding: string;
-  cellSpacing: string;
-  frame: string;
-  rules: string;
-  summary: string;
-  width: string;
-}
-
 declare class HTMLTableRowElement extends HTMLElement {
   align: string;
   bgColor: string;
@@ -1804,14 +1626,6 @@ declare class HTMLTableRowElement extends HTMLElement {
   insertCell(index?: number): HTMLTableCellElement;
 }
 
-/* partial */ declare class HTMLTableRowElement {
-  align: string;
-  bgColor: string;
-  ch: string;
-  chOff: string;
-  vAlign: string;
-}
-
 declare class HTMLTableSectionElement extends HTMLElement {
   align: string;
   ch: string;
@@ -1823,13 +1637,6 @@ declare class HTMLTableSectionElement extends HTMLElement {
 
   deleteRow(index: number): void;
   insertRow(index?: number): HTMLTableRowElement;
-}
-
-/* partial */ declare class HTMLTableSectionElement {
-  align: string;
-  ch: string;
-  chOff: string;
-  vAlign: string;
 }
 
 declare class HTMLTemplateElement extends HTMLElement {
@@ -1919,11 +1726,6 @@ declare class HTMLUListElement extends HTMLElement {
   type: string;
 
   constructor(): void;
-}
-
-/* partial */ declare class HTMLUListElement {
-  compact: boolean;
-  type: string;
 }
 
 declare class HTMLUnknownElement extends HTMLElement {}
@@ -2126,19 +1928,6 @@ declare class NavigationTransition {
   +finished: Promise<void>;
   +from: NavigationHistoryEntry;
   +navigationType: NavigationType;
-}
-
-/* partial */ declare class Navigator
-  mixins
-    mixin$NavigatorID,
-    mixin$NavigatorLanguage,
-    mixin$NavigatorOnLine,
-    mixin$NavigatorContentUtils,
-    mixin$NavigatorCookies,
-    mixin$NavigatorPlugins,
-    mixin$NavigatorConcurrentHardware
-{
-  +userActivation: UserActivation;
 }
 
 declare class Navigator
@@ -2511,21 +2300,6 @@ declare class Window
   prompt(message?: string, default_?: string): string | null;
   stop(): void;
   (name: string): Object;
-  releaseEvents(): void;
-}
-
-/* partial */ declare class Window
-  mixins
-    mixin$GlobalEventHandlers,
-    mixin$WindowEventHandlers,
-    mixin$WindowOrWorkerGlobalScope,
-    mixin$AnimationFrameProvider,
-    mixin$WindowSessionStorage,
-    mixin$WindowLocalStorage
-{
-  +external: External;
-
-  captureEvents(): void;
   releaseEvents(): void;
 }
 
@@ -2976,12 +2750,6 @@ declare class mixin$NavigatorID {
   +userAgent: string;
   +vendor: string;
   +vendorSub: string;
-
-  taintEnabled(): boolean;
-}
-
-/* partial */ declare class mixin$NavigatorID {
-  +oscpu: string;
 
   taintEnabled(): boolean;
 }

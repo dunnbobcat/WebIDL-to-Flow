@@ -108,13 +108,6 @@ declare class CSSStyleSheet extends StyleSheet {
   replaceSync(text: string): void;
 }
 
-/* partial */ declare class CSSStyleSheet {
-  +rules: CSSRuleList;
-
-  addRule(selector?: string, style?: string, index?: number): number;
-  removeRule(index?: number): void;
-}
-
 declare class MediaList {
   +length: number;
   mediaText: string;

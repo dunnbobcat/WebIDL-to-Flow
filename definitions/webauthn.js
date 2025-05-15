@@ -59,52 +59,12 @@ type AuthenticationExtensionsClientInputs = {
   prf: AuthenticationExtensionsPRFInputs,
 };
 
-/* partial */ type AuthenticationExtensionsClientInputs = {
-  appid: string,
-};
-
-/* partial */ type AuthenticationExtensionsClientInputs = {
-  appidExclude: string,
-};
-
-/* partial */ type AuthenticationExtensionsClientInputs = {
-  credProps: boolean,
-};
-
-/* partial */ type AuthenticationExtensionsClientInputs = {
-  prf: AuthenticationExtensionsPRFInputs,
-};
-
-/* partial */ type AuthenticationExtensionsClientInputs = {
-  largeBlob: AuthenticationExtensionsLargeBlobInputs,
-};
-
 type AuthenticationExtensionsClientInputsJSON = {
   appid: string,
   appidExclude: string,
   credProps: boolean,
   largeBlob: AuthenticationExtensionsLargeBlobInputsJSON,
   prf: AuthenticationExtensionsPRFInputsJSON,
-};
-
-/* partial */ type AuthenticationExtensionsClientInputsJSON = {
-  appid: string,
-};
-
-/* partial */ type AuthenticationExtensionsClientInputsJSON = {
-  appidExclude: string,
-};
-
-/* partial */ type AuthenticationExtensionsClientInputsJSON = {
-  credProps: boolean,
-};
-
-/* partial */ type AuthenticationExtensionsClientInputsJSON = {
-  prf: AuthenticationExtensionsPRFInputsJSON,
-};
-
-/* partial */ type AuthenticationExtensionsClientInputsJSON = {
-  largeBlob: AuthenticationExtensionsLargeBlobInputsJSON,
 };
 
 type AuthenticationExtensionsClientOutputs = {
@@ -115,52 +75,12 @@ type AuthenticationExtensionsClientOutputs = {
   prf: AuthenticationExtensionsPRFOutputs,
 };
 
-/* partial */ type AuthenticationExtensionsClientOutputs = {
-  appid: boolean,
-};
-
-/* partial */ type AuthenticationExtensionsClientOutputs = {
-  appidExclude: boolean,
-};
-
-/* partial */ type AuthenticationExtensionsClientOutputs = {
-  credProps: CredentialPropertiesOutput,
-};
-
-/* partial */ type AuthenticationExtensionsClientOutputs = {
-  prf: AuthenticationExtensionsPRFOutputs,
-};
-
-/* partial */ type AuthenticationExtensionsClientOutputs = {
-  largeBlob: AuthenticationExtensionsLargeBlobOutputs,
-};
-
 type AuthenticationExtensionsClientOutputsJSON = {
   appid: boolean,
   appidExclude: boolean,
   credProps: CredentialPropertiesOutput,
   largeBlob: AuthenticationExtensionsLargeBlobOutputsJSON,
   prf: AuthenticationExtensionsPRFOutputsJSON,
-};
-
-/* partial */ type AuthenticationExtensionsClientOutputsJSON = {
-  appid: boolean,
-};
-
-/* partial */ type AuthenticationExtensionsClientOutputsJSON = {
-  appidExclude: boolean,
-};
-
-/* partial */ type AuthenticationExtensionsClientOutputsJSON = {
-  credProps: CredentialPropertiesOutput,
-};
-
-/* partial */ type AuthenticationExtensionsClientOutputsJSON = {
-  prf: AuthenticationExtensionsPRFOutputsJSON,
-};
-
-/* partial */ type AuthenticationExtensionsClientOutputsJSON = {
-  largeBlob: AuthenticationExtensionsLargeBlobOutputsJSON,
 };
 
 type AuthenticationExtensionsLargeBlobInputs = {
@@ -425,36 +345,4 @@ declare class PublicKeyCredential extends Credential {
   ): Promise<void>;
   getClientExtensionResults(): AuthenticationExtensionsClientOutputs;
   toJSON(): PublicKeyCredentialJSON;
-}
-
-/* partial */ declare class PublicKeyCredential {
-  static isUserVerifyingPlatformAuthenticatorAvailable(): Promise<boolean>;
-}
-
-/* partial */ declare class PublicKeyCredential {
-  static getClientCapabilities(): Promise<PublicKeyCredentialClientCapabilities>;
-}
-
-/* partial */ declare class PublicKeyCredential {
-  static parseCreationOptionsFromJSON(
-    options: PublicKeyCredentialCreationOptionsJSON,
-  ): PublicKeyCredentialCreationOptions;
-}
-
-/* partial */ declare class PublicKeyCredential {
-  static parseRequestOptionsFromJSON(
-    options: PublicKeyCredentialRequestOptionsJSON,
-  ): PublicKeyCredentialRequestOptions;
-}
-
-/* partial */ declare class PublicKeyCredential {
-  static signalAllAcceptedCredentials(
-    options: AllAcceptedCredentialsOptions,
-  ): Promise<void>;
-  static signalCurrentUserDetails(
-    options: CurrentUserDetailsOptions,
-  ): Promise<void>;
-  static signalUnknownCredential(
-    options: UnknownCredentialOptions,
-  ): Promise<void>;
 }

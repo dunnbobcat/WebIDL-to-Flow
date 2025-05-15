@@ -172,11 +172,6 @@ type RTCOfferOptions = {
   offerToReceiveVideo: boolean,
 };
 
-/* partial */ type RTCOfferOptions = {
-  offerToReceiveAudio: boolean,
-  offerToReceiveVideo: boolean,
-};
-
 type RTCPeerConnectionIceErrorEventInit = {
   address: string | null,
   errorCode: number,
@@ -504,40 +499,6 @@ declare class RTCPeerConnection extends EventTarget {
   ): Promise<void>;
 }
 
-/* partial */ declare class RTCPeerConnection {
-  static generateCertificate(
-    keygenAlgorithm: AlgorithmIdentifier,
-  ): Promise<RTCCertificate>;
-}
-
-/* partial */ declare class RTCPeerConnection {
-  ontrack: EventHandler;
-
-  addTrack(track: MediaStreamTrack, streams: MediaStream): RTCRtpSender;
-  addTransceiver(
-    trackOrKind: MediaStreamTrack | string,
-    init?: RTCRtpTransceiverInit,
-  ): RTCRtpTransceiver;
-  getReceivers(): Array<RTCRtpReceiver>;
-  getSenders(): Array<RTCRtpSender>;
-  getTransceivers(): Array<RTCRtpTransceiver>;
-  removeTrack(sender: RTCRtpSender): void;
-}
-
-/* partial */ declare class RTCPeerConnection {
-  ondatachannel: EventHandler;
-  +sctp: RTCSctpTransport | null;
-
-  createDataChannel(
-    label: string,
-    dataChannelDict?: RTCDataChannelInit,
-  ): RTCDataChannel;
-}
-
-/* partial */ declare class RTCPeerConnection {
-  getStats(selector?: MediaStreamTrack | null): Promise<RTCStatsReport>;
-}
-
 declare class RTCPeerConnectionIceErrorEvent extends Event {
   +address: string | null;
   +errorCode: number;
@@ -587,10 +548,6 @@ declare class RTCRtpSender {
     setParameterOptions?: RTCSetParameterOptions,
   ): Promise<void>;
   setStreams(streams: MediaStream): void;
-}
-
-/* partial */ declare class RTCRtpSender {
-  +dtmf: RTCDTMFSender | null;
 }
 
 declare class RTCRtpTransceiver {

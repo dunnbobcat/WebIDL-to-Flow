@@ -43,16 +43,6 @@ declare class PrivateAttribution {
   saveImpression(options: PrivateAttributionImpressionOptions): void;
 }
 
-/* partial */ declare class PrivateAttribution {
-  saveImpression(options: PrivateAttributionImpressionOptions): void;
-}
-
-/* partial */ declare class PrivateAttribution {
-  measureConversion(
-    options: PrivateAttributionConversionOptions,
-  ): Promise<PrivateAttributionConversionResult>;
-}
-
 type PrivateAttributionAggregationServices = Map<
   string,
   PrivateAttributionAggregationService,

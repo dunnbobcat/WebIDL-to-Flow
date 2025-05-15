@@ -972,19 +972,6 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   pushErrorScope(filter: GPUErrorFilter): void;
 }
 
-/* partial */ declare class GPUDevice mixins mixin$GPUObjectBase {
-  +lost: Promise<GPUDeviceLostInfo>;
-}
-
-/* partial */ declare class GPUDevice mixins mixin$GPUObjectBase {
-  popErrorScope(): Promise<GPUError | null>;
-  pushErrorScope(filter: GPUErrorFilter): void;
-}
-
-/* partial */ declare class GPUDevice mixins mixin$GPUObjectBase {
-  onuncapturederror: EventHandler;
-}
-
 declare class GPUDeviceLostInfo {
   +message: string;
   +reason: GPUDeviceLostReason;

@@ -6,10 +6,7 @@ import group from './group.js';
 import partition from './partition.js';
 import pull from './pull.js';
 
-export async function coalesceIDLs(
-  idls: $ReadOnlyArray<IDLTree>,
-): Promise<IDLTree> {
-  const idl = idls.flat(1);
+export async function mergePartialSpecs(idl: IDLTree): Promise<IDLTree> {
   const groups = group(idl, (production) => production.type);
 
   // Merge interface mixins

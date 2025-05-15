@@ -1,5 +1,3 @@
-// @flow
-
 type WindowProxy = Window;
 type Float16Array = Float32Array;
 

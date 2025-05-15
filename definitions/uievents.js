@@ -68,11 +68,6 @@ type KeyboardEventInit = {
   which: number,
 };
 
-/* partial */ type KeyboardEventInit = {
-  charCode: number,
-  keyCode: number,
-};
-
 type MouseEventInit = {
   altKey: boolean,
   button: number,
@@ -100,10 +95,6 @@ type MouseEventInit = {
 type UIEventInit = {
   detail: number,
   view: Window | null,
-  which: number,
-};
-
-/* partial */ type UIEventInit = {
   which: number,
 };
 
@@ -140,16 +131,6 @@ declare class CompositionEvent extends UIEvent {
 
   constructor(type: string, eventInitDict?: CompositionEventInit): void;
 
-  initCompositionEvent(
-    typeArg: string,
-    bubblesArg?: boolean,
-    cancelableArg?: boolean,
-    viewArg?: WindowProxy | null,
-    dataArg?: string,
-  ): void;
-}
-
-/* partial */ declare class CompositionEvent {
   initCompositionEvent(
     typeArg: string,
     bubblesArg?: boolean,
@@ -208,26 +189,6 @@ declare class KeyboardEvent extends UIEvent {
   ): void;
 }
 
-/* partial */ declare class KeyboardEvent {
-  initKeyboardEvent(
-    typeArg: string,
-    bubblesArg?: boolean,
-    cancelableArg?: boolean,
-    viewArg?: Window | null,
-    keyArg?: string,
-    locationArg?: number,
-    ctrlKey?: boolean,
-    altKey?: boolean,
-    shiftKey?: boolean,
-    metaKey?: boolean,
-  ): void;
-}
-
-/* partial */ declare class KeyboardEvent {
-  +charCode: number;
-  +keyCode: number;
-}
-
 declare class MouseEvent extends UIEvent {
   +altKey: boolean;
   +button: number;
@@ -246,26 +207,6 @@ declare class MouseEvent extends UIEvent {
   constructor(type: string, eventInitDict?: MouseEventInit): void;
 
   getModifierState(keyArg: string): boolean;
-  initMouseEvent(
-    typeArg: string,
-    bubblesArg?: boolean,
-    cancelableArg?: boolean,
-    viewArg?: Window | null,
-    detailArg?: number,
-    screenXArg?: number,
-    screenYArg?: number,
-    clientXArg?: number,
-    clientYArg?: number,
-    ctrlKeyArg?: boolean,
-    altKeyArg?: boolean,
-    shiftKeyArg?: boolean,
-    metaKeyArg?: boolean,
-    buttonArg?: number,
-    relatedTargetArg?: EventTarget | null,
-  ): void;
-}
-
-/* partial */ declare class MouseEvent {
   initMouseEvent(
     typeArg: string,
     bubblesArg?: boolean,
@@ -311,20 +252,6 @@ declare class UIEvent extends Event {
     viewArg?: Window | null,
     detailArg?: number,
   ): void;
-}
-
-/* partial */ declare class UIEvent {
-  initUIEvent(
-    typeArg: string,
-    bubblesArg?: boolean,
-    cancelableArg?: boolean,
-    viewArg?: Window | null,
-    detailArg?: number,
-  ): void;
-}
-
-/* partial */ declare class UIEvent {
-  +which: number;
 }
 
 declare class WheelEvent extends MouseEvent {

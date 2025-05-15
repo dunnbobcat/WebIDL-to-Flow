@@ -46,12 +46,6 @@ declare class FontFace {
   load(): Promise<FontFace>;
 }
 
-/* partial */ declare class FontFace {
-  +features: FontFaceFeatures;
-  +palettes: FontFacePalettes;
-  +variations: FontFaceVariations;
-}
-
 declare class FontFaceFeatures {}
 
 declare class FontFacePalette {

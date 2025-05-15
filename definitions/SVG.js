@@ -40,19 +40,6 @@ declare class SVGAElement
   username: string;
 }
 
-/* partial */ declare class SVGAElement mixins mixin$SVGURIReference {
-  hash: string;
-  host: string;
-  hostname: string;
-  +origin: string;
-  password: string;
-  pathname: string;
-  port: string;
-  protocol: string;
-  search: string;
-  username: string;
-}
-
 declare class SVGAngle {
   static +SVG_ANGLETYPE_DEG: 2;
   static +SVG_ANGLETYPE_GRAD: 4;

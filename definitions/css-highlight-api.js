@@ -22,11 +22,3 @@ declare class HighlightRegistry {
     options?: HighlightsFromPointOptions,
   ): Array<Highlight>;
 }
-
-/* partial */ declare class HighlightRegistry {
-  highlightsFromPoint(
-    x: number,
-    y: number,
-    options?: HighlightsFromPointOptions,
-  ): Array<Highlight>;
-}
