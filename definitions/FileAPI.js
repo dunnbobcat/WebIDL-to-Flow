@@ -3,14 +3,14 @@ type BlobPart = BufferSource | Blob | string;
 type EndingType = 'transparent' | 'native';
 
 type BlobPropertyBag = {
-  type: string,
   endings: EndingType,
+  type: string,
 };
 
 type FilePropertyBag = {
+  endings: EndingType,
   lastModified: number,
   type: string,
-  endings: EndingType,
 };
 
 declare class Blob {

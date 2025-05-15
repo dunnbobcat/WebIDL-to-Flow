@@ -1,14 +1,14 @@
 type CompositionEventInit = {
   data: string,
-  view: Window | null,
   detail: number,
+  view: Window | null,
   which: number,
 };
 
 type EventModifierInit = {
-  ctrlKey: boolean,
-  shiftKey: boolean,
   altKey: boolean,
+  ctrlKey: boolean,
+  detail: number,
   metaKey: boolean,
   modifierAltGraph: boolean,
   modifierCapsLock: boolean,
@@ -20,38 +20,37 @@ type EventModifierInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  shiftKey: boolean,
   view: Window | null,
-  detail: number,
   which: number,
 };
 
 type FocusEventInit = {
+  detail: number,
   relatedTarget: EventTarget | null,
   view: Window | null,
-  detail: number,
   which: number,
 };
 
 type InputEventInit = {
   data: string | null,
-  isComposing: boolean,
-  inputType: string,
-  view: Window | null,
   detail: number,
+  inputType: string,
+  isComposing: boolean,
+  view: Window | null,
   which: number,
 };
 
 type KeyboardEventInit = {
-  key: string,
-  code: string,
-  location: number,
-  repeat: boolean,
-  isComposing: boolean,
-  charCode: number,
-  keyCode: number,
-  ctrlKey: boolean,
-  shiftKey: boolean,
   altKey: boolean,
+  charCode: number,
+  code: string,
+  ctrlKey: boolean,
+  detail: number,
+  isComposing: boolean,
+  key: string,
+  keyCode: number,
+  location: number,
   metaKey: boolean,
   modifierAltGraph: boolean,
   modifierCapsLock: boolean,
@@ -63,22 +62,19 @@ type KeyboardEventInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  repeat: boolean,
+  shiftKey: boolean,
   view: Window | null,
-  detail: number,
   which: number,
 };
 
 type MouseEventInit = {
-  screenX: number,
-  screenY: number,
-  clientX: number,
-  clientY: number,
+  altKey: boolean,
   button: number,
   buttons: number,
-  relatedTarget: EventTarget | null,
+  clientX: number,
+  clientY: number,
   ctrlKey: boolean,
-  shiftKey: boolean,
-  altKey: boolean,
   metaKey: boolean,
   modifierAltGraph: boolean,
   modifierCapsLock: boolean,
@@ -90,29 +86,29 @@ type MouseEventInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  relatedTarget: EventTarget | null,
+  screenX: number,
+  screenY: number,
+  shiftKey: boolean,
 };
 
 type UIEventInit = {
-  view: Window | null,
   detail: number,
+  view: Window | null,
   which: number,
 };
 
 type WheelEventInit = {
+  altKey: boolean,
+  button: number,
+  buttons: number,
+  clientX: number,
+  clientY: number,
+  ctrlKey: boolean,
+  deltaMode: number,
   deltaX: number,
   deltaY: number,
   deltaZ: number,
-  deltaMode: number,
-  screenX: number,
-  screenY: number,
-  clientX: number,
-  clientY: number,
-  button: number,
-  buttons: number,
-  relatedTarget: EventTarget | null,
-  ctrlKey: boolean,
-  shiftKey: boolean,
-  altKey: boolean,
   metaKey: boolean,
   modifierAltGraph: boolean,
   modifierCapsLock: boolean,
@@ -124,6 +120,10 @@ type WheelEventInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  relatedTarget: EventTarget | null,
+  screenX: number,
+  screenY: number,
+  shiftKey: boolean,
 };
 
 declare class CompositionEvent extends UIEvent {

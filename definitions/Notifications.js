@@ -8,30 +8,30 @@ type GetNotificationOptions = {
 
 type NotificationAction = {
   action: string,
-  title: string,
   icon: string,
+  title: string,
 };
 
 type NotificationEventInit = {
-  notification: Notification,
   action: string,
+  notification: Notification,
 };
 
 type NotificationOptions = {
-  dir: NotificationDirection,
-  lang: string,
-  body: string,
-  tag: string,
-  image: string,
-  icon: string,
-  badge: string,
-  vibrate: VibratePattern,
-  timestamp: EpochTimeStamp,
-  renotify: boolean,
-  silent: boolean | null,
-  requireInteraction: boolean,
-  data: any,
   actions: Array<NotificationAction>,
+  badge: string,
+  body: string,
+  data: any,
+  dir: NotificationDirection,
+  icon: string,
+  image: string,
+  lang: string,
+  renotify: boolean,
+  requireInteraction: boolean,
+  silent: boolean | null,
+  tag: string,
+  timestamp: EpochTimeStamp,
+  vibrate: VibratePattern,
 };
 
 type NotificationPermissionCallback = (

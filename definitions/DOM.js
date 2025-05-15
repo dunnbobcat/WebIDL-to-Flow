@@ -3,17 +3,17 @@ type ShadowRootMode = 'open' | 'closed';
 type SlotAssignmentMode = 'manual' | 'named';
 
 type AddEventListenerOptions = {
-  passive: boolean,
-  once: boolean,
-  signal: AbortSignal,
   capture: boolean,
+  once: boolean,
+  passive: boolean,
+  signal: AbortSignal,
 };
 
 type CustomEventInit = {
-  detail: any,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  detail: any,
 };
 
 type ElementCreationOptions = {
@@ -35,28 +35,28 @@ type GetRootNodeOptions = {
 };
 
 type MutationObserverInit = {
-  childList: boolean,
+  attributeFilter: Array<string>,
+  attributeOldValue: boolean,
   attributes: boolean,
   characterData: boolean,
-  subtree: boolean,
-  attributeOldValue: boolean,
   characterDataOldValue: boolean,
-  attributeFilter: Array<string>,
+  childList: boolean,
+  subtree: boolean,
 };
 
 type ShadowRootInit = {
-  mode: ShadowRootMode,
-  delegatesFocus: boolean,
-  slotAssignment: SlotAssignmentMode,
   clonable: boolean,
+  delegatesFocus: boolean,
+  mode: ShadowRootMode,
   serializable: boolean,
+  slotAssignment: SlotAssignmentMode,
 };
 
 type StaticRangeInit = {
-  startContainer: Node,
-  startOffset: number,
   endContainer: Node,
   endOffset: number,
+  startContainer: Node,
+  startOffset: number,
 };
 
 type MutationCallback = (

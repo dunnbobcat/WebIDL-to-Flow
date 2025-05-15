@@ -77,63 +77,63 @@ type VideoTransferCharacteristics =
   | 'hlg';
 
 type AudioDataCopyToOptions = {
-  planeIndex: number,
-  frameOffset: number,
-  frameCount: number,
   format: AudioSampleFormat,
+  frameCount: number,
+  frameOffset: number,
+  planeIndex: number,
 };
 
 type AudioDataInit = {
-  format: AudioSampleFormat,
-  sampleRate: number,
-  numberOfFrames: number,
-  numberOfChannels: number,
-  timestamp: number,
   data: BufferSource,
+  format: AudioSampleFormat,
+  numberOfChannels: number,
+  numberOfFrames: number,
+  sampleRate: number,
+  timestamp: number,
   transfer: Array<ArrayBuffer>,
 };
 
 type AudioDecoderConfig = {
   codec: string,
-  sampleRate: number,
-  numberOfChannels: number,
   description: AllowSharedBufferSource,
+  numberOfChannels: number,
+  sampleRate: number,
 };
 
 type AudioDecoderInit = {
-  output: AudioDataOutputCallback,
   error: WebCodecsErrorCallback,
+  output: AudioDataOutputCallback,
 };
 
 type AudioDecoderSupport = {
-  supported: boolean,
   config: AudioDecoderConfig,
+  supported: boolean,
 };
 
 type AudioEncoderConfig = {
-  codec: string,
-  sampleRate: number,
-  numberOfChannels: number,
   bitrate: number,
   bitrateMode: BitrateMode,
+  codec: string,
+  numberOfChannels: number,
+  sampleRate: number,
 };
 
 type AudioEncoderInit = {
-  output: EncodedAudioChunkOutputCallback,
   error: WebCodecsErrorCallback,
+  output: EncodedAudioChunkOutputCallback,
 };
 
 type AudioEncoderSupport = {
-  supported: boolean,
   config: AudioEncoderConfig,
+  supported: boolean,
 };
 
 type EncodedAudioChunkInit = {
-  type: EncodedAudioChunkType,
-  timestamp: number,
-  duration: number,
   data: AllowSharedBufferSource,
+  duration: number,
+  timestamp: number,
   transfer: Array<ArrayBuffer>,
+  type: EncodedAudioChunkType,
 };
 
 type EncodedAudioChunkMetadata = {
@@ -141,37 +141,37 @@ type EncodedAudioChunkMetadata = {
 };
 
 type EncodedVideoChunkInit = {
-  type: EncodedVideoChunkType,
-  timestamp: number,
-  duration: number,
   data: AllowSharedBufferSource,
+  duration: number,
+  timestamp: number,
   transfer: Array<ArrayBuffer>,
+  type: EncodedVideoChunkType,
 };
 
 type EncodedVideoChunkMetadata = {
+  alphaSideData: BufferSource,
   decoderConfig: VideoDecoderConfig,
   svc: SvcOutputMetadata,
-  alphaSideData: BufferSource,
 };
 
 type ImageDecodeOptions = {
-  frameIndex: number,
   completeFramesOnly: boolean,
+  frameIndex: number,
 };
 
 type ImageDecodeResult = {
-  image: VideoFrame,
   complete: boolean,
+  image: VideoFrame,
 };
 
 type ImageDecoderInit = {
-  type: string,
-  data: ImageBufferSource,
   colorSpaceConversion: ColorSpaceConversion,
-  desiredWidth: number,
+  data: ImageBufferSource,
   desiredHeight: number,
+  desiredWidth: number,
   preferAnimation: boolean,
   transfer: Array<ArrayBuffer>,
+  type: string,
 };
 
 type PlaneLayout = {
@@ -184,50 +184,50 @@ type SvcOutputMetadata = {
 };
 
 type VideoColorSpaceInit = {
+  fullRange: boolean | null,
+  matrix: VideoMatrixCoefficients | null,
   primaries: VideoColorPrimaries | null,
   transfer: VideoTransferCharacteristics | null,
-  matrix: VideoMatrixCoefficients | null,
-  fullRange: boolean | null,
 };
 
 type VideoDecoderConfig = {
   codec: string,
-  description: AllowSharedBufferSource,
-  codedWidth: number,
   codedHeight: number,
-  displayAspectWidth: number,
-  displayAspectHeight: number,
+  codedWidth: number,
   colorSpace: VideoColorSpaceInit,
+  description: AllowSharedBufferSource,
+  displayAspectHeight: number,
+  displayAspectWidth: number,
+  flip: boolean,
   hardwareAcceleration: HardwareAcceleration,
   optimizeForLatency: boolean,
   rotation: number,
-  flip: boolean,
 };
 
 type VideoDecoderInit = {
-  output: VideoFrameOutputCallback,
   error: WebCodecsErrorCallback,
+  output: VideoFrameOutputCallback,
 };
 
 type VideoDecoderSupport = {
-  supported: boolean,
   config: VideoDecoderConfig,
+  supported: boolean,
 };
 
 type VideoEncoderConfig = {
-  codec: string,
-  width: number,
-  height: number,
-  displayWidth: number,
-  displayHeight: number,
+  alpha: AlphaOption,
   bitrate: number,
+  bitrateMode: VideoEncoderBitrateMode,
+  codec: string,
+  contentHint: string,
+  displayHeight: number,
+  displayWidth: number,
   framerate: number,
   hardwareAcceleration: HardwareAcceleration,
-  alpha: AlphaOption,
-  scalabilityMode: string,
-  bitrateMode: VideoEncoderBitrateMode,
+  height: number,
   latencyMode: LatencyMode,
-  contentHint: string,
+  scalabilityMode: string,
+  width: number,
 };
 
 type VideoEncoderEncodeOptions = {
@@ -235,49 +235,49 @@ type VideoEncoderEncodeOptions = {
 };
 
 type VideoEncoderInit = {
-  output: EncodedVideoChunkOutputCallback,
   error: WebCodecsErrorCallback,
+  output: EncodedVideoChunkOutputCallback,
 };
 
 type VideoEncoderSupport = {
-  supported: boolean,
   config: VideoEncoderConfig,
+  supported: boolean,
 };
 
 type VideoFrameBufferInit = {
-  format: VideoPixelFormat,
-  codedWidth: number,
   codedHeight: number,
-  timestamp: number,
-  duration: number,
-  layout: Array<PlaneLayout>,
-  visibleRect: DOMRectInit,
-  rotation: number,
-  flip: boolean,
-  displayWidth: number,
-  displayHeight: number,
+  codedWidth: number,
   colorSpace: VideoColorSpaceInit,
-  transfer: Array<ArrayBuffer>,
+  displayHeight: number,
+  displayWidth: number,
+  duration: number,
+  flip: boolean,
+  format: VideoPixelFormat,
+  layout: Array<PlaneLayout>,
   metadata: VideoFrameMetadata,
+  rotation: number,
+  timestamp: number,
+  transfer: Array<ArrayBuffer>,
+  visibleRect: DOMRectInit,
 };
 
 type VideoFrameCopyToOptions = {
-  rect: DOMRectInit,
-  layout: Array<PlaneLayout>,
-  format: VideoPixelFormat,
   colorSpace: PredefinedColorSpace,
+  format: VideoPixelFormat,
+  layout: Array<PlaneLayout>,
+  rect: DOMRectInit,
 };
 
 type VideoFrameInit = {
-  duration: number,
-  timestamp: number,
   alpha: AlphaOption,
-  visibleRect: DOMRectInit,
-  rotation: number,
-  flip: boolean,
-  displayWidth: number,
   displayHeight: number,
+  displayWidth: number,
+  duration: number,
+  flip: boolean,
   metadata: VideoFrameMetadata,
+  rotation: number,
+  timestamp: number,
+  visibleRect: DOMRectInit,
 };
 
 type VideoFrameMetadata = {};

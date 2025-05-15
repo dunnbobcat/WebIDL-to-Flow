@@ -1,7 +1,7 @@
 type CSSStyleSheetInit = {
   baseURL: string,
-  media: MediaList | string,
   disabled: boolean,
+  media: MediaList | string,
 };
 
 declare namespace CSS {

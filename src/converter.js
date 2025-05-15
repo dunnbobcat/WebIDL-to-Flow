@@ -110,7 +110,10 @@ function convertDictionary(production: IDLProduction): string {
     return productionError('Partial dictionaries not yet handled', production);
   }
 
-  const fields = members.map(convertField).join(',\n');
+  const fields = members
+    .toSorted(compareProductions)
+    .map(convertField)
+    .join(',\n');
   return `type ${name} = {\n${fields}};\n`;
 }
 

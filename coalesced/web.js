@@ -789,18 +789,18 @@ type XMLHttpRequestResponseType =
   | 'text';
 
 type AddEventListenerOptions = {
-  passive: boolean,
-  once: boolean,
-  signal: AbortSignal,
   capture: boolean,
+  once: boolean,
+  passive: boolean,
+  signal: AbortSignal,
 };
 
 type AnimationPlaybackEventInit = {
-  currentTime: number | null,
-  timelineTime: number | null,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  currentTime: number | null,
+  timelineTime: number | null,
 };
 
 type AssignedNodesOptions = {
@@ -808,87 +808,87 @@ type AssignedNodesOptions = {
 };
 
 type AudioDataCopyToOptions = {
-  planeIndex: number,
-  frameOffset: number,
-  frameCount: number,
   format: AudioSampleFormat,
+  frameCount: number,
+  frameOffset: number,
+  planeIndex: number,
 };
 
 type AudioDataInit = {
-  format: AudioSampleFormat,
-  sampleRate: number,
-  numberOfFrames: number,
-  numberOfChannels: number,
-  timestamp: number,
   data: BufferSource,
+  format: AudioSampleFormat,
+  numberOfChannels: number,
+  numberOfFrames: number,
+  sampleRate: number,
+  timestamp: number,
   transfer: Array<ArrayBuffer>,
 };
 
 type AudioDecoderConfig = {
   codec: string,
-  sampleRate: number,
-  numberOfChannels: number,
   description: AllowSharedBufferSource,
+  numberOfChannels: number,
+  sampleRate: number,
 };
 
 type AudioDecoderInit = {
-  output: AudioDataOutputCallback,
   error: WebCodecsErrorCallback,
+  output: AudioDataOutputCallback,
 };
 
 type AudioDecoderSupport = {
-  supported: boolean,
   config: AudioDecoderConfig,
+  supported: boolean,
 };
 
 type AudioEncoderConfig = {
-  codec: string,
-  sampleRate: number,
-  numberOfChannels: number,
   bitrate: number,
   bitrateMode: BitrateMode,
+  codec: string,
+  numberOfChannels: number,
+  sampleRate: number,
 };
 
 type AudioEncoderInit = {
-  output: EncodedAudioChunkOutputCallback,
   error: WebCodecsErrorCallback,
+  output: EncodedAudioChunkOutputCallback,
 };
 
 type AudioEncoderSupport = {
-  supported: boolean,
   config: AudioEncoderConfig,
+  supported: boolean,
 };
 
 type BaseComputedKeyframe = {
-  offset: number | null,
+  composite: CompositeOperationOrAuto,
   computedOffset: number,
   easing: string,
-  composite: CompositeOperationOrAuto,
+  offset: number | null,
 };
 
 type BaseKeyframe = {
-  offset: number | null,
-  easing: string,
   composite: CompositeOperationOrAuto,
+  easing: string,
+  offset: number | null,
 };
 
 type BasePropertyIndexedKeyframe = {
-  offset: number | null | Array<number | null>,
-  easing: string | Array<string>,
   composite: CompositeOperationOrAuto | Array<CompositeOperationOrAuto>,
+  easing: string | Array<string>,
+  offset: number | null | Array<number | null>,
 };
 
 type BlobPropertyBag = {
-  type: string,
   endings: EndingType,
+  type: string,
 };
 
 type BufferedChangeEventInit = {
   addedRanges: TimeRanges,
-  removedRanges: TimeRanges,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  removedRanges: TimeRanges,
 };
 
 type CameraDevicePermissionDescriptor = {
@@ -897,9 +897,9 @@ type CameraDevicePermissionDescriptor = {
 
 type CanvasRenderingContext2DSettings = {
   alpha: boolean,
-  desynchronized: boolean,
   colorSpace: PredefinedColorSpace,
   colorType: CanvasColorType,
+  desynchronized: boolean,
   willReadFrequently: boolean,
 };
 
@@ -910,37 +910,37 @@ type CloseWatcherOptions = {
 };
 
 type CommandEventInit = {
-  source: Element | null,
-  command: string,
   bubbles: boolean,
   cancelable: boolean,
+  command: string,
   composed: boolean,
+  source: Element | null,
 };
 
 type CompositionEventInit = {
-  data: string,
-  view: Window | null,
-  detail: number,
-  which: number,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  data: string,
+  detail: number,
+  view: Window | null,
+  which: number,
 };
 
 type ComputedEffectTiming = {
-  endTime: number,
   activeDuration: number,
-  localTime: number | null,
-  progress: number | null,
   currentIteration: number | null,
   delay: number,
-  endDelay: number,
-  fill: FillMode,
-  iterationStart: number,
-  iterations: number,
-  duration: number | string,
   direction: PlaybackDirection,
+  duration: number | string,
   easing: string,
+  endDelay: number,
+  endTime: number,
+  fill: FillMode,
+  iterations: number,
+  iterationStart: number,
+  localTime: number | null,
+  progress: number | null,
 };
 
 type ConstrainBooleanParameters = {
@@ -975,22 +975,22 @@ type ConstrainULongRange = {
 
 type CSSStyleSheetInit = {
   baseURL: string,
-  media: MediaList | string,
   disabled: boolean,
+  media: MediaList | string,
 };
 
 type CustomEventInit = {
-  detail: any,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  detail: any,
 };
 
 type DeviceChangeEventInit = {
-  devices: Array<MediaDeviceInfo>,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  devices: Array<MediaDeviceInfo>,
 };
 
 type DocumentTimelineOptions = {
@@ -1013,36 +1013,36 @@ type DOMMatrix2DInit = {
 };
 
 type DOMMatrixInit = {
-  m13: number,
-  m14: number,
-  m23: number,
-  m24: number,
-  m31: number,
-  m32: number,
-  m33: number,
-  m34: number,
-  m43: number,
-  m44: number,
-  is2D: boolean,
   a: number,
   b: number,
   c: number,
   d: number,
   e: number,
   f: number,
+  is2D: boolean,
   m11: number,
   m12: number,
+  m13: number,
+  m14: number,
   m21: number,
   m22: number,
+  m23: number,
+  m24: number,
+  m31: number,
+  m32: number,
+  m33: number,
+  m34: number,
   m41: number,
   m42: number,
+  m43: number,
+  m44: number,
 };
 
 type DOMPointInit = {
+  w: number,
   x: number,
   y: number,
   z: number,
-  w: number,
 };
 
 type DOMQuadInit = {
@@ -1053,10 +1053,10 @@ type DOMQuadInit = {
 };
 
 type DOMRectInit = {
+  height: number,
+  width: number,
   x: number,
   y: number,
-  width: number,
-  height: number,
 };
 
 type DoubleRange = {
@@ -1065,25 +1065,25 @@ type DoubleRange = {
 };
 
 type DragEventInit = {
-  dataTransfer: DataTransfer | null,
-  screenX: number,
-  screenY: number,
-  clientX: number,
-  clientY: number,
   button: number,
   buttons: number,
+  clientX: number,
+  clientY: number,
+  dataTransfer: DataTransfer | null,
   relatedTarget: EventTarget | null,
+  screenX: number,
+  screenY: number,
 };
 
 type EffectTiming = {
   delay: number,
+  direction: PlaybackDirection,
+  duration: number | string,
+  easing: string,
   endDelay: number,
   fill: FillMode,
-  iterationStart: number,
   iterations: number,
-  duration: number | string,
-  direction: PlaybackDirection,
-  easing: string,
+  iterationStart: number,
 };
 
 type ElementCreationOptions = {
@@ -1095,11 +1095,11 @@ type ElementDefinitionOptions = {
 };
 
 type EncodedAudioChunkInit = {
-  type: EncodedAudioChunkType,
-  timestamp: number,
-  duration: number,
   data: AllowSharedBufferSource,
+  duration: number,
+  timestamp: number,
   transfer: Array<ArrayBuffer>,
+  type: EncodedAudioChunkType,
 };
 
 type EncodedAudioChunkMetadata = {
@@ -1107,28 +1107,28 @@ type EncodedAudioChunkMetadata = {
 };
 
 type EncodedVideoChunkInit = {
-  type: EncodedVideoChunkType,
-  timestamp: number,
-  duration: number,
   data: AllowSharedBufferSource,
+  duration: number,
+  timestamp: number,
   transfer: Array<ArrayBuffer>,
+  type: EncodedVideoChunkType,
 };
 
 type EncodedVideoChunkMetadata = {
+  alphaSideData: BufferSource,
   decoderConfig: VideoDecoderConfig,
   svc: SvcOutputMetadata,
-  alphaSideData: BufferSource,
 };
 
 type ErrorEventInit = {
-  message: string,
-  filename: string,
-  lineno: number,
-  colno: number,
-  error: any,
   bubbles: boolean,
   cancelable: boolean,
+  colno: number,
   composed: boolean,
+  error: any,
+  filename: string,
+  lineno: number,
+  message: string,
 };
 
 type EventInit = {
@@ -1142,9 +1142,12 @@ type EventListenerOptions = {
 };
 
 type EventModifierInit = {
-  ctrlKey: boolean,
-  shiftKey: boolean,
   altKey: boolean,
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
+  ctrlKey: boolean,
+  detail: number,
   metaKey: boolean,
   modifierAltGraph: boolean,
   modifierCapsLock: boolean,
@@ -1156,12 +1159,9 @@ type EventModifierInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  shiftKey: boolean,
   view: Window | null,
-  detail: number,
   which: number,
-  bubbles: boolean,
-  cancelable: boolean,
-  composed: boolean,
 };
 
 type EventSourceInit = {
@@ -1169,31 +1169,31 @@ type EventSourceInit = {
 };
 
 type FilePropertyBag = {
+  endings: EndingType,
   lastModified: number,
   type: string,
-  endings: EndingType,
 };
 
 type FocusEventInit = {
-  relatedTarget: EventTarget | null,
-  view: Window | null,
-  detail: number,
-  which: number,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  detail: number,
+  relatedTarget: EventTarget | null,
+  view: Window | null,
+  which: number,
 };
 
 type FocusOptions = {
-  preventScroll: boolean,
   focusVisible: boolean,
+  preventScroll: boolean,
 };
 
 type FormDataEventInit = {
-  formData: FormData,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  formData: FormData,
 };
 
 type FullscreenOptions = {
@@ -1218,9 +1218,9 @@ type GetRootNodeOptions = {
 };
 
 type GPUBindGroupDescriptor = {
-  layout: GPUBindGroupLayout,
   entries: Array<GPUBindGroupEntry>,
   label: string,
+  layout: GPUBindGroupLayout,
 };
 
 type GPUBindGroupEntry = {
@@ -1235,23 +1235,23 @@ type GPUBindGroupLayoutDescriptor = {
 
 type GPUBindGroupLayoutEntry = {
   binding: GPUIndex32,
-  visibility: GPUShaderStageFlags,
   buffer: GPUBufferBindingLayout,
-  sampler: GPUSamplerBindingLayout,
-  texture: GPUTextureBindingLayout,
-  storageTexture: GPUStorageTextureBindingLayout,
   externalTexture: GPUExternalTextureBindingLayout,
+  sampler: GPUSamplerBindingLayout,
+  storageTexture: GPUStorageTextureBindingLayout,
+  texture: GPUTextureBindingLayout,
+  visibility: GPUShaderStageFlags,
 };
 
 type GPUBlendComponent = {
+  dstFactor: GPUBlendFactor,
   operation: GPUBlendOperation,
   srcFactor: GPUBlendFactor,
-  dstFactor: GPUBlendFactor,
 };
 
 type GPUBlendState = {
-  color: GPUBlendComponent,
   alpha: GPUBlendComponent,
+  color: GPUBlendComponent,
 };
 
 type GPUBufferBinding = {
@@ -1261,26 +1261,26 @@ type GPUBufferBinding = {
 };
 
 type GPUBufferBindingLayout = {
-  type: GPUBufferBindingType,
   hasDynamicOffset: boolean,
   minBindingSize: GPUSize64,
+  type: GPUBufferBindingType,
 };
 
 type GPUBufferDescriptor = {
+  label: string,
+  mappedAtCreation: boolean,
   size: GPUSize64,
   usage: GPUBufferUsageFlags,
-  mappedAtCreation: boolean,
-  label: string,
 };
 
 type GPUCanvasConfiguration = {
+  alphaMode: GPUCanvasAlphaMode,
+  colorSpace: PredefinedColorSpace,
   device: GPUDevice,
   format: GPUTextureFormat,
+  toneMapping: GPUCanvasToneMapping,
   usage: GPUTextureUsageFlags,
   viewFormats: Array<GPUTextureFormat>,
-  colorSpace: PredefinedColorSpace,
-  toneMapping: GPUCanvasToneMapping,
-  alphaMode: GPUCanvasAlphaMode,
 };
 
 type GPUCanvasToneMapping = {
@@ -1288,15 +1288,15 @@ type GPUCanvasToneMapping = {
 };
 
 type GPUColorDict = {
-  r: number,
-  g: number,
-  b: number,
   a: number,
+  b: number,
+  g: number,
+  r: number,
 };
 
 type GPUColorTargetState = {
-  format: GPUTextureFormat,
   blend: GPUBlendState,
+  format: GPUTextureFormat,
   writeMask: GPUColorWriteFlags,
 };
 
@@ -1309,82 +1309,82 @@ type GPUCommandEncoderDescriptor = {
 };
 
 type GPUComputePassDescriptor = {
-  timestampWrites: GPUComputePassTimestampWrites,
   label: string,
+  timestampWrites: GPUComputePassTimestampWrites,
 };
 
 type GPUComputePassTimestampWrites = {
-  querySet: GPUQuerySet,
   beginningOfPassWriteIndex: GPUSize32,
   endOfPassWriteIndex: GPUSize32,
+  querySet: GPUQuerySet,
 };
 
 type GPUComputePipelineDescriptor = {
   compute: GPUProgrammableStage,
-  layout: GPUPipelineLayout | GPUAutoLayoutMode,
   label: string,
+  layout: GPUPipelineLayout | GPUAutoLayoutMode,
 };
 
 type GPUCopyExternalImageDestInfo = {
+  aspect: GPUTextureAspect,
   colorSpace: PredefinedColorSpace,
-  premultipliedAlpha: boolean,
-  texture: GPUTexture,
   mipLevel: GPUIntegerCoordinate,
   origin: GPUOrigin3D,
-  aspect: GPUTextureAspect,
+  premultipliedAlpha: boolean,
+  texture: GPUTexture,
 };
 
 type GPUCopyExternalImageSourceInfo = {
-  source: GPUCopyExternalImageSource,
-  origin: GPUOrigin2D,
   flipY: boolean,
+  origin: GPUOrigin2D,
+  source: GPUCopyExternalImageSource,
 };
 
 type GPUDepthStencilState = {
-  format: GPUTextureFormat,
-  depthWriteEnabled: boolean,
+  depthBias: GPUDepthBias,
+  depthBiasClamp: number,
+  depthBiasSlopeScale: number,
   depthCompare: GPUCompareFunction,
-  stencilFront: GPUStencilFaceState,
+  depthWriteEnabled: boolean,
+  format: GPUTextureFormat,
   stencilBack: GPUStencilFaceState,
+  stencilFront: GPUStencilFaceState,
   stencilReadMask: GPUStencilValue,
   stencilWriteMask: GPUStencilValue,
-  depthBias: GPUDepthBias,
-  depthBiasSlopeScale: number,
-  depthBiasClamp: number,
 };
 
 type GPUDeviceDescriptor = {
-  requiredFeatures: Array<GPUFeatureName>,
-  requiredLimits: string | GPUSize64 | void,
   defaultQueue: GPUQueueDescriptor,
   label: string,
+  requiredFeatures: Array<GPUFeatureName>,
+  requiredLimits: string | GPUSize64 | void,
 };
 
 type GPUExtent3DDict = {
-  width: GPUIntegerCoordinate,
-  height: GPUIntegerCoordinate,
   depthOrArrayLayers: GPUIntegerCoordinate,
+  height: GPUIntegerCoordinate,
+  width: GPUIntegerCoordinate,
 };
 
 type GPUExternalTextureBindingLayout = {};
 
 type GPUExternalTextureDescriptor = {
-  source: HTMLVideoElement | VideoFrame,
   colorSpace: PredefinedColorSpace,
   label: string,
+  source: HTMLVideoElement | VideoFrame,
 };
 
 type GPUFragmentState = {
-  targets: Array<GPUColorTargetState | null>,
-  module: GPUShaderModule,
-  entryPoint: string,
   constants: string | GPUPipelineConstantValue,
+  entryPoint: string,
+  module: GPUShaderModule,
+  targets: Array<GPUColorTargetState | null>,
 };
 
 type GPUMultisampleState = {
+  alphaToCoverageEnabled: boolean,
   count: GPUSize32,
   mask: GPUSampleMask,
-  alphaToCoverageEnabled: boolean,
 };
 
 type GPUObjectDescriptorBase = {
@@ -1403,8 +1403,8 @@ type GPUOrigin3DDict = {
 };
 
 type GPUPipelineDescriptorBase = {
-  layout: GPUPipelineLayout | GPUAutoLayoutMode,
   label: string,
+  layout: GPUPipelineLayout | GPUAutoLayoutMode,
 };
 
 type GPUPipelineErrorInit = {
@@ -1417,23 +1417,23 @@ type GPUPipelineLayoutDescriptor = {
 };
 
 type GPUPrimitiveState = {
-  topology: GPUPrimitiveTopology,
-  stripIndexFormat: GPUIndexFormat,
-  frontFace: GPUFrontFace,
   cullMode: GPUCullMode,
+  frontFace: GPUFrontFace,
+  stripIndexFormat: GPUIndexFormat,
+  topology: GPUPrimitiveTopology,
   unclippedDepth: boolean,
 };
 
 type GPUProgrammableStage = {
-  module: GPUShaderModule,
-  entryPoint: string,
   constants: string | GPUPipelineConstantValue,
+  entryPoint: string,
+  module: GPUShaderModule,
 };
 
 type GPUQuerySetDescriptor = {
-  type: GPUQueryType,
   count: GPUSize32,
   label: string,
+  type: GPUQueryType,
 };
 
 type GPUQueueDescriptor = {
@@ -1445,71 +1445,71 @@ type GPURenderBundleDescriptor = {
 };
 
 type GPURenderBundleEncoderDescriptor = {
-  depthReadOnly: boolean,
-  stencilReadOnly: boolean,
   colorFormats: Array<GPUTextureFormat | null>,
+  depthReadOnly: boolean,
   depthStencilFormat: GPUTextureFormat,
-  sampleCount: GPUSize32,
   label: string,
+  sampleCount: GPUSize32,
+  stencilReadOnly: boolean,
 };
 
 type GPURenderPassColorAttachment = {
-  view: GPUTextureView,
-  depthSlice: GPUIntegerCoordinate,
-  resolveTarget: GPUTextureView,
   clearValue: GPUColor,
+  depthSlice: GPUIntegerCoordinate,
   loadOp: GPULoadOp,
+  resolveTarget: GPUTextureView,
   storeOp: GPUStoreOp,
+  view: GPUTextureView,
 };
 
 type GPURenderPassDepthStencilAttachment = {
-  view: GPUTextureView,
   depthClearValue: number,
   depthLoadOp: GPULoadOp,
-  depthStoreOp: GPUStoreOp,
   depthReadOnly: boolean,
+  depthStoreOp: GPUStoreOp,
   stencilClearValue: GPUStencilValue,
   stencilLoadOp: GPULoadOp,
-  stencilStoreOp: GPUStoreOp,
   stencilReadOnly: boolean,
+  stencilStoreOp: GPUStoreOp,
+  view: GPUTextureView,
 };
 
 type GPURenderPassDescriptor = {
   colorAttachments: Array<GPURenderPassColorAttachment | null>,
   depthStencilAttachment: GPURenderPassDepthStencilAttachment,
+  label: string,
+  maxDrawCount: GPUSize64,
   occlusionQuerySet: GPUQuerySet,
   timestampWrites: GPURenderPassTimestampWrites,
-  maxDrawCount: GPUSize64,
-  label: string,
 };
 
 type GPURenderPassLayout = {
   colorFormats: Array<GPUTextureFormat | null>,
   depthStencilFormat: GPUTextureFormat,
-  sampleCount: GPUSize32,
   label: string,
+  sampleCount: GPUSize32,
 };
 
 type GPURenderPassTimestampWrites = {
-  querySet: GPUQuerySet,
   beginningOfPassWriteIndex: GPUSize32,
   endOfPassWriteIndex: GPUSize32,
+  querySet: GPUQuerySet,
 };
 
 type GPURenderPipelineDescriptor = {
-  vertex: GPUVertexState,
-  primitive: GPUPrimitiveState,
   depthStencil: GPUDepthStencilState,
-  multisample: GPUMultisampleState,
   fragment: GPUFragmentState,
-  layout: GPUPipelineLayout | GPUAutoLayoutMode,
   label: string,
+  layout: GPUPipelineLayout | GPUAutoLayoutMode,
+  multisample: GPUMultisampleState,
+  primitive: GPUPrimitiveState,
+  vertex: GPUVertexState,
 };
 
 type GPURequestAdapterOptions = {
   featureLevel: string,
-  powerPreference: GPUPowerPreference,
   forceFallbackAdapter: boolean,
+  powerPreference: GPUPowerPreference,
   xrCompatible: boolean,
 };
 
@@ -1521,14 +1521,14 @@ type GPUSamplerDescriptor = {
   addressModeU: GPUAddressMode,
   addressModeV: GPUAddressMode,
   addressModeW: GPUAddressMode,
+  compare: GPUCompareFunction,
+  label: string,
+  lodMaxClamp: number,
+  lodMinClamp: number,
   magFilter: GPUFilterMode,
+  maxAnisotropy: number,
   minFilter: GPUFilterMode,
   mipmapFilter: GPUMipmapFilterMode,
-  lodMinClamp: number,
-  lodMaxClamp: number,
-  compare: GPUCompareFunction,
-  maxAnisotropy: number,
-  label: string,
 };
 
 type GPUShaderModuleCompilationHint = {
@@ -1544,8 +1544,8 @@ type GPUShaderModuleDescriptor = {
 
 type GPUStencilFaceState = {
   compare: GPUCompareFunction,
-  failOp: GPUStencilOperation,
   depthFailOp: GPUStencilOperation,
+  failOp: GPUStencilOperation,
   passOp: GPUStencilOperation,
 };
 
@@ -1557,58 +1557,58 @@ type GPUStorageTextureBindingLayout = {
 
 type GPUTexelCopyBufferInfo = {
   buffer: GPUBuffer,
-  offset: GPUSize64,
   bytesPerRow: GPUSize32,
+  offset: GPUSize64,
   rowsPerImage: GPUSize32,
 };
 
 type GPUTexelCopyBufferLayout = {
-  offset: GPUSize64,
   bytesPerRow: GPUSize32,
+  offset: GPUSize64,
   rowsPerImage: GPUSize32,
 };
 
 type GPUTexelCopyTextureInfo = {
-  texture: GPUTexture,
+  aspect: GPUTextureAspect,
   mipLevel: GPUIntegerCoordinate,
   origin: GPUOrigin3D,
-  aspect: GPUTextureAspect,
+  texture: GPUTexture,
 };
 
 type GPUTextureBindingLayout = {
+  multisampled: boolean,
   sampleType: GPUTextureSampleType,
   viewDimension: GPUTextureViewDimension,
-  multisampled: boolean,
 };
 
 type GPUTextureDescriptor = {
-  size: GPUExtent3D,
-  mipLevelCount: GPUIntegerCoordinate,
-  sampleCount: GPUSize32,
   dimension: GPUTextureDimension,
   format: GPUTextureFormat,
+  label: string,
+  mipLevelCount: GPUIntegerCoordinate,
+  sampleCount: GPUSize32,
+  size: GPUExtent3D,
   usage: GPUTextureUsageFlags,
   viewFormats: Array<GPUTextureFormat>,
-  label: string,
 };
 
 type GPUTextureViewDescriptor = {
-  format: GPUTextureFormat,
-  dimension: GPUTextureViewDimension,
-  usage: GPUTextureUsageFlags,
-  aspect: GPUTextureAspect,
-  baseMipLevel: GPUIntegerCoordinate,
-  mipLevelCount: GPUIntegerCoordinate,
-  baseArrayLayer: GPUIntegerCoordinate,
   arrayLayerCount: GPUIntegerCoordinate,
+  aspect: GPUTextureAspect,
+  baseArrayLayer: GPUIntegerCoordinate,
+  baseMipLevel: GPUIntegerCoordinate,
+  dimension: GPUTextureViewDimension,
+  format: GPUTextureFormat,
   label: string,
+  mipLevelCount: GPUIntegerCoordinate,
+  usage: GPUTextureUsageFlags,
 };
 
 type GPUUncapturedErrorEventInit = {
-  error: GPUError,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  error: GPUError,
 };
 
 type GPUVertexAttribute = {
@@ -1619,32 +1619,32 @@ type GPUVertexAttribute = {
 
 type GPUVertexBufferLayout = {
   arrayStride: GPUSize64,
-  stepMode: GPUVertexStepMode,
   attributes: Array<GPUVertexAttribute>,
+  stepMode: GPUVertexStepMode,
 };
 
 type GPUVertexState = {
   buffers: Array<GPUVertexBufferLayout | null>,
-  module: GPUShaderModule,
-  entryPoint: string,
   constants: string | GPUPipelineConstantValue,
+  entryPoint: string,
+  module: GPUShaderModule,
 };
 
 type HashChangeEventInit = {
-  oldURL: string,
-  newURL: string,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  newURL: string,
+  oldURL: string,
 };
 
 type ImageBitmapOptions = {
+  colorSpaceConversion: ColorSpaceConversion,
   imageOrientation: ImageOrientation,
   premultiplyAlpha: PremultiplyAlpha,
-  colorSpaceConversion: ColorSpaceConversion,
-  resizeWidth: number,
   resizeHeight: number,
   resizeQuality: ResizeQuality,
+  resizeWidth: number,
 };
 
 type ImageBitmapRenderingContextSettings = {
@@ -1656,53 +1656,55 @@ type ImageDataSettings = {
 };
 
 type ImageDecodeOptions = {
-  frameIndex: number,
   completeFramesOnly: boolean,
+  frameIndex: number,
 };
 
 type ImageDecodeResult = {
-  image: VideoFrame,
   complete: boolean,
+  image: VideoFrame,
 };
 
 type ImageDecoderInit = {
-  type: string,
-  data: ImageBufferSource,
   colorSpaceConversion: ColorSpaceConversion,
-  desiredWidth: number,
+  data: ImageBufferSource,
   desiredHeight: number,
+  desiredWidth: number,
   preferAnimation: boolean,
   transfer: Array<ArrayBuffer>,
+  type: string,
 };
 
 type ImageEncodeOptions = {
-  type: string,
   quality: number,
+  type: string,
 };
 
 type InputEventInit = {
-  data: string | null,
-  isComposing: boolean,
-  inputType: string,
-  view: Window | null,
-  detail: number,
-  which: number,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  data: string | null,
+  detail: number,
+  inputType: string,
+  isComposing: boolean,
+  view: Window | null,
+  which: number,
 };
 
 type KeyboardEventInit = {
-  key: string,
-  code: string,
-  location: number,
-  repeat: boolean,
-  isComposing: boolean,
-  charCode: number,
-  keyCode: number,
-  ctrlKey: boolean,
-  shiftKey: boolean,
   altKey: boolean,
+  bubbles: boolean,
+  cancelable: boolean,
+  charCode: number,
+  code: string,
+  composed: boolean,
+  ctrlKey: boolean,
+  detail: number,
+  isComposing: boolean,
+  key: string,
+  keyCode: number,
+  location: number,
   metaKey: boolean,
   modifierAltGraph: boolean,
   modifierCapsLock: boolean,
@@ -1714,172 +1716,166 @@ type KeyboardEventInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  repeat: boolean,
+  shiftKey: boolean,
   view: Window | null,
-  detail: number,
   which: number,
-  bubbles: boolean,
-  cancelable: boolean,
-  composed: boolean,
 };
 
 type KeyframeAnimationOptions = {
-  id: string,
-  timeline: AnimationTimeline | null,
   composite: CompositeOperation,
-  pseudoElement: string | null,
   delay: number,
+  direction: PlaybackDirection,
+  duration: number | string,
+  easing: string,
   endDelay: number,
   fill: FillMode,
-  iterationStart: number,
+  id: string,
   iterations: number,
-  duration: number | string,
-  direction: PlaybackDirection,
-  easing: string,
+  iterationStart: number,
+  pseudoElement: string | null,
+  timeline: AnimationTimeline | null,
 };
 
 type KeyframeEffectOptions = {
   composite: CompositeOperation,
-  pseudoElement: string | null,
   delay: number,
+  direction: PlaybackDirection,
+  duration: number | string,
+  easing: string,
   endDelay: number,
   fill: FillMode,
-  iterationStart: number,
   iterations: number,
-  duration: number | string,
-  direction: PlaybackDirection,
-  easing: string,
+  iterationStart: number,
+  pseudoElement: string | null,
 };
 
 type MediaStreamConstraints = {
-  video: boolean | MediaTrackConstraints,
   audio: boolean | MediaTrackConstraints,
+  video: boolean | MediaTrackConstraints,
 };
 
 type MediaStreamTrackEventInit = {
-  track: MediaStreamTrack,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  track: MediaStreamTrack,
 };
 
 type MediaTrackCapabilities = {
-  width: ULongRange,
-  height: ULongRange,
   aspectRatio: DoubleRange,
-  frameRate: DoubleRange,
+  autoGainControl: Array<boolean>,
+  backgroundBlur: Array<boolean>,
+  channelCount: ULongRange,
+  deviceId: string,
+  echoCancellation: Array<boolean>,
   facingMode: Array<string>,
+  frameRate: DoubleRange,
+  groupId: string,
+  height: ULongRange,
+  latency: DoubleRange,
+  noiseSuppression: Array<boolean>,
   resizeMode: Array<string>,
   sampleRate: ULongRange,
   sampleSize: ULongRange,
-  echoCancellation: Array<boolean>,
-  autoGainControl: Array<boolean>,
-  noiseSuppression: Array<boolean>,
-  latency: DoubleRange,
-  channelCount: ULongRange,
-  deviceId: string,
-  groupId: string,
-  backgroundBlur: Array<boolean>,
+  width: ULongRange,
 };
 
 type MediaTrackConstraints = {
   advanced: Array<MediaTrackConstraintSet>,
-  width: ConstrainULong,
-  height: ConstrainULong,
   aspectRatio: ConstrainDouble,
-  frameRate: ConstrainDouble,
+  autoGainControl: ConstrainBoolean,
+  backgroundBlur: ConstrainBoolean,
+  channelCount: ConstrainULong,
+  deviceId: ConstrainDOMString,
+  echoCancellation: ConstrainBoolean,
   facingMode: ConstrainDOMString,
+  frameRate: ConstrainDouble,
+  groupId: ConstrainDOMString,
+  height: ConstrainULong,
+  latency: ConstrainDouble,
+  noiseSuppression: ConstrainBoolean,
   resizeMode: ConstrainDOMString,
   sampleRate: ConstrainULong,
   sampleSize: ConstrainULong,
-  echoCancellation: ConstrainBoolean,
-  autoGainControl: ConstrainBoolean,
-  noiseSuppression: ConstrainBoolean,
-  latency: ConstrainDouble,
-  channelCount: ConstrainULong,
-  deviceId: ConstrainDOMString,
-  groupId: ConstrainDOMString,
-  backgroundBlur: ConstrainBoolean,
+  width: ConstrainULong,
 };
 
 type MediaTrackConstraintSet = {
-  width: ConstrainULong,
-  height: ConstrainULong,
   aspectRatio: ConstrainDouble,
-  frameRate: ConstrainDouble,
+  autoGainControl: ConstrainBoolean,
+  backgroundBlur: ConstrainBoolean,
+  channelCount: ConstrainULong,
+  deviceId: ConstrainDOMString,
+  echoCancellation: ConstrainBoolean,
   facingMode: ConstrainDOMString,
+  frameRate: ConstrainDouble,
+  groupId: ConstrainDOMString,
+  height: ConstrainULong,
+  latency: ConstrainDouble,
+  noiseSuppression: ConstrainBoolean,
   resizeMode: ConstrainDOMString,
   sampleRate: ConstrainULong,
   sampleSize: ConstrainULong,
-  echoCancellation: ConstrainBoolean,
-  autoGainControl: ConstrainBoolean,
-  noiseSuppression: ConstrainBoolean,
-  latency: ConstrainDouble,
-  channelCount: ConstrainULong,
-  deviceId: ConstrainDOMString,
-  groupId: ConstrainDOMString,
-  backgroundBlur: ConstrainBoolean,
+  width: ConstrainULong,
 };
 
 type MediaTrackSettings = {
-  width: number,
-  height: number,
   aspectRatio: number,
-  frameRate: number,
+  autoGainControl: boolean,
+  backgroundBlur: boolean,
+  channelCount: number,
+  deviceId: string,
+  echoCancellation: boolean,
   facingMode: string,
+  frameRate: number,
+  groupId: string,
+  height: number,
+  latency: number,
+  noiseSuppression: boolean,
   resizeMode: string,
   sampleRate: number,
   sampleSize: number,
-  echoCancellation: boolean,
-  autoGainControl: boolean,
-  noiseSuppression: boolean,
-  latency: number,
-  channelCount: number,
-  deviceId: string,
-  groupId: string,
-  backgroundBlur: boolean,
+  width: number,
 };
 
 type MediaTrackSupportedConstraints = {
-  width: boolean,
-  height: boolean,
   aspectRatio: boolean,
-  frameRate: boolean,
+  autoGainControl: boolean,
+  backgroundBlur: boolean,
+  channelCount: boolean,
+  deviceId: boolean,
+  echoCancellation: boolean,
   facingMode: boolean,
+  frameRate: boolean,
+  groupId: boolean,
+  height: boolean,
+  latency: boolean,
+  noiseSuppression: boolean,
   resizeMode: boolean,
   sampleRate: boolean,
   sampleSize: boolean,
-  echoCancellation: boolean,
-  autoGainControl: boolean,
-  noiseSuppression: boolean,
-  latency: boolean,
-  channelCount: boolean,
-  deviceId: boolean,
-  groupId: boolean,
-  backgroundBlur: boolean,
+  width: boolean,
 };
 
 type MessageEventInit = {
-  data: any,
-  origin: string,
-  lastEventId: string,
-  source: MessageEventSource | null,
-  ports: Array<MessagePort>,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  data: any,
+  lastEventId: string,
+  origin: string,
+  ports: Array<MessagePort>,
+  source: MessageEventSource | null,
 };
 
 type MouseEventInit = {
-  screenX: number,
-  screenY: number,
-  clientX: number,
-  clientY: number,
+  altKey: boolean,
   button: number,
   buttons: number,
-  relatedTarget: EventTarget | null,
+  clientX: number,
+  clientY: number,
   ctrlKey: boolean,
-  shiftKey: boolean,
-  altKey: boolean,
   metaKey: boolean,
   modifierAltGraph: boolean,
   modifierCapsLock: boolean,
@@ -1891,53 +1887,57 @@ type MouseEventInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  relatedTarget: EventTarget | null,
+  screenX: number,
+  screenY: number,
+  shiftKey: boolean,
 };
 
 type MutationObserverInit = {
-  childList: boolean,
+  attributeFilter: Array<string>,
+  attributeOldValue: boolean,
   attributes: boolean,
   characterData: boolean,
-  subtree: boolean,
-  attributeOldValue: boolean,
   characterDataOldValue: boolean,
-  attributeFilter: Array<string>,
+  childList: boolean,
+  subtree: boolean,
 };
 
 type NavigateEventInit = {
-  navigationType: NavigationType,
-  destination: NavigationDestination,
-  canIntercept: boolean,
-  userInitiated: boolean,
-  hashChange: boolean,
-  signal: AbortSignal,
-  formData: FormData | null,
-  downloadRequest: string | null,
-  info: any,
-  hasUAVisualTransition: boolean,
-  sourceElement: Element | null,
   bubbles: boolean,
   cancelable: boolean,
+  canIntercept: boolean,
   composed: boolean,
+  destination: NavigationDestination,
+  downloadRequest: string | null,
+  formData: FormData | null,
+  hashChange: boolean,
+  hasUAVisualTransition: boolean,
+  info: any,
+  navigationType: NavigationType,
+  signal: AbortSignal,
+  sourceElement: Element | null,
+  userInitiated: boolean,
 };
 
 type NavigationCurrentEntryChangeEventInit = {
-  navigationType: NavigationType | null,
-  from: NavigationHistoryEntry,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  from: NavigationHistoryEntry,
+  navigationType: NavigationType | null,
 };
 
 type NavigationInterceptOptions = {
-  handler: NavigationInterceptHandler,
   focusReset: NavigationFocusReset,
+  handler: NavigationInterceptHandler,
   scroll: NavigationScrollBehavior,
 };
 
 type NavigationNavigateOptions = {
-  state: any,
   history: NavigationHistoryBehavior,
   info: any,
+  state: any,
 };
 
 type NavigationOptions = {
@@ -1945,8 +1945,8 @@ type NavigationOptions = {
 };
 
 type NavigationReloadOptions = {
-  state: any,
   info: any,
+  state: any,
 };
 
 type NavigationResult = {
@@ -1960,63 +1960,63 @@ type NavigationUpdateCurrentEntryOptions = {
 
 type NotificationAction = {
   action: string,
-  title: string,
   icon: string,
+  title: string,
 };
 
 type NotificationEventInit = {
-  notification: Notification,
   action: string,
+  notification: Notification,
 };
 
 type NotificationOptions = {
-  dir: NotificationDirection,
-  lang: string,
-  body: string,
-  tag: string,
-  image: string,
-  icon: string,
-  badge: string,
-  vibrate: VibratePattern,
-  timestamp: EpochTimeStamp,
-  renotify: boolean,
-  silent: boolean | null,
-  requireInteraction: boolean,
-  data: any,
   actions: Array<NotificationAction>,
+  badge: string,
+  body: string,
+  data: any,
+  dir: NotificationDirection,
+  icon: string,
+  image: string,
+  lang: string,
+  renotify: boolean,
+  requireInteraction: boolean,
+  silent: boolean | null,
+  tag: string,
+  timestamp: EpochTimeStamp,
+  vibrate: VibratePattern,
 };
 
 type OptionalEffectTiming = {
   delay: number,
+  direction: PlaybackDirection,
+  duration: number | string,
+  easing: string,
   endDelay: number,
   fill: FillMode,
-  iterationStart: number,
   iterations: number,
-  duration: number | string,
-  direction: PlaybackDirection,
-  easing: string,
+  iterationStart: number,
 };
 
 type PageRevealEventInit = {
-  viewTransition: ViewTransition | null,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  viewTransition: ViewTransition | null,
 };
 
 type PageSwapEventInit = {
   activation: NavigationActivation | null,
-  viewTransition: ViewTransition | null,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  viewTransition: ViewTransition | null,
 };
 
 type PageTransitionEventInit = {
-  persisted: boolean,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  persisted: boolean,
 };
 
 type PlaneLayout = {
@@ -2025,28 +2025,28 @@ type PlaneLayout = {
 };
 
 type PopStateEventInit = {
-  state: any,
-  hasUAVisualTransition: boolean,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  hasUAVisualTransition: boolean,
+  state: any,
 };
 
 type ProgressEventInit = {
+  bubbles: boolean,
+  cancelable: boolean,
+  composed: boolean,
   lengthComputable: boolean,
   loaded: number,
   total: number,
-  bubbles: boolean,
-  cancelable: boolean,
-  composed: boolean,
 };
 
 type PromiseRejectionEventInit = {
-  promise: Object,
-  reason: any,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  promise: Object,
+  reason: any,
 };
 
 type QueuingStrategy = {
@@ -2071,8 +2071,8 @@ type ReadableStreamIteratorOptions = {
 };
 
 type ReadableStreamReadResult = {
-  value: any,
   done: boolean,
+  value: any,
 };
 
 type ReadableWritablePair = {
@@ -2081,37 +2081,37 @@ type ReadableWritablePair = {
 };
 
 type RequestInit = {
-  method: string,
-  headers: HeadersInit,
   body: BodyInit | null,
-  referrer: string,
-  referrerPolicy: ReferrerPolicy,
-  mode: RequestMode,
-  credentials: RequestCredentials,
   cache: RequestCache,
-  redirect: RequestRedirect,
+  credentials: RequestCredentials,
+  duplex: RequestDuplex,
+  headers: HeadersInit,
   integrity: string,
   keepalive: boolean,
-  signal: AbortSignal | null,
-  duplex: RequestDuplex,
+  method: string,
+  mode: RequestMode,
   priority: RequestPriority,
+  redirect: RequestRedirect,
+  referrer: string,
+  referrerPolicy: ReferrerPolicy,
+  signal: AbortSignal | null,
   window: any,
 };
 
 type ResponseInit = {
+  headers: HeadersInit,
   status: number,
   statusText: string,
-  headers: HeadersInit,
 };
 
 type Settings = {};
 
 type ShadowRootInit = {
-  mode: ShadowRootMode,
-  delegatesFocus: boolean,
-  slotAssignment: SlotAssignmentMode,
   clonable: boolean,
+  delegatesFocus: boolean,
+  mode: ShadowRootMode,
   serializable: boolean,
+  slotAssignment: SlotAssignmentMode,
 };
 
 type ShowPopoverOptions = {
@@ -2119,27 +2119,27 @@ type ShowPopoverOptions = {
 };
 
 type StaticRangeInit = {
-  startContainer: Node,
-  startOffset: number,
   endContainer: Node,
   endOffset: number,
+  startContainer: Node,
+  startOffset: number,
 };
 
 type StorageEventInit = {
-  key: string | null,
-  oldValue: string | null,
-  newValue: string | null,
-  url: string,
-  storageArea: Storage | null,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  key: string | null,
+  newValue: string | null,
+  oldValue: string | null,
+  storageArea: Storage | null,
+  url: string,
 };
 
 type StreamPipeOptions = {
-  preventClose: boolean,
   preventAbort: boolean,
   preventCancel: boolean,
+  preventClose: boolean,
   signal: AbortSignal,
 };
 
@@ -2148,10 +2148,10 @@ type StructuredSerializeOptions = {
 };
 
 type SubmitEventInit = {
-  submitter: HTMLElement | null,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  submitter: HTMLElement | null,
 };
 
 type SvcOutputMetadata = {
@@ -2159,10 +2159,10 @@ type SvcOutputMetadata = {
 };
 
 type SVGBoundingBoxOptions = {
-  fill: boolean,
-  stroke: boolean,
-  markers: boolean,
   clipped: boolean,
+  fill: boolean,
+  markers: boolean,
+  stroke: boolean,
 };
 
 type TextDecodeOptions = {
@@ -2180,11 +2180,11 @@ type TextEncoderEncodeIntoResult = {
 };
 
 type ToggleEventInit = {
-  oldState: string,
-  newState: string,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  newState: string,
+  oldState: string,
 };
 
 type TogglePopoverOptions = {
@@ -2193,18 +2193,18 @@ type TogglePopoverOptions = {
 };
 
 type TrackEventInit = {
-  track: VideoTrack | AudioTrack | TextTrack | null,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  track: VideoTrack | AudioTrack | TextTrack | null,
 };
 
 type Transformer = {
+  cancel: TransformerCancelCallback,
+  flush: TransformerFlushCallback,
+  readableType: any,
   start: TransformerStartCallback,
   transform: TransformerTransformCallback,
-  flush: TransformerFlushCallback,
-  cancel: TransformerCancelCallback,
-  readableType: any,
   writableType: any,
 };
 
@@ -2215,12 +2215,12 @@ type TrustedTypePolicyOptions = {
 };
 
 type UIEventInit = {
-  view: Window | null,
-  detail: number,
-  which: number,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  detail: number,
+  view: Window | null,
+  which: number,
 };
 
 type ULongRange = {
@@ -2229,36 +2229,36 @@ type ULongRange = {
 };
 
 type UnderlyingSink = {
-  start: UnderlyingSinkStartCallback,
-  write: UnderlyingSinkWriteCallback,
-  close: UnderlyingSinkCloseCallback,
   abort: UnderlyingSinkAbortCallback,
+  close: UnderlyingSinkCloseCallback,
+  start: UnderlyingSinkStartCallback,
   type: any,
+  write: UnderlyingSinkWriteCallback,
 };
 
 type UnderlyingSource = {
-  start: UnderlyingSourceStartCallback,
-  pull: UnderlyingSourcePullCallback,
-  cancel: UnderlyingSourceCancelCallback,
-  type: ReadableStreamType,
   autoAllocateChunkSize: number,
+  cancel: UnderlyingSourceCancelCallback,
+  pull: UnderlyingSourcePullCallback,
+  start: UnderlyingSourceStartCallback,
+  type: ReadableStreamType,
 };
 
 type URLPatternComponentResult = {
-  input: string,
   groups: string | string | void,
+  input: string,
 };
 
 type URLPatternInit = {
-  protocol: string,
-  username: string,
-  password: string,
-  hostname: string,
-  port: string,
-  pathname: string,
-  search: string,
-  hash: string,
   baseURL: string,
+  hash: string,
+  hostname: string,
+  password: string,
+  pathname: string,
+  port: string,
+  protocol: string,
+  search: string,
+  username: string,
 };
 
 type URLPatternOptions = {
@@ -2266,75 +2266,75 @@ type URLPatternOptions = {
 };
 
 type URLPatternResult = {
-  inputs: Array<URLPatternInput>,
-  protocol: URLPatternComponentResult,
-  username: URLPatternComponentResult,
-  password: URLPatternComponentResult,
-  hostname: URLPatternComponentResult,
-  port: URLPatternComponentResult,
-  pathname: URLPatternComponentResult,
-  search: URLPatternComponentResult,
   hash: URLPatternComponentResult,
+  hostname: URLPatternComponentResult,
+  inputs: Array<URLPatternInput>,
+  password: URLPatternComponentResult,
+  pathname: URLPatternComponentResult,
+  port: URLPatternComponentResult,
+  protocol: URLPatternComponentResult,
+  search: URLPatternComponentResult,
+  username: URLPatternComponentResult,
 };
 
 type ValidityStateFlags = {
-  valueMissing: boolean,
-  typeMismatch: boolean,
-  patternMismatch: boolean,
-  tooLong: boolean,
-  tooShort: boolean,
-  rangeUnderflow: boolean,
-  rangeOverflow: boolean,
-  stepMismatch: boolean,
   badInput: boolean,
   customError: boolean,
+  patternMismatch: boolean,
+  rangeOverflow: boolean,
+  rangeUnderflow: boolean,
+  stepMismatch: boolean,
+  tooLong: boolean,
+  tooShort: boolean,
+  typeMismatch: boolean,
+  valueMissing: boolean,
 };
 
 type VideoColorSpaceInit = {
+  fullRange: boolean | null,
+  matrix: VideoMatrixCoefficients | null,
   primaries: VideoColorPrimaries | null,
   transfer: VideoTransferCharacteristics | null,
-  matrix: VideoMatrixCoefficients | null,
-  fullRange: boolean | null,
 };
 
 type VideoDecoderConfig = {
   codec: string,
-  description: AllowSharedBufferSource,
-  codedWidth: number,
   codedHeight: number,
-  displayAspectWidth: number,
-  displayAspectHeight: number,
+  codedWidth: number,
   colorSpace: VideoColorSpaceInit,
+  description: AllowSharedBufferSource,
+  displayAspectHeight: number,
+  displayAspectWidth: number,
+  flip: boolean,
   hardwareAcceleration: HardwareAcceleration,
   optimizeForLatency: boolean,
   rotation: number,
-  flip: boolean,
 };
 
 type VideoDecoderInit = {
-  output: VideoFrameOutputCallback,
   error: WebCodecsErrorCallback,
+  output: VideoFrameOutputCallback,
 };
 
 type VideoDecoderSupport = {
-  supported: boolean,
   config: VideoDecoderConfig,
+  supported: boolean,
 };
 
 type VideoEncoderConfig = {
-  codec: string,
-  width: number,
-  height: number,
-  displayWidth: number,
-  displayHeight: number,
+  alpha: AlphaOption,
   bitrate: number,
+  bitrateMode: VideoEncoderBitrateMode,
+  codec: string,
+  contentHint: string,
+  displayHeight: number,
+  displayWidth: number,
   framerate: number,
   hardwareAcceleration: HardwareAcceleration,
-  alpha: AlphaOption,
-  scalabilityMode: string,
-  bitrateMode: VideoEncoderBitrateMode,
+  height: number,
   latencyMode: LatencyMode,
-  contentHint: string,
+  scalabilityMode: string,
+  width: number,
 };
 
 type VideoEncoderEncodeOptions = {
@@ -2342,87 +2342,83 @@ type VideoEncoderEncodeOptions = {
 };
 
 type VideoEncoderInit = {
-  output: EncodedVideoChunkOutputCallback,
   error: WebCodecsErrorCallback,
+  output: EncodedVideoChunkOutputCallback,
 };
 
 type VideoEncoderSupport = {
-  supported: boolean,
   config: VideoEncoderConfig,
+  supported: boolean,
 };
 
 type VideoFrameBufferInit = {
-  format: VideoPixelFormat,
-  codedWidth: number,
   codedHeight: number,
-  timestamp: number,
-  duration: number,
-  layout: Array<PlaneLayout>,
-  visibleRect: DOMRectInit,
-  rotation: number,
-  flip: boolean,
-  displayWidth: number,
-  displayHeight: number,
+  codedWidth: number,
   colorSpace: VideoColorSpaceInit,
-  transfer: Array<ArrayBuffer>,
+  displayHeight: number,
+  displayWidth: number,
+  duration: number,
+  flip: boolean,
+  format: VideoPixelFormat,
+  layout: Array<PlaneLayout>,
   metadata: VideoFrameMetadata,
+  rotation: number,
+  timestamp: number,
+  transfer: Array<ArrayBuffer>,
+  visibleRect: DOMRectInit,
 };
 
 type VideoFrameCopyToOptions = {
-  rect: DOMRectInit,
-  layout: Array<PlaneLayout>,
-  format: VideoPixelFormat,
   colorSpace: PredefinedColorSpace,
+  format: VideoPixelFormat,
+  layout: Array<PlaneLayout>,
+  rect: DOMRectInit,
 };
 
 type VideoFrameInit = {
-  duration: number,
-  timestamp: number,
   alpha: AlphaOption,
-  visibleRect: DOMRectInit,
-  rotation: number,
-  flip: boolean,
-  displayWidth: number,
   displayHeight: number,
+  displayWidth: number,
+  duration: number,
+  flip: boolean,
   metadata: VideoFrameMetadata,
+  rotation: number,
+  timestamp: number,
+  visibleRect: DOMRectInit,
 };
 
 type VideoFrameMetadata = {};
 
 type WebGLContextAttributes = {
   alpha: boolean,
-  depth: boolean,
-  stencil: boolean,
   antialias: boolean,
+  depth: boolean,
+  desynchronized: boolean,
+  failIfMajorPerformanceCaveat: boolean,
+  powerPreference: WebGLPowerPreference,
   premultipliedAlpha: boolean,
   preserveDrawingBuffer: boolean,
-  powerPreference: WebGLPowerPreference,
-  failIfMajorPerformanceCaveat: boolean,
-  desynchronized: boolean,
+  stencil: boolean,
 };
 
 type WebGLContextEventInit = {
-  statusMessage: string,
   bubbles: boolean,
   cancelable: boolean,
   composed: boolean,
+  statusMessage: string,
 };
 
 type WheelEventInit = {
+  altKey: boolean,
+  button: number,
+  buttons: number,
+  clientX: number,
+  clientY: number,
+  ctrlKey: boolean,
+  deltaMode: number,
   deltaX: number,
   deltaY: number,
   deltaZ: number,
-  deltaMode: number,
-  screenX: number,
-  screenY: number,
-  clientX: number,
-  clientY: number,
-  button: number,
-  buttons: number,
-  relatedTarget: EventTarget | null,
-  ctrlKey: boolean,
-  shiftKey: boolean,
-  altKey: boolean,
   metaKey: boolean,
   modifierAltGraph: boolean,
   modifierCapsLock: boolean,
@@ -2434,6 +2430,10 @@ type WheelEventInit = {
   modifierSuper: boolean,
   modifierSymbol: boolean,
   modifierSymbolLock: boolean,
+  relatedTarget: EventTarget | null,
+  screenX: number,
+  screenY: number,
+  shiftKey: boolean,
 };
 
 type WindowPostMessageOptions = {
@@ -2442,9 +2442,9 @@ type WindowPostMessageOptions = {
 };
 
 type WorkerOptions = {
-  type: WorkerType,
   credentials: RequestCredentials,
   name: string,
+  type: WorkerType,
 };
 
 type WorkletOptions = {

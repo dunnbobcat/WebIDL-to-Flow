@@ -43,14 +43,14 @@ type WebGLPowerPreference = 'default' | 'low-power' | 'high-performance';
 
 type WebGLContextAttributes = {
   alpha: boolean,
-  depth: boolean,
-  stencil: boolean,
   antialias: boolean,
+  depth: boolean,
+  desynchronized: boolean,
+  failIfMajorPerformanceCaveat: boolean,
+  powerPreference: WebGLPowerPreference,
   premultipliedAlpha: boolean,
   preserveDrawingBuffer: boolean,
-  powerPreference: WebGLPowerPreference,
-  failIfMajorPerformanceCaveat: boolean,
-  desynchronized: boolean,
+  stencil: boolean,
 };
 
 type WebGLContextEventInit = {

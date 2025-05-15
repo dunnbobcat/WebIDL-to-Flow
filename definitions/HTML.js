@@ -147,9 +147,9 @@ type AssignedNodesOptions = {
 
 type CanvasRenderingContext2DSettings = {
   alpha: boolean,
-  desynchronized: boolean,
   colorSpace: PredefinedColorSpace,
   colorType: CanvasColorType,
+  desynchronized: boolean,
   willReadFrequently: boolean,
 };
 
@@ -158,8 +158,8 @@ type CloseWatcherOptions = {
 };
 
 type CommandEventInit = {
-  source: Element | null,
   command: string,
+  source: Element | null,
 };
 
 type DragEventInit = {
@@ -171,11 +171,11 @@ type ElementDefinitionOptions = {
 };
 
 type ErrorEventInit = {
-  message: string,
-  filename: string,
-  lineno: number,
   colno: number,
   error: any,
+  filename: string,
+  lineno: number,
+  message: string,
 };
 
 type EventSourceInit = {
@@ -183,8 +183,8 @@ type EventSourceInit = {
 };
 
 type FocusOptions = {
-  preventScroll: boolean,
   focusVisible: boolean,
+  preventScroll: boolean,
 };
 
 type FormDataEventInit = {
@@ -197,17 +197,17 @@ type GetHTMLOptions = {
 };
 
 type HashChangeEventInit = {
-  oldURL: string,
   newURL: string,
+  oldURL: string,
 };
 
 type ImageBitmapOptions = {
+  colorSpaceConversion: ColorSpaceConversion,
   imageOrientation: ImageOrientation,
   premultiplyAlpha: PremultiplyAlpha,
-  colorSpaceConversion: ColorSpaceConversion,
-  resizeWidth: number,
   resizeHeight: number,
   resizeQuality: ResizeQuality,
+  resizeWidth: number,
 };
 
 type ImageBitmapRenderingContextSettings = {
@@ -219,47 +219,47 @@ type ImageDataSettings = {
 };
 
 type ImageEncodeOptions = {
-  type: string,
   quality: number,
+  type: string,
 };
 
 type MessageEventInit = {
   data: any,
-  origin: string,
   lastEventId: string,
-  source: MessageEventSource | null,
+  origin: string,
   ports: Array<MessagePort>,
+  source: MessageEventSource | null,
 };
 
 type NavigateEventInit = {
-  navigationType: NavigationType,
-  destination: NavigationDestination,
   canIntercept: boolean,
-  userInitiated: boolean,
-  hashChange: boolean,
-  signal: AbortSignal,
-  formData: FormData | null,
+  destination: NavigationDestination,
   downloadRequest: string | null,
-  info: any,
+  formData: FormData | null,
+  hashChange: boolean,
   hasUAVisualTransition: boolean,
+  info: any,
+  navigationType: NavigationType,
+  signal: AbortSignal,
   sourceElement: Element | null,
+  userInitiated: boolean,
 };
 
 type NavigationCurrentEntryChangeEventInit = {
-  navigationType: NavigationType | null,
   from: NavigationHistoryEntry,
+  navigationType: NavigationType | null,
 };
 
 type NavigationInterceptOptions = {
-  handler: NavigationInterceptHandler,
   focusReset: NavigationFocusReset,
+  handler: NavigationInterceptHandler,
   scroll: NavigationScrollBehavior,
 };
 
 type NavigationNavigateOptions = {
-  state: any,
   history: NavigationHistoryBehavior,
   info: any,
+  state: any,
 };
 
 type NavigationOptions = {
@@ -267,8 +267,8 @@ type NavigationOptions = {
 };
 
 type NavigationReloadOptions = {
-  state: any,
   info: any,
+  state: any,
 };
 
 type NavigationResult = {
@@ -294,8 +294,8 @@ type PageTransitionEventInit = {
 };
 
 type PopStateEventInit = {
-  state: any,
   hasUAVisualTransition: boolean,
+  state: any,
 };
 
 type PromiseRejectionEventInit = {
@@ -309,10 +309,10 @@ type ShowPopoverOptions = {
 
 type StorageEventInit = {
   key: string | null,
-  oldValue: string | null,
   newValue: string | null,
-  url: string,
+  oldValue: string | null,
   storageArea: Storage | null,
+  url: string,
 };
 
 type StructuredSerializeOptions = {
@@ -324,8 +324,8 @@ type SubmitEventInit = {
 };
 
 type ToggleEventInit = {
-  oldState: string,
   newState: string,
+  oldState: string,
 };
 
 type TogglePopoverOptions = {
@@ -338,16 +338,16 @@ type TrackEventInit = {
 };
 
 type ValidityStateFlags = {
-  valueMissing: boolean,
-  typeMismatch: boolean,
-  patternMismatch: boolean,
-  tooLong: boolean,
-  tooShort: boolean,
-  rangeUnderflow: boolean,
-  rangeOverflow: boolean,
-  stepMismatch: boolean,
   badInput: boolean,
   customError: boolean,
+  patternMismatch: boolean,
+  rangeOverflow: boolean,
+  rangeUnderflow: boolean,
+  stepMismatch: boolean,
+  tooLong: boolean,
+  tooShort: boolean,
+  typeMismatch: boolean,
+  valueMissing: boolean,
 };
 
 type WindowPostMessageOptions = {
@@ -356,9 +356,9 @@ type WindowPostMessageOptions = {
 };
 
 type WorkerOptions = {
-  type: WorkerType,
   credentials: RequestCredentials,
   name: string,
+  type: WorkerType,
 };
 
 type WorkletOptions = {

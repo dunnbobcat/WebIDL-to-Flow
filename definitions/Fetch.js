@@ -61,27 +61,27 @@ type ResponseType =
   | 'opaqueredirect';
 
 type RequestInit = {
-  method: string,
-  headers: HeadersInit,
   body: BodyInit | null,
-  referrer: string,
-  referrerPolicy: ReferrerPolicy,
-  mode: RequestMode,
-  credentials: RequestCredentials,
   cache: RequestCache,
-  redirect: RequestRedirect,
+  credentials: RequestCredentials,
+  duplex: RequestDuplex,
+  headers: HeadersInit,
   integrity: string,
   keepalive: boolean,
-  signal: AbortSignal | null,
-  duplex: RequestDuplex,
+  method: string,
+  mode: RequestMode,
   priority: RequestPriority,
+  redirect: RequestRedirect,
+  referrer: string,
+  referrerPolicy: ReferrerPolicy,
+  signal: AbortSignal | null,
   window: any,
 };
 
 type ResponseInit = {
+  headers: HeadersInit,
   status: number,
   statusText: string,
-  headers: HeadersInit,
 };
 
 declare class Headers {

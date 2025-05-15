@@ -32,8 +32,8 @@ type ReadableStreamIteratorOptions = {
 };
 
 type ReadableStreamReadResult = {
-  value: any,
   done: boolean,
+  value: any,
 };
 
 type ReadableWritablePair = {
@@ -42,35 +42,35 @@ type ReadableWritablePair = {
 };
 
 type StreamPipeOptions = {
-  preventClose: boolean,
   preventAbort: boolean,
   preventCancel: boolean,
+  preventClose: boolean,
   signal: AbortSignal,
 };
 
 type Transformer = {
+  cancel: TransformerCancelCallback,
+  flush: TransformerFlushCallback,
+  readableType: any,
   start: TransformerStartCallback,
   transform: TransformerTransformCallback,
-  flush: TransformerFlushCallback,
-  cancel: TransformerCancelCallback,
-  readableType: any,
   writableType: any,
 };
 
 type UnderlyingSink = {
-  start: UnderlyingSinkStartCallback,
-  write: UnderlyingSinkWriteCallback,
-  close: UnderlyingSinkCloseCallback,
   abort: UnderlyingSinkAbortCallback,
+  close: UnderlyingSinkCloseCallback,
+  start: UnderlyingSinkStartCallback,
   type: any,
+  write: UnderlyingSinkWriteCallback,
 };
 
 type UnderlyingSource = {
-  start: UnderlyingSourceStartCallback,
-  pull: UnderlyingSourcePullCallback,
-  cancel: UnderlyingSourceCancelCallback,
-  type: ReadableStreamType,
   autoAllocateChunkSize: number,
+  cancel: UnderlyingSourceCancelCallback,
+  pull: UnderlyingSourcePullCallback,
+  start: UnderlyingSourceStartCallback,
+  type: ReadableStreamType,
 };
 
 type QueuingStrategySize = (chunk: any) => number;

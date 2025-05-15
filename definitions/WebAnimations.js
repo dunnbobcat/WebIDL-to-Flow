@@ -20,38 +20,38 @@ type AnimationPlaybackEventInit = {
 };
 
 type BaseComputedKeyframe = {
-  offset: number | null,
+  composite: CompositeOperationOrAuto,
   computedOffset: number,
   easing: string,
-  composite: CompositeOperationOrAuto,
+  offset: number | null,
 };
 
 type BaseKeyframe = {
-  offset: number | null,
-  easing: string,
   composite: CompositeOperationOrAuto,
+  easing: string,
+  offset: number | null,
 };
 
 type BasePropertyIndexedKeyframe = {
-  offset: number | null | Array<number | null>,
-  easing: string | Array<string>,
   composite: CompositeOperationOrAuto | Array<CompositeOperationOrAuto>,
+  easing: string | Array<string>,
+  offset: number | null | Array<number | null>,
 };
 
 type ComputedEffectTiming = {
-  endTime: number,
   activeDuration: number,
-  localTime: number | null,
-  progress: number | null,
   currentIteration: number | null,
   delay: number,
-  endDelay: number,
-  fill: FillMode,
-  iterationStart: number,
-  iterations: number,
-  duration: number | string,
   direction: PlaybackDirection,
+  duration: number | string,
   easing: string,
+  endDelay: number,
+  endTime: number,
+  fill: FillMode,
+  iterations: number,
+  iterationStart: number,
+  localTime: number | null,
+  progress: number | null,
 };
 
 type DocumentTimelineOptions = {
@@ -60,13 +60,13 @@ type DocumentTimelineOptions = {
 
 type EffectTiming = {
   delay: number,
+  direction: PlaybackDirection,
+  duration: number | string,
+  easing: string,
   endDelay: number,
   fill: FillMode,
-  iterationStart: number,
   iterations: number,
-  duration: number | string,
-  direction: PlaybackDirection,
-  easing: string,
+  iterationStart: number,
 };
 
 type GetAnimationsOptions = {
@@ -74,42 +74,42 @@ type GetAnimationsOptions = {
 };
 
 type KeyframeAnimationOptions = {
-  id: string,
-  timeline: AnimationTimeline | null,
   composite: CompositeOperation,
-  pseudoElement: string | null,
   delay: number,
+  direction: PlaybackDirection,
+  duration: number | string,
+  easing: string,
   endDelay: number,
   fill: FillMode,
-  iterationStart: number,
+  id: string,
   iterations: number,
-  duration: number | string,
-  direction: PlaybackDirection,
-  easing: string,
+  iterationStart: number,
+  pseudoElement: string | null,
+  timeline: AnimationTimeline | null,
 };
 
 type KeyframeEffectOptions = {
   composite: CompositeOperation,
-  pseudoElement: string | null,
   delay: number,
+  direction: PlaybackDirection,
+  duration: number | string,
+  easing: string,
   endDelay: number,
   fill: FillMode,
-  iterationStart: number,
   iterations: number,
-  duration: number | string,
-  direction: PlaybackDirection,
-  easing: string,
+  iterationStart: number,
+  pseudoElement: string | null,
 };
 
 type OptionalEffectTiming = {
   delay: number,
+  direction: PlaybackDirection,
+  duration: number | string,
+  easing: string,
   endDelay: number,
   fill: FillMode,
-  iterationStart: number,
   iterations: number,
-  duration: number | string,
-  direction: PlaybackDirection,
-  easing: string,
+  iterationStart: number,
 };
 
 declare class Animation extends EventTarget {

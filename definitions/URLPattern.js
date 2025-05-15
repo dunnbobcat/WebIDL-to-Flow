@@ -3,20 +3,20 @@ type URLPatternCompatible = string | URLPatternInit | URLPattern;
 type URLPatternInput = string | URLPatternInit;
 
 type URLPatternComponentResult = {
-  input: string,
   groups: string | string | void,
+  input: string,
 };
 
 type URLPatternInit = {
-  protocol: string,
-  username: string,
-  password: string,
-  hostname: string,
-  port: string,
-  pathname: string,
-  search: string,
-  hash: string,
   baseURL: string,
+  hash: string,
+  hostname: string,
+  password: string,
+  pathname: string,
+  port: string,
+  protocol: string,
+  search: string,
+  username: string,
 };
 
 type URLPatternOptions = {
@@ -24,15 +24,15 @@ type URLPatternOptions = {
 };
 
 type URLPatternResult = {
-  inputs: Array<URLPatternInput>,
-  protocol: URLPatternComponentResult,
-  username: URLPatternComponentResult,
-  password: URLPatternComponentResult,
-  hostname: URLPatternComponentResult,
-  port: URLPatternComponentResult,
-  pathname: URLPatternComponentResult,
-  search: URLPatternComponentResult,
   hash: URLPatternComponentResult,
+  hostname: URLPatternComponentResult,
+  inputs: Array<URLPatternInput>,
+  password: URLPatternComponentResult,
+  pathname: URLPatternComponentResult,
+  port: URLPatternComponentResult,
+  protocol: URLPatternComponentResult,
+  search: URLPatternComponentResult,
+  username: URLPatternComponentResult,
 };
 
 declare class URLPattern {

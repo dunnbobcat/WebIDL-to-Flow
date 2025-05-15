@@ -1,8 +1,8 @@
 type SVGBoundingBoxOptions = {
-  fill: boolean,
-  stroke: boolean,
-  markers: boolean,
   clipped: boolean,
+  fill: boolean,
+  markers: boolean,
+  stroke: boolean,
 };
 
 declare class ShadowAnimation extends Animation {
