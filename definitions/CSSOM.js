@@ -75,20 +75,16 @@ declare class CSSStyleRule extends CSSRule {
 declare class CSSStyleSheet extends StyleSheet {
   +cssRules: CSSRuleList;
   +ownerRule: CSSRule | null;
+  +rules: CSSRuleList;
 
   constructor(options?: CSSStyleSheetInit): void;
 
+  addRule(selector?: string, style?: string, index?: number): number;
   deleteRule(index: number): void;
   insertRule(rule: string, index?: number): number;
+  removeRule(index?: number): void;
   replace(text: string): CSSStyleSheet;
   replaceSync(text: string): void;
-}
-
-/* partial */ interface CSSStyleSheet {
-  +rules: CSSRuleList;
-
-  addRule(selector?: string, style?: string, index?: number): number;
-  removeRule(index?: number): void;
 }
 
 declare class MediaList {
@@ -114,13 +110,6 @@ declare class StyleSheetList {
   +length: number;
 
   item(index: number): CSSStyleSheet | null;
-}
-
-/* partial */ interface Window {
-  getComputedStyle(
-    elt: Element,
-    pseudoElt?: string | null,
-  ): CSSStyleDeclaration;
 }
 
 /* partial mixin */ declare class mixin$DocumentOrShadowRoot {

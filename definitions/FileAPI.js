@@ -73,8 +73,3 @@ declare class FileReaderSync {
   readAsDataURL(blob: Blob): string;
   readAsText(blob: Blob, encoding?: string): string;
 }
-
-/* partial */ declare class URL {
-  static createObjectURL(obj: Blob | MediaSource): string;
-  static revokeObjectURL(url: string): void;
-}

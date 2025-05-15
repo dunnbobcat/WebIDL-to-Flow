@@ -5,10 +5,6 @@ type SVGBoundingBoxOptions = {
   clipped: boolean,
 };
 
-/* partial */ interface Document {
-  +rootElement: SVGSVGElement | null;
-}
-
 declare class ShadowAnimation extends Animation {
   +sourceAnimation: Animation;
 }

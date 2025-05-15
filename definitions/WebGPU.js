@@ -840,6 +840,8 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   +adapterInfo: GPUAdapterInfo;
   +features: GPUSupportedFeatures;
   +limits: GPUSupportedLimits;
+  +lost: GPUDeviceLostInfo;
+  onuncapturederror: EventHandler;
   +queue: GPUQueue;
 
   createBindGroup(descriptor: GPUBindGroupDescriptor): GPUBindGroup;
@@ -876,19 +878,8 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   importExternalTexture(
     descriptor: GPUExternalTextureDescriptor,
   ): GPUExternalTexture;
-}
-
-/* partial */ declare class GPUDevice mixins mixin$GPUObjectBase {
-  +lost: GPUDeviceLostInfo;
-}
-
-/* partial */ declare class GPUDevice mixins mixin$GPUObjectBase {
   popErrorScope(): GPUError | null;
   pushErrorScope(filter: GPUErrorFilter): void;
-}
-
-/* partial */ declare class GPUDevice mixins mixin$GPUObjectBase {
-  onuncapturederror: EventHandler;
 }
 
 declare class GPUDeviceLostInfo {
@@ -1148,29 +1139,26 @@ declare namespace GPUBufferUsage {
   declare const UNIFORM: 0x0040;
   declare const VERTEX: 0x0020;
 }
-declare namespace GPUMapMode {
-  declare const READ: 0x0001;
-  declare const WRITE: 0x0002;
-}
-
-declare namespace GPUTextureUsage {
-  declare const COPY_DST: 0x02;
-  declare const COPY_SRC: 0x01;
-  declare const RENDER_ATTACHMENT: 0x10;
-  declare const STORAGE_BINDING: 0x08;
-  declare const TEXTURE_BINDING: 0x04;
-}
-
-declare namespace GPUShaderStage {
-  declare const COMPUTE: 0x4;
-  declare const FRAGMENT: 0x2;
-  declare const VERTEX: 0x1;
-}
-
 declare namespace GPUColorWrite {
   declare const ALL: 0xf;
   declare const ALPHA: 0x8;
   declare const BLUE: 0x4;
   declare const GREEN: 0x2;
   declare const RED: 0x1;
+}
+declare namespace GPUMapMode {
+  declare const READ: 0x0001;
+  declare const WRITE: 0x0002;
+}
+declare namespace GPUShaderStage {
+  declare const COMPUTE: 0x4;
+  declare const FRAGMENT: 0x2;
+  declare const VERTEX: 0x1;
+}
+declare namespace GPUTextureUsage {
+  declare const COPY_DST: 0x02;
+  declare const COPY_SRC: 0x01;
+  declare const RENDER_ATTACHMENT: 0x10;
+  declare const STORAGE_BINDING: 0x08;
+  declare const TEXTURE_BINDING: 0x04;
 }

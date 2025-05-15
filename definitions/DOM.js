@@ -550,10 +550,6 @@ declare class TreeWalker {
   previousSibling(): Node | null;
 }
 
-/* partial */ interface Window {
-  +event: Event | void;
-}
-
 declare class XMLDocument extends Document {}
 
 declare class XPathEvaluator mixins mixin$XPathEvaluatorBase {

@@ -58,7 +58,8 @@ async function generateFlowDefinitions(outputDir: ?string): Promise<void> {
     try {
       process.stdout.write(`Converting IDL file: ${file}...\n`);
       const idl = await parseIDLFile(file);
-      const lib = await convertIDLToLibrary(idl);
+      const combinedIDL = await coalesceIDLs([idl]);
+      const lib = await convertIDLToLibrary(combinedIDL);
       const name = path.basename(file, '.idl');
       await fs.promises.writeFile(`${dir}/${name}.js`, lib);
     } catch (e) {
@@ -158,6 +159,7 @@ async function main(): Promise<void> {
           'SVG',
           'SVGAnimation',
           'TrustedTypes',
+          'UIEvents',
           'URL',
           'URLPattern',
           'Vibration',

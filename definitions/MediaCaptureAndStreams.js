@@ -186,9 +186,6 @@ declare class MediaDevices extends EventTarget {
   ondevicechange: EventHandler;
 
   enumerateDevices(): Array<MediaDeviceInfo>;
-}
-
-/* partial */ interface MediaDevices {
   getSupportedConstraints(): MediaTrackSupportedConstraints;
   getUserMedia(constraints?: MediaStreamConstraints): MediaStream;
 }
@@ -235,18 +232,6 @@ declare class MediaStreamTrackEvent extends Event {
   +track: MediaStreamTrack;
 
   constructor(type: string, eventInitDict: MediaStreamTrackEventInit): void;
-}
-
-/* partial */ interface Navigator {
-  +mediaDevices: MediaDevices;
-}
-
-/* partial */ interface Navigator {
-  getUserMedia(
-    constraints: MediaStreamConstraints,
-    successCallback: NavigatorUserMediaSuccessCallback,
-    errorCallback: NavigatorUserMediaErrorCallback,
-  ): void;
 }
 
 declare class OverconstrainedError extends DOMException {

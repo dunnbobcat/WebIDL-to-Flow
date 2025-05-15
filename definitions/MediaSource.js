@@ -9,10 +9,6 @@ type BufferedChangeEventInit = {
   removedRanges: TimeRanges,
 };
 
-/* partial */ declare class AudioTrack {
-  +sourceBuffer: SourceBuffer | null;
-}
-
 declare class BufferedChangeEvent extends Event {
   +addedRanges: TimeRanges;
   +removedRanges: TimeRanges;
@@ -83,12 +79,4 @@ declare class SourceBufferList extends EventTarget {
   onremovesourcebuffer: EventHandler;
 
   (index: number): SourceBuffer;
-}
-
-/* partial */ declare class TextTrack {
-  +sourceBuffer: SourceBuffer | null;
-}
-
-/* partial */ declare class VideoTrack {
-  +sourceBuffer: SourceBuffer | null;
 }

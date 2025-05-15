@@ -15,13 +15,6 @@ type CreateScriptURLCallback = (
   arguments_: any,
 ) => string | null;
 
-/* partial */ interface HTMLScriptElement {
-  innerText: TrustedScript | string;
-  src: TrustedScriptURL | string;
-  text: TrustedScript | string;
-  textContent: TrustedScript | string | null;
-}
-
 declare class TrustedHTML {
   toString(): string;
   toJSON(): string;
