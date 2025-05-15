@@ -211,7 +211,7 @@ type RTCOutboundRtpStreamStats = {
   pliCount: number,
   powerEfficientEncoder: boolean,
   qpSum: number,
-  qualityLimitationDurations: string | number,
+  qualityLimitationDurations: {[string]: number},
   qualityLimitationReason: RTCQualityLimitationReason,
   qualityLimitationResolutionChanges: number,
   remoteId: string,

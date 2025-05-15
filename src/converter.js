@@ -80,7 +80,10 @@ function convertNamespaceMember(production: IDLProduction): string {
       return convertNamespaceAttribute(production);
 
     case 'operation':
-      return `declare function ${convertOperation(production)}`;
+      if (['in'].includes(production.name)) {
+        return `/* declare function ${convertOperation(production)} */\n`;
+      }
+      return `declare function ${convertOperation(production)}\n`;
 
     case 'const':
       return convertNamespaceConstant(production);
@@ -138,15 +141,19 @@ function convertIDLType(production: IDLProduction): string {
 
   let orNull = production.nullable ? ' | null' : '';
 
-  if (generic != null && generic.length > 0) {
-    console.log(generic, production);
-  }
-
-  let type;
+  let keyType;
+  let valType;
   if (typeof idlType === 'string') {
-    type = convertPrimitiveType(idlType);
+    keyType = '';
+    valType = convertPrimitiveType(idlType);
   } else if (Array.isArray(idlType)) {
-    type = convertUnionType(idlType);
+    if (generic === 'record') {
+      keyType = convertIDLType(idlType[0]);
+      valType = convertIDLType(idlType[1]);
+    } else {
+      keyType = '';
+      valType = convertUnionType(idlType);
+    }
   } else {
     return productionError(
       `Unhandled IDL type ${idlType} in production ${production.name}`,
@@ -156,13 +163,17 @@ function convertIDLType(production: IDLProduction): string {
 
   switch (generic) {
     case 'sequence':
-      return `Array<${type}>${orNull}`;
+    case 'ObservableArray':
+      return `Array<${valType}>${orNull}`;
+
+    case 'record':
+      return `{[${keyType}]: ${valType}}${orNull}`;
 
     case 'Promise':
-      return `Promise<${type}>${orNull}`;
+      return `Promise<${valType}>${orNull}`;
 
     case 'FrozenArray':
-      return `$ReadOnlyArray<${type}>${orNull}`;
+      return `$ReadOnlyArray<${valType}>${orNull}`;
 
     case null:
     case '':
@@ -170,12 +181,12 @@ function convertIDLType(production: IDLProduction): string {
 
     default:
       return productionError(
-        `Unhandled generic type ${generic} in production ${production.name}`,
+        `Unhandled generic type ${generic} in production`,
         production,
       );
   }
 
-  return `${type}${orNull}`;
+  return `${valType}${orNull}`;
 }
 
 function convertInterfaceMember(production: IDLProduction): string {
@@ -190,7 +201,7 @@ function convertInterfaceMember(production: IDLProduction): string {
       return convertAttribute(production);
 
     case 'operation':
-      return convertOperation(production);
+      return convertOperation(production) + '\n';
 
     case 'const':
       return convertConstant(production);
@@ -319,7 +330,7 @@ function convertOperation(production: IDLProduction): string {
 
   const staticString = special === 'static' ? 'static ' : '';
   const argString = args.map(convertArgument).join(', ');
-  return `${staticString}${name}(${argString}): ${convertIDLType(idlType)};\n`;
+  return `${staticString}${name}(${argString}): ${convertIDLType(idlType)};`;
 }
 
 function convertConstant(production: IDLProduction): string {

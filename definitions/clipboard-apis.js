@@ -1,4 +1,4 @@
-type ClipboardItemData = string | Blob;
+type ClipboardItemData = Promise<string | Blob>;
 
 type ClipboardItems = Array<ClipboardItem>;
 
@@ -21,10 +21,10 @@ type ClipboardUnsanitizedFormats = {
 };
 
 declare class Clipboard extends EventTarget {
-  read(formats?: ClipboardUnsanitizedFormats): ClipboardItems;
-  readText(): string;
-  write(data: ClipboardItems): void;
-  writeText(data: string): void;
+  read(formats?: ClipboardUnsanitizedFormats): Promise<ClipboardItems>;
+  readText(): Promise<string>;
+  write(data: ClipboardItems): Promise<void>;
+  writeText(data: string): Promise<void>;
 }
 
 declare class ClipboardEvent extends Event {
@@ -35,15 +35,15 @@ declare class ClipboardEvent extends Event {
 
 declare class ClipboardItem {
   +presentationStyle: PresentationStyle;
-  +types: string;
+  +types: $ReadOnlyArray<string>;
 
   constructor(
-    items: string | ClipboardItemData,
+    items: {[string]: ClipboardItemData},
     options?: ClipboardItemOptions,
   ): void;
 
   static supports(type: string): boolean;
-  getType(type: string): Blob;
+  getType(type: string): Promise<Blob>;
 }
 
 /* partial */ declare class Navigator {

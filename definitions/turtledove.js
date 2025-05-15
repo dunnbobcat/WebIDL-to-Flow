@@ -20,7 +20,7 @@ type AdAuctionDataBuyerConfig = {
 
 type AdAuctionDataConfig = {
   coordinatorOrigin: string,
-  perBuyerConfig: string | AdAuctionDataBuyerConfig,
+  perBuyerConfig: {[string]: AdAuctionDataBuyerConfig},
   requestSize: number,
   seller: string,
   sellers: Array<AdAuctionOneSeller>,
@@ -56,42 +56,42 @@ type AuctionAd = {
 };
 
 type AuctionAdConfig = {
-  additionalBids: void,
-  allSlotsRequestedSizes: Array<string | string>,
+  additionalBids: Promise<void>,
+  allSlotsRequestedSizes: Array<{[string]: string}>,
   auctionNonce: string,
   auctionReportBuyerDebugModeConfig: AuctionReportBuyerDebugModeConfig,
   auctionReportBuyerKeys: Array<bigint>,
-  auctionReportBuyers: string | AuctionReportBuyersConfig,
-  auctionSignals: any,
+  auctionReportBuyers: {[string]: AuctionReportBuyersConfig},
+  auctionSignals: Promise<any>,
   componentAuctions: Array<AuctionAdConfig>,
   decisionLogicURL: string,
-  deprecatedRenderURLReplacements: string | string | null,
-  directFromSellerSignalsHeaderAdSlot: string | null,
+  deprecatedRenderURLReplacements: Promise<{[string]: string} | null>,
+  directFromSellerSignalsHeaderAdSlot: Promise<string | null>,
   interestGroupBuyers: Array<string>,
   maxTrustedScoringSignalsURLLength: number,
-  perBuyerCumulativeTimeouts: string | number | null,
-  perBuyerCurrencies: string | string | null,
-  perBuyerExperimentGroupIds: string | number,
-  perBuyerGroupLimits: string | number,
-  perBuyerMultiBidLimits: string | number,
-  perBuyerPrioritySignals: string | string | number,
-  perBuyerRealTimeReportingConfig: string | AuctionRealTimeReportingConfig,
-  perBuyerSignals: string | any | null,
-  perBuyerTimeouts: string | number | null,
+  perBuyerCumulativeTimeouts: Promise<{[string]: number} | null>,
+  perBuyerCurrencies: Promise<{[string]: string} | null>,
+  perBuyerExperimentGroupIds: {[string]: number},
+  perBuyerGroupLimits: {[string]: number},
+  perBuyerMultiBidLimits: {[string]: number},
+  perBuyerPrioritySignals: {[string]: {[string]: number}},
+  perBuyerRealTimeReportingConfig: {[string]: AuctionRealTimeReportingConfig},
+  perBuyerSignals: Promise<{[string]: any} | null>,
+  perBuyerTimeouts: Promise<{[string]: number} | null>,
   privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
   reportingTimeout: number,
-  requestedSize: string | string,
+  requestedSize: {[string]: string},
   requestId: string,
   requiredSellerCapabilities: Array<string>,
-  resolveToConfig: boolean,
+  resolveToConfig: Promise<boolean>,
   seller: string,
   sellerCurrency: string,
   sellerExperimentGroupId: number,
   sellerRealTimeReportingConfig: AuctionRealTimeReportingConfig,
-  sellerSignals: any,
+  sellerSignals: Promise<any>,
   sellerTimeout: number,
   sendCreativeScanningMetadata: boolean,
-  serverResponse: Uint8Array,
+  serverResponse: Promise<Uint8Array>,
   signal: AbortSignal | null,
   trustedScoringSignalsCoordinator: string,
   trustedScoringSignalsURL: string,
@@ -101,7 +101,7 @@ type AuctionAdInterestGroup = {
   adComponents: Array<AuctionAd>,
   additionalBidKey: string,
   ads: Array<AuctionAd>,
-  adSizes: string | AuctionAdInterestGroupSize,
+  adSizes: {[string]: AuctionAdInterestGroupSize},
   biddingLogicURL: string,
   biddingWasmHelperURL: string,
   enableBiddingSignalsPrioritization: boolean,
@@ -111,11 +111,11 @@ type AuctionAdInterestGroup = {
   name: string,
   owner: string,
   priority: number,
-  prioritySignalsOverrides: string | number,
-  priorityVector: string | number,
+  prioritySignalsOverrides: {[string]: number},
+  priorityVector: {[string]: number},
   privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
-  sellerCapabilities: string | Array<string>,
-  sizeGroups: string | Array<string>,
+  sellerCapabilities: {[string]: Array<string>},
+  sizeGroups: {[string]: Array<string>},
   trustedBiddingSignalsCoordinator: string,
   trustedBiddingSignalsKeys: Array<string>,
   trustedBiddingSignalsSlotSizeMode: string,
@@ -158,7 +158,7 @@ type BiddingBrowserSignals = {
   multiBidLimit: number,
   prevWinsMs: Array<PreviousWin>,
   recency: number,
-  requestedSize: string | string,
+  requestedSize: {[string]: string},
   seller: string,
   topLevelSeller: string,
   topWindowHostname: string,
@@ -178,7 +178,7 @@ type DirectFromSellerSignalsForSeller = {
 type GenerateBidInterestGroup = {
   adComponents: Array<AuctionAd>,
   ads: Array<AuctionAd>,
-  adSizes: string | AuctionAdInterestGroupSize,
+  adSizes: {[string]: AuctionAdInterestGroupSize},
   biddingLogicURL: string,
   biddingWasmHelperURL: string,
   enableBiddingSignalsPrioritization: boolean,
@@ -186,9 +186,9 @@ type GenerateBidInterestGroup = {
   maxTrustedBiddingSignalsURLLength: number,
   name: string,
   owner: string,
-  priorityVector: string | number,
-  sellerCapabilities: string | Array<string>,
-  sizeGroups: string | Array<string>,
+  priorityVector: {[string]: number},
+  sellerCapabilities: {[string]: Array<string>},
+  sizeGroups: {[string]: Array<string>},
   trustedBiddingSignalsCoordinator: string,
   trustedBiddingSignalsKeys: Array<string>,
   trustedBiddingSignalsSlotSizeMode: string,
@@ -309,7 +309,7 @@ type ScoringBrowserSignals = {
   dataVersion: number,
   forDebuggingOnlyInCooldownOrLockout: boolean,
   interestGroupOwner: string,
-  renderSize: string | string,
+  renderSize: {[string]: string},
   renderURL: string,
   topWindowHostname: string,
 };
@@ -318,7 +318,7 @@ type StorageInterestGroup = {
   adComponents: Array<AuctionAd>,
   additionalBidKey: string,
   ads: Array<AuctionAd>,
-  adSizes: string | AuctionAdInterestGroupSize,
+  adSizes: {[string]: AuctionAdInterestGroupSize},
   bidCount: number,
   biddingLogicURL: string,
   biddingWasmHelperURL: string,
@@ -334,11 +334,11 @@ type StorageInterestGroup = {
   owner: string,
   prevWinsMs: Array<PreviousWin>,
   priority: number,
-  prioritySignalsOverrides: string | number,
-  priorityVector: string | number,
+  prioritySignalsOverrides: {[string]: number},
+  priorityVector: {[string]: number},
   privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
-  sellerCapabilities: string | Array<string>,
-  sizeGroups: string | Array<string>,
+  sellerCapabilities: {[string]: Array<string>},
+  sizeGroups: {[string]: Array<string>},
   timeSinceGroupJoinedMs: number,
   timeSinceLastUpdateMs: number,
   timeUntilNextUpdateMs: number,
@@ -377,7 +377,7 @@ declare class InterestGroupBiddingScriptRunnerGlobalScope
 declare class InterestGroupReportingScriptRunnerGlobalScope
   extends InterestGroupScriptRunnerGlobalScope
 {
-  registerAdBeacon(map: string | string): void;
+  registerAdBeacon(map: {[string]: string}): void;
   registerAdMacro(name: string, value: string): void;
   sendReportTo(url: string): void;
 }
@@ -391,24 +391,26 @@ declare class InterestGroupScriptRunnerGlobalScope {
 }
 
 /* partial */ declare class Navigator {
-  joinAdInterestGroup(group: AuctionAdInterestGroup): void;
+  joinAdInterestGroup(group: AuctionAdInterestGroup): Promise<void>;
 }
 
 /* partial */ declare class Navigator {
-  leaveAdInterestGroup(group?: AuctionAdInterestGroupKey): void;
+  leaveAdInterestGroup(group?: AuctionAdInterestGroupKey): Promise<void>;
 }
 
 /* partial */ declare class Navigator {
   clearOriginJoinedAdInterestGroups(
     owner: string,
     interestGroupsToKeep?: Array<string>,
-  ): void;
+  ): Promise<void>;
 }
 
 /* partial */ declare class Navigator {
   +deprecatedRunAdAuctionEnforcesKAnonymity: boolean;
 
-  runAdAuction(config: AuctionAdConfig): string | FencedFrameConfig | null;
+  runAdAuction(
+    config: AuctionAdConfig,
+  ): Promise<string | FencedFrameConfig | null>;
 }
 
 /* partial */ declare class Navigator {
@@ -416,11 +418,13 @@ declare class InterestGroupScriptRunnerGlobalScope {
 }
 
 /* partial */ declare class Navigator {
-  getInterestGroupAdAuctionData(config?: AdAuctionDataConfig): AdAuctionData;
+  getInterestGroupAdAuctionData(
+    config?: AdAuctionDataConfig,
+  ): Promise<AdAuctionData>;
 }
 
 /* partial */ declare class Navigator {
-  createAuctionNonce(): string;
+  createAuctionNonce(): Promise<string>;
 }
 
 /* partial */ declare class Navigator {

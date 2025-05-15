@@ -1,8 +1,8 @@
 type MLDataTypeList = Array<MLOperandDataType>;
 
-type MLNamedOperands = string | MLOperand;
+type MLNamedOperands = {[string]: MLOperand};
 
-type MLNamedTensors = string | MLTensor;
+type MLNamedTensors = {[string]: MLTensor};
 
 type MLNumber = bigint | number;
 
@@ -765,18 +765,18 @@ type MLWhereSupportLimits = {
 };
 
 declare class ML {
-  createContext(options?: MLContextOptions): MLContext;
-  createContext(gpuDevice: GPUDevice): MLContext;
+  createContext(options?: MLContextOptions): Promise<MLContext>;
+  createContext(gpuDevice: GPUDevice): Promise<MLContext>;
 }
 
 declare class MLContext {
-  +lost: MLContextLostInfo;
+  +lost: Promise<MLContextLostInfo>;
 
   createConstantTensor(
     descriptor: MLOperandDescriptor,
     inputData: AllowSharedBufferSource,
-  ): MLTensor;
-  createTensor(descriptor: MLTensorDescriptor): MLTensor;
+  ): Promise<MLTensor>;
+  createTensor(descriptor: MLTensorDescriptor): Promise<MLTensor>;
   destroy(): void;
   dispatch(
     graph: MLGraph,
@@ -784,8 +784,11 @@ declare class MLContext {
     outputs: MLNamedTensors,
   ): void;
   opSupportLimits(): MLOpSupportLimits;
-  readTensor(tensor: MLTensor): ArrayBuffer;
-  readTensor(tensor: MLTensor, outputData: AllowSharedBufferSource): void;
+  readTensor(tensor: MLTensor): Promise<ArrayBuffer>;
+  readTensor(
+    tensor: MLTensor,
+    outputData: AllowSharedBufferSource,
+  ): Promise<void>;
   writeTensor(tensor: MLTensor, inputData: AllowSharedBufferSource): void;
 }
 
@@ -815,7 +818,7 @@ declare class MLGraphBuilder {
     variance: MLOperand,
     options?: MLBatchNormalizationOptions,
   ): MLOperand;
-  build(outputs: MLNamedOperands): MLGraph;
+  build(outputs: MLNamedOperands): Promise<MLGraph>;
   cast(
     input: MLOperand,
     type: MLOperandDataType,
@@ -1458,14 +1461,14 @@ declare class MLGraphBuilder {
 
 declare class MLOperand {
   +dataType: MLOperandDataType;
-  +shape: number;
+  +shape: $ReadOnlyArray<number>;
 }
 
 declare class MLTensor {
   +constant: boolean;
   +dataType: MLOperandDataType;
   +readable: boolean;
-  +shape: number;
+  +shape: $ReadOnlyArray<number>;
   +writable: boolean;
 
   destroy(): void;

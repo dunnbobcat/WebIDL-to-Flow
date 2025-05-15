@@ -21,7 +21,7 @@ type FenceEvent = {
 };
 
 declare class Fence {
-  disableUntrustedNetwork(): void;
+  disableUntrustedNetwork(): Promise<void>;
   getNestedConfigs(): Array<FencedFrameConfig>;
   notifyEvent(event: Event): void;
   reportEvent(event?: ReportEventType): void;
@@ -48,9 +48,12 @@ declare class HTMLFencedFrameElement extends HTMLElement {
   adAuctionComponents(numAdComponents: number): Array<string>;
   deprecatedReplaceInURN(
     urnOrConfig: UrnOrConfig,
-    replacements: string | string,
-  ): void;
-  deprecatedURNtoURL(urnOrConfig: UrnOrConfig, send_reports?: boolean): string;
+    replacements: {[string]: string},
+  ): Promise<void>;
+  deprecatedURNtoURL(
+    urnOrConfig: UrnOrConfig,
+    send_reports?: boolean,
+  ): Promise<string>;
 }
 
 /* partial */ declare class Window {

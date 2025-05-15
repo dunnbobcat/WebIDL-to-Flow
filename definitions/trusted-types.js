@@ -17,16 +17,19 @@ type CreateScriptURLCallback = (
 
 declare class TrustedHTML {
   toString(): string;
+
   toJSON(): string;
 }
 
 declare class TrustedScript {
   toString(): string;
+
   toJSON(): string;
 }
 
 declare class TrustedScriptURL {
   toString(): string;
+
   toJSON(): string;
 }
 

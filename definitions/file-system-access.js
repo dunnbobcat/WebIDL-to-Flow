@@ -17,7 +17,7 @@ type DirectoryPickerOptions = {
 };
 
 type FilePickerAcceptType = {
-  accept: string | string | Array<string>,
+  accept: {[string]: string | Array<string>},
   description: string,
 };
 
@@ -54,24 +54,26 @@ type SaveFilePickerOptions = {
 };
 
 /* partial */ declare class DataTransferItem {
-  getAsFileSystemHandle(): FileSystemHandle | null;
+  getAsFileSystemHandle(): Promise<FileSystemHandle | null>;
 }
 
 /* partial */ declare class FileSystemHandle {
   queryPermission(
     descriptor?: FileSystemHandlePermissionDescriptor,
-  ): PermissionState;
+  ): Promise<PermissionState>;
   requestPermission(
     descriptor?: FileSystemHandlePermissionDescriptor,
-  ): PermissionState;
+  ): Promise<PermissionState>;
 }
 
 /* partial */ declare class Window {
   showDirectoryPicker(
     options?: DirectoryPickerOptions,
-  ): FileSystemDirectoryHandle;
+  ): Promise<FileSystemDirectoryHandle>;
   showOpenFilePicker(
     options?: OpenFilePickerOptions,
-  ): Array<FileSystemFileHandle>;
-  showSaveFilePicker(options?: SaveFilePickerOptions): FileSystemFileHandle;
+  ): Promise<Array<FileSystemFileHandle>>;
+  showSaveFilePicker(
+    options?: SaveFilePickerOptions,
+  ): Promise<FileSystemFileHandle>;
 }

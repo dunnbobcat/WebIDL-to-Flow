@@ -1,6 +1,6 @@
 type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
 
-type HeadersInit = Array<Array<string>> | string | string;
+type HeadersInit = Array<Array<string>> | {[string]: string};
 
 type RequestInfo = Request | string;
 
@@ -141,14 +141,14 @@ declare class mixin$Body {
   +body: ReadableStream | null;
   +bodyUsed: boolean;
 
-  arrayBuffer(): ArrayBuffer;
-  blob(): Blob;
-  bytes(): Uint8Array;
-  formData(): FormData;
-  json(): any;
-  text(): string;
+  arrayBuffer(): Promise<ArrayBuffer>;
+  blob(): Promise<Blob>;
+  bytes(): Promise<Uint8Array>;
+  formData(): Promise<FormData>;
+  json(): Promise<any>;
+  text(): Promise<string>;
 }
 
 /* partial */ declare class mixin$WindowOrWorkerGlobalScope {
-  fetch(input: RequestInfo, init?: RequestInit): Response;
+  fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
 }

@@ -475,7 +475,7 @@ type GPUDeviceDescriptor = {
   defaultQueue: GPUQueueDescriptor,
   label: string,
   requiredFeatures: Array<GPUFeatureName>,
-  requiredLimits: string | GPUSize64 | void,
+  requiredLimits: {[string]: GPUSize64 | void},
 };
 
 type GPUExtent3DDict = {
@@ -493,7 +493,7 @@ type GPUExternalTextureDescriptor = {
 };
 
 type GPUFragmentState = {
-  constants: string | GPUPipelineConstantValue,
+  constants: {[string]: GPUPipelineConstantValue},
   entryPoint: string,
   module: GPUShaderModule,
   targets: Array<GPUColorTargetState | null>,
@@ -543,7 +543,7 @@ type GPUPrimitiveState = {
 };
 
 type GPUProgrammableStage = {
-  constants: string | GPUPipelineConstantValue,
+  constants: {[string]: GPUPipelineConstantValue},
   entryPoint: string,
   module: GPUShaderModule,
 };
@@ -740,7 +740,7 @@ type GPUVertexBufferLayout = {
 
 type GPUVertexState = {
   buffers: Array<GPUVertexBufferLayout | null>,
-  constants: string | GPUPipelineConstantValue,
+  constants: {[string]: GPUPipelineConstantValue},
   entryPoint: string,
   module: GPUShaderModule,
 };
@@ -789,7 +789,9 @@ declare class GPU {
   +wgslLanguageFeatures: WGSLLanguageFeatures;
 
   getPreferredCanvasFormat(): GPUTextureFormat;
-  requestAdapter(options?: GPURequestAdapterOptions): GPUAdapter | null;
+  requestAdapter(
+    options?: GPURequestAdapterOptions,
+  ): Promise<GPUAdapter | null>;
 }
 
 declare class GPUAdapter {
@@ -797,7 +799,7 @@ declare class GPUAdapter {
   +info: GPUAdapterInfo;
   +limits: GPUSupportedLimits;
 
-  requestDevice(descriptor?: GPUDeviceDescriptor): GPUDevice;
+  requestDevice(descriptor?: GPUDeviceDescriptor): Promise<GPUDevice>;
 }
 
 declare class GPUAdapterInfo {
@@ -821,7 +823,11 @@ declare class GPUBuffer mixins mixin$GPUObjectBase {
 
   destroy(): void;
   getMappedRange(offset?: GPUSize64, size?: GPUSize64): ArrayBuffer;
-  mapAsync(mode: GPUMapModeFlags, offset?: GPUSize64, size?: GPUSize64): void;
+  mapAsync(
+    mode: GPUMapModeFlags,
+    offset?: GPUSize64,
+    size?: GPUSize64,
+  ): Promise<void>;
   unmap(): void;
 }
 
@@ -885,7 +891,7 @@ declare class GPUCommandEncoder
 }
 
 declare class GPUCompilationInfo {
-  +messages: GPUCompilationMessage;
+  +messages: $ReadOnlyArray<GPUCompilationMessage>;
 }
 
 declare class GPUCompilationMessage {
@@ -924,7 +930,7 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   +adapterInfo: GPUAdapterInfo;
   +features: GPUSupportedFeatures;
   +limits: GPUSupportedLimits;
-  +lost: GPUDeviceLostInfo;
+  +lost: Promise<GPUDeviceLostInfo>;
   onuncapturederror: EventHandler;
   +queue: GPUQueue;
 
@@ -941,7 +947,7 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   ): GPUComputePipeline;
   createComputePipelineAsync(
     descriptor: GPUComputePipelineDescriptor,
-  ): GPUComputePipeline;
+  ): Promise<GPUComputePipeline>;
   createPipelineLayout(
     descriptor: GPUPipelineLayoutDescriptor,
   ): GPUPipelineLayout;
@@ -954,7 +960,7 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   ): GPURenderPipeline;
   createRenderPipelineAsync(
     descriptor: GPURenderPipelineDescriptor,
-  ): GPURenderPipeline;
+  ): Promise<GPURenderPipeline>;
   createSampler(descriptor?: GPUSamplerDescriptor): GPUSampler;
   createShaderModule(descriptor: GPUShaderModuleDescriptor): GPUShaderModule;
   createTexture(descriptor: GPUTextureDescriptor): GPUTexture;
@@ -962,16 +968,16 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   importExternalTexture(
     descriptor: GPUExternalTextureDescriptor,
   ): GPUExternalTexture;
-  popErrorScope(): GPUError | null;
+  popErrorScope(): Promise<GPUError | null>;
   pushErrorScope(filter: GPUErrorFilter): void;
 }
 
 /* partial */ declare class GPUDevice mixins mixin$GPUObjectBase {
-  +lost: GPUDeviceLostInfo;
+  +lost: Promise<GPUDeviceLostInfo>;
 }
 
 /* partial */ declare class GPUDevice mixins mixin$GPUObjectBase {
-  popErrorScope(): GPUError | null;
+  popErrorScope(): Promise<GPUError | null>;
   pushErrorScope(filter: GPUErrorFilter): void;
 }
 
@@ -1019,7 +1025,7 @@ declare class GPUQueue mixins mixin$GPUObjectBase {
     destination: GPUCopyExternalImageDestInfo,
     copySize: GPUExtent3D,
   ): void;
-  onSubmittedWorkDone(): void;
+  onSubmittedWorkDone(): Promise<void>;
   submit(commandBuffers: Array<GPUCommandBuffer>): void;
   writeBuffer(
     buffer: GPUBuffer,
@@ -1085,7 +1091,7 @@ declare class GPURenderPipeline
 declare class GPUSampler mixins mixin$GPUObjectBase {}
 
 declare class GPUShaderModule mixins mixin$GPUObjectBase {
-  getCompilationInfo(): GPUCompilationInfo;
+  getCompilationInfo(): Promise<GPUCompilationInfo>;
 }
 
 type GPUSupportedFeatures = Set<string>;

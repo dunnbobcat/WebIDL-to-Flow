@@ -22,7 +22,7 @@ declare class URL {
 declare class URLSearchParams {
   +size: number;
 
-  constructor(init?: Array<Array<string>> | string | string | string): void;
+  constructor(init?: Array<Array<string>> | {[string]: string} | string): void;
 
   @@iterator(): Iterator<string, string>;
 

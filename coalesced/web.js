@@ -1,5 +1,8 @@
 // @flow
 
+type WindowProxy = Window;
+type Float16Array = Float32Array;
+
 type AlgorithmIdentifier = Object | string;
 
 type AllowSharedBufferSource =
@@ -46,7 +49,7 @@ type CanvasImageSource =
   | OffscreenCanvas
   | VideoFrame;
 
-type ClipboardItemData = string | Blob;
+type ClipboardItemData = Promise<string | Blob>;
 
 type ClipboardItems = Array<ClipboardItem>;
 
@@ -195,7 +198,7 @@ type GPUTextureUsageFlags = number;
 
 type HashAlgorithmIdentifier = AlgorithmIdentifier;
 
-type HeadersInit = Array<Array<string>> | string | string;
+type HeadersInit = Array<Array<string>> | {[string]: string};
 
 type HTMLOrSVGImageElement = HTMLImageElement | SVGImageElement;
 
@@ -221,9 +224,9 @@ type Millisecond = number;
 
 type MLDataTypeList = Array<MLOperandDataType>;
 
-type MLNamedOperands = string | MLOperand;
+type MLNamedOperands = {[string]: MLOperand};
 
-type MLNamedTensors = string | MLTensor;
+type MLNamedTensors = {[string]: MLTensor};
 
 type MLNumber = bigint | number;
 
@@ -258,7 +261,7 @@ type PreviousWinElement = number | AuctionAd;
 
 type ProfilerResource = string;
 
-type PublicKeyCredentialClientCapabilities = string | boolean;
+type PublicKeyCredentialClientCapabilities = {[string]: boolean};
 
 type PublicKeyCredentialJSON = Object;
 
@@ -1811,7 +1814,7 @@ type AdAuctionDataBuyerConfig = {
 
 type AdAuctionDataConfig = {
   coordinatorOrigin: string,
-  perBuyerConfig: string | AdAuctionDataBuyerConfig,
+  perBuyerConfig: {[string]: AdAuctionDataBuyerConfig},
   requestSize: number,
   seller: string,
   sellers: Array<AdAuctionOneSeller>,
@@ -1989,42 +1992,42 @@ type AuctionAd = {
 };
 
 type AuctionAdConfig = {
-  additionalBids: void,
-  allSlotsRequestedSizes: Array<string | string>,
+  additionalBids: Promise<void>,
+  allSlotsRequestedSizes: Array<{[string]: string}>,
   auctionNonce: string,
   auctionReportBuyerDebugModeConfig: AuctionReportBuyerDebugModeConfig,
   auctionReportBuyerKeys: Array<bigint>,
-  auctionReportBuyers: string | AuctionReportBuyersConfig,
-  auctionSignals: any,
+  auctionReportBuyers: {[string]: AuctionReportBuyersConfig},
+  auctionSignals: Promise<any>,
   componentAuctions: Array<AuctionAdConfig>,
   decisionLogicURL: string,
-  deprecatedRenderURLReplacements: string | string | null,
-  directFromSellerSignalsHeaderAdSlot: string | null,
+  deprecatedRenderURLReplacements: Promise<{[string]: string} | null>,
+  directFromSellerSignalsHeaderAdSlot: Promise<string | null>,
   interestGroupBuyers: Array<string>,
   maxTrustedScoringSignalsURLLength: number,
-  perBuyerCumulativeTimeouts: string | number | null,
-  perBuyerCurrencies: string | string | null,
-  perBuyerExperimentGroupIds: string | number,
-  perBuyerGroupLimits: string | number,
-  perBuyerMultiBidLimits: string | number,
-  perBuyerPrioritySignals: string | string | number,
-  perBuyerRealTimeReportingConfig: string | AuctionRealTimeReportingConfig,
-  perBuyerSignals: string | any | null,
-  perBuyerTimeouts: string | number | null,
+  perBuyerCumulativeTimeouts: Promise<{[string]: number} | null>,
+  perBuyerCurrencies: Promise<{[string]: string} | null>,
+  perBuyerExperimentGroupIds: {[string]: number},
+  perBuyerGroupLimits: {[string]: number},
+  perBuyerMultiBidLimits: {[string]: number},
+  perBuyerPrioritySignals: {[string]: {[string]: number}},
+  perBuyerRealTimeReportingConfig: {[string]: AuctionRealTimeReportingConfig},
+  perBuyerSignals: Promise<{[string]: any} | null>,
+  perBuyerTimeouts: Promise<{[string]: number} | null>,
   privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
   reportingTimeout: number,
-  requestedSize: string | string,
+  requestedSize: {[string]: string},
   requestId: string,
   requiredSellerCapabilities: Array<string>,
-  resolveToConfig: boolean,
+  resolveToConfig: Promise<boolean>,
   seller: string,
   sellerCurrency: string,
   sellerExperimentGroupId: number,
   sellerRealTimeReportingConfig: AuctionRealTimeReportingConfig,
-  sellerSignals: any,
+  sellerSignals: Promise<any>,
   sellerTimeout: number,
   sendCreativeScanningMetadata: boolean,
-  serverResponse: Uint8Array,
+  serverResponse: Promise<Uint8Array>,
   signal: AbortSignal | null,
   trustedScoringSignalsCoordinator: string,
   trustedScoringSignalsURL: string,
@@ -2034,7 +2037,7 @@ type AuctionAdInterestGroup = {
   adComponents: Array<AuctionAd>,
   additionalBidKey: string,
   ads: Array<AuctionAd>,
-  adSizes: string | AuctionAdInterestGroupSize,
+  adSizes: {[string]: AuctionAdInterestGroupSize},
   biddingLogicURL: string,
   biddingWasmHelperURL: string,
   enableBiddingSignalsPrioritization: boolean,
@@ -2044,11 +2047,11 @@ type AuctionAdInterestGroup = {
   name: string,
   owner: string,
   priority: number,
-  prioritySignalsOverrides: string | number,
-  priorityVector: string | number,
+  prioritySignalsOverrides: {[string]: number},
+  priorityVector: {[string]: number},
   privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
-  sellerCapabilities: string | Array<string>,
-  sizeGroups: string | Array<string>,
+  sellerCapabilities: {[string]: Array<string>},
+  sizeGroups: {[string]: Array<string>},
   trustedBiddingSignalsCoordinator: string,
   trustedBiddingSignalsKeys: Array<string>,
   trustedBiddingSignalsSlotSizeMode: string,
@@ -2206,7 +2209,7 @@ type AudioWorkletNodeOptions = {
   numberOfInputs: number,
   numberOfOutputs: number,
   outputChannelCount: Array<number>,
-  parameterData: string | number,
+  parameterData: {[string]: number},
   processorOptions: Object,
 };
 
@@ -2288,12 +2291,12 @@ type AuthenticationExtensionsPaymentInputs = {
 
 type AuthenticationExtensionsPRFInputs = {
   eval: AuthenticationExtensionsPRFValues,
-  evalByCredential: string | AuthenticationExtensionsPRFValues,
+  evalByCredential: {[string]: AuthenticationExtensionsPRFValues},
 };
 
 type AuthenticationExtensionsPRFInputsJSON = {
   eval: AuthenticationExtensionsPRFValuesJSON,
-  evalByCredential: string | AuthenticationExtensionsPRFValuesJSON,
+  evalByCredential: {[string]: AuthenticationExtensionsPRFValuesJSON},
 };
 
 type AuthenticationExtensionsPRFOutputs = {
@@ -2400,7 +2403,7 @@ type BiddingBrowserSignals = {
   multiBidLimit: number,
   prevWinsMs: Array<PreviousWin>,
   recency: number,
-  requestedSize: string | string,
+  requestedSize: {[string]: string},
   seller: string,
   topLevelSeller: string,
   topWindowHostname: string,
@@ -3308,15 +3311,15 @@ type FetchEventInit = {
   cancelable: boolean,
   clientId: string,
   composed: boolean,
-  handled: void,
-  preloadResponse: any,
+  handled: Promise<void>,
+  preloadResponse: Promise<any>,
   replacesClientId: string,
   request: Request,
   resultingClientId: string,
 };
 
 type FilePickerAcceptType = {
-  accept: string | string | Array<string>,
+  accept: {[string]: string | Array<string>},
   description: string,
 };
 
@@ -3468,7 +3471,7 @@ type GamepadTouch = {
 type GenerateBidInterestGroup = {
   adComponents: Array<AuctionAd>,
   ads: Array<AuctionAd>,
-  adSizes: string | AuctionAdInterestGroupSize,
+  adSizes: {[string]: AuctionAdInterestGroupSize},
   biddingLogicURL: string,
   biddingWasmHelperURL: string,
   enableBiddingSignalsPrioritization: boolean,
@@ -3476,9 +3479,9 @@ type GenerateBidInterestGroup = {
   maxTrustedBiddingSignalsURLLength: number,
   name: string,
   owner: string,
-  priorityVector: string | number,
-  sellerCapabilities: string | Array<string>,
-  sizeGroups: string | Array<string>,
+  priorityVector: {[string]: number},
+  sellerCapabilities: {[string]: Array<string>},
+  sizeGroups: {[string]: Array<string>},
   trustedBiddingSignalsCoordinator: string,
   trustedBiddingSignalsKeys: Array<string>,
   trustedBiddingSignalsSlotSizeMode: string,
@@ -3688,7 +3691,7 @@ type GPUDeviceDescriptor = {
   defaultQueue: GPUQueueDescriptor,
   label: string,
   requiredFeatures: Array<GPUFeatureName>,
-  requiredLimits: string | GPUSize64 | void,
+  requiredLimits: {[string]: GPUSize64 | void},
 };
 
 type GPUExtent3DDict = {
@@ -3706,7 +3709,7 @@ type GPUExternalTextureDescriptor = {
 };
 
 type GPUFragmentState = {
-  constants: string | GPUPipelineConstantValue,
+  constants: {[string]: GPUPipelineConstantValue},
   entryPoint: string,
   module: GPUShaderModule,
   targets: Array<GPUColorTargetState | null>,
@@ -3756,7 +3759,7 @@ type GPUPrimitiveState = {
 };
 
 type GPUProgrammableStage = {
-  constants: string | GPUPipelineConstantValue,
+  constants: {[string]: GPUPipelineConstantValue},
   entryPoint: string,
   module: GPUShaderModule,
 };
@@ -3956,7 +3959,7 @@ type GPUVertexBufferLayout = {
 
 type GPUVertexState = {
   buffers: Array<GPUVertexBufferLayout | null>,
-  constants: string | GPUPipelineConstantValue,
+  constants: {[string]: GPUPipelineConstantValue},
   entryPoint: string,
   module: GPUShaderModule,
 };
@@ -5613,8 +5616,8 @@ type NavigationReloadOptions = {
 };
 
 type NavigationResult = {
-  committed: NavigationHistoryEntry,
-  finished: NavigationHistoryEntry,
+  committed: Promise<NavigationHistoryEntry>,
+  finished: Promise<NavigationHistoryEntry>,
 };
 
 type NavigationUpdateCurrentEntryOptions = {
@@ -6327,7 +6330,7 @@ type PushSubscriptionChangeEventInit = {
 type PushSubscriptionJSON = {
   endpoint: string,
   expirationTime: EpochTimeStamp | null,
-  keys: string | string,
+  keys: {[string]: string},
 };
 
 type PushSubscriptionOptionsInit = {
@@ -6980,7 +6983,7 @@ type RTCOutboundRtpStreamStats = {
   pliCount: number,
   powerEfficientEncoder: boolean,
   qpSum: number,
-  qualityLimitationDurations: string | number,
+  qualityLimitationDurations: {[string]: number},
   qualityLimitationReason: RTCQualityLimitationReason,
   qualityLimitationResolutionChanges: number,
   remoteId: string,
@@ -7318,7 +7321,7 @@ type ScoringBrowserSignals = {
   dataVersion: number,
   forDebuggingOnlyInCooldownOrLockout: boolean,
   interestGroupOwner: string,
-  renderSize: string | string,
+  renderSize: {[string]: string},
   renderURL: string,
   topWindowHostname: string,
 };
@@ -7621,7 +7624,7 @@ type StorageInterestGroup = {
   adComponents: Array<AuctionAd>,
   additionalBidKey: string,
   ads: Array<AuctionAd>,
-  adSizes: string | AuctionAdInterestGroupSize,
+  adSizes: {[string]: AuctionAdInterestGroupSize},
   bidCount: number,
   biddingLogicURL: string,
   biddingWasmHelperURL: string,
@@ -7637,11 +7640,11 @@ type StorageInterestGroup = {
   owner: string,
   prevWinsMs: Array<PreviousWin>,
   priority: number,
-  prioritySignalsOverrides: string | number,
-  priorityVector: string | number,
+  prioritySignalsOverrides: {[string]: number},
+  priorityVector: {[string]: number},
   privateAggregationConfig: ProtectedAudiencePrivateAggregationConfig,
-  sellerCapabilities: string | Array<string>,
-  sizeGroups: string | Array<string>,
+  sellerCapabilities: {[string]: Array<string>},
+  sizeGroups: {[string]: Array<string>},
   timeSinceGroupJoinedMs: number,
   timeSinceLastUpdateMs: number,
   timeUntilNextUpdateMs: number,
@@ -7959,7 +7962,7 @@ type UnknownCredentialOptions = {
 };
 
 type URLPatternComponentResult = {
-  groups: string | string | void,
+  groups: {[string]: string | void},
   input: string,
 };
 
@@ -8619,8 +8622,8 @@ type AnimatorInstanceConstructor = (options: any, state?: any) => any;
 type AudioDataOutputCallback = (output: AudioData) => void;
 
 type AudioWorkletProcessCallback = (
-  inputs: Float32Array,
-  outputs: Float32Array,
+  inputs: $ReadOnlyArray<$ReadOnlyArray<Float32Array>>,
+  outputs: $ReadOnlyArray<$ReadOnlyArray<Float32Array>>,
   parameters: Object,
 ) => boolean;
 
@@ -8685,7 +8688,7 @@ type GenerateAssertionCallback = (
   contents: string,
   origin: string,
   options: RTCIdentityProviderOptions,
-) => RTCIdentityAssertionResult;
+) => Promise<RTCIdentityAssertionResult>;
 
 type IdleRequestCallback = (deadline: IdleDeadline) => void;
 
@@ -8696,7 +8699,7 @@ type IntersectionObserverCallback = (
 
 type LaunchConsumer = (params: LaunchParams) => any;
 
-type LockGrantedCallback = (lock: Lock | null) => any;
+type LockGrantedCallback = (lock: Lock | null) => Promise<any>;
 
 type Mapper = (value: any, index: number) => any;
 
@@ -8707,7 +8710,7 @@ type MutationCallback = (
   observer: MutationObserver,
 ) => void;
 
-type NavigationInterceptHandler = () => void;
+type NavigationInterceptHandler = () => Promise<void>;
 
 type NotificationPermissionCallback = (
   permission: NotificationPermission,
@@ -8769,17 +8772,17 @@ type RTCSessionDescriptionCallback = (
 type RunFunctionForSharedStorageSelectURLOperation = (
   urls: Array<string>,
   data?: any,
-) => number;
+) => Promise<number>;
 
 type SchedulerPostTaskCallback = () => any;
 
 type SubscribeCallback = (subscriber: Subscriber) => void;
 
-type TransformerCancelCallback = (reason: any) => void;
+type TransformerCancelCallback = (reason: any) => Promise<void>;
 
 type TransformerFlushCallback = (
   controller: TransformStreamDefaultController,
-) => void;
+) => Promise<void>;
 
 type TransformerStartCallback = (
   controller: TransformStreamDefaultController,
@@ -8788,11 +8791,11 @@ type TransformerStartCallback = (
 type TransformerTransformCallback = (
   chunk: any,
   controller: TransformStreamDefaultController,
-) => void;
+) => Promise<void>;
 
-type UnderlyingSinkAbortCallback = (reason?: any) => void;
+type UnderlyingSinkAbortCallback = (reason?: any) => Promise<void>;
 
-type UnderlyingSinkCloseCallback = () => void;
+type UnderlyingSinkCloseCallback = () => Promise<void>;
 
 type UnderlyingSinkStartCallback = (
   controller: WritableStreamDefaultController,
@@ -8801,13 +8804,13 @@ type UnderlyingSinkStartCallback = (
 type UnderlyingSinkWriteCallback = (
   chunk: any,
   controller: WritableStreamDefaultController,
-) => void;
+) => Promise<void>;
 
-type UnderlyingSourceCancelCallback = (reason?: any) => void;
+type UnderlyingSourceCancelCallback = (reason?: any) => Promise<void>;
 
 type UnderlyingSourcePullCallback = (
   controller: ReadableStreamController,
-) => void;
+) => Promise<void>;
 
 type UnderlyingSourceStartCallback = (
   controller: ReadableStreamController,
@@ -8816,7 +8819,7 @@ type UnderlyingSourceStartCallback = (
 type ValidateAssertionCallback = (
   assertion: string,
   origin: string,
-) => RTCIdentityValidationResult;
+) => Promise<RTCIdentityValidationResult>;
 
 type VideoFrameOutputCallback = (output: VideoFrame) => void;
 
@@ -8825,7 +8828,7 @@ type VideoFrameRequestCallback = (
   metadata: VideoFrameCallbackMetadata,
 ) => void;
 
-type ViewTransitionUpdateCallback = () => any;
+type ViewTransitionUpdateCallback = () => Promise<any>;
 
 type Visitor = (value: any, index: number) => void;
 
@@ -8918,7 +8921,7 @@ declare namespace CSS {
   declare function grad(value: number): CSSUnitValue;
   declare function Hz(value: number): CSSUnitValue;
   declare function ic(value: number): CSSUnitValue;
-  // declare function in(value: number): CSSUnitValue;
+  /* declare function in(value: number): CSSUnitValue; */
   declare function kHz(value: number): CSSUnitValue;
   declare function lh(value: number): CSSUnitValue;
   declare function lvb(value: number): CSSUnitValue;
@@ -8938,19 +8941,19 @@ declare namespace CSS {
   declare function parseDeclarationList(
     css: CSSStringSource,
     options?: CSSParserOptions,
-  ): Array<CSSParserRule>;
+  ): Promise<Array<CSSParserRule>>;
   declare function parseRule(
     css: CSSStringSource,
     options?: CSSParserOptions,
-  ): CSSParserRule;
+  ): Promise<CSSParserRule>;
   declare function parseRuleList(
     css: CSSStringSource,
     options?: CSSParserOptions,
-  ): Array<CSSParserRule>;
+  ): Promise<Array<CSSParserRule>>;
   declare function parseStylesheet(
     css: CSSStringSource,
     options?: CSSParserOptions,
-  ): Array<CSSParserRule>;
+  ): Promise<Array<CSSParserRule>>;
   declare function parseValue(css: string): CSSToken;
   declare function parseValueList(css: string): Array<CSSToken>;
   declare function pc(value: number): CSSUnitValue;
@@ -9025,24 +9028,24 @@ declare namespace GPUTextureUsage {
 }
 
 declare namespace TestUtils {
-  declare function gc(): void;
+  declare function gc(): Promise<void>;
 }
 
 declare namespace WebAssembly {
-  declare function compile(bytes: BufferSource): Module;
-  declare function compileStreaming(source: Response): Module;
+  declare function compile(bytes: BufferSource): Promise<Module>;
+  declare function compileStreaming(source: Promise<Response>): Promise<Module>;
   declare function instantiate(
     bytes: BufferSource,
     importObject?: Object,
-  ): WebAssemblyInstantiatedSource;
+  ): Promise<WebAssemblyInstantiatedSource>;
   declare function instantiate(
     moduleObject: Module,
     importObject?: Object,
-  ): Instance;
+  ): Promise<Instance>;
   declare function instantiateStreaming(
-    source: Response,
+    source: Promise<Response>,
     importObject?: Object,
-  ): WebAssemblyInstantiatedSource;
+  ): Promise<WebAssemblyInstantiatedSource>;
   declare function validate(bytes: BufferSource): boolean;
 }
 
@@ -9109,7 +9112,7 @@ declare class AnalyserNode extends AudioNode {
 declare class Animation extends EventTarget {
   currentTime: CSSNumberish | null;
   effect: AnimationEffect | null;
-  +finished: Animation;
+  +finished: Promise<Animation>;
   id: string;
   oncancel: EventHandler;
   onfinish: EventHandler;
@@ -9118,7 +9121,7 @@ declare class Animation extends EventTarget {
   +pending: boolean;
   playbackRate: number;
   +playState: AnimationPlayState;
-  +ready: Animation;
+  +ready: Promise<Animation>;
   +replaceState: AnimationReplaceState;
   startTime: CSSNumberish | null;
   timeline: AnimationTimeline | null;
@@ -9255,7 +9258,7 @@ declare class AudioContext extends BaseAudioContext {
 
   constructor(contextOptions?: AudioContextOptions): void;
 
-  close(): void;
+  close(): Promise<void>;
   createMediaElementSource(
     mediaElement: HTMLMediaElement,
   ): MediaElementAudioSourceNode;
@@ -9265,9 +9268,9 @@ declare class AudioContext extends BaseAudioContext {
     mediaStreamTrack: MediaStreamTrack,
   ): MediaStreamTrackAudioSourceNode;
   getOutputTimestamp(): AudioTimestamp;
-  resume(): void;
-  setSinkId(sinkId: string | AudioSinkOptions): void;
-  suspend(): void;
+  resume(): Promise<void>;
+  setSinkId(sinkId: string | AudioSinkOptions): Promise<void>;
+  suspend(): Promise<void>;
 }
 
 declare class AudioData {
@@ -9296,11 +9299,13 @@ declare class AudioDecoder extends EventTarget {
 
   constructor(init: AudioDecoderInit): void;
 
-  static isConfigSupported(config: AudioDecoderConfig): AudioDecoderSupport;
+  static isConfigSupported(
+    config: AudioDecoderConfig,
+  ): Promise<AudioDecoderSupport>;
   close(): void;
   configure(config: AudioDecoderConfig): void;
   decode(chunk: EncodedAudioChunk): void;
-  flush(): void;
+  flush(): Promise<void>;
   reset(): void;
 }
 
@@ -9315,11 +9320,13 @@ declare class AudioEncoder extends EventTarget {
 
   constructor(init: AudioEncoderInit): void;
 
-  static isConfigSupported(config: AudioEncoderConfig): AudioEncoderSupport;
+  static isConfigSupported(
+    config: AudioEncoderConfig,
+  ): Promise<AudioEncoderSupport>;
   close(): void;
   configure(config: AudioEncoderConfig): void;
   encode(data: AudioData): void;
-  flush(): void;
+  flush(): Promise<void>;
   reset(): void;
 }
 
@@ -9503,14 +9510,14 @@ declare class BackgroundFetchManager {
     id: string,
     requests: RequestInfo | Array<RequestInfo>,
     options?: BackgroundFetchOptions,
-  ): BackgroundFetchRegistration;
-  get(id: string): BackgroundFetchRegistration | null;
-  getIds(): Array<string>;
+  ): Promise<BackgroundFetchRegistration>;
+  get(id: string): Promise<BackgroundFetchRegistration | null>;
+  getIds(): Promise<Array<string>>;
 }
 
 declare class BackgroundFetchRecord {
   +request: Request;
-  +responseReady: Response;
+  +responseReady: Promise<Response>;
 }
 
 declare class BackgroundFetchRegistration extends EventTarget {
@@ -9524,28 +9531,28 @@ declare class BackgroundFetchRegistration extends EventTarget {
   +uploaded: number;
   +uploadTotal: number;
 
-  abort(): boolean;
+  abort(): Promise<boolean>;
   match(
     request: RequestInfo,
     options?: CacheQueryOptions,
-  ): BackgroundFetchRecord;
+  ): Promise<BackgroundFetchRecord>;
   matchAll(
     request?: RequestInfo,
     options?: CacheQueryOptions,
-  ): Array<BackgroundFetchRecord>;
+  ): Promise<Array<BackgroundFetchRecord>>;
 }
 
 declare class BackgroundFetchUpdateUIEvent extends BackgroundFetchEvent {
   constructor(type: string, init: BackgroundFetchEventInit): void;
 
-  updateUI(options?: BackgroundFetchUIOptions): void;
+  updateUI(options?: BackgroundFetchUIOptions): Promise<void>;
 }
 
 declare class BarcodeDetector {
   constructor(barcodeDetectorOptions?: BarcodeDetectorOptions): void;
 
-  static getSupportedFormats(): Array<BarcodeFormat>;
-  detect(image: ImageBitmapSource): Array<DetectedBarcode>;
+  static getSupportedFormats(): Promise<Array<BarcodeFormat>>;
+  detect(image: ImageBitmapSource): Promise<Array<DetectedBarcode>>;
 }
 
 declare class BarProp {
@@ -9599,7 +9606,7 @@ declare class BaseAudioContext extends EventTarget {
     audioData: ArrayBuffer,
     successCallback?: DecodeSuccessCallback | null,
     errorCallback?: DecodeErrorCallback | null,
-  ): AudioBuffer;
+  ): Promise<AudioBuffer>;
 }
 
 declare class Baseline {
@@ -9621,7 +9628,7 @@ declare class BatteryManager extends EventTarget {
 declare class BeforeInstallPromptEvent extends Event {
   constructor(type: string, eventInitDict?: EventInit): void;
 
-  prompt(): PromptResponseObject;
+  prompt(): Promise<PromptResponseObject>;
 }
 
 declare class BeforeUnloadEvent extends Event {
@@ -9650,11 +9657,11 @@ declare class Blob {
 
   constructor(blobParts?: Array<BlobPart>, options?: BlobPropertyBag): void;
 
-  arrayBuffer(): ArrayBuffer;
-  bytes(): Uint8Array;
+  arrayBuffer(): Promise<ArrayBuffer>;
+  bytes(): Promise<Uint8Array>;
   slice(start?: number, end?: number, contentType?: string): Blob;
   stream(): ReadableStream;
-  text(): string;
+  text(): Promise<string>;
 }
 
 declare class BlobEvent extends Event {
@@ -9674,10 +9681,10 @@ declare class Bluetooth
   onavailabilitychanged: EventHandler;
   +referringDevice: BluetoothDevice | null;
 
-  getAvailability(): boolean;
-  getDevices(): Array<BluetoothDevice>;
-  requestDevice(options?: RequestDeviceOptions): BluetoothDevice;
-  requestLEScan(options?: BluetoothLEScanOptions): BluetoothLEScan;
+  getAvailability(): Promise<boolean>;
+  getDevices(): Promise<Array<BluetoothDevice>>;
+  requestDevice(options?: RequestDeviceOptions): Promise<BluetoothDevice>;
+  requestLEScan(options?: BluetoothLEScanOptions): Promise<BluetoothLEScan>;
 }
 
 declare class BluetoothAdvertisingEvent extends Event {
@@ -9688,7 +9695,7 @@ declare class BluetoothAdvertisingEvent extends Event {
   +rssi: number | null;
   +serviceData: BluetoothServiceDataMap;
   +txPower: number | null;
-  +uuids: UUID;
+  +uuids: $ReadOnlyArray<UUID>;
 
   constructor(type: string, init: BluetoothAdvertisingEventInit): void;
 }
@@ -9724,14 +9731,14 @@ declare class BluetoothDevice
   +name: string | null;
   +watchingAdvertisements: boolean;
 
-  forget(): void;
-  watchAdvertisements(options?: WatchAdvertisementsOptions): void;
+  forget(): Promise<void>;
+  watchAdvertisements(options?: WatchAdvertisementsOptions): Promise<void>;
 }
 
 declare class BluetoothLEScan {
   +acceptAllAdvertisements: boolean;
   +active: boolean;
-  +filters: BluetoothLEScanFilter;
+  +filters: $ReadOnlyArray<BluetoothLEScanFilter>;
   +keepRepeatedDevices: boolean;
 
   stop(): void;
@@ -9742,13 +9749,13 @@ declare class BluetoothLEScanFilter {
   +name: string | null;
   +namePrefix: string | null;
   +serviceData: BluetoothServiceDataFilter;
-  +services: UUID;
+  +services: $ReadOnlyArray<UUID>;
 
   constructor(init?: BluetoothLEScanFilterInit): void;
 }
 
 declare class BluetoothLEScanPermissionResult extends PermissionStatus {
-  scans: BluetoothLEScan;
+  scans: $ReadOnlyArray<BluetoothLEScan>;
 }
 
 declare class BluetoothManufacturerDataFilter {
@@ -9758,7 +9765,7 @@ declare class BluetoothManufacturerDataFilter {
 type BluetoothManufacturerDataMap = Map<number, DataView>;
 
 declare class BluetoothPermissionResult extends PermissionStatus {
-  devices: BluetoothDevice;
+  devices: $ReadOnlyArray<BluetoothDevice>;
 }
 
 declare class BluetoothRemoteGATTCharacteristic
@@ -9772,16 +9779,16 @@ declare class BluetoothRemoteGATTCharacteristic
 
   getDescriptor(
     descriptor: BluetoothDescriptorUUID,
-  ): BluetoothRemoteGATTDescriptor;
+  ): Promise<BluetoothRemoteGATTDescriptor>;
   getDescriptors(
     descriptor?: BluetoothDescriptorUUID,
-  ): Array<BluetoothRemoteGATTDescriptor>;
-  readValue(): DataView;
-  startNotifications(): BluetoothRemoteGATTCharacteristic;
-  stopNotifications(): BluetoothRemoteGATTCharacteristic;
-  writeValue(value: BufferSource): void;
-  writeValueWithoutResponse(value: BufferSource): void;
-  writeValueWithResponse(value: BufferSource): void;
+  ): Promise<Array<BluetoothRemoteGATTDescriptor>>;
+  readValue(): Promise<DataView>;
+  startNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
+  stopNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
+  writeValue(value: BufferSource): Promise<void>;
+  writeValueWithoutResponse(value: BufferSource): Promise<void>;
+  writeValueWithResponse(value: BufferSource): Promise<void>;
 }
 
 declare class BluetoothRemoteGATTDescriptor {
@@ -9789,20 +9796,22 @@ declare class BluetoothRemoteGATTDescriptor {
   +uuid: UUID;
   +value: DataView | null;
 
-  readValue(): DataView;
-  writeValue(value: BufferSource): void;
+  readValue(): Promise<DataView>;
+  writeValue(value: BufferSource): Promise<void>;
 }
 
 declare class BluetoothRemoteGATTServer {
   +connected: boolean;
   +device: BluetoothDevice;
 
-  connect(): BluetoothRemoteGATTServer;
+  connect(): Promise<BluetoothRemoteGATTServer>;
   disconnect(): void;
-  getPrimaryService(service: BluetoothServiceUUID): BluetoothRemoteGATTService;
+  getPrimaryService(
+    service: BluetoothServiceUUID,
+  ): Promise<BluetoothRemoteGATTService>;
   getPrimaryServices(
     service?: BluetoothServiceUUID,
-  ): Array<BluetoothRemoteGATTService>;
+  ): Promise<Array<BluetoothRemoteGATTService>>;
 }
 
 declare class BluetoothRemoteGATTService
@@ -9815,14 +9824,16 @@ declare class BluetoothRemoteGATTService
 
   getCharacteristic(
     characteristic: BluetoothCharacteristicUUID,
-  ): BluetoothRemoteGATTCharacteristic;
+  ): Promise<BluetoothRemoteGATTCharacteristic>;
   getCharacteristics(
     characteristic?: BluetoothCharacteristicUUID,
-  ): Array<BluetoothRemoteGATTCharacteristic>;
-  getIncludedService(service: BluetoothServiceUUID): BluetoothRemoteGATTService;
+  ): Promise<Array<BluetoothRemoteGATTCharacteristic>>;
+  getIncludedService(
+    service: BluetoothServiceUUID,
+  ): Promise<BluetoothRemoteGATTService>;
   getIncludedServices(
     service?: BluetoothServiceUUID,
-  ): Array<BluetoothRemoteGATTService>;
+  ): Promise<Array<BluetoothRemoteGATTService>>;
 }
 
 declare class BluetoothServiceDataFilter {
@@ -9839,7 +9850,7 @@ declare class BluetoothUUID {
 }
 
 declare class BreakToken {
-  +childBreakTokens: ChildBreakToken;
+  +childBreakTokens: $ReadOnlyArray<ChildBreakToken>;
   +data: any;
 }
 
@@ -9856,8 +9867,8 @@ declare class BroadcastChannel extends EventTarget {
 
 declare class BrowserCaptureMediaStreamTrack extends MediaStreamTrack {
   clone(): BrowserCaptureMediaStreamTrack;
-  cropTo(cropTarget: CropTarget | null): void;
-  restrictTo(RestrictionTarget: RestrictionTarget | null): void;
+  cropTo(cropTarget: CropTarget | null): Promise<void>;
+  restrictTo(RestrictionTarget: RestrictionTarget | null): Promise<void>;
 }
 
 declare class BufferedChangeEvent extends Event {
@@ -9875,30 +9886,39 @@ declare class ByteLengthQueuingStrategy {
 }
 
 declare class Cache {
-  add(request: RequestInfo): void;
-  addAll(requests: Array<RequestInfo>): void;
-  delete(request: RequestInfo, options?: CacheQueryOptions): boolean;
-  keys(request?: RequestInfo, options?: CacheQueryOptions): Request;
-  match(request: RequestInfo, options?: CacheQueryOptions): Response | void;
-  matchAll(request?: RequestInfo, options?: CacheQueryOptions): Response;
-  put(request: RequestInfo, response: Response): void;
+  add(request: RequestInfo): Promise<void>;
+  addAll(requests: Array<RequestInfo>): Promise<void>;
+  delete(request: RequestInfo, options?: CacheQueryOptions): Promise<boolean>;
+  keys(
+    request?: RequestInfo,
+    options?: CacheQueryOptions,
+  ): Promise<$ReadOnlyArray<Request>>;
+  match(
+    request: RequestInfo,
+    options?: CacheQueryOptions,
+  ): Promise<Response | void>;
+  matchAll(
+    request?: RequestInfo,
+    options?: CacheQueryOptions,
+  ): Promise<$ReadOnlyArray<Response>>;
+  put(request: RequestInfo, response: Response): Promise<void>;
 }
 
 declare class CacheStorage {
-  delete(cacheName: string): boolean;
-  has(cacheName: string): boolean;
-  keys(): Array<string>;
+  delete(cacheName: string): Promise<boolean>;
+  has(cacheName: string): Promise<boolean>;
+  keys(): Promise<Array<string>>;
   match(
     request: RequestInfo,
     options?: MultiCacheQueryOptions,
-  ): Response | void;
-  open(cacheName: string): Cache;
+  ): Promise<Response | void>;
+  open(cacheName: string): Promise<Cache>;
 }
 
 declare class CanMakePaymentEvent extends ExtendableEvent {
   constructor(type: string): void;
 
-  respondWith(canMakePaymentResponse: boolean): void;
+  respondWith(canMakePaymentResponse: Promise<boolean>): void;
 }
 
 declare class CanvasCaptureMediaStreamTrack extends MediaStreamTrack {
@@ -9952,11 +9972,11 @@ declare class CaptureController extends EventTarget {
   constructor(): void;
   constructor(): void;
 
-  decreaseZoomLevel(): void;
-  forwardWheel(element: HTMLElement | null): void;
+  decreaseZoomLevel(): Promise<void>;
+  forwardWheel(element: HTMLElement | null): Promise<void>;
   getSupportedZoomLevels(): Array<number>;
-  increaseZoomLevel(): void;
-  resetZoomLevel(): void;
+  increaseZoomLevel(): Promise<void>;
+  resetZoomLevel(): Promise<void>;
   setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
 }
 
@@ -9988,7 +10008,7 @@ declare class ChannelSplitterNode extends AudioNode {
 }
 
 declare class ChapterInformation {
-  +artwork: MediaImage;
+  +artwork: $ReadOnlyArray<MediaImage>;
   +startTime: number;
   +title: string;
 }
@@ -10031,17 +10051,17 @@ declare class Client {
 }
 
 declare class Clients {
-  claim(): void;
-  get(id: string): Client | void;
-  matchAll(options?: ClientQueryOptions): Client;
-  openWindow(url: string): WindowClient | null;
+  claim(): Promise<void>;
+  get(id: string): Promise<Client | void>;
+  matchAll(options?: ClientQueryOptions): Promise<$ReadOnlyArray<Client>>;
+  openWindow(url: string): Promise<WindowClient | null>;
 }
 
 declare class Clipboard extends EventTarget {
-  read(formats?: ClipboardUnsanitizedFormats): ClipboardItems;
-  readText(): string;
-  write(data: ClipboardItems): void;
-  writeText(data: string): void;
+  read(formats?: ClipboardUnsanitizedFormats): Promise<ClipboardItems>;
+  readText(): Promise<string>;
+  write(data: ClipboardItems): Promise<void>;
+  writeText(data: string): Promise<void>;
 }
 
 declare class ClipboardEvent extends Event {
@@ -10052,15 +10072,15 @@ declare class ClipboardEvent extends Event {
 
 declare class ClipboardItem {
   +presentationStyle: PresentationStyle;
-  +types: string;
+  +types: $ReadOnlyArray<string>;
 
   constructor(
-    items: string | ClipboardItemData,
+    items: {[string]: ClipboardItemData},
     options?: ClipboardItemOptions,
   ): void;
 
   static supports(type: string): boolean;
-  getType(type: string): Blob;
+  getType(type: string): Promise<Blob>;
 }
 
 declare class CloseEvent extends Event {
@@ -10118,7 +10138,7 @@ declare class ConstantSourceNode extends AudioScheduledSourceNode {
 }
 
 declare class ContactAddress {
-  +addressLine: string;
+  +addressLine: $ReadOnlyArray<string>;
   +city: string;
   +country: string;
   +dependentLocality: string;
@@ -10133,17 +10153,17 @@ declare class ContactAddress {
 }
 
 declare class ContactsManager {
-  getProperties(): Array<ContactProperty>;
+  getProperties(): Promise<Array<ContactProperty>>;
   select(
     properties: Array<ContactProperty>,
     options?: ContactsSelectOptions,
-  ): Array<ContactInfo>;
+  ): Promise<Array<ContactInfo>>;
 }
 
 declare class ContentIndex {
-  add(description: ContentDescription): void;
-  delete(id: string): void;
-  getAll(): Array<ContentDescription>;
+  add(description: ContentDescription): Promise<void>;
+  delete(id: string): Promise<void>;
+  getAll(): Promise<Array<ContentDescription>>;
 }
 
 declare class ContentIndexEvent extends ExtendableEvent {
@@ -10169,8 +10189,8 @@ declare class ConvolverNode extends AudioNode {
 }
 
 declare class CookieChangeEvent extends Event {
-  +changed: CookieListItem;
-  +deleted: CookieListItem;
+  +changed: $ReadOnlyArray<CookieListItem>;
+  +deleted: $ReadOnlyArray<CookieListItem>;
 
   constructor(type: string, eventInitDict?: CookieChangeEventInit): void;
 }
@@ -10178,20 +10198,20 @@ declare class CookieChangeEvent extends Event {
 declare class CookieStore extends EventTarget {
   onchange: EventHandler;
 
-  delete(name: string): void;
-  delete(options: CookieStoreDeleteOptions): void;
-  get(name: string): CookieListItem | null;
-  get(options?: CookieStoreGetOptions): CookieListItem | null;
-  getAll(name: string): CookieList;
-  getAll(options?: CookieStoreGetOptions): CookieList;
-  set(name: string, value: string): void;
-  set(options: CookieInit): void;
+  delete(name: string): Promise<void>;
+  delete(options: CookieStoreDeleteOptions): Promise<void>;
+  get(name: string): Promise<CookieListItem | null>;
+  get(options?: CookieStoreGetOptions): Promise<CookieListItem | null>;
+  getAll(name: string): Promise<CookieList>;
+  getAll(options?: CookieStoreGetOptions): Promise<CookieList>;
+  set(name: string, value: string): Promise<void>;
+  set(options: CookieInit): Promise<void>;
 }
 
 declare class CookieStoreManager {
-  getSubscriptions(): Array<CookieStoreGetOptions>;
-  subscribe(subscriptions: Array<CookieStoreGetOptions>): void;
-  unsubscribe(subscriptions: Array<CookieStoreGetOptions>): void;
+  getSubscriptions(): Promise<Array<CookieStoreGetOptions>>;
+  subscribe(subscriptions: Array<CookieStoreGetOptions>): Promise<void>;
+  unsubscribe(subscriptions: Array<CookieStoreGetOptions>): Promise<void>;
 }
 
 declare class CountQueuingStrategy {
@@ -10218,19 +10238,19 @@ declare class Credential {
   +id: string;
   +type: string;
 
-  static isConditionalMediationAvailable(): boolean;
-  static willRequestConditionalCreation(): void;
+  static isConditionalMediationAvailable(): Promise<boolean>;
+  static willRequestConditionalCreation(): Promise<void>;
 }
 
 declare class CredentialsContainer {
-  create(options?: CredentialCreationOptions): Credential | null;
-  get(options?: CredentialRequestOptions): Credential | null;
-  preventSilentAccess(): void;
-  store(credential: Credential): void;
+  create(options?: CredentialCreationOptions): Promise<Credential | null>;
+  get(options?: CredentialRequestOptions): Promise<Credential | null>;
+  preventSilentAccess(): Promise<void>;
+  store(credential: Credential): Promise<void>;
 }
 
 declare class CropTarget {
-  static fromElement(element: Element): CropTarget;
+  static fromElement(element: Element): Promise<CropTarget>;
 }
 
 declare class Crypto {
@@ -10269,7 +10289,7 @@ declare class CSSAnimation extends Animation {
 
 declare class CSSColor extends CSSColorValue {
   alpha: CSSNumberish;
-  channels: CSSColorPercent;
+  channels: Array<CSSColorPercent>;
   colorSpace: CSSKeywordish;
 
   constructor(
@@ -10464,7 +10484,7 @@ declare class CSSLayerBlockRule extends CSSGroupingRule {
 }
 
 declare class CSSLayerStatementRule extends CSSRule {
-  +nameList: string;
+  +nameList: $ReadOnlyArray<string>;
 }
 
 declare class CSSLCH extends CSSColorValue {
@@ -10629,9 +10649,9 @@ declare class CSSPageRule extends CSSGroupingRule {
 }
 
 declare class CSSParserAtRule extends CSSParserRule {
-  +body: CSSParserRule | null;
+  +body: $ReadOnlyArray<CSSParserRule> | null;
   +name: string;
-  +prelude: CSSParserValue;
+  +prelude: $ReadOnlyArray<CSSParserValue>;
 
   constructor(
     name: string,
@@ -10643,7 +10663,7 @@ declare class CSSParserAtRule extends CSSParserRule {
 }
 
 declare class CSSParserBlock extends CSSParserValue {
-  +body: CSSParserValue;
+  +body: $ReadOnlyArray<CSSParserValue>;
   +name: string;
 
   constructor(name: string, body: Array<CSSParserValue>): void;
@@ -10652,7 +10672,7 @@ declare class CSSParserBlock extends CSSParserValue {
 }
 
 declare class CSSParserDeclaration extends CSSParserRule {
-  +body: CSSParserValue;
+  +body: $ReadOnlyArray<CSSParserValue>;
   +name: string;
 
   constructor(name: string, body?: Array<CSSParserRule>): void;
@@ -10661,7 +10681,7 @@ declare class CSSParserDeclaration extends CSSParserRule {
 }
 
 declare class CSSParserFunction extends CSSParserValue {
-  +args: CSSParserValue;
+  +args: $ReadOnlyArray<$ReadOnlyArray<CSSParserValue>>;
   +name: string;
 
   constructor(name: string, args: Array<Array<CSSParserValue>>): void;
@@ -10670,8 +10690,8 @@ declare class CSSParserFunction extends CSSParserValue {
 }
 
 declare class CSSParserQualifiedRule extends CSSParserRule {
-  +body: CSSParserRule;
-  +prelude: CSSParserValue;
+  +body: $ReadOnlyArray<CSSParserRule>;
+  +prelude: $ReadOnlyArray<CSSParserValue>;
 
   constructor(
     prelude: Array<CSSToken>,
@@ -10876,7 +10896,7 @@ declare class CSSStyleSheet extends StyleSheet {
   deleteRule(index: number): void;
   insertRule(rule: string, index?: number): number;
   removeRule(index?: number): void;
-  replace(text: string): CSSStyleSheet;
+  replace(text: string): Promise<CSSStyleSheet>;
   replaceSync(text: string): void;
 }
 
@@ -10894,6 +10914,7 @@ declare class CSSTransformComponent {
   is2D: boolean;
 
   toString(): string;
+
   toMatrix(): DOMMatrix;
 }
 
@@ -10953,7 +10974,7 @@ declare class CSSVariableReferenceValue {
 
 declare class CSSViewTransitionRule extends CSSRule {
   +navigation: string;
-  +types: string;
+  +types: $ReadOnlyArray<string>;
 }
 
 declare class CustomElementRegistry {
@@ -10968,7 +10989,7 @@ declare class CustomElementRegistry {
   getName(constructor_: CustomElementConstructor): string | null;
   initialize(root: Node): void;
   upgrade(root: Node): void;
-  whenDefined(name: string): CustomElementConstructor;
+  whenDefined(name: string): Promise<CustomElementConstructor>;
 }
 
 declare class CustomEvent extends Event {
@@ -11003,7 +11024,7 @@ declare class DataTransfer {
   effectAllowed: string;
   +files: FileList;
   +items: DataTransferItemList;
-  +types: string;
+  +types: $ReadOnlyArray<string>;
 
   constructor(): void;
 
@@ -11018,7 +11039,7 @@ declare class DataTransferItem {
   +type: string;
 
   getAsFile(): File | null;
-  getAsFileSystemHandle(): FileSystemHandle | null;
+  getAsFileSystemHandle(): Promise<FileSystemHandle | null>;
   getAsString(callback: FunctionStringCallback | null): void;
   webkitGetAsEntry(): FileSystemEntry | null;
 }
@@ -11073,8 +11094,8 @@ declare class DeprecationReportBody extends ReportBody {
 }
 
 declare class DeviceChangeEvent extends Event {
-  +devices: MediaDeviceInfo;
-  +userInsertedDevices: MediaDeviceInfo;
+  +devices: $ReadOnlyArray<MediaDeviceInfo>;
+  +userInsertedDevices: $ReadOnlyArray<MediaDeviceInfo>;
 
   constructor(type: string, eventInitDict?: DeviceChangeEventInit): void;
 }
@@ -11087,7 +11108,7 @@ declare class DeviceMotionEvent extends Event {
 
   constructor(type: string, eventInitDict?: DeviceMotionEventInit): void;
 
-  static requestPermission(): PermissionState;
+  static requestPermission(): Promise<PermissionState>;
 }
 
 declare class DeviceMotionEventAcceleration {
@@ -11110,7 +11131,7 @@ declare class DeviceOrientationEvent extends Event {
 
   constructor(type: string, eventInitDict?: DeviceOrientationEventInit): void;
 
-  static requestPermission(absolute?: boolean): PermissionState;
+  static requestPermission(absolute?: boolean): Promise<PermissionState>;
 }
 
 declare class DevicePosture extends EventTarget {
@@ -11124,10 +11145,10 @@ declare class DigitalCredential extends Credential {
 }
 
 declare class DigitalGoodsService {
-  consume(purchaseToken: string): void;
-  getDetails(itemIds: Array<string>): Array<ItemDetails>;
-  listPurchaseHistory(): Array<PurchaseDetails>;
-  listPurchases(): Array<PurchaseDetails>;
+  consume(purchaseToken: string): Promise<void>;
+  getDetails(itemIds: Array<string>): Promise<Array<ItemDetails>>;
+  listPurchaseHistory(): Promise<Array<PurchaseDetails>>;
+  listPurchases(): Promise<Array<PurchaseDetails>>;
 }
 
 declare class Document
@@ -11247,8 +11268,8 @@ declare class Document
   elementFromPoint(x: number, y: number): Element | null;
   elementsFromPoint(x: number, y: number): Array<Element>;
   execCommand(commandId: string, showUI?: boolean, value?: string): boolean;
-  exitFullscreen(): void;
-  exitPictureInPicture(): void;
+  exitFullscreen(): Promise<void>;
+  exitPictureInPicture(): Promise<void>;
   exitPointerLock(): void;
   getElementsByClassName(classNames: string): HTMLCollection;
   getElementsByName(elementName: string): NodeList;
@@ -11259,10 +11280,10 @@ declare class Document
   ): HTMLCollection;
   getSelection(): Selection | null;
   hasFocus(): boolean;
-  hasPrivateToken(issuer: string): boolean;
-  hasRedemptionRecord(issuer: string): boolean;
-  hasStorageAccess(): boolean;
-  hasUnpartitionedCookieAccess(): boolean;
+  hasPrivateToken(issuer: string): Promise<boolean>;
+  hasRedemptionRecord(issuer: string): Promise<boolean>;
+  hasStorageAccess(): Promise<boolean>;
+  hasUnpartitionedCookieAccess(): Promise<boolean>;
   importNode(node: Node, options?: boolean | ImportNodeOptions): Node;
   measureElement(element: Element): FontMetrics;
   measureText(text: string, styleMap: StylePropertyMapReadOnly): FontMetrics;
@@ -11278,8 +11299,8 @@ declare class Document
   queryCommandState(commandId: string): boolean;
   queryCommandSupported(commandId: string): boolean;
   queryCommandValue(commandId: string): string;
-  requestStorageAccess(): void;
-  requestStorageAccessFor(requestedOrigin: string): void;
+  requestStorageAccess(): Promise<void>;
+  requestStorageAccessFor(requestedOrigin: string): Promise<void>;
   write(text: TrustedHTML | string): void;
   writeln(text: TrustedHTML | string): void;
 }
@@ -11295,7 +11316,7 @@ declare class DocumentPictureInPicture extends EventTarget {
   onenter: EventHandler;
   +window: Window;
 
-  requestWindow(options?: DocumentPictureInPictureOptions): Window;
+  requestWindow(options?: DocumentPictureInPictureOptions): Promise<Window>;
 }
 
 declare class DocumentPictureInPictureEvent extends Event {
@@ -11724,8 +11745,8 @@ declare class Element
   removeAttribute(qualifiedName: string): void;
   removeAttributeNode(attr: Attr): Attr;
   removeAttributeNS(namespace: string | null, localName: string): void;
-  requestFullscreen(options?: FullscreenOptions): void;
-  requestPointerLock(options?: PointerLockOptions): void;
+  requestFullscreen(options?: FullscreenOptions): Promise<void>;
+  requestPointerLock(options?: PointerLockOptions): Promise<void>;
   scroll(options?: ScrollToOptions): void;
   scroll(x: number, y: number): void;
   scrollBy(options?: ScrollToOptions): void;
@@ -11871,8 +11892,8 @@ declare class EventTarget {
 }
 
 declare class ExtendableCookieChangeEvent extends ExtendableEvent {
-  +changed: CookieListItem;
-  +deleted: CookieListItem;
+  +changed: $ReadOnlyArray<CookieListItem>;
+  +deleted: $ReadOnlyArray<CookieListItem>;
 
   constructor(
     type: string,
@@ -11883,14 +11904,14 @@ declare class ExtendableCookieChangeEvent extends ExtendableEvent {
 declare class ExtendableEvent extends Event {
   constructor(type: string, eventInitDict?: ExtendableEventInit): void;
 
-  waitUntil(f: any): void;
+  waitUntil(f: Promise<any>): void;
 }
 
 declare class ExtendableMessageEvent extends ExtendableEvent {
   +data: any;
   +lastEventId: string;
   +origin: string;
-  +ports: MessagePort;
+  +ports: $ReadOnlyArray<MessagePort>;
   +source: Client | ServiceWorker | MessagePort | null;
 
   constructor(type: string, eventInitDict?: ExtendableMessageEventInit): void;
@@ -11904,13 +11925,13 @@ declare class External {
 declare class EyeDropper {
   constructor(): void;
 
-  open(options?: ColorSelectionOptions): ColorSelectionResult;
+  open(options?: ColorSelectionOptions): Promise<ColorSelectionResult>;
 }
 
 declare class FaceDetector {
   constructor(faceDetectorOptions?: FaceDetectorOptions): void;
 
-  detect(image: ImageBitmapSource): Array<DetectedFace>;
+  detect(image: ImageBitmapSource): Promise<Array<DetectedFace>>;
 }
 
 declare class FederatedCredential
@@ -11924,7 +11945,7 @@ declare class FederatedCredential
 }
 
 declare class Fence {
-  disableUntrustedNetwork(): void;
+  disableUntrustedNetwork(): Promise<void>;
   getNestedConfigs(): Array<FencedFrameConfig>;
   notifyEvent(event: Event): void;
   reportEvent(event?: ReportEventType): void;
@@ -11939,15 +11960,15 @@ declare class FencedFrameConfig {
 
 declare class FetchEvent extends ExtendableEvent {
   +clientId: string;
-  +handled: void;
-  +preloadResponse: any;
+  +handled: Promise<void>;
+  +preloadResponse: Promise<any>;
   +replacesClientId: string;
   +request: Request;
   +resultingClientId: string;
 
   constructor(type: string, eventInitDict: FetchEventInit): void;
 
-  respondWith(r: Response): void;
+  respondWith(r: Promise<Response>): void;
 }
 
 declare class File extends Blob {
@@ -12028,13 +12049,13 @@ declare class FileSystemDirectoryHandle extends FileSystemHandle {
   getDirectoryHandle(
     name: string,
     options?: FileSystemGetDirectoryOptions,
-  ): FileSystemDirectoryHandle;
+  ): Promise<FileSystemDirectoryHandle>;
   getFileHandle(
     name: string,
     options?: FileSystemGetFileOptions,
-  ): FileSystemFileHandle;
-  removeEntry(name: string, options?: FileSystemRemoveOptions): void;
-  resolve(possibleDescendant: FileSystemHandle): Array<string> | null;
+  ): Promise<FileSystemFileHandle>;
+  removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void>;
+  resolve(possibleDescendant: FileSystemHandle): Promise<Array<string> | null>;
 }
 
 declare class FileSystemDirectoryReader {
@@ -12062,24 +12083,24 @@ declare class FileSystemFileEntry extends FileSystemEntry {
 }
 
 declare class FileSystemFileHandle extends FileSystemHandle {
-  createSyncAccessHandle(): FileSystemSyncAccessHandle;
+  createSyncAccessHandle(): Promise<FileSystemSyncAccessHandle>;
   createWritable(
     options?: FileSystemCreateWritableOptions,
-  ): FileSystemWritableFileStream;
-  getFile(): File;
+  ): Promise<FileSystemWritableFileStream>;
+  getFile(): Promise<File>;
 }
 
 declare class FileSystemHandle {
   +kind: FileSystemHandleKind;
   +name: string;
 
-  isSameEntry(other: FileSystemHandle): boolean;
+  isSameEntry(other: FileSystemHandle): Promise<boolean>;
   queryPermission(
     descriptor?: FileSystemHandlePermissionDescriptor,
-  ): PermissionState;
+  ): Promise<PermissionState>;
   requestPermission(
     descriptor?: FileSystemHandlePermissionDescriptor,
-  ): PermissionState;
+  ): Promise<PermissionState>;
 }
 
 declare class FileSystemSyncAccessHandle {
@@ -12098,9 +12119,9 @@ declare class FileSystemSyncAccessHandle {
 }
 
 declare class FileSystemWritableFileStream extends WritableStream {
-  seek(position: number): void;
-  truncate(size: number): void;
-  write(data: FileSystemWriteChunkType): void;
+  seek(position: number): Promise<void>;
+  truncate(size: number): Promise<void>;
+  write(data: FileSystemWriteChunkType): Promise<void>;
 }
 
 declare class FocusEvent extends UIEvent {
@@ -12120,7 +12141,7 @@ declare class FontData {
   +postscriptName: string;
   +style: string;
 
-  blob(): Blob;
+  blob(): Promise<Blob>;
 }
 
 declare class FontFace {
@@ -12131,7 +12152,7 @@ declare class FontFace {
   +features: FontFaceFeatures;
   featureSettings: string;
   lineGapOverride: string;
-  +loaded: FontFace;
+  +loaded: Promise<FontFace>;
   +palettes: FontFacePalettes;
   +status: FontFaceLoadStatus;
   stretch: string;
@@ -12147,7 +12168,7 @@ declare class FontFace {
     descriptors?: FontFaceDescriptors,
   ): void;
 
-  load(): FontFace;
+  load(): Promise<FontFace>;
 }
 
 declare class FontFaceFeatures {}
@@ -12174,18 +12195,18 @@ declare class FontFaceSet extends EventTarget {
   onloading: EventHandler;
   onloadingdone: EventHandler;
   onloadingerror: EventHandler;
-  +ready: FontFaceSet;
+  +ready: Promise<FontFaceSet>;
   +status: FontFaceSetLoadStatus;
 
   add(font: FontFace): FontFaceSet;
   check(font: string, text?: string): boolean;
   clear(): void;
   delete(font: FontFace): boolean;
-  load(font: string, text?: string): Array<FontFace>;
+  load(font: string, text?: string): Promise<Array<FontFace>>;
 }
 
 declare class FontFaceSetLoadEvent extends Event {
-  +fontfaces: FontFace;
+  +fontfaces: $ReadOnlyArray<FontFace>;
 
   constructor(type: string, eventInitDict?: FontFaceSetLoadEventInit): void;
 }
@@ -12201,8 +12222,8 @@ declare class FontFaceVariationAxis {
 type FontFaceVariations = Set<FontFaceVariationAxis>;
 
 declare class FontMetrics {
-  +advances: number;
-  +baselines: Baseline;
+  +advances: $ReadOnlyArray<number>;
+  +baselines: $ReadOnlyArray<Baseline>;
   +boundingBoxAscent: number;
   +boundingBoxDescent: number;
   +boundingBoxLeft: number;
@@ -12212,7 +12233,7 @@ declare class FontMetrics {
   +emHeightDescent: number;
   +fontBoundingBoxAscent: number;
   +fontBoundingBoxDescent: number;
-  +fonts: Font;
+  +fonts: $ReadOnlyArray<Font>;
   +height: number;
   +width: number;
 }
@@ -12259,17 +12280,17 @@ declare class GainNode extends AudioNode {
 }
 
 declare class Gamepad {
-  +axes: number;
-  +buttons: GamepadButton;
+  +axes: $ReadOnlyArray<number>;
+  +buttons: $ReadOnlyArray<GamepadButton>;
   +connected: boolean;
   +hand: GamepadHand;
-  +hapticActuators: GamepadHapticActuator;
+  +hapticActuators: $ReadOnlyArray<GamepadHapticActuator>;
   +id: string;
   +index: number;
   +mapping: GamepadMappingType;
   +pose: GamepadPose | null;
   +timestamp: number;
-  +touches: GamepadTouch;
+  +touches: $ReadOnlyArray<GamepadTouch>;
   +vibrationActuator: GamepadHapticActuator;
 }
 
@@ -12286,14 +12307,14 @@ declare class GamepadEvent extends Event {
 }
 
 declare class GamepadHapticActuator {
-  +effects: GamepadHapticEffectType;
+  +effects: $ReadOnlyArray<GamepadHapticEffectType>;
 
   playEffect(
     type: GamepadHapticEffectType,
     params?: GamepadEffectParameters,
-  ): GamepadHapticsResult;
-  pulse(value: number, duration: number): boolean;
-  reset(): GamepadHapticsResult;
+  ): Promise<GamepadHapticsResult>;
+  pulse(value: number, duration: number): Promise<boolean>;
+  reset(): Promise<GamepadHapticsResult>;
 }
 
 declare class GamepadPose {
@@ -12360,7 +12381,7 @@ declare class GeolocationSensor extends Sensor {
 
   constructor(options?: GeolocationSensorOptions): void;
 
-  static read(readOptions?: ReadOptions): GeolocationSensorReading;
+  static read(readOptions?: ReadOptions): Promise<GeolocationSensorReading>;
 }
 
 declare class Global {
@@ -12375,7 +12396,9 @@ declare class GPU {
   +wgslLanguageFeatures: WGSLLanguageFeatures;
 
   getPreferredCanvasFormat(): GPUTextureFormat;
-  requestAdapter(options?: GPURequestAdapterOptions): GPUAdapter | null;
+  requestAdapter(
+    options?: GPURequestAdapterOptions,
+  ): Promise<GPUAdapter | null>;
 }
 
 declare class GPUAdapter {
@@ -12383,7 +12406,7 @@ declare class GPUAdapter {
   +info: GPUAdapterInfo;
   +limits: GPUSupportedLimits;
 
-  requestDevice(descriptor?: GPUDeviceDescriptor): GPUDevice;
+  requestDevice(descriptor?: GPUDeviceDescriptor): Promise<GPUDevice>;
 }
 
 declare class GPUAdapterInfo {
@@ -12407,7 +12430,11 @@ declare class GPUBuffer mixins mixin$GPUObjectBase {
 
   destroy(): void;
   getMappedRange(offset?: GPUSize64, size?: GPUSize64): ArrayBuffer;
-  mapAsync(mode: GPUMapModeFlags, offset?: GPUSize64, size?: GPUSize64): void;
+  mapAsync(
+    mode: GPUMapModeFlags,
+    offset?: GPUSize64,
+    size?: GPUSize64,
+  ): Promise<void>;
   unmap(): void;
 }
 
@@ -12471,7 +12498,7 @@ declare class GPUCommandEncoder
 }
 
 declare class GPUCompilationInfo {
-  +messages: GPUCompilationMessage;
+  +messages: $ReadOnlyArray<GPUCompilationMessage>;
 }
 
 declare class GPUCompilationMessage {
@@ -12510,7 +12537,7 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   +adapterInfo: GPUAdapterInfo;
   +features: GPUSupportedFeatures;
   +limits: GPUSupportedLimits;
-  +lost: GPUDeviceLostInfo;
+  +lost: Promise<GPUDeviceLostInfo>;
   onuncapturederror: EventHandler;
   +queue: GPUQueue;
 
@@ -12527,7 +12554,7 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   ): GPUComputePipeline;
   createComputePipelineAsync(
     descriptor: GPUComputePipelineDescriptor,
-  ): GPUComputePipeline;
+  ): Promise<GPUComputePipeline>;
   createPipelineLayout(
     descriptor: GPUPipelineLayoutDescriptor,
   ): GPUPipelineLayout;
@@ -12540,7 +12567,7 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   ): GPURenderPipeline;
   createRenderPipelineAsync(
     descriptor: GPURenderPipelineDescriptor,
-  ): GPURenderPipeline;
+  ): Promise<GPURenderPipeline>;
   createSampler(descriptor?: GPUSamplerDescriptor): GPUSampler;
   createShaderModule(descriptor: GPUShaderModuleDescriptor): GPUShaderModule;
   createTexture(descriptor: GPUTextureDescriptor): GPUTexture;
@@ -12548,7 +12575,7 @@ declare class GPUDevice extends EventTarget mixins mixin$GPUObjectBase {
   importExternalTexture(
     descriptor: GPUExternalTextureDescriptor,
   ): GPUExternalTexture;
-  popErrorScope(): GPUError | null;
+  popErrorScope(): Promise<GPUError | null>;
   pushErrorScope(filter: GPUErrorFilter): void;
 }
 
@@ -12592,7 +12619,7 @@ declare class GPUQueue mixins mixin$GPUObjectBase {
     destination: GPUCopyExternalImageDestInfo,
     copySize: GPUExtent3D,
   ): void;
-  onSubmittedWorkDone(): void;
+  onSubmittedWorkDone(): Promise<void>;
   submit(commandBuffers: Array<GPUCommandBuffer>): void;
   writeBuffer(
     buffer: GPUBuffer,
@@ -12658,7 +12685,7 @@ declare class GPURenderPipeline
 declare class GPUSampler mixins mixin$GPUObjectBase {}
 
 declare class GPUShaderModule mixins mixin$GPUObjectBase {
-  getCompilationInfo(): GPUCompilationInfo;
+  getCompilationInfo(): Promise<GPUCompilationInfo>;
 }
 
 type GPUSupportedFeatures = Set<string>;
@@ -12756,7 +12783,7 @@ declare class Gyroscope extends Sensor {
 declare class HandwritingDrawing {
   addStroke(stroke: HandwritingStroke): void;
   clear(): void;
-  getPrediction(): Array<HandwritingPrediction>;
+  getPrediction(): Promise<Array<HandwritingPrediction>>;
   getStrokes(): Array<HandwritingStroke>;
   removeStroke(stroke: HandwritingStroke): void;
 }
@@ -12798,8 +12825,8 @@ declare class HID extends EventTarget {
   onconnect: EventHandler;
   ondisconnect: EventHandler;
 
-  getDevices(): Array<HIDDevice>;
-  requestDevice(options: HIDDeviceRequestOptions): Array<HIDDevice>;
+  getDevices(): Promise<Array<HIDDevice>>;
+  requestDevice(options: HIDDeviceRequestOptions): Promise<Array<HIDDevice>>;
 }
 
 declare class HIDConnectionEvent extends Event {
@@ -12809,19 +12836,19 @@ declare class HIDConnectionEvent extends Event {
 }
 
 declare class HIDDevice extends EventTarget {
-  +collections: HIDCollectionInfo;
+  +collections: $ReadOnlyArray<HIDCollectionInfo>;
   oninputreport: EventHandler;
   +opened: boolean;
   +productId: number;
   +productName: string;
   +vendorId: number;
 
-  close(): void;
-  forget(): void;
-  open(): void;
-  receiveFeatureReport(reportId: number): DataView;
-  sendFeatureReport(reportId: number, data: BufferSource): void;
-  sendReport(reportId: number, data: BufferSource): void;
+  close(): Promise<void>;
+  forget(): Promise<void>;
+  open(): Promise<void>;
+  receiveFeatureReport(reportId: number): Promise<DataView>;
+  sendFeatureReport(reportId: number, data: BufferSource): Promise<void>;
+  sendReport(reportId: number, data: BufferSource): Promise<void>;
 }
 
 declare class HIDInputReportEvent extends Event {
@@ -13275,7 +13302,7 @@ declare class HTMLImageElement
 
   constructor(): void;
 
-  decode(): void;
+  decode(): Promise<void>;
 }
 
 declare class HTMLInputElement
@@ -13329,7 +13356,7 @@ declare class HTMLInputElement
   valueAsDate: Object | null;
   valueAsNumber: number;
   webkitdirectory: boolean;
-  +webkitEntries: FileSystemEntry;
+  +webkitEntries: $ReadOnlyArray<FileSystemEntry>;
   width: number;
   +willValidate: boolean;
 
@@ -13481,9 +13508,9 @@ declare class HTMLMediaElement extends HTMLElement {
   getStartDate(): Object;
   load(): void;
   pause(): void;
-  play(): void;
-  setMediaKeys(mediaKeys: MediaKeys | null): void;
-  setSinkId(sinkId: string): void;
+  play(): Promise<void>;
+  setMediaKeys(mediaKeys: MediaKeys | null): Promise<void>;
+  setSinkId(sinkId: string): Promise<void>;
 }
 
 declare class HTMLMenuElement extends HTMLElement {
@@ -13642,7 +13669,7 @@ declare class HTMLPortalElement extends HTMLElement {
 
   constructor(): void;
 
-  activate(options?: PortalActivateOptions): void;
+  activate(options?: PortalActivateOptions): Promise<void>;
   postMessage(message: any, options?: StructuredSerializeOptions): void;
 }
 
@@ -13963,7 +13990,7 @@ declare class HTMLVideoElement extends HTMLMediaElement {
 
   cancelVideoFrameCallback(handle: number): void;
   getVideoPlaybackQuality(): VideoPlaybackQuality;
-  requestPictureInPicture(): PictureInPictureWindow;
+  requestPictureInPicture(): Promise<PictureInPictureWindow>;
   requestVideoFrameCallback(callback: VideoFrameRequestCallback): number;
 }
 
@@ -14009,7 +14036,7 @@ declare class IDBDatabase extends EventTarget {
 
 declare class IDBFactory {
   cmp(first: any, second: any): number;
-  databases(): Array<IDBDatabaseInfo>;
+  databases(): Promise<Array<IDBDatabaseInfo>>;
   deleteDatabase(name: string): IDBOpenDBRequest;
   open(name: string, version?: number): IDBOpenDBRequest;
 }
@@ -14117,12 +14144,16 @@ declare class IdentityCredential extends Credential {
   +isAutoSelected: boolean;
   +token: string | null;
 
-  static disconnect(options: IdentityCredentialDisconnectOptions): void;
+  static disconnect(
+    options: IdentityCredentialDisconnectOptions,
+  ): Promise<void>;
 }
 
 declare class IdentityProvider {
   static close(): void;
-  static getUserInfo(config: IdentityProviderConfig): Array<IdentityUserInfo>;
+  static getUserInfo(
+    config: IdentityProviderConfig,
+  ): Promise<Array<IdentityUserInfo>>;
   static resolve(token: string, options?: IdentityResolveOptions): void;
 }
 
@@ -14139,8 +14170,8 @@ declare class IdleDetector extends EventTarget {
 
   constructor(): void;
 
-  static requestPermission(): PermissionState;
-  start(options?: IdleOptions): void;
+  static requestPermission(): Promise<PermissionState>;
+  start(options?: IdleOptions): Promise<void>;
 }
 
 declare class IIRFilterNode extends AudioNode {
@@ -14171,10 +14202,10 @@ declare class ImageCapture {
 
   constructor(videoTrack: MediaStreamTrack): void;
 
-  getPhotoCapabilities(): PhotoCapabilities;
-  getPhotoSettings(): PhotoSettings;
-  grabFrame(): ImageBitmap;
-  takePhoto(photoSettings?: PhotoSettings): Blob;
+  getPhotoCapabilities(): Promise<PhotoCapabilities>;
+  getPhotoSettings(): Promise<PhotoSettings>;
+  grabFrame(): Promise<ImageBitmap>;
+  takePhoto(photoSettings?: PhotoSettings): Promise<Blob>;
 }
 
 declare class ImageData {
@@ -14195,15 +14226,15 @@ declare class ImageData {
 
 declare class ImageDecoder {
   +complete: boolean;
-  +completed: void;
+  +completed: Promise<void>;
   +tracks: ImageTrackList;
   +type: string;
 
   constructor(init: ImageDecoderInit): void;
 
-  static isTypeSupported(type: string): boolean;
+  static isTypeSupported(type: string): Promise<boolean>;
   close(): void;
-  decode(options?: ImageDecodeOptions): ImageDecodeResult;
+  decode(options?: ImageDecodeOptions): Promise<ImageDecodeResult>;
   reset(): void;
 }
 
@@ -14216,7 +14247,7 @@ declare class ImageTrack {
 
 declare class ImageTrackList {
   +length: number;
-  +ready: void;
+  +ready: Promise<void>;
   +selectedIndex: number;
   +selectedTrack: ImageTrack | null;
 
@@ -14224,7 +14255,9 @@ declare class ImageTrackList {
 }
 
 declare class Ink {
-  requestPresenter(param?: InkPresenterParam): DelegatedInkTrailPresenter;
+  requestPresenter(
+    param?: InkPresenterParam,
+  ): Promise<DelegatedInkTrailPresenter>;
 }
 
 declare class InputDeviceCapabilities {
@@ -14252,7 +14285,7 @@ declare class InputEvent extends UIEvent {
 declare class InstallEvent extends ExtendableEvent {
   constructor(type: string, eventInitDict?: ExtendableEventInit): void;
 
-  addRoutes(rules: RouterRule | Array<RouterRule>): void;
+  addRoutes(rules: RouterRule | Array<RouterRule>): Promise<void>;
 }
 
 declare class Instance {
@@ -14279,7 +14312,7 @@ declare class InterestGroupBiddingScriptRunnerGlobalScope
 declare class InterestGroupReportingScriptRunnerGlobalScope
   extends InterestGroupScriptRunnerGlobalScope
 {
-  registerAdBeacon(map: string | string): void;
+  registerAdBeacon(map: {[string]: string}): void;
   registerAdMacro(name: string, value: string): void;
   sendReportTo(url: string): void;
 }
@@ -14297,7 +14330,7 @@ declare class IntersectionObserver {
   +root: Element | Document | null;
   +rootMargin: string;
   +scrollMargin: string;
-  +thresholds: number;
+  +thresholds: $ReadOnlyArray<number>;
   +trackVisibility: boolean;
 
   constructor(
@@ -14344,8 +14377,8 @@ declare class IntrinsicSizes {
 declare class Keyboard extends EventTarget {
   onlayoutchange: EventHandler;
 
-  getLayoutMap(): KeyboardLayoutMap;
-  lock(keyCodes?: Array<string>): void;
+  getLayoutMap(): Promise<KeyboardLayoutMap>;
+  lock(keyCodes?: Array<string>): Promise<void>;
   unlock(): void;
 }
 
@@ -14410,21 +14443,23 @@ declare class KeyFrameRequestEvent extends Event {
 }
 
 declare class LanguageDetector mixins mixin$DestroyableModel {
-  +expectedInputLanguages: string | null;
+  +expectedInputLanguages: $ReadOnlyArray<string> | null;
   +inputQuota: number;
 
   static availability(
     options?: LanguageDetectorCreateCoreOptions,
-  ): Availability;
-  static create(options?: LanguageDetectorCreateOptions): LanguageDetector;
+  ): Promise<Availability>;
+  static create(
+    options?: LanguageDetectorCreateOptions,
+  ): Promise<LanguageDetector>;
   detect(
     input: string,
     options?: LanguageDetectorDetectOptions,
-  ): Array<LanguageDetectionResult>;
+  ): Promise<Array<LanguageDetectionResult>>;
   measureInputUsage(
     input: string,
     options?: LanguageDetectorDetectOptions,
-  ): number;
+  ): Promise<number>;
 }
 
 declare class LargestContentfulPaint
@@ -14441,7 +14476,7 @@ declare class LargestContentfulPaint
 }
 
 declare class LaunchParams {
-  +files: FileSystemHandle;
+  +files: $ReadOnlyArray<FileSystemHandle>;
   +targetURL: string | null;
 }
 
@@ -14452,11 +14487,11 @@ declare class LaunchQueue {
 declare class LayoutChild {
   +styleMap: StylePropertyMapReadOnly;
 
-  intrinsicSizes(): IntrinsicSizes;
+  intrinsicSizes(): Promise<IntrinsicSizes>;
   layoutNextFragment(
     constraints: LayoutConstraintsOptions,
     breakToken: ChildBreakToken,
-  ): LayoutFragment;
+  ): Promise<LayoutFragment>;
 }
 
 declare class LayoutConstraints {
@@ -14492,7 +14527,7 @@ declare class LayoutFragment {
 declare class LayoutShift extends PerformanceEntry {
   +hadRecentInput: boolean;
   +lastInputTime: number;
-  +sources: LayoutShiftAttribution;
+  +sources: $ReadOnlyArray<LayoutShiftAttribution>;
   +value: number;
 
   toJSON(): Object;
@@ -14535,13 +14570,13 @@ declare class Lock {
 }
 
 declare class LockManager {
-  query(): LockManagerSnapshot;
-  request(name: string, callback: LockGrantedCallback): any;
+  query(): Promise<LockManagerSnapshot>;
+  request(name: string, callback: LockGrantedCallback): Promise<any>;
   request(
     name: string,
     options: LockOptions,
     callback: LockGrantedCallback,
-  ): any;
+  ): Promise<any>;
 }
 
 declare class Magnetometer extends Sensor {
@@ -14574,10 +14609,10 @@ declare class MathMLElement
 declare class MediaCapabilities {
   decodingInfo(
     configuration: MediaDecodingConfiguration,
-  ): MediaCapabilitiesDecodingInfo;
+  ): Promise<MediaCapabilitiesDecodingInfo>;
   encodingInfo(
     configuration: MediaEncodingConfiguration,
-  ): MediaCapabilitiesEncodingInfo;
+  ): Promise<MediaCapabilitiesEncodingInfo>;
 }
 
 declare class MediaDeviceInfo {
@@ -14593,12 +14628,12 @@ declare class MediaDevices extends EventTarget {
   oncaptureaction: EventHandler;
   ondevicechange: EventHandler;
 
-  enumerateDevices(): Array<MediaDeviceInfo>;
-  getDisplayMedia(options?: DisplayMediaStreamOptions): MediaStream;
+  enumerateDevices(): Promise<Array<MediaDeviceInfo>>;
+  getDisplayMedia(options?: DisplayMediaStreamOptions): Promise<MediaStream>;
   getSupportedConstraints(): MediaTrackSupportedConstraints;
-  getUserMedia(constraints?: MediaStreamConstraints): MediaStream;
-  getViewportMedia(options?: DisplayMediaStreamOptions): MediaStream;
-  selectAudioOutput(options?: AudioOutputOptions): MediaDeviceInfo;
+  getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
+  getViewportMedia(options?: DisplayMediaStreamOptions): Promise<MediaStream>;
+  selectAudioOutput(options?: AudioOutputOptions): Promise<MediaDeviceInfo>;
   setCaptureHandleConfig(config?: CaptureHandleConfig): void;
   setSupportedCaptureActions(actions: Array<string>): void;
 }
@@ -14638,23 +14673,23 @@ declare class MediaKeyMessageEvent extends Event {
 
 declare class MediaKeys {
   createSession(sessionType?: MediaKeySessionType): MediaKeySession;
-  getStatusForPolicy(policy?: MediaKeysPolicy): MediaKeyStatus;
-  setServerCertificate(serverCertificate: BufferSource): boolean;
+  getStatusForPolicy(policy?: MediaKeysPolicy): Promise<MediaKeyStatus>;
+  setServerCertificate(serverCertificate: BufferSource): Promise<boolean>;
 }
 
 declare class MediaKeySession extends EventTarget {
-  +closed: MediaKeySessionClosedReason;
+  +closed: Promise<MediaKeySessionClosedReason>;
   +expiration: number;
   +keyStatuses: MediaKeyStatusMap;
   onkeystatuseschange: EventHandler;
   onmessage: EventHandler;
   +sessionId: string;
 
-  close(): void;
-  generateRequest(initDataType: string, initData: BufferSource): void;
-  load(sessionId: string): boolean;
-  remove(): void;
-  update(response: BufferSource): void;
+  close(): Promise<void>;
+  generateRequest(initDataType: string, initData: BufferSource): Promise<void>;
+  load(sessionId: string): Promise<boolean>;
+  remove(): Promise<void>;
+  update(response: BufferSource): Promise<void>;
 }
 
 declare class MediaKeyStatusMap {
@@ -14669,7 +14704,7 @@ declare class MediaKeyStatusMap {
 declare class MediaKeySystemAccess {
   +keySystem: string;
 
-  createMediaKeys(): MediaKeys;
+  createMediaKeys(): Promise<MediaKeys>;
   getConfiguration(): MediaKeySystemConfiguration;
 }
 
@@ -14685,8 +14720,8 @@ declare class MediaList {
 declare class MediaMetadata {
   album: string;
   artist: string;
-  artwork: Object;
-  +chapterInfo: ChapterInformation;
+  artwork: $ReadOnlyArray<Object>;
+  +chapterInfo: $ReadOnlyArray<ChapterInformation>;
   title: string;
 
   constructor(init?: MediaMetadataInit): void;
@@ -14740,10 +14775,10 @@ declare class MediaSession {
     action: MediaSessionAction,
     handler: MediaSessionActionHandler | null,
   ): void;
-  setCameraActive(active: boolean): void;
-  setMicrophoneActive(active: boolean): void;
+  setCameraActive(active: boolean): Promise<void>;
+  setMicrophoneActive(active: boolean): Promise<void>;
   setPositionState(state?: MediaPositionState): void;
-  setScreenshareActive(active: boolean): void;
+  setScreenshareActive(active: boolean): Promise<void>;
 }
 
 declare class MediaSource extends EventTarget {
@@ -14818,14 +14853,14 @@ declare class MediaStreamTrack extends EventTarget {
   onunmute: EventHandler;
   +readyState: MediaStreamTrackState;
 
-  applyConstraints(constraints?: MediaTrackConstraints): void;
+  applyConstraints(constraints?: MediaTrackConstraints): Promise<void>;
   clone(): MediaStreamTrack;
   getCapabilities(): MediaTrackCapabilities;
   getCaptureHandle(): CaptureHandle | null;
   getConstraints(): MediaTrackConstraints;
   getSettings(): MediaTrackSettings;
   getSupportedCaptureActions(): Array<string>;
-  sendCaptureAction(action: CaptureAction): void;
+  sendCaptureAction(action: CaptureAction): Promise<void>;
   stop(): void;
 }
 
@@ -14869,7 +14904,7 @@ declare class MessageEvent extends Event {
   +data: any;
   +lastEventId: string;
   +origin: string;
-  +ports: MessagePort;
+  +ports: $ReadOnlyArray<MessagePort>;
   +source: MessageEventSource | null;
 
   constructor(type: string, eventInitDict?: MessageEventInit): void;
@@ -14937,8 +14972,8 @@ declare class MIDIPort extends EventTarget {
   +type: MIDIPortType;
   +version: string | null;
 
-  close(): MIDIPort;
-  open(): MIDIPort;
+  close(): Promise<MIDIPort>;
+  open(): Promise<MIDIPort>;
 }
 
 declare class MimeType {
@@ -14956,18 +14991,18 @@ declare class MimeTypeArray {
 }
 
 declare class ML {
-  createContext(options?: MLContextOptions): MLContext;
-  createContext(gpuDevice: GPUDevice): MLContext;
+  createContext(options?: MLContextOptions): Promise<MLContext>;
+  createContext(gpuDevice: GPUDevice): Promise<MLContext>;
 }
 
 declare class MLContext {
-  +lost: MLContextLostInfo;
+  +lost: Promise<MLContextLostInfo>;
 
   createConstantTensor(
     descriptor: MLOperandDescriptor,
     inputData: AllowSharedBufferSource,
-  ): MLTensor;
-  createTensor(descriptor: MLTensorDescriptor): MLTensor;
+  ): Promise<MLTensor>;
+  createTensor(descriptor: MLTensorDescriptor): Promise<MLTensor>;
   destroy(): void;
   dispatch(
     graph: MLGraph,
@@ -14975,8 +15010,11 @@ declare class MLContext {
     outputs: MLNamedTensors,
   ): void;
   opSupportLimits(): MLOpSupportLimits;
-  readTensor(tensor: MLTensor): ArrayBuffer;
-  readTensor(tensor: MLTensor, outputData: AllowSharedBufferSource): void;
+  readTensor(tensor: MLTensor): Promise<ArrayBuffer>;
+  readTensor(
+    tensor: MLTensor,
+    outputData: AllowSharedBufferSource,
+  ): Promise<void>;
   writeTensor(tensor: MLTensor, inputData: AllowSharedBufferSource): void;
 }
 
@@ -15006,7 +15044,7 @@ declare class MLGraphBuilder {
     variance: MLOperand,
     options?: MLBatchNormalizationOptions,
   ): MLOperand;
-  build(outputs: MLNamedOperands): MLGraph;
+  build(outputs: MLNamedOperands): Promise<MLGraph>;
   cast(
     input: MLOperand,
     type: MLOperandDataType,
@@ -15246,14 +15284,14 @@ declare class MLGraphBuilder {
 
 declare class MLOperand {
   +dataType: MLOperandDataType;
-  +shape: number;
+  +shape: $ReadOnlyArray<number>;
 }
 
 declare class MLTensor {
   +constant: boolean;
   +dataType: MLOperandDataType;
   +readable: boolean;
-  +shape: number;
+  +shape: $ReadOnlyArray<number>;
   +writable: boolean;
 
   destroy(): void;
@@ -15443,14 +15481,14 @@ declare class NavigationHistoryEntry extends EventTarget {
 }
 
 declare class NavigationPreloadManager {
-  disable(): void;
-  enable(): void;
-  getState(): NavigationPreloadState;
-  setHeaderValue(value: string): void;
+  disable(): Promise<void>;
+  enable(): Promise<void>;
+  getState(): Promise<NavigationPreloadState>;
+  setHeaderValue(value: string): Promise<void>;
 }
 
 declare class NavigationTransition {
-  +finished: void;
+  +finished: Promise<void>;
   +from: NavigationHistoryEntry;
   +navigationType: NavigationType;
 }
@@ -15514,66 +15552,73 @@ declare class Navigator
   clearOriginJoinedAdInterestGroups(
     owner: string,
     interestGroupsToKeep?: Array<string>,
-  ): void;
-  createAuctionNonce(): string;
+  ): Promise<void>;
+  createAuctionNonce(): Promise<string>;
   createHandwritingRecognizer(
     constraint: HandwritingModelConstraint,
-  ): HandwritingRecognizer;
+  ): Promise<HandwritingRecognizer>;
   deprecatedReplaceInURN(
     urnOrConfig: UrnOrConfig,
-    replacements: string | string,
-  ): void;
-  deprecatedURNtoURL(urnOrConfig: UrnOrConfig, send_reports?: boolean): string;
+    replacements: {[string]: string},
+  ): Promise<void>;
+  deprecatedURNtoURL(
+    urnOrConfig: UrnOrConfig,
+    send_reports?: boolean,
+  ): Promise<string>;
   getAutoplayPolicy(type: AutoplayPolicyMediaType): AutoplayPolicy;
   getAutoplayPolicy(element: HTMLMediaElement): AutoplayPolicy;
   getAutoplayPolicy(context: AudioContext): AutoplayPolicy;
-  getBattery(): BatteryManager;
+  getBattery(): Promise<BatteryManager>;
   getGamepads(): Array<Gamepad | null>;
-  getInstalledRelatedApps(): Array<RelatedApplication>;
-  getInterestGroupAdAuctionData(config?: AdAuctionDataConfig): AdAuctionData;
-  joinAdInterestGroup(group: AuctionAdInterestGroup): void;
-  leaveAdInterestGroup(group?: AuctionAdInterestGroupKey): void;
+  getInstalledRelatedApps(): Promise<Array<RelatedApplication>>;
+  getInterestGroupAdAuctionData(
+    config?: AdAuctionDataConfig,
+  ): Promise<AdAuctionData>;
+  joinAdInterestGroup(group: AuctionAdInterestGroup): Promise<void>;
+  leaveAdInterestGroup(group?: AuctionAdInterestGroupKey): Promise<void>;
   queryHandwritingRecognizer(
     constraint: HandwritingModelConstraint,
-  ): HandwritingRecognizerQueryResult | null;
+  ): Promise<HandwritingRecognizerQueryResult | null>;
   requestMediaKeySystemAccess(
     keySystem: string,
     supportedConfigurations: Array<MediaKeySystemConfiguration>,
-  ): MediaKeySystemAccess;
-  requestMIDIAccess(options?: MIDIOptions): MIDIAccess;
-  runAdAuction(config: AuctionAdConfig): string | FencedFrameConfig | null;
+  ): Promise<MediaKeySystemAccess>;
+  requestMIDIAccess(options?: MIDIOptions): Promise<MIDIAccess>;
+  runAdAuction(
+    config: AuctionAdConfig,
+  ): Promise<string | FencedFrameConfig | null>;
   sendBeacon(url: string, data?: BodyInit | null): boolean;
-  share(data?: ShareData): void;
+  share(data?: ShareData): Promise<void>;
   updateAdInterestGroups(): void;
   vibrate(pattern: VibratePattern): boolean;
 }
 
 declare class NavigatorLogin {
-  setStatus(status: LoginStatus): void;
+  setStatus(status: LoginStatus): Promise<void>;
 }
 
 declare class NavigatorManagedData extends EventTarget {
   onmanagedconfigurationchange: EventHandler;
 
-  getAnnotatedAssetId(): string;
-  getAnnotatedLocation(): string;
-  getDirectoryId(): string;
-  getHostname(): string;
-  getManagedConfiguration(keys: Array<string>): string | Object;
-  getSerialNumber(): string;
+  getAnnotatedAssetId(): Promise<string>;
+  getAnnotatedLocation(): Promise<string>;
+  getDirectoryId(): Promise<string>;
+  getHostname(): Promise<string>;
+  getManagedConfiguration(keys: Array<string>): Promise<{[string]: Object}>;
+  getSerialNumber(): Promise<string>;
 }
 
 declare class NavigatorUAData {
-  +brands: NavigatorUABrandVersion;
+  +brands: $ReadOnlyArray<NavigatorUABrandVersion>;
   +mobile: boolean;
   +platform: string;
 
-  getHighEntropyValues(hints: Array<string>): UADataValues;
+  getHighEntropyValues(hints: Array<string>): Promise<UADataValues>;
   toJSON(): UALowEntropyJSON;
 }
 
 declare class NDEFMessage {
-  +records: NDEFRecord;
+  +records: $ReadOnlyArray<NDEFRecord>;
 
   constructor(messageInit: NDEFMessageInit): void;
 }
@@ -15584,9 +15629,9 @@ declare class NDEFReader extends EventTarget {
 
   constructor(): void;
 
-  makeReadOnly(options?: NDEFMakeReadOnlyOptions): void;
-  scan(options?: NDEFScanOptions): void;
-  write(message: NDEFMessageSource, options?: NDEFWriteOptions): void;
+  makeReadOnly(options?: NDEFMakeReadOnlyOptions): Promise<void>;
+  scan(options?: NDEFScanOptions): Promise<void>;
+  write(message: NDEFMessageSource, options?: NDEFWriteOptions): Promise<void>;
 }
 
 declare class NDEFReadingEvent extends Event {
@@ -15694,7 +15739,7 @@ declare class NodeList {
 }
 
 declare class Notification extends EventTarget {
-  +actions: NotificationAction;
+  +actions: $ReadOnlyArray<NotificationAction>;
   +badge: string;
   +body: string;
   +data: any;
@@ -15714,13 +15759,13 @@ declare class Notification extends EventTarget {
   +tag: string;
   +timestamp: EpochTimeStamp;
   +title: string;
-  +vibrate: number;
+  +vibrate: $ReadOnlyArray<number>;
 
   constructor(title: string, options?: NotificationOptions): void;
 
   static requestPermission(
     deprecatedCallback?: NotificationPermissionCallback,
-  ): NotificationPermission;
+  ): Promise<NotificationPermission>;
   close(): void;
 }
 
@@ -15738,10 +15783,10 @@ declare class NotRestoredReasonDetails {
 }
 
 declare class NotRestoredReasons {
-  +children: NotRestoredReasons | null;
+  +children: $ReadOnlyArray<NotRestoredReasons> | null;
   +id: string | null;
   +name: string | null;
-  +reasons: NotRestoredReasonDetails | null;
+  +reasons: $ReadOnlyArray<NotRestoredReasonDetails> | null;
   +src: string | null;
   +url: string | null;
 
@@ -15754,23 +15799,27 @@ declare class Observable {
   static from(value: any): Observable;
   catch(callback: CatchCallback): Observable;
   drop(amount: number): Observable;
-  every(predicate: Predicate, options?: SubscribeOptions): boolean;
+  every(predicate: Predicate, options?: SubscribeOptions): Promise<boolean>;
   filter(predicate: Predicate): Observable;
   finally(callback: VoidFunction): Observable;
-  find(predicate: Predicate, options?: SubscribeOptions): any;
-  first(options?: SubscribeOptions): any;
+  find(predicate: Predicate, options?: SubscribeOptions): Promise<any>;
+  first(options?: SubscribeOptions): Promise<any>;
   flatMap(mapper: Mapper): Observable;
-  forEach(callback: Visitor, options?: SubscribeOptions): void;
+  forEach(callback: Visitor, options?: SubscribeOptions): Promise<void>;
   inspect(inspectorUnion?: ObservableInspectorUnion): Observable;
-  last(options?: SubscribeOptions): any;
+  last(options?: SubscribeOptions): Promise<any>;
   map(mapper: Mapper): Observable;
-  reduce(reducer: Reducer, initialValue?: any, options?: SubscribeOptions): any;
-  some(predicate: Predicate, options?: SubscribeOptions): boolean;
+  reduce(
+    reducer: Reducer,
+    initialValue?: any,
+    options?: SubscribeOptions,
+  ): Promise<any>;
+  some(predicate: Predicate, options?: SubscribeOptions): Promise<boolean>;
   subscribe(observer?: ObserverUnion, options?: SubscribeOptions): void;
   switchMap(mapper: Mapper): Observable;
   take(amount: number): Observable;
   takeUntil(value: any): Observable;
-  toArray(options?: SubscribeOptions): Array<any>;
+  toArray(options?: SubscribeOptions): Promise<Array<any>>;
 }
 
 declare class OfflineAudioCompletionEvent extends Event {
@@ -15793,9 +15842,9 @@ declare class OfflineAudioContext extends BaseAudioContext {
     sampleRate: number,
   ): void;
 
-  resume(): void;
-  startRendering(): AudioBuffer;
-  suspend(suspendTime: number): void;
+  resume(): Promise<void>;
+  startRendering(): Promise<AudioBuffer>;
+  suspend(suspendTime: number): Promise<void>;
 }
 
 declare class OffscreenCanvas extends EventTarget {
@@ -15806,7 +15855,7 @@ declare class OffscreenCanvas extends EventTarget {
 
   constructor(width: number, height: number): void;
 
-  convertToBlob(options?: ImageEncodeOptions): Blob;
+  convertToBlob(options?: ImageEncodeOptions): Promise<Blob>;
   getContext(
     contextId: OffscreenRenderingContextId,
     options?: any,
@@ -15837,7 +15886,7 @@ declare class OffscreenCanvasRenderingContext2D
 }
 
 declare class OrientationSensor extends Sensor {
-  +quaternion: number | null;
+  +quaternion: $ReadOnlyArray<number> | null;
 
   populateMatrix(targetMatrix: RotationMatrixType): void;
 }
@@ -15947,7 +15996,7 @@ declare class Path2D mixins mixin$CanvasPath {
 declare class PaymentManager {
   userHint: string;
 
-  enableDelegations(delegations: Array<PaymentDelegation>): void;
+  enableDelegations(delegations: Array<PaymentDelegation>): Promise<void>;
 }
 
 declare class PaymentMethodChangeEvent extends PaymentRequestUpdateEvent {
@@ -15972,19 +16021,21 @@ declare class PaymentRequest extends EventTarget {
     options?: PaymentOptions,
   ): void;
 
-  static securePaymentConfirmationAvailability(): SecurePaymentConfirmationAvailability;
-  abort(): void;
-  canMakePayment(): boolean;
-  show(detailsPromise?: PaymentDetailsUpdate): PaymentResponse;
+  static securePaymentConfirmationAvailability(): Promise<SecurePaymentConfirmationAvailability>;
+  abort(): Promise<void>;
+  canMakePayment(): Promise<boolean>;
+  show(
+    detailsPromise?: Promise<PaymentDetailsUpdate>,
+  ): Promise<PaymentResponse>;
 }
 
 declare class PaymentRequestEvent extends ExtendableEvent {
-  +methodData: PaymentMethodData;
-  +modifiers: PaymentDetailsModifier;
+  +methodData: $ReadOnlyArray<PaymentMethodData>;
+  +modifiers: $ReadOnlyArray<PaymentDetailsModifier>;
   +paymentOptions: Object | null;
   +paymentRequestId: string;
   +paymentRequestOrigin: string;
-  +shippingOptions: PaymentShippingOption | null;
+  +shippingOptions: $ReadOnlyArray<PaymentShippingOption> | null;
   +topOrigin: string;
   +total: Object;
 
@@ -15993,15 +16044,15 @@ declare class PaymentRequestEvent extends ExtendableEvent {
   changePaymentMethod(
     methodName: string,
     methodDetails?: Object | null,
-  ): PaymentRequestDetailsUpdate | null;
+  ): Promise<PaymentRequestDetailsUpdate | null>;
   changeShippingAddress(
     shippingAddress?: AddressInit,
-  ): PaymentRequestDetailsUpdate | null;
+  ): Promise<PaymentRequestDetailsUpdate | null>;
   changeShippingOption(
     shippingOption: string,
-  ): PaymentRequestDetailsUpdate | null;
-  openWindow(url: string): WindowClient | null;
-  respondWith(handlerResponsePromise: PaymentHandlerResponse): void;
+  ): Promise<PaymentRequestDetailsUpdate | null>;
+  openWindow(url: string): Promise<WindowClient | null>;
+  respondWith(handlerResponsePromise: Promise<PaymentHandlerResponse>): void;
 }
 
 declare class PaymentRequestUpdateEvent extends Event {
@@ -16010,7 +16061,7 @@ declare class PaymentRequestUpdateEvent extends Event {
     eventInitDict?: PaymentRequestUpdateEventInit,
   ): void;
 
-  updateWith(detailsPromise: PaymentDetailsUpdate): void;
+  updateWith(detailsPromise: Promise<PaymentDetailsUpdate>): void;
 }
 
 declare class PaymentResponse extends EventTarget {
@@ -16024,8 +16075,11 @@ declare class PaymentResponse extends EventTarget {
   +shippingAddress: ContactAddress | null;
   +shippingOption: string | null;
 
-  complete(result?: PaymentComplete, details?: PaymentCompleteDetails): void;
-  retry(errorFields?: PaymentValidationErrors): void;
+  complete(
+    result?: PaymentComplete,
+    details?: PaymentCompleteDetails,
+  ): Promise<void>;
+  retry(errorFields?: PaymentValidationErrors): Promise<void>;
   toJSON(): Object;
 }
 
@@ -16049,7 +16103,7 @@ declare class Performance extends EventTarget {
     startOrMeasureOptions?: string | PerformanceMeasureOptions,
     endMark?: string,
   ): PerformanceMeasure;
-  measureUserAgentSpecificMemory(): MemoryMeasurement;
+  measureUserAgentSpecificMemory(): Promise<MemoryMeasurement>;
   now(): number;
   setResourceTimingBufferSize(maxSize: number): void;
   toJSON(): Object;
@@ -16103,7 +16157,7 @@ declare class PerformanceLongAnimationFrameTiming
   +firstUIEventTimestamp: number;
   +name: string;
   +renderStart: number;
-  +scripts: PerformanceScriptTiming;
+  +scripts: $ReadOnlyArray<PerformanceScriptTiming>;
   +startTime: number;
   +styleAndLayoutStart: number;
 
@@ -16111,7 +16165,7 @@ declare class PerformanceLongAnimationFrameTiming
 }
 
 declare class PerformanceLongTaskTiming extends PerformanceEntry {
-  +attribution: TaskAttributionTiming;
+  +attribution: $ReadOnlyArray<TaskAttributionTiming>;
   +duration: number;
   +entryType: string;
   +name: string;
@@ -16161,7 +16215,7 @@ declare class PerformanceNavigationTiming extends PerformanceResourceTiming {
 }
 
 declare class PerformanceObserver {
-  +supportedEntryTypes: string;
+  +supportedEntryTypes: $ReadOnlyArray<string>;
 
   constructor(callback: PerformanceObserverCallback): void;
 
@@ -16202,7 +16256,7 @@ declare class PerformanceResourceTiming extends PerformanceEntry {
   +responseStart: number;
   +responseStatus: number;
   +secureConnectionStart: number;
-  +serverTiming: PerformanceServerTiming;
+  +serverTiming: $ReadOnlyArray<PerformanceServerTiming>;
   +transferSize: number;
   +workerStart: number;
 
@@ -16269,9 +16323,9 @@ declare class PeriodicSyncEvent extends ExtendableEvent {
 }
 
 declare class PeriodicSyncManager {
-  getTags(): Array<string>;
-  register(tag: string, options?: BackgroundSyncOptions): void;
-  unregister(tag: string): void;
+  getTags(): Promise<Array<string>>;
+  register(tag: string, options?: BackgroundSyncOptions): Promise<void>;
+  unregister(tag: string): Promise<void>;
 }
 
 declare class PeriodicWave {
@@ -16279,9 +16333,9 @@ declare class PeriodicWave {
 }
 
 declare class Permissions {
-  query(permissionDesc: Object): PermissionStatus;
-  request(permissionDesc: Object): PermissionStatus;
-  revoke(permissionDesc: Object): PermissionStatus;
+  query(permissionDesc: Object): Promise<PermissionStatus>;
+  request(permissionDesc: Object): Promise<PermissionStatus>;
+  revoke(permissionDesc: Object): Promise<PermissionStatus>;
 }
 
 declare class PermissionsPolicy {
@@ -16393,11 +16447,11 @@ declare class PreferenceManager {
 declare class PreferenceObject extends EventTarget {
   onchange: EventHandler;
   +override: string | null;
-  +validValues: string;
+  +validValues: $ReadOnlyArray<string>;
   +value: string;
 
   clearOverride(): void;
-  requestOverride(value: string | null): void;
+  requestOverride(value: string | null): Promise<void>;
 }
 
 declare class Presentation {
@@ -16448,12 +16502,12 @@ declare class PresentationConnectionCloseEvent extends Event {
 }
 
 declare class PresentationConnectionList extends EventTarget {
-  +connections: PresentationConnection;
+  +connections: $ReadOnlyArray<PresentationConnection>;
   onconnectionavailable: EventHandler;
 }
 
 declare class PresentationReceiver {
-  +connectionList: PresentationConnectionList;
+  +connectionList: Promise<PresentationConnectionList>;
 }
 
 declare class PresentationRequest extends EventTarget {
@@ -16462,18 +16516,21 @@ declare class PresentationRequest extends EventTarget {
   constructor(url: string): void;
   constructor(urls: Array<string>): void;
 
-  getAvailability(): PresentationAvailability;
-  reconnect(presentationId: string): PresentationConnection;
-  start(): PresentationConnection;
+  getAvailability(): Promise<PresentationAvailability>;
+  reconnect(presentationId: string): Promise<PresentationConnection>;
+  start(): Promise<PresentationConnection>;
 }
 
 declare class PressureObserver {
-  +knownSources: PressureSource;
+  +knownSources: $ReadOnlyArray<PressureSource>;
 
   constructor(callback: PressureUpdateCallback): void;
 
   disconnect(): void;
-  observe(source: PressureSource, options?: PressureObserverOptions): void;
+  observe(
+    source: PressureSource,
+    options?: PressureObserverOptions,
+  ): Promise<void>;
   takeRecords(): Array<PressureRecord>;
   unobserve(source: PressureSource): void;
 }
@@ -16488,7 +16545,10 @@ declare class PressureRecord {
 
 declare class PrivateAggregation {
   contributeToHistogram(contribution: PAHistogramContribution): void;
-  contributeToHistogramOnEvent(event: string, contribution: string | any): void;
+  contributeToHistogramOnEvent(
+    event: string,
+    contribution: {[string]: any},
+  ): void;
   enableDebugMode(options?: PADebugModeOptions): void;
 }
 
@@ -16497,7 +16557,7 @@ declare class PrivateAttribution {
 
   measureConversion(
     options: PrivateAttributionConversionOptions,
-  ): PrivateAttributionConversionResult;
+  ): Promise<PrivateAttributionConversionResult>;
   saveImpression(options: PrivateAttributionImpressionOptions): void;
 }
 
@@ -16519,7 +16579,7 @@ declare class Profiler extends EventTarget {
 
   constructor(options: ProfilerInitOptions): void;
 
-  stop(): ProfilerTrace;
+  stop(): Promise<ProfilerTrace>;
 }
 
 declare class ProgressEvent extends Event {
@@ -16559,9 +16619,9 @@ declare class PublicKeyCredential extends Credential {
   +rawId: ArrayBuffer;
   +response: AuthenticatorResponse;
 
-  static getClientCapabilities(): PublicKeyCredentialClientCapabilities;
-  static isConditionalMediationAvailable(): boolean;
-  static isUserVerifyingPlatformAuthenticatorAvailable(): boolean;
+  static getClientCapabilities(): Promise<PublicKeyCredentialClientCapabilities>;
+  static isConditionalMediationAvailable(): Promise<boolean>;
+  static isUserVerifyingPlatformAuthenticatorAvailable(): Promise<boolean>;
   static parseCreationOptionsFromJSON(
     options: PublicKeyCredentialCreationOptionsJSON,
   ): PublicKeyCredentialCreationOptions;
@@ -16570,9 +16630,13 @@ declare class PublicKeyCredential extends Credential {
   ): PublicKeyCredentialRequestOptions;
   static signalAllAcceptedCredentials(
     options: AllAcceptedCredentialsOptions,
-  ): void;
-  static signalCurrentUserDetails(options: CurrentUserDetailsOptions): void;
-  static signalUnknownCredential(options: UnknownCredentialOptions): void;
+  ): Promise<void>;
+  static signalCurrentUserDetails(
+    options: CurrentUserDetailsOptions,
+  ): Promise<void>;
+  static signalUnknownCredential(
+    options: UnknownCredentialOptions,
+  ): Promise<void>;
   getClientExtensionResults(): AuthenticationExtensionsClientOutputs;
   toJSON(): PublicKeyCredentialJSON;
 }
@@ -16584,11 +16648,13 @@ declare class PushEvent extends ExtendableEvent {
 }
 
 declare class PushManager {
-  +supportedContentEncodings: string;
+  +supportedContentEncodings: $ReadOnlyArray<string>;
 
-  getSubscription(): PushSubscription | null;
-  permissionState(options?: PushSubscriptionOptionsInit): PermissionState;
-  subscribe(options?: PushSubscriptionOptionsInit): PushSubscription;
+  getSubscription(): Promise<PushSubscription | null>;
+  permissionState(
+    options?: PushSubscriptionOptionsInit,
+  ): Promise<PermissionState>;
+  subscribe(options?: PushSubscriptionOptionsInit): Promise<PushSubscription>;
 }
 
 declare class PushMessageData {
@@ -16606,7 +16672,7 @@ declare class PushSubscription {
 
   getKey(name: PushEncryptionKeyName): ArrayBuffer | null;
   toJSON(): PushSubscriptionJSON;
-  unsubscribe(): boolean;
+  unsubscribe(): Promise<boolean>;
 }
 
 declare class PushSubscriptionChangeEvent extends ExtendableEvent {
@@ -16681,13 +16747,16 @@ declare class ReadableStream {
   @@iterator(): Iterator<any>;
 
   static from(asyncIterable: any): ReadableStream;
-  cancel(reason?: any): void;
+  cancel(reason?: any): Promise<void>;
   getReader(options?: ReadableStreamGetReaderOptions): ReadableStreamReader;
   pipeThrough(
     transform: ReadableWritablePair,
     options?: StreamPipeOptions,
   ): ReadableStream;
-  pipeTo(destination: WritableStream, options?: StreamPipeOptions): void;
+  pipeTo(
+    destination: WritableStream,
+    options?: StreamPipeOptions,
+  ): Promise<void>;
   tee(): Array<ReadableStream>;
 }
 
@@ -16699,7 +16768,7 @@ declare class ReadableStreamBYOBReader
   read(
     view: ArrayBufferView,
     options?: ReadableStreamBYOBReaderReadOptions,
-  ): ReadableStreamReadResult;
+  ): Promise<ReadableStreamReadResult>;
   releaseLock(): void;
 }
 
@@ -16723,7 +16792,7 @@ declare class ReadableStreamDefaultReader
 {
   constructor(stream: ReadableStream): void;
 
-  read(): ReadableStreamReadResult;
+  read(): Promise<ReadableStreamReadResult>;
   releaseLock(): void;
 }
 
@@ -16741,9 +16810,11 @@ declare class RemotePlayback extends EventTarget {
   ondisconnect: EventHandler;
   +state: RemotePlaybackState;
 
-  cancelWatchAvailability(id?: number): void;
-  prompt(): void;
-  watchAvailability(callback: RemotePlaybackAvailabilityCallback): number;
+  cancelWatchAvailability(id?: number): Promise<void>;
+  prompt(): Promise<void>;
+  watchAvailability(
+    callback: RemotePlaybackAvailabilityCallback,
+  ): Promise<number>;
 }
 
 declare class Report {
@@ -16802,10 +16873,10 @@ declare class ResizeObserver {
 }
 
 declare class ResizeObserverEntry {
-  +borderBoxSize: ResizeObserverSize;
-  +contentBoxSize: ResizeObserverSize;
+  +borderBoxSize: $ReadOnlyArray<ResizeObserverSize>;
+  +contentBoxSize: $ReadOnlyArray<ResizeObserverSize>;
   +contentRect: DOMRectReadOnly;
-  +devicePixelContentBoxSize: ResizeObserverSize;
+  +devicePixelContentBoxSize: $ReadOnlyArray<ResizeObserverSize>;
   +target: Element;
 }
 
@@ -16832,12 +16903,12 @@ declare class Response mixins mixin$Body {
 }
 
 declare class RestrictionTarget {
-  static fromElement(element: Element): RestrictionTarget;
+  static fromElement(element: Element): Promise<RestrictionTarget>;
 }
 
 declare class Rewriter mixins mixin$DestroyableModel {
-  +expectedContextLanguages: string | null;
-  +expectedInputLanguages: string | null;
+  +expectedContextLanguages: $ReadOnlyArray<string> | null;
+  +expectedInputLanguages: $ReadOnlyArray<string> | null;
   +format: RewriterFormat;
   +inputQuota: number;
   +length: RewriterLength;
@@ -16845,10 +16916,15 @@ declare class Rewriter mixins mixin$DestroyableModel {
   +sharedContext: string;
   +tone: RewriterTone;
 
-  static availability(options?: RewriterCreateCoreOptions): Availability;
-  static create(options?: RewriterCreateOptions): Rewriter;
-  measureInputUsage(input: string, options?: RewriterRewriteOptions): number;
-  rewrite(input: string, options?: RewriterRewriteOptions): string;
+  static availability(
+    options?: RewriterCreateCoreOptions,
+  ): Promise<Availability>;
+  static create(options?: RewriterCreateOptions): Promise<Rewriter>;
+  measureInputUsage(
+    input: string,
+    options?: RewriterRewriteOptions,
+  ): Promise<number>;
+  rewrite(input: string, options?: RewriterRewriteOptions): Promise<string>;
   rewriteStreaming(
     input: string,
     options?: RewriterRewriteOptions,
@@ -17043,7 +17119,7 @@ declare class RTCPeerConnection extends EventTarget {
   onnegotiationneeded: EventHandler;
   onsignalingstatechange: EventHandler;
   ontrack: EventHandler;
-  +peerIdentity: RTCIdentityAssertion;
+  +peerIdentity: Promise<RTCIdentityAssertion>;
   +pendingLocalDescription: RTCSessionDescription | null;
   +pendingRemoteDescription: RTCSessionDescription | null;
   +remoteDescription: RTCSessionDescription | null;
@@ -17054,39 +17130,39 @@ declare class RTCPeerConnection extends EventTarget {
 
   static generateCertificate(
     keygenAlgorithm: AlgorithmIdentifier,
-  ): RTCCertificate;
-  addIceCandidate(candidate?: RTCIceCandidateInit): void;
+  ): Promise<RTCCertificate>;
+  addIceCandidate(candidate?: RTCIceCandidateInit): Promise<void>;
   addIceCandidate(
     candidate: RTCIceCandidateInit,
     successCallback: VoidFunction,
     failureCallback: RTCPeerConnectionErrorCallback,
-  ): void;
+  ): Promise<void>;
   addTrack(track: MediaStreamTrack, streams: MediaStream): RTCRtpSender;
   addTransceiver(
     trackOrKind: MediaStreamTrack | string,
     init?: RTCRtpTransceiverInit,
   ): RTCRtpTransceiver;
   close(): void;
-  createAnswer(options?: RTCAnswerOptions): RTCSessionDescriptionInit;
+  createAnswer(options?: RTCAnswerOptions): Promise<RTCSessionDescriptionInit>;
   createAnswer(
     successCallback: RTCSessionDescriptionCallback,
     failureCallback: RTCPeerConnectionErrorCallback,
-  ): void;
+  ): Promise<void>;
   createDataChannel(
     label: string,
     dataChannelDict?: RTCDataChannelInit,
   ): RTCDataChannel;
-  createOffer(options?: RTCOfferOptions): RTCSessionDescriptionInit;
+  createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
   createOffer(
     successCallback: RTCSessionDescriptionCallback,
     failureCallback: RTCPeerConnectionErrorCallback,
     options?: RTCOfferOptions,
-  ): void;
+  ): Promise<void>;
   getConfiguration(): RTCConfiguration;
-  getIdentityAssertion(): string;
+  getIdentityAssertion(): Promise<string>;
   getReceivers(): Array<RTCRtpReceiver>;
   getSenders(): Array<RTCRtpSender>;
-  getStats(selector?: MediaStreamTrack | null): RTCStatsReport;
+  getStats(selector?: MediaStreamTrack | null): Promise<RTCStatsReport>;
   getTransceivers(): Array<RTCRtpTransceiver>;
   removeTrack(sender: RTCRtpSender): void;
   restartIce(): void;
@@ -17095,18 +17171,20 @@ declare class RTCPeerConnection extends EventTarget {
     provider: string,
     options?: RTCIdentityProviderOptions,
   ): void;
-  setLocalDescription(description?: RTCLocalSessionDescriptionInit): void;
+  setLocalDescription(
+    description?: RTCLocalSessionDescriptionInit,
+  ): Promise<void>;
   setLocalDescription(
     description: RTCLocalSessionDescriptionInit,
     successCallback: VoidFunction,
     failureCallback: RTCPeerConnectionErrorCallback,
-  ): void;
-  setRemoteDescription(description: RTCSessionDescriptionInit): void;
+  ): Promise<void>;
+  setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>;
   setRemoteDescription(
     description: RTCSessionDescriptionInit,
     successCallback: VoidFunction,
     failureCallback: RTCPeerConnectionErrorCallback,
-  ): void;
+  ): Promise<void>;
 }
 
 declare class RTCPeerConnectionIceErrorEvent extends Event {
@@ -17141,7 +17219,7 @@ declare class RTCRtpReceiver {
   static getCapabilities(kind: string): RTCRtpCapabilities | null;
   getContributingSources(): Array<RTCRtpContributingSource>;
   getParameters(): RTCRtpReceiveParameters;
-  getStats(): RTCStatsReport;
+  getStats(): Promise<RTCStatsReport>;
   getSynchronizationSources(): Array<RTCRtpSynchronizationSource>;
 }
 
@@ -17155,8 +17233,8 @@ declare class RTCRtpScriptTransformer extends EventTarget {
   +readable: ReadableStream;
   +writable: WritableStream;
 
-  generateKeyFrame(rid?: string): number;
-  sendKeyFrameRequest(): void;
+  generateKeyFrame(rid?: string): Promise<number>;
+  sendKeyFrameRequest(): Promise<void>;
 }
 
 declare class RTCRtpSender {
@@ -17166,14 +17244,14 @@ declare class RTCRtpSender {
   +transport: RTCDtlsTransport | null;
 
   static getCapabilities(kind: string): RTCRtpCapabilities | null;
-  generateKeyFrame(rids?: Array<string>): void;
+  generateKeyFrame(rids?: Array<string>): Promise<void>;
   getParameters(): RTCRtpSendParameters;
-  getStats(): RTCStatsReport;
-  replaceTrack(withTrack: MediaStreamTrack | null): void;
+  getStats(): Promise<RTCStatsReport>;
+  replaceTrack(withTrack: MediaStreamTrack | null): Promise<void>;
   setParameters(
     parameters: RTCRtpSendParameters,
     setParameterOptions?: RTCSetParameterOptions,
-  ): void;
+  ): Promise<void>;
   setStreams(streams: MediaStream): void;
 }
 
@@ -17209,7 +17287,7 @@ type RTCStatsReport = Map<string, Object>;
 
 declare class RTCTrackEvent extends Event {
   +receiver: RTCRtpReceiver;
-  +streams: MediaStream;
+  +streams: $ReadOnlyArray<MediaStream>;
   +track: MediaStreamTrack;
   +transceiver: RTCRtpTransceiver;
 
@@ -17238,8 +17316,8 @@ declare class Scheduler {
   postTask(
     callback: SchedulerPostTaskCallback,
     options?: SchedulerPostTaskOptions,
-  ): any;
-  yield(): void;
+  ): Promise<any>;
+  yield(): Promise<void>;
 }
 
 declare class Scheduling {
@@ -17273,7 +17351,7 @@ declare class ScreenDetails extends EventTarget {
   +currentScreen: ScreenDetailed;
   oncurrentscreenchange: EventHandler;
   onscreenschange: EventHandler;
-  +screens: ScreenDetailed;
+  +screens: $ReadOnlyArray<ScreenDetailed>;
 }
 
 declare class ScreenOrientation extends EventTarget {
@@ -17281,7 +17359,7 @@ declare class ScreenOrientation extends EventTarget {
   onchange: EventHandler;
   +type: OrientationType;
 
-  lock(orientation: OrientationLockType): void;
+  lock(orientation: OrientationLockType): Promise<void>;
   unlock(): void;
 }
 
@@ -17392,8 +17470,8 @@ declare class Serial extends EventTarget {
   onconnect: EventHandler;
   ondisconnect: EventHandler;
 
-  getPorts(): Array<SerialPort>;
-  requestPort(options?: SerialPortRequestOptions): SerialPort;
+  getPorts(): Promise<Array<SerialPort>>;
+  requestPort(options?: SerialPortRequestOptions): Promise<SerialPort>;
 }
 
 declare class SerialPort extends EventTarget {
@@ -17403,12 +17481,12 @@ declare class SerialPort extends EventTarget {
   +readable: ReadableStream;
   +writable: WritableStream;
 
-  close(): void;
-  forget(): void;
+  close(): Promise<void>;
+  forget(): Promise<void>;
   getInfo(): SerialPortInfo;
-  getSignals(): SerialInputSignals;
-  open(options: SerialOptions): void;
-  setSignals(signals?: SerialOutputSignals): void;
+  getSignals(): Promise<SerialInputSignals>;
+  open(options: SerialOptions): Promise<void>;
+  setSignals(signals?: SerialOutputSignals): Promise<void>;
 }
 
 declare class ServiceWorker extends EventTarget mixins mixin$AbstractWorker {
@@ -17425,14 +17503,16 @@ declare class ServiceWorkerContainer extends EventTarget {
   oncontrollerchange: EventHandler;
   onmessage: EventHandler;
   onmessageerror: EventHandler;
-  +ready: ServiceWorkerRegistration;
+  +ready: Promise<ServiceWorkerRegistration>;
 
-  getRegistration(clientURL?: string): ServiceWorkerRegistration | void;
-  getRegistrations(): ServiceWorkerRegistration;
+  getRegistration(
+    clientURL?: string,
+  ): Promise<ServiceWorkerRegistration | void>;
+  getRegistrations(): Promise<$ReadOnlyArray<ServiceWorkerRegistration>>;
   register(
     scriptURL: TrustedScriptURL | string,
     options?: RegistrationOptions,
-  ): ServiceWorkerRegistration;
+  ): Promise<ServiceWorkerRegistration>;
   startMessages(): void;
 }
 
@@ -17461,7 +17541,7 @@ declare class ServiceWorkerGlobalScope extends WorkerGlobalScope {
   +registration: ServiceWorkerRegistration;
   +serviceWorker: ServiceWorker;
 
-  skipWaiting(): void;
+  skipWaiting(): Promise<void>;
 }
 
 declare class ServiceWorkerRegistration extends EventTarget {
@@ -17480,10 +17560,12 @@ declare class ServiceWorkerRegistration extends EventTarget {
   +updateViaCache: ServiceWorkerUpdateViaCache;
   +waiting: ServiceWorker | null;
 
-  getNotifications(filter?: GetNotificationOptions): Array<Notification>;
-  showNotification(title: string, options?: NotificationOptions): void;
-  unregister(): boolean;
-  update(): ServiceWorkerRegistration;
+  getNotifications(
+    filter?: GetNotificationOptions,
+  ): Promise<Array<Notification>>;
+  showNotification(title: string, options?: NotificationOptions): Promise<void>;
+  unregister(): Promise<boolean>;
+  update(): Promise<ServiceWorkerRegistration>;
 }
 
 declare class SFrameTransform
@@ -17494,7 +17576,7 @@ declare class SFrameTransform
 
   constructor(options?: SFrameTransformOptions): void;
 
-  setEncryptionKey(key: CryptoKey, keyID?: CryptoKeyID): void;
+  setEncryptionKey(key: CryptoKey, keyID?: CryptoKeyID): Promise<void>;
 }
 
 declare class SFrameTransformErrorEvent extends Event {
@@ -17537,27 +17619,37 @@ declare class SharedStorage {
     key: string,
     value: string,
     options?: SharedStorageModifierMethodOptions,
-  ): any;
+  ): Promise<any>;
   batchUpdate(
     methods: Array<SharedStorageModifierMethod>,
     options?: SharedStorageModifierMethodOptions,
-  ): any;
-  clear(options?: SharedStorageModifierMethodOptions): any;
+  ): Promise<any>;
+  clear(options?: SharedStorageModifierMethodOptions): Promise<any>;
   createWorklet(
     moduleURL: string,
     options?: SharedStorageWorkletOptions,
-  ): SharedStorageWorklet;
-  delete(key: string, options?: SharedStorageModifierMethodOptions): any;
-  get(key: string): string;
-  length(): number;
-  remainingBudget(): number;
-  run(name: string, options?: SharedStorageRunOperationMethodOptions): any;
+  ): Promise<SharedStorageWorklet>;
+  delete(
+    key: string,
+    options?: SharedStorageModifierMethodOptions,
+  ): Promise<any>;
+  get(key: string): Promise<string>;
+  length(): Promise<number>;
+  remainingBudget(): Promise<number>;
+  run(
+    name: string,
+    options?: SharedStorageRunOperationMethodOptions,
+  ): Promise<any>;
   selectURL(
     name: string,
     urls: Array<SharedStorageUrlWithMetadata>,
     options?: SharedStorageRunOperationMethodOptions,
-  ): SharedStorageResponse;
-  set(key: string, value: string, options?: SharedStorageSetMethodOptions): any;
+  ): Promise<SharedStorageResponse>;
+  set(
+    key: string,
+    value: string,
+    options?: SharedStorageSetMethodOptions,
+  ): Promise<any>;
 }
 
 declare class SharedStorageAppendMethod extends SharedStorageModifierMethod {
@@ -17587,12 +17679,15 @@ declare class SharedStorageSetMethod extends SharedStorageModifierMethod {
 }
 
 declare class SharedStorageWorklet extends Worklet {
-  run(name: string, options?: SharedStorageRunOperationMethodOptions): any;
+  run(
+    name: string,
+    options?: SharedStorageRunOperationMethodOptions,
+  ): Promise<any>;
   selectURL(
     name: string,
     urls: Array<SharedStorageUrlWithMetadata>,
     options?: SharedStorageRunOperationMethodOptions,
-  ): SharedStorageResponse;
+  ): Promise<SharedStorageResponse>;
 }
 
 declare class SharedStorageWorkletGlobalScope extends WorkletGlobalScope {
@@ -17600,7 +17695,7 @@ declare class SharedStorageWorkletGlobalScope extends WorkletGlobalScope {
   +privateAggregation: PrivateAggregation;
   +sharedStorage: SharedStorage;
 
-  interestGroups(): Array<StorageInterestGroup>;
+  interestGroups(): Promise<Array<StorageInterestGroup>>;
   register(name: string, operationCtor: Function): void;
 }
 
@@ -17680,8 +17775,8 @@ declare class SpeechRecognition extends EventTarget {
 
   constructor(): void;
 
-  static availableOnDevice(lang: string): AvailabilityStatus;
-  static installOnDevice(lang: string): boolean;
+  static availableOnDevice(lang: string): Promise<AvailabilityStatus>;
+  static installOnDevice(lang: string): Promise<boolean>;
   abort(): void;
   start(): void;
   start(audioTrack: MediaStreamTrack): void;
@@ -17824,8 +17919,8 @@ declare class StorageAccessHandle {
 
   BroadcastChannel(name: string): BroadcastChannel;
   createObjectURL(obj: Blob | MediaSource): string;
-  estimate(): StorageEstimate;
-  getDirectory(): FileSystemDirectoryHandle;
+  estimate(): Promise<StorageEstimate>;
+  getDirectory(): Promise<FileSystemDirectoryHandle>;
   revokeObjectURL(url: string): void;
   SharedWorker(
     scriptURL: string,
@@ -17838,18 +17933,18 @@ declare class StorageBucket {
   +indexedDB: IDBFactory;
   +name: string;
 
-  estimate(): StorageEstimate;
-  expires(): number | null;
-  getDirectory(): FileSystemDirectoryHandle;
-  persist(): boolean;
-  persisted(): boolean;
-  setExpires(expires: number): void;
+  estimate(): Promise<StorageEstimate>;
+  expires(): Promise<number | null>;
+  getDirectory(): Promise<FileSystemDirectoryHandle>;
+  persist(): Promise<boolean>;
+  persisted(): Promise<boolean>;
+  setExpires(expires: number): Promise<void>;
 }
 
 declare class StorageBucketManager {
-  delete(name: string): void;
-  keys(): Array<string>;
-  open(name: string, options?: StorageBucketOptions): StorageBucket;
+  delete(name: string): Promise<void>;
+  keys(): Promise<Array<string>>;
+  open(name: string, options?: StorageBucketOptions): Promise<StorageBucket>;
 }
 
 declare class StorageEvent extends Event {
@@ -17874,10 +17969,10 @@ declare class StorageEvent extends Event {
 }
 
 declare class StorageManager {
-  estimate(): StorageEstimate;
-  getDirectory(): FileSystemDirectoryHandle;
-  persist(): boolean;
-  persisted(): boolean;
+  estimate(): Promise<StorageEstimate>;
+  getDirectory(): Promise<FileSystemDirectoryHandle>;
+  persist(): Promise<boolean>;
+  persisted(): Promise<boolean>;
 }
 
 declare class StylePropertyMap extends StylePropertyMapReadOnly {
@@ -17934,43 +18029,49 @@ declare class SubtleCrypto {
     algorithm: AlgorithmIdentifier,
     key: CryptoKey,
     data: BufferSource,
-  ): ArrayBuffer;
+  ): Promise<ArrayBuffer>;
   deriveBits(
     algorithm: AlgorithmIdentifier,
     baseKey: CryptoKey,
     length?: number | null,
-  ): ArrayBuffer;
+  ): Promise<ArrayBuffer>;
   deriveKey(
     algorithm: AlgorithmIdentifier,
     baseKey: CryptoKey,
     derivedKeyType: AlgorithmIdentifier,
     extractable: boolean,
     keyUsages: Array<KeyUsage>,
-  ): CryptoKey;
-  digest(algorithm: AlgorithmIdentifier, data: BufferSource): ArrayBuffer;
+  ): Promise<CryptoKey>;
+  digest(
+    algorithm: AlgorithmIdentifier,
+    data: BufferSource,
+  ): Promise<ArrayBuffer>;
   encrypt(
     algorithm: AlgorithmIdentifier,
     key: CryptoKey,
     data: BufferSource,
-  ): ArrayBuffer;
-  exportKey(format: KeyFormat, key: CryptoKey): ArrayBuffer | JsonWebKey;
+  ): Promise<ArrayBuffer>;
+  exportKey(
+    format: KeyFormat,
+    key: CryptoKey,
+  ): Promise<ArrayBuffer | JsonWebKey>;
   generateKey(
     algorithm: AlgorithmIdentifier,
     extractable: boolean,
     keyUsages: Array<KeyUsage>,
-  ): CryptoKey | CryptoKeyPair;
+  ): Promise<CryptoKey | CryptoKeyPair>;
   importKey(
     format: KeyFormat,
     keyData: BufferSource | JsonWebKey,
     algorithm: AlgorithmIdentifier,
     extractable: boolean,
     keyUsages: Array<KeyUsage>,
-  ): CryptoKey;
+  ): Promise<CryptoKey>;
   sign(
     algorithm: AlgorithmIdentifier,
     key: CryptoKey,
     data: BufferSource,
-  ): ArrayBuffer;
+  ): Promise<ArrayBuffer>;
   unwrapKey(
     format: KeyFormat,
     wrappedKey: BufferSource,
@@ -17979,24 +18080,24 @@ declare class SubtleCrypto {
     unwrappedKeyAlgorithm: AlgorithmIdentifier,
     extractable: boolean,
     keyUsages: Array<KeyUsage>,
-  ): CryptoKey;
+  ): Promise<CryptoKey>;
   verify(
     algorithm: AlgorithmIdentifier,
     key: CryptoKey,
     signature: BufferSource,
     data: BufferSource,
-  ): boolean;
+  ): Promise<boolean>;
   wrapKey(
     format: KeyFormat,
     key: CryptoKey,
     wrappingKey: CryptoKey,
     wrapAlgorithm: AlgorithmIdentifier,
-  ): ArrayBuffer;
+  ): Promise<ArrayBuffer>;
 }
 
 declare class Summarizer mixins mixin$DestroyableModel {
-  +expectedContextLanguages: string | null;
-  +expectedInputLanguages: string | null;
+  +expectedContextLanguages: $ReadOnlyArray<string> | null;
+  +expectedInputLanguages: $ReadOnlyArray<string> | null;
   +format: SummarizerFormat;
   +inputQuota: number;
   +length: SummarizerLength;
@@ -18004,13 +18105,18 @@ declare class Summarizer mixins mixin$DestroyableModel {
   +sharedContext: string;
   +type: SummarizerType;
 
-  static availability(options?: SummarizerCreateCoreOptions): Availability;
-  static create(options?: SummarizerCreateOptions): Summarizer;
+  static availability(
+    options?: SummarizerCreateCoreOptions,
+  ): Promise<Availability>;
+  static create(options?: SummarizerCreateOptions): Promise<Summarizer>;
   measureInputUsage(
     input: string,
     options?: SummarizerSummarizeOptions,
-  ): number;
-  summarize(input: string, options?: SummarizerSummarizeOptions): string;
+  ): Promise<number>;
+  summarize(
+    input: string,
+    options?: SummarizerSummarizeOptions,
+  ): Promise<string>;
   summarizeStreaming(
     input: string,
     options?: SummarizerSummarizeOptions,
@@ -18631,7 +18737,7 @@ declare class SVGPathElement
 
 declare class SVGPathSegment {
   type: string;
-  values: number;
+  values: $ReadOnlyArray<number>;
 }
 
 declare class SVGPatternElement
@@ -18902,8 +19008,8 @@ declare class SyncEvent extends ExtendableEvent {
 }
 
 declare class SyncManager {
-  getTags(): Array<string>;
-  register(tag: string): void;
+  getTags(): Promise<Array<string>>;
+  register(tag: string): Promise<void>;
 }
 
 declare class Table {
@@ -18977,7 +19083,7 @@ declare class TextDecoderStream
 declare class TextDetector {
   constructor(): void;
 
-  detect(image: ImageBitmapSource): Array<DetectedText>;
+  detect(image: ImageBitmapSource): Promise<Array<DetectedText>>;
 }
 
 declare class TextEncoder mixins mixin$TextEncoderCommon {
@@ -19197,13 +19303,18 @@ declare class Translator mixins mixin$DestroyableModel {
   +sourceLanguage: string;
   +targetLanguage: string;
 
-  static availability(options: TranslatorCreateCoreOptions): Availability;
-  static create(options: TranslatorCreateOptions): Translator;
+  static availability(
+    options: TranslatorCreateCoreOptions,
+  ): Promise<Availability>;
+  static create(options: TranslatorCreateOptions): Promise<Translator>;
   measureInputUsage(
     input: string,
     options?: TranslatorTranslateOptions,
-  ): number;
-  translate(input: string, options?: TranslatorTranslateOptions): string;
+  ): Promise<number>;
+  translate(
+    input: string,
+    options?: TranslatorTranslateOptions,
+  ): Promise<string>;
   translateStreaming(
     input: string,
     options?: TranslatorTranslateOptions,
@@ -19227,16 +19338,19 @@ declare class TreeWalker {
 
 declare class TrustedHTML {
   toString(): string;
+
   toJSON(): string;
 }
 
 declare class TrustedScript {
   toString(): string;
+
   toJSON(): string;
 }
 
 declare class TrustedScriptURL {
   toString(): string;
+
   toJSON(): string;
 }
 
@@ -19349,7 +19463,7 @@ declare class URLPattern {
 declare class URLSearchParams {
   +size: number;
 
-  constructor(init?: Array<Array<string>> | string | string | string): void;
+  constructor(init?: Array<Array<string>> | {[string]: string} | string): void;
 
   @@iterator(): Iterator<string, string>;
 
@@ -19367,13 +19481,13 @@ declare class USB extends EventTarget {
   onconnect: EventHandler;
   ondisconnect: EventHandler;
 
-  getDevices(): Array<USBDevice>;
-  requestDevice(options: USBDeviceRequestOptions): USBDevice;
+  getDevices(): Promise<Array<USBDevice>>;
+  requestDevice(options: USBDeviceRequestOptions): Promise<USBDevice>;
 }
 
 declare class USBAlternateInterface {
   +alternateSetting: number;
-  +endpoints: USBEndpoint;
+  +endpoints: $ReadOnlyArray<USBEndpoint>;
   +interfaceClass: number;
   +interfaceName: string | null;
   +interfaceProtocol: number;
@@ -19385,7 +19499,7 @@ declare class USBAlternateInterface {
 declare class USBConfiguration {
   +configurationName: string | null;
   +configurationValue: number;
-  +interfaces: USBInterface;
+  +interfaces: $ReadOnlyArray<USBInterface>;
 
   constructor(device: USBDevice, configurationValue: number): void;
 }
@@ -19398,7 +19512,7 @@ declare class USBConnectionEvent extends Event {
 
 declare class USBDevice {
   +configuration: USBConfiguration | null;
-  +configurations: USBConfiguration;
+  +configurations: $ReadOnlyArray<USBConfiguration>;
   +deviceClass: number;
   +deviceProtocol: number;
   +deviceSubclass: number;
@@ -19415,37 +19529,43 @@ declare class USBDevice {
   +usbVersionSubminor: number;
   +vendorId: number;
 
-  claimInterface(interfaceNumber: number): void;
-  clearHalt(direction: USBDirection, endpointNumber: number): void;
-  close(): void;
+  claimInterface(interfaceNumber: number): Promise<void>;
+  clearHalt(direction: USBDirection, endpointNumber: number): Promise<void>;
+  close(): Promise<void>;
   controlTransferIn(
     setup: USBControlTransferParameters,
     length: number,
-  ): USBInTransferResult;
+  ): Promise<USBInTransferResult>;
   controlTransferOut(
     setup: USBControlTransferParameters,
     data?: BufferSource,
-  ): USBOutTransferResult;
-  forget(): void;
+  ): Promise<USBOutTransferResult>;
+  forget(): Promise<void>;
   isochronousTransferIn(
     endpointNumber: number,
     packetLengths: Array<number>,
-  ): USBIsochronousInTransferResult;
+  ): Promise<USBIsochronousInTransferResult>;
   isochronousTransferOut(
     endpointNumber: number,
     data: BufferSource,
     packetLengths: Array<number>,
-  ): USBIsochronousOutTransferResult;
-  open(): void;
-  releaseInterface(interfaceNumber: number): void;
-  reset(): void;
+  ): Promise<USBIsochronousOutTransferResult>;
+  open(): Promise<void>;
+  releaseInterface(interfaceNumber: number): Promise<void>;
+  reset(): Promise<void>;
   selectAlternateInterface(
     interfaceNumber: number,
     alternateSetting: number,
-  ): void;
-  selectConfiguration(configurationValue: number): void;
-  transferIn(endpointNumber: number, length: number): USBInTransferResult;
-  transferOut(endpointNumber: number, data: BufferSource): USBOutTransferResult;
+  ): Promise<void>;
+  selectConfiguration(configurationValue: number): Promise<void>;
+  transferIn(
+    endpointNumber: number,
+    length: number,
+  ): Promise<USBInTransferResult>;
+  transferOut(
+    endpointNumber: number,
+    data: BufferSource,
+  ): Promise<USBOutTransferResult>;
 }
 
 declare class USBEndpoint {
@@ -19463,7 +19583,7 @@ declare class USBEndpoint {
 
 declare class USBInterface {
   +alternate: USBAlternateInterface;
-  +alternates: USBAlternateInterface;
+  +alternates: $ReadOnlyArray<USBAlternateInterface>;
   +claimed: boolean;
   +interfaceNumber: number;
 
@@ -19486,7 +19606,7 @@ declare class USBIsochronousInTransferPacket {
 
 declare class USBIsochronousInTransferResult {
   +data: DataView | null;
-  +packets: USBIsochronousInTransferPacket;
+  +packets: $ReadOnlyArray<USBIsochronousInTransferPacket>;
 
   constructor(
     packets: Array<USBIsochronousInTransferPacket>,
@@ -19502,7 +19622,7 @@ declare class USBIsochronousOutTransferPacket {
 }
 
 declare class USBIsochronousOutTransferResult {
-  +packets: USBIsochronousOutTransferPacket;
+  +packets: $ReadOnlyArray<USBIsochronousOutTransferPacket>;
 
   constructor(packets: Array<USBIsochronousOutTransferPacket>): void;
 }
@@ -19515,7 +19635,7 @@ declare class USBOutTransferResult {
 }
 
 declare class USBPermissionResult extends PermissionStatus {
-  devices: USBDevice;
+  devices: $ReadOnlyArray<USBDevice>;
 }
 
 declare class UserActivation {
@@ -19561,11 +19681,13 @@ declare class VideoDecoder extends EventTarget {
 
   constructor(init: VideoDecoderInit): void;
 
-  static isConfigSupported(config: VideoDecoderConfig): VideoDecoderSupport;
+  static isConfigSupported(
+    config: VideoDecoderConfig,
+  ): Promise<VideoDecoderSupport>;
   close(): void;
   configure(config: VideoDecoderConfig): void;
   decode(chunk: EncodedVideoChunk): void;
-  flush(): void;
+  flush(): Promise<void>;
   reset(): void;
 }
 
@@ -19576,11 +19698,13 @@ declare class VideoEncoder extends EventTarget {
 
   constructor(init: VideoEncoderInit): void;
 
-  static isConfigSupported(config: VideoEncoderConfig): VideoEncoderSupport;
+  static isConfigSupported(
+    config: VideoEncoderConfig,
+  ): Promise<VideoEncoderSupport>;
   close(): void;
   configure(config: VideoEncoderConfig): void;
   encode(frame: VideoFrame, options?: VideoEncoderEncodeOptions): void;
-  flush(): void;
+  flush(): Promise<void>;
   reset(): void;
 }
 
@@ -19607,7 +19731,7 @@ declare class VideoFrame {
   copyTo(
     destination: AllowSharedBufferSource,
     options?: VideoFrameCopyToOptions,
-  ): Array<PlaneLayout>;
+  ): Promise<Array<PlaneLayout>>;
   metadata(): VideoFrameMetadata;
 }
 
@@ -19647,7 +19771,7 @@ declare class VideoTrackList extends EventTarget {
 }
 
 declare class Viewport {
-  +segments: DOMRect | null;
+  +segments: $ReadOnlyArray<DOMRect> | null;
 }
 
 declare class ViewTimeline extends ScrollTimeline {
@@ -19659,10 +19783,10 @@ declare class ViewTimeline extends ScrollTimeline {
 }
 
 declare class ViewTransition {
-  +finished: void;
-  +ready: void;
+  +finished: Promise<void>;
+  +ready: Promise<void>;
   types: ViewTransitionTypeSet;
-  +updateCallbackDone: void;
+  +updateCallbackDone: Promise<void>;
 
   skipTransition(): void;
 }
@@ -19729,7 +19853,7 @@ declare class VTTRegion {
 }
 
 declare class WakeLock {
-  request(type?: WakeLockType): WakeLockSentinel;
+  request(type?: WakeLockType): Promise<WakeLockSentinel>;
 }
 
 declare class WakeLockSentinel extends EventTarget {
@@ -19737,7 +19861,7 @@ declare class WakeLockSentinel extends EventTarget {
   +released: boolean;
   +type: WakeLockType;
 
-  release(): void;
+  release(): Promise<void>;
 }
 
 declare class WaveShaperNode extends AudioNode {
@@ -20688,14 +20812,14 @@ declare class WebSocket extends EventTarget {
 declare class WebTransport {
   anticipatedConcurrentIncomingBidirectionalStreams: number | null;
   anticipatedConcurrentIncomingUnidirectionalStreams: number | null;
-  +closed: WebTransportCloseInfo;
+  +closed: Promise<WebTransportCloseInfo>;
   +congestionControl: WebTransportCongestionControl;
   +datagrams: WebTransportDatagramDuplexStream;
-  +draining: void;
+  +draining: Promise<void>;
   +incomingBidirectionalStreams: ReadableStream;
   +incomingUnidirectionalStreams: ReadableStream;
   +protocol: string;
-  +ready: void;
+  +ready: Promise<void>;
   +reliability: WebTransportReliabilityMode;
   +supportsReliableOnly: boolean;
 
@@ -20704,12 +20828,12 @@ declare class WebTransport {
   close(closeInfo?: WebTransportCloseInfo): void;
   createBidirectionalStream(
     options?: WebTransportSendStreamOptions,
-  ): WebTransportBidirectionalStream;
+  ): Promise<WebTransportBidirectionalStream>;
   createSendGroup(): WebTransportSendGroup;
   createUnidirectionalStream(
     options?: WebTransportSendStreamOptions,
-  ): WebTransportSendStream;
-  getStats(): WebTransportConnectionStats;
+  ): Promise<WebTransportSendStream>;
+  getStats(): Promise<WebTransportConnectionStats>;
 }
 
 declare class WebTransportBidirectionalStream {
@@ -20743,23 +20867,23 @@ declare class WebTransportError extends DOMException {
 }
 
 declare class WebTransportReceiveStream extends ReadableStream {
-  getStats(): WebTransportReceiveStreamStats;
+  getStats(): Promise<WebTransportReceiveStreamStats>;
 }
 
 declare class WebTransportSendGroup {
-  getStats(): WebTransportSendStreamStats;
+  getStats(): Promise<WebTransportSendStreamStats>;
 }
 
 declare class WebTransportSendStream extends WritableStream {
   sendGroup: WebTransportSendGroup | null;
   sendOrder: number;
 
-  getStats(): WebTransportSendStreamStats;
+  getStats(): Promise<WebTransportSendStreamStats>;
   getWriter(): WebTransportWriter;
 }
 
 declare class WebTransportWriter extends WritableStreamDefaultWriter {
-  atomicWrite(chunk?: any): void;
+  atomicWrite(chunk?: any): Promise<void>;
 }
 
 type WGSLLanguageFeatures = Set<string>;
@@ -20858,8 +20982,8 @@ declare class Window
     elt: Element,
     pseudoElt?: string | null,
   ): CSSStyleDeclaration;
-  getDigitalGoodsService(serviceProvider: string): DigitalGoodsService;
-  getScreenDetails(): ScreenDetails;
+  getDigitalGoodsService(serviceProvider: string): Promise<DigitalGoodsService>;
+  getScreenDetails(): Promise<ScreenDetails>;
   getSelection(): Selection | null;
   matchMedia(query: string): MediaQueryList;
   moveBy(x: number, y: number): void;
@@ -20874,7 +20998,7 @@ declare class Window
   postMessage(message: any, options?: WindowPostMessageOptions): void;
   print(): void;
   prompt(message?: string, default_?: string): string | null;
-  queryLocalFonts(options?: QueryOptions): Array<FontData>;
+  queryLocalFonts(options?: QueryOptions): Promise<Array<FontData>>;
   releaseEvents(): void;
   requestIdleCallback(
     callback: IdleRequestCallback,
@@ -20890,22 +21014,24 @@ declare class Window
   scrollTo(x: number, y: number): void;
   showDirectoryPicker(
     options?: DirectoryPickerOptions,
-  ): FileSystemDirectoryHandle;
-  showSaveFilePicker(options?: SaveFilePickerOptions): FileSystemFileHandle;
+  ): Promise<FileSystemDirectoryHandle>;
+  showSaveFilePicker(
+    options?: SaveFilePickerOptions,
+  ): Promise<FileSystemFileHandle>;
   stop(): void;
   (name: string): Object;
   showOpenFilePicker(
     options?: OpenFilePickerOptions,
-  ): Array<FileSystemFileHandle>;
+  ): Promise<Array<FileSystemFileHandle>>;
 }
 
 declare class WindowClient extends Client {
-  +ancestorOrigins: string;
+  +ancestorOrigins: $ReadOnlyArray<string>;
   +focused: boolean;
   +visibilityState: DocumentVisibilityState;
 
-  focus(): WindowClient;
-  navigate(url: string): WindowClient | null;
+  focus(): Promise<WindowClient>;
+  navigate(url: string): Promise<WindowClient | null>;
 }
 
 declare class WindowControlsOverlay extends EventTarget {
@@ -20994,7 +21120,7 @@ declare class WorkerNavigator
 }
 
 declare class Worklet {
-  addModule(moduleURL: string, options?: WorkletOptions): void;
+  addModule(moduleURL: string, options?: WorkletOptions): Promise<void>;
 }
 
 declare class WorkletAnimation extends Animation {
@@ -21026,8 +21152,8 @@ declare class WritableStream {
 
   constructor(underlyingSink?: Object, strategy?: QueuingStrategy): void;
 
-  abort(reason?: any): void;
-  close(): void;
+  abort(reason?: any): Promise<void>;
+  close(): Promise<void>;
   getWriter(): WritableStreamDefaultWriter;
 }
 
@@ -21038,21 +21164,21 @@ declare class WritableStreamDefaultController {
 }
 
 declare class WritableStreamDefaultWriter {
-  +closed: void;
+  +closed: Promise<void>;
   +desiredSize: number | null;
-  +ready: void;
+  +ready: Promise<void>;
 
   constructor(stream: WritableStream): void;
 
-  abort(reason?: any): void;
-  close(): void;
+  abort(reason?: any): Promise<void>;
+  close(): Promise<void>;
   releaseLock(): void;
-  write(chunk?: any): void;
+  write(chunk?: any): Promise<void>;
 }
 
 declare class Writer mixins mixin$DestroyableModel {
-  +expectedContextLanguages: string | null;
-  +expectedInputLanguages: string | null;
+  +expectedContextLanguages: $ReadOnlyArray<string> | null;
+  +expectedInputLanguages: $ReadOnlyArray<string> | null;
   +format: WriterFormat;
   +inputQuota: number;
   +length: WriterLength;
@@ -21060,10 +21186,13 @@ declare class Writer mixins mixin$DestroyableModel {
   +sharedContext: string;
   +tone: WriterTone;
 
-  static availability(options?: WriterCreateCoreOptions): Availability;
-  static create(options?: WriterCreateOptions): Writer;
-  measureInputUsage(input: string, options?: WriterWriteOptions): number;
-  write(input: string, options?: WriterWriteOptions): string;
+  static availability(options?: WriterCreateCoreOptions): Promise<Availability>;
+  static create(options?: WriterCreateOptions): Promise<Writer>;
+  measureInputUsage(
+    input: string,
+    options?: WriterWriteOptions,
+  ): Promise<number>;
+  write(input: string, options?: WriterWriteOptions): Promise<string>;
   writeStreaming(input: string, options?: WriterWriteOptions): ReadableStream;
 }
 
@@ -21167,13 +21296,13 @@ declare class XRAnchor {
   +anchorSpace: XRSpace;
 
   delete(): void;
-  requestPersistentHandle(): string;
+  requestPersistentHandle(): Promise<string>;
 }
 
 type XRAnchorSet = Set<XRAnchor>;
 
 declare class XRBoundedReferenceSpace extends XRReferenceSpace {
-  +boundsGeometry: DOMPointReadOnly;
+  +boundsGeometry: $ReadOnlyArray<DOMPointReadOnly>;
 }
 
 declare class XRCamera {
@@ -21238,7 +21367,7 @@ declare class XRFrame {
   +session: XRSession;
   +trackedAnchors: XRAnchorSet;
 
-  createAnchor(pose: XRRigidTransform, space: XRSpace): XRAnchor;
+  createAnchor(pose: XRRigidTransform, space: XRSpace): Promise<XRAnchor>;
   fillJointRadii(
     jointSpaces: Array<XRJointSpace>,
     radii: Float32Array,
@@ -21268,7 +21397,7 @@ declare class XRHand {
 }
 
 declare class XRHitTestResult {
-  createAnchor(): XRAnchor;
+  createAnchor(): Promise<XRAnchor>;
   getPose(baseSpace: XRSpace): XRPose | null;
 }
 
@@ -21281,7 +21410,7 @@ declare class XRInputSource {
   +gripSpace: XRSpace | null;
   +hand: XRHand | null;
   +handedness: XRHandedness;
-  +profiles: string;
+  +profiles: $ReadOnlyArray<string>;
   +skipRendering: boolean;
   +targetRayMode: XRTargetRayMode;
   +targetRaySpace: XRSpace;
@@ -21303,8 +21432,8 @@ declare class XRInputSourceEvent extends Event {
 }
 
 declare class XRInputSourcesChangeEvent extends Event {
-  +added: XRInputSource;
-  +removed: XRInputSource;
+  +added: $ReadOnlyArray<XRInputSource>;
+  +removed: $ReadOnlyArray<XRInputSource>;
   +session: XRSession;
 
   constructor(type: string, eventInitDict: XRInputSourcesChangeEventInit): void;
@@ -21359,20 +21488,20 @@ declare class XRMesh {
   +lastChangedTime: number;
   +meshSpace: XRSpace;
   +semanticLabel: string | null;
-  +vertices: Float32Array;
+  +vertices: $ReadOnlyArray<Float32Array>;
 }
 
 type XRMeshSet = Set<XRMesh>;
 
 declare class XRPermissionStatus extends PermissionStatus {
-  granted: string;
+  granted: $ReadOnlyArray<string>;
 }
 
 declare class XRPlane {
   +lastChangedTime: number;
   +orientation: XRPlaneOrientation | null;
   +planeSpace: XRSpace;
-  +polygon: DOMPointReadOnly;
+  +polygon: $ReadOnlyArray<DOMPointReadOnly>;
   +semanticLabel: string | null;
 }
 
@@ -21429,7 +21558,7 @@ declare class XRRenderState {
   +depthFar: number;
   +depthNear: number;
   +inlineVerticalFieldOfView: number | null;
-  +layers: XRLayer;
+  +layers: $ReadOnlyArray<XRLayer>;
   +passthroughFullyObscured: boolean | null;
 }
 
@@ -21448,7 +21577,7 @@ declare class XRSession extends EventTarget {
   +depthType: XRDepthType | null;
   +depthUsage: XRDepthUsage;
   +domOverlayState: XRDOMOverlayState | null;
-  +enabledFeatures: string;
+  +enabledFeatures: $ReadOnlyArray<string>;
   +environmentBlendMode: XREnvironmentBlendMode;
   +frameRate: number | null;
   +inputSources: XRInputSourceArray;
@@ -21464,7 +21593,7 @@ declare class XRSession extends EventTarget {
   onsqueezeend: EventHandler;
   onsqueezestart: EventHandler;
   onvisibilitychange: EventHandler;
-  +persistentAnchors: string;
+  +persistentAnchors: $ReadOnlyArray<string>;
   +preferredReflectionFormat: XRReflectionFormat;
   +renderState: XRRenderState;
   +supportedFrameRates: Float32Array | null;
@@ -21472,21 +21601,21 @@ declare class XRSession extends EventTarget {
   +visibilityState: XRVisibilityState;
 
   cancelAnimationFrame(handle: number): void;
-  deletePersistentAnchor(uuid: string): void;
-  end(): void;
-  initiateRoomCapture(): void;
+  deletePersistentAnchor(uuid: string): Promise<void>;
+  end(): Promise<void>;
+  initiateRoomCapture(): Promise<void>;
   pauseDepthSensing(): void;
   requestAnimationFrame(callback: XRFrameRequestCallback): number;
-  requestHitTestSource(options: XRHitTestOptionsInit): XRHitTestSource;
+  requestHitTestSource(options: XRHitTestOptionsInit): Promise<XRHitTestSource>;
   requestHitTestSourceForTransientInput(
     options: XRTransientInputHitTestOptionsInit,
-  ): XRTransientInputHitTestSource;
-  requestLightProbe(options?: XRLightProbeInit): XRLightProbe;
-  requestReferenceSpace(type: XRReferenceSpaceType): XRReferenceSpace;
-  restorePersistentAnchor(uuid: string): XRAnchor;
+  ): Promise<XRTransientInputHitTestSource>;
+  requestLightProbe(options?: XRLightProbeInit): Promise<XRLightProbe>;
+  requestReferenceSpace(type: XRReferenceSpaceType): Promise<XRReferenceSpace>;
+  restorePersistentAnchor(uuid: string): Promise<XRAnchor>;
   resumeDepthSensing(): void;
   updateRenderState(state?: XRRenderStateInit): void;
-  updateTargetFrameRate(rate: number): void;
+  updateTargetFrameRate(rate: number): Promise<void>;
 }
 
 declare class XRSessionEvent extends Event {
@@ -21504,13 +21633,16 @@ declare class XRSubImage {
 declare class XRSystem extends EventTarget {
   ondevicechange: EventHandler;
 
-  isSessionSupported(mode: XRSessionMode): boolean;
-  requestSession(mode: XRSessionMode, options?: XRSessionInit): XRSession;
+  isSessionSupported(mode: XRSessionMode): Promise<boolean>;
+  requestSession(
+    mode: XRSessionMode,
+    options?: XRSessionInit,
+  ): Promise<XRSession>;
 }
 
 declare class XRTransientInputHitTestResult {
   +inputSource: XRInputSource;
-  +results: XRHitTestResult;
+  +results: $ReadOnlyArray<XRHitTestResult>;
 }
 
 declare class XRTransientInputHitTestSource {
@@ -21527,7 +21659,7 @@ declare class XRView mixins mixin$XRViewGeometry {
 }
 
 declare class XRViewerPose extends XRPose {
-  +views: XRView;
+  +views: $ReadOnlyArray<XRView>;
 }
 
 declare class XRViewport {
@@ -21639,28 +21771,28 @@ declare class mixin$ARIAMixin {
   ariaColIndex: string | null;
   ariaColIndexText: string | null;
   ariaColSpan: string | null;
-  ariaControlsElements: Element | null;
+  ariaControlsElements: $ReadOnlyArray<Element> | null;
   ariaCurrent: string | null;
-  ariaDescribedByElements: Element | null;
+  ariaDescribedByElements: $ReadOnlyArray<Element> | null;
   ariaDescription: string | null;
-  ariaDetailsElements: Element | null;
+  ariaDetailsElements: $ReadOnlyArray<Element> | null;
   ariaDisabled: string | null;
-  ariaErrorMessageElements: Element | null;
+  ariaErrorMessageElements: $ReadOnlyArray<Element> | null;
   ariaExpanded: string | null;
-  ariaFlowToElements: Element | null;
+  ariaFlowToElements: $ReadOnlyArray<Element> | null;
   ariaHasPopup: string | null;
   ariaHidden: string | null;
   ariaInvalid: string | null;
   ariaKeyShortcuts: string | null;
   ariaLabel: string | null;
-  ariaLabelledByElements: Element | null;
+  ariaLabelledByElements: $ReadOnlyArray<Element> | null;
   ariaLevel: string | null;
   ariaLive: string | null;
   ariaModal: string | null;
   ariaMultiLine: string | null;
   ariaMultiSelectable: string | null;
   ariaOrientation: string | null;
-  ariaOwnsElements: Element | null;
+  ariaOwnsElements: $ReadOnlyArray<Element> | null;
   ariaPlaceholder: string | null;
   ariaPosInSet: string | null;
   ariaPressed: string | null;
@@ -21691,12 +21823,12 @@ declare class mixin$Body {
   +body: ReadableStream | null;
   +bodyUsed: boolean;
 
-  arrayBuffer(): ArrayBuffer;
-  blob(): Blob;
-  bytes(): Uint8Array;
-  formData(): FormData;
-  json(): any;
-  text(): string;
+  arrayBuffer(): Promise<ArrayBuffer>;
+  blob(): Promise<Blob>;
+  bytes(): Promise<Uint8Array>;
+  formData(): Promise<FormData>;
+  json(): Promise<any>;
+  text(): Promise<string>;
 }
 
 declare class mixin$CanvasCompositing {
@@ -21954,7 +22086,7 @@ declare class mixin$DestroyableModel {
 
 declare class mixin$DocumentOrShadowRoot {
   +activeElement: Element | null;
-  adoptedStyleSheets: CSSStyleSheet;
+  adoptedStyleSheets: Array<CSSStyleSheet>;
   +customElementRegistry: CustomElementRegistry | null;
   +fullscreenElement: Element | null;
   +pictureInPictureElement: Element | null;
@@ -22232,8 +22364,8 @@ declare class mixin$NavigatorAutomationInformation {
 }
 
 declare class mixin$NavigatorBadge {
-  clearAppBadge(): void;
-  setAppBadge(contents?: number): void;
+  clearAppBadge(): Promise<void>;
+  setAppBadge(contents?: number): Promise<void>;
 }
 
 declare class mixin$NavigatorConcurrentHardware {
@@ -22274,7 +22406,7 @@ declare class mixin$NavigatorID {
 
 declare class mixin$NavigatorLanguage {
   +language: string;
-  +languages: string;
+  +languages: $ReadOnlyArray<string>;
 }
 
 declare class mixin$NavigatorLocks {
@@ -22351,9 +22483,9 @@ declare class mixin$PopoverInvokerElement {
 }
 
 declare class mixin$ReadableStreamGenericReader {
-  +closed: void;
+  +closed: Promise<void>;
 
-  cancel(reason?: any): void;
+  cancel(reason?: any): Promise<void>;
 }
 
 declare class mixin$Region {
@@ -23316,7 +23448,7 @@ declare class mixin$WebGLRenderingContextBase {
   isTexture(texture: WebGLTexture | null): GLboolean;
   lineWidth(width: GLfloat): void;
   linkProgram(program: WebGLProgram): void;
-  makeXRCompatible(): void;
+  makeXRCompatible(): Promise<void>;
   pixelStorei(pname: GLenum, param: GLint): void;
   polygonOffset(factor: GLfloat, units: GLfloat): void;
   renderbufferStorage(
@@ -23557,7 +23689,7 @@ declare class mixin$WindowOrWorkerGlobalScope {
   createImageBitmap(
     image: ImageBitmapSource,
     options?: ImageBitmapOptions,
-  ): ImageBitmap;
+  ): Promise<ImageBitmap>;
   createImageBitmap(
     image: ImageBitmapSource,
     sx: number,
@@ -23565,8 +23697,8 @@ declare class mixin$WindowOrWorkerGlobalScope {
     sw: number,
     sh: number,
     options?: ImageBitmapOptions,
-  ): ImageBitmap;
-  fetch(input: RequestInfo, init?: RequestInit): Response;
+  ): Promise<ImageBitmap>;
+  fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
   queueMicrotask(callback: VoidFunction): void;
   reportError(e: any): void;
   setInterval(handler: TimerHandler, timeout?: number, arguments_: any): number;

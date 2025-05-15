@@ -18,7 +18,7 @@ type PushSubscriptionChangeEventInit = {
 type PushSubscriptionJSON = {
   endpoint: string,
   expirationTime: EpochTimeStamp | null,
-  keys: string | string,
+  keys: {[string]: string},
 };
 
 type PushSubscriptionOptionsInit = {
@@ -33,11 +33,13 @@ declare class PushEvent extends ExtendableEvent {
 }
 
 declare class PushManager {
-  +supportedContentEncodings: string;
+  +supportedContentEncodings: $ReadOnlyArray<string>;
 
-  getSubscription(): PushSubscription | null;
-  permissionState(options?: PushSubscriptionOptionsInit): PermissionState;
-  subscribe(options?: PushSubscriptionOptionsInit): PushSubscription;
+  getSubscription(): Promise<PushSubscription | null>;
+  permissionState(
+    options?: PushSubscriptionOptionsInit,
+  ): Promise<PermissionState>;
+  subscribe(options?: PushSubscriptionOptionsInit): Promise<PushSubscription>;
 }
 
 declare class PushMessageData {
@@ -55,7 +57,7 @@ declare class PushSubscription {
 
   getKey(name: PushEncryptionKeyName): ArrayBuffer | null;
   toJSON(): PushSubscriptionJSON;
-  unsubscribe(): boolean;
+  unsubscribe(): Promise<boolean>;
 }
 
 declare class PushSubscriptionChangeEvent extends ExtendableEvent {

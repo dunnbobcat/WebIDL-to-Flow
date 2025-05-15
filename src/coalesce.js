@@ -98,6 +98,7 @@ export async function coalesceIDLs(
     wholeDictionary.members = [...wholeDictionary.members, ...members];
   }
 
+  // Flatten dictionaries
   for (const wholeDictionary of wholeDictionaries) {
     const {inheritance, name} = wholeDictionary;
     if (inheritance == null) {

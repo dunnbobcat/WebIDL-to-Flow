@@ -10,6 +10,9 @@ type PAHistogramContribution = {
 
 declare class PrivateAggregation {
   contributeToHistogram(contribution: PAHistogramContribution): void;
-  contributeToHistogramOnEvent(event: string, contribution: string | any): void;
+  contributeToHistogramOnEvent(
+    event: string,
+    contribution: {[string]: any},
+  ): void;
   enableDebugMode(options?: PADebugModeOptions): void;
 }

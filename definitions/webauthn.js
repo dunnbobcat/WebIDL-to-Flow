@@ -2,7 +2,7 @@ type Base64URLString = string;
 
 type COSEAlgorithmIdentifier = number;
 
-type PublicKeyCredentialClientCapabilities = string | boolean;
+type PublicKeyCredentialClientCapabilities = {[string]: boolean};
 
 type PublicKeyCredentialJSON = Object;
 
@@ -189,12 +189,12 @@ type AuthenticationExtensionsLargeBlobOutputsJSON = {
 
 type AuthenticationExtensionsPRFInputs = {
   eval: AuthenticationExtensionsPRFValues,
-  evalByCredential: string | AuthenticationExtensionsPRFValues,
+  evalByCredential: {[string]: AuthenticationExtensionsPRFValues},
 };
 
 type AuthenticationExtensionsPRFInputsJSON = {
   eval: AuthenticationExtensionsPRFValuesJSON,
-  evalByCredential: string | AuthenticationExtensionsPRFValuesJSON,
+  evalByCredential: {[string]: AuthenticationExtensionsPRFValuesJSON},
 };
 
 type AuthenticationExtensionsPRFOutputs = {
@@ -405,9 +405,9 @@ declare class PublicKeyCredential extends Credential {
   +rawId: ArrayBuffer;
   +response: AuthenticatorResponse;
 
-  static getClientCapabilities(): PublicKeyCredentialClientCapabilities;
-  static isConditionalMediationAvailable(): boolean;
-  static isUserVerifyingPlatformAuthenticatorAvailable(): boolean;
+  static getClientCapabilities(): Promise<PublicKeyCredentialClientCapabilities>;
+  static isConditionalMediationAvailable(): Promise<boolean>;
+  static isUserVerifyingPlatformAuthenticatorAvailable(): Promise<boolean>;
   static parseCreationOptionsFromJSON(
     options: PublicKeyCredentialCreationOptionsJSON,
   ): PublicKeyCredentialCreationOptions;
@@ -416,19 +416,23 @@ declare class PublicKeyCredential extends Credential {
   ): PublicKeyCredentialRequestOptions;
   static signalAllAcceptedCredentials(
     options: AllAcceptedCredentialsOptions,
-  ): void;
-  static signalCurrentUserDetails(options: CurrentUserDetailsOptions): void;
-  static signalUnknownCredential(options: UnknownCredentialOptions): void;
+  ): Promise<void>;
+  static signalCurrentUserDetails(
+    options: CurrentUserDetailsOptions,
+  ): Promise<void>;
+  static signalUnknownCredential(
+    options: UnknownCredentialOptions,
+  ): Promise<void>;
   getClientExtensionResults(): AuthenticationExtensionsClientOutputs;
   toJSON(): PublicKeyCredentialJSON;
 }
 
 /* partial */ declare class PublicKeyCredential {
-  static isUserVerifyingPlatformAuthenticatorAvailable(): boolean;
+  static isUserVerifyingPlatformAuthenticatorAvailable(): Promise<boolean>;
 }
 
 /* partial */ declare class PublicKeyCredential {
-  static getClientCapabilities(): PublicKeyCredentialClientCapabilities;
+  static getClientCapabilities(): Promise<PublicKeyCredentialClientCapabilities>;
 }
 
 /* partial */ declare class PublicKeyCredential {
@@ -446,7 +450,11 @@ declare class PublicKeyCredential extends Credential {
 /* partial */ declare class PublicKeyCredential {
   static signalAllAcceptedCredentials(
     options: AllAcceptedCredentialsOptions,
-  ): void;
-  static signalCurrentUserDetails(options: CurrentUserDetailsOptions): void;
-  static signalUnknownCredential(options: UnknownCredentialOptions): void;
+  ): Promise<void>;
+  static signalCurrentUserDetails(
+    options: CurrentUserDetailsOptions,
+  ): Promise<void>;
+  static signalUnknownCredential(
+    options: UnknownCredentialOptions,
+  ): Promise<void>;
 }

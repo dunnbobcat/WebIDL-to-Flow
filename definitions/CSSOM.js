@@ -36,16 +36,11 @@ declare class CSSNamespaceRule extends CSSRule {
 declare class CSSPageDescriptors extends CSSStyleDeclaration {
   bleed: string;
   margin: string;
-  'margin-bottom': string;
-  'margin-left': string;
-  'margin-right': string;
-  'margin-top': string;
   marginBottom: string;
   marginLeft: string;
   marginRight: string;
   marginTop: string;
   marks: string;
-  'page-orientation': string;
   pageOrientation: string;
   size: string;
 }
@@ -109,7 +104,7 @@ declare class CSSStyleSheet extends StyleSheet {
   deleteRule(index: number): void;
   insertRule(rule: string, index?: number): number;
   removeRule(index?: number): void;
-  replace(text: string): CSSStyleSheet;
+  replace(text: string): Promise<CSSStyleSheet>;
   replaceSync(text: string): void;
 }
 
@@ -153,7 +148,7 @@ declare class StyleSheetList {
 }
 
 /* partial */ declare class mixin$DocumentOrShadowRoot {
-  adoptedStyleSheets: CSSStyleSheet;
+  adoptedStyleSheets: Array<CSSStyleSheet>;
   +styleSheets: StyleSheetList;
 }
 

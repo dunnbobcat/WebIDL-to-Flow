@@ -98,7 +98,7 @@ type AudioWorkletNodeOptions = {
   numberOfInputs: number,
   numberOfOutputs: number,
   outputChannelCount: Array<number>,
-  parameterData: string | number,
+  parameterData: {[string]: number},
   processorOptions: Object,
 };
 
@@ -252,8 +252,8 @@ type WaveShaperOptions = {
 };
 
 type AudioWorkletProcessCallback = (
-  inputs: Float32Array,
-  outputs: Float32Array,
+  inputs: $ReadOnlyArray<$ReadOnlyArray<Float32Array>>,
+  outputs: $ReadOnlyArray<$ReadOnlyArray<Float32Array>>,
   parameters: Object,
 ) => boolean;
 
@@ -326,7 +326,7 @@ declare class AudioContext extends BaseAudioContext {
 
   constructor(contextOptions?: AudioContextOptions): void;
 
-  close(): void;
+  close(): Promise<void>;
   createMediaElementSource(
     mediaElement: HTMLMediaElement,
   ): MediaElementAudioSourceNode;
@@ -336,9 +336,9 @@ declare class AudioContext extends BaseAudioContext {
     mediaStreamTrack: MediaStreamTrack,
   ): MediaStreamTrackAudioSourceNode;
   getOutputTimestamp(): AudioTimestamp;
-  resume(): void;
-  setSinkId(sinkId: string | AudioSinkOptions): void;
-  suspend(): void;
+  resume(): Promise<void>;
+  setSinkId(sinkId: string | AudioSinkOptions): Promise<void>;
+  suspend(): Promise<void>;
 }
 
 declare class AudioDestinationNode extends AudioNode {
@@ -517,7 +517,7 @@ declare class BaseAudioContext extends EventTarget {
     audioData: ArrayBuffer,
     successCallback?: DecodeSuccessCallback | null,
     errorCallback?: DecodeErrorCallback | null,
-  ): AudioBuffer;
+  ): Promise<AudioBuffer>;
 }
 
 declare class BiquadFilterNode extends AudioNode {
@@ -647,9 +647,9 @@ declare class OfflineAudioContext extends BaseAudioContext {
     sampleRate: number,
   ): void;
 
-  resume(): void;
-  startRendering(): AudioBuffer;
-  suspend(suspendTime: number): void;
+  resume(): Promise<void>;
+  startRendering(): Promise<AudioBuffer>;
+  suspend(suspendTime: number): Promise<void>;
 }
 
 declare class OscillatorNode extends AudioScheduledSourceNode {

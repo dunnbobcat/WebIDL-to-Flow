@@ -3,7 +3,7 @@ type URLPatternCompatible = string | URLPatternInit | URLPattern;
 type URLPatternInput = string | URLPatternInit;
 
 type URLPatternComponentResult = {
-  groups: string | string | void,
+  groups: {[string]: string | void},
   input: string,
 };
 

@@ -5,5 +5,5 @@
 declare class NavigatorManagedData extends EventTarget {
   onmanagedconfigurationchange: EventHandler;
 
-  getManagedConfiguration(keys: Array<string>): string | Object;
+  getManagedConfiguration(keys: Array<string>): Promise<{[string]: Object}>;
 }
