@@ -208,7 +208,6 @@ export const WEB_SPECS = [
   'testutils',
   'text-detection-api',
   'touch-events',
-  'translation-api',
   'trust-token-api',
   'trusted-types',
   'turtledove',

@@ -36,9 +36,9 @@ declare class AmbientLightSensor extends Sensor {
 /*---------- anchors ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - XRFrame
+//   - XRSession
+//   - XRHitTestResult
 
 declare class XRAnchor {
   +anchorSpace: XRSpace;
@@ -52,14 +52,14 @@ type XRAnchorSet = Set<XRAnchor>;
 /*---------- anonymous-iframe ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - HTMLIFrameElement
+//   - Window
 
 /*---------- attribution-reporting-api ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - RequestInit
+//   - XMLHttpRequest
 
 type AttributionReportingRequestOptions = {
   eventSourceEligible: boolean,
@@ -73,8 +73,8 @@ declare class mixin$HTMLAttributionSrcElementUtils {
 /*---------- audio-output ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - HTMLMediaElement
+//   - MediaDevices
 
 type AudioOutputOptions = {
   deviceId: string,
@@ -83,7 +83,7 @@ type AudioOutputOptions = {
 /*---------- audio-session ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type AudioSessionState = 'inactive' | 'active' | 'interrupted';
 
@@ -104,7 +104,7 @@ declare class AudioSession extends EventTarget {
 /*---------- autoplay-detection ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type AutoplayPolicy = 'allowed' | 'allowed-muted' | 'disallowed';
 
@@ -113,8 +113,8 @@ type AutoplayPolicyMediaType = 'mediaelement' | 'audiocontext';
 /*---------- background-fetch ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - ServiceWorkerGlobalScope
+//   - ServiceWorkerRegistration
 
 type BackgroundFetchFailureReason =
   | ''
@@ -193,8 +193,8 @@ declare class BackgroundFetchUpdateUIEvent extends BackgroundFetchEvent {
 /*---------- background-sync ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - ServiceWorkerRegistration
+//   - ServiceWorkerGlobalScope
 
 type SyncEventInit = {
   ...ExtendableEventInit,
@@ -224,7 +224,7 @@ declare class mixin$NavigatorBadge {
 /*---------- battery-status ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 declare class BatteryManager extends EventTarget {
   +charging: boolean;
@@ -240,13 +240,13 @@ declare class BatteryManager extends EventTarget {
 /*---------- beacon ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 /*---------- capture-handle-identity ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - MediaDevices
+//   - MediaStreamTrack
 
 type CaptureHandle = {
   handle: string,
@@ -262,7 +262,7 @@ type CaptureHandleConfig = {
 /*---------- captured-mouse-events ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CaptureController
 
 type CapturedMouseEventInit = {
   ...EventInit,
@@ -280,7 +280,7 @@ declare class CapturedMouseEvent extends Event {
 /*---------- clipboard-apis ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type ClipboardItemData = Promise<string | Blob>;
 
@@ -335,8 +335,8 @@ declare class ClipboardItem {
 /*---------- compat ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Window
+//   - HTMLBodyElement
 
 /*---------- compression ----------*/
 
@@ -414,8 +414,8 @@ declare namespace console {
 /*---------- content-index ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - ServiceWorkerGlobalScope
+//   - ServiceWorkerRegistration
 
 type ContentCategory = '' | 'homepage' | 'article' | 'video' | 'audio';
 
@@ -448,9 +448,9 @@ declare class ContentIndexEvent extends ExtendableEvent {
 /*---------- cookie-store ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - ServiceWorkerRegistration
+//   - Window
+//   - ServiceWorkerGlobalScope
 
 type CookieList = Array<CookieListItem>;
 
@@ -551,9 +551,9 @@ declare class CrashReportBody extends ReportBody {
 /*---------- credential-management ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - CredentialRequestOptions
+//   - CredentialCreationOptions
 
 type PasswordCredentialInit = PasswordCredentialData | HTMLFormElement;
 
@@ -652,7 +652,7 @@ declare class mixin$CredentialUserData {
 /*---------- csp-embedded-enforcement ----------*/
 
 // Contributes to:
-//   - undefined
+//   - HTMLIFrameElement
 
 /*---------- csp-next ----------*/
 
@@ -780,7 +780,7 @@ declare class CSSPositionTryRule extends CSSRule {
 /*---------- css-animation-worklet ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CSS
 
 type AnimatorInstanceConstructor = (options: any, state?: any) => any;
 
@@ -822,8 +822,8 @@ declare class CSSAnimation extends Animation {
 /*---------- css-animations ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - CSSRule
+//   - GlobalEventHandlers
 
 type AnimationEventInit = {
   ...EventInit,
@@ -892,8 +892,8 @@ declare class CSSContainerRule extends CSSConditionRule {
 /*---------- css-conditional ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - CSSRule
+//   - CSS
 
 declare class CSSConditionRule extends CSSGroupingRule {
   +conditionText: string;
@@ -927,7 +927,7 @@ declare class ContentVisibilityAutoStateChangeEvent extends Event {
 /*---------- css-counter-styles ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CSSRule
 
 declare class CSSCounterStyleRule extends CSSRule {
   additiveSymbols: string;
@@ -946,7 +946,7 @@ declare class CSSCounterStyleRule extends CSSRule {
 /*---------- css-font-loading ----------*/
 
 // Contributes to:
-//   - undefined
+//   - FontFace
 
 type FontFaceLoadStatus = 'unloaded' | 'loading' | 'loaded' | 'error';
 
@@ -1084,7 +1084,7 @@ declare class CSSFontFaceRule extends CSSRule {
 /*---------- css-fonts ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CSSRule
 
 declare class CSSFontFeatureValuesMap {
   set(featureValueName: string, values: number | Array<number>): void;
@@ -1111,8 +1111,8 @@ declare class CSSFontPaletteValuesRule extends CSSRule {
 /*---------- css-highlight-api ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - CSS
+//   - HighlightRegistry
 
 type HighlightType = 'highlight' | 'spelling-error' | 'grammar-error';
 
@@ -1138,12 +1138,12 @@ declare class HighlightRegistry {
 /*---------- css-images-4 ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CSS
 
 /*---------- css-layout-api ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CSS
 
 type BlockFragmentationType = 'none' | 'page' | 'column' | 'region';
 
@@ -1297,8 +1297,8 @@ declare class CSSFunctionRule extends CSSGroupingRule {
 /*---------- css-nav ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Window
+//   - Element
 
 type FocusableAreaSearchMode = 'visible' | 'all';
 
@@ -1335,7 +1335,7 @@ declare class CSSNestedDeclarations extends CSSRule {
 /*---------- css-paint-api ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CSS
 
 type PaintRenderingContext2DSettings = {
   alpha: boolean,
@@ -1369,7 +1369,7 @@ declare class PaintWorkletGlobalScope extends WorkletGlobalScope {
 /*---------- css-parser-api ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CSS
 
 type CSSStringSource = string | ReadableStream;
 
@@ -1439,7 +1439,7 @@ declare class CSSParserValue {}
 /*---------- css-properties-values-api ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CSS
 
 type PropertyDefinition = {
   inherits: boolean,
@@ -1458,7 +1458,7 @@ declare class CSSPropertyRule extends CSSRule {
 /*---------- css-pseudo ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Element
 
 declare class CSSPseudoElement extends EventTarget mixins mixin$GeometryUtils {
   +element: Element;
@@ -1471,7 +1471,7 @@ declare class CSSPseudoElement extends EventTarget mixins mixin$GeometryUtils {
 /*---------- css-regions ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Document
 
 declare class NamedFlow extends EventTarget {
   +firstEmptyRegionIndex: number;
@@ -1494,7 +1494,7 @@ declare class mixin$Region {
 /*---------- css-scroll-snap-2 ----------*/
 
 // Contributes to:
-//   - undefined
+//   - GlobalEventHandlers
 
 type SnapEventInit = {
   ...EventInit,
@@ -1512,7 +1512,7 @@ declare class SnapEvent extends Event {
 /*---------- css-shadow-parts ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Element
 
 /*---------- css-transitions-2 ----------*/
 
@@ -1525,7 +1525,7 @@ declare class CSSTransition extends Animation {
 /*---------- css-transitions ----------*/
 
 // Contributes to:
-//   - undefined
+//   - GlobalEventHandlers
 
 type TransitionEventInit = {
   ...EventInit,
@@ -1548,10 +1548,10 @@ declare class TransitionEvent extends Event {
 /*---------- css-typed-om ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Element
+//   - CSSStyleRule
+//   - ElementCSSInlineStyle
+//   - CSS
 
 type CSSColorAngle = CSSNumberish | CSSKeywordish;
 
@@ -1939,8 +1939,8 @@ declare class StylePropertyMapReadOnly {
 /*---------- css-view-transitions-2 ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - ViewTransition
+//   - Document
 
 type StartViewTransitionOptions = {
   types: Array<string> | null,
@@ -1970,7 +1970,7 @@ declare class ViewTransition {
 /*---------- css-viewport ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 declare class Viewport {
   +segments: $ReadOnlyArray<DOMRect> | null;
@@ -1979,13 +1979,13 @@ declare class Viewport {
 /*---------- cssom-view ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Window
+//   - Document
+//   - Element
+//   - HTMLElement
+//   - HTMLImageElement
+//   - Range
+//   - MouseEvent
 
 type GeometryNode = Text | Element | CSSPseudoElement | Document;
 
@@ -2112,9 +2112,9 @@ declare class mixin$GeometryUtils {
 /*---------- cssom ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - CSSStyleSheet
+//   - DocumentOrShadowRoot
+//   - Window
 
 type CSSStyleSheetInit = {
   baseURL: string,
@@ -2390,7 +2390,7 @@ declare class DeprecationReportBody extends ReportBody {
 /*---------- device-attributes ----------*/
 
 // Contributes to:
-//   - undefined
+//   - NavigatorManagedData
 
 /*---------- device-memory ----------*/
 
@@ -2401,7 +2401,7 @@ declare class mixin$NavigatorDeviceMemory {
 /*---------- device-posture ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type DevicePostureType = 'continuous' | 'folded';
 
@@ -2413,8 +2413,8 @@ declare class DevicePosture extends EventTarget {
 /*---------- digital-credentials ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - CredentialRequestOptions
+//   - CredentialCreationOptions
 
 type DigitalCredentialCreateRequest = {
   data: Object,
@@ -2442,7 +2442,7 @@ declare class DigitalCredential extends Credential {
 /*---------- digital-goods ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 type ItemType = 'product' | 'subscription';
 
@@ -2475,7 +2475,7 @@ declare class DigitalGoodsService {
 /*---------- document-picture-in-picture ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 type DocumentPictureInPictureEventInit = {
   ...EventInit,
@@ -2508,7 +2508,7 @@ declare class DocumentPictureInPictureEvent extends Event {
 /*---------- dom ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 type ShadowRootMode = 'open' | 'closed';
 
@@ -3338,7 +3338,7 @@ declare class mixin$XPathEvaluatorBase {
 /*---------- edit-context ----------*/
 
 // Contributes to:
-//   - undefined
+//   - HTMLElement
 
 type UnderlineStyle = 'none' | 'solid' | 'dotted' | 'dashed' | 'wavy';
 
@@ -3439,7 +3439,7 @@ declare class TextUpdateEvent extends Event {
 /*---------- element-capture ----------*/
 
 // Contributes to:
-//   - undefined
+//   - BrowserCaptureMediaStreamTrack
 
 declare class RestrictionTarget {
   static fromElement(element: Element): Promise<RestrictionTarget>;
@@ -3448,7 +3448,7 @@ declare class RestrictionTarget {
 /*---------- element-timing ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Element
 
 declare class PerformanceElementTiming
   extends PerformanceEntry
@@ -3524,8 +3524,8 @@ declare class mixin$TextEncoderCommon {
 /*---------- encrypted-media ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - HTMLMediaElement
 
 type MediaKeyMessageType =
   | 'license-request'
@@ -3640,9 +3640,9 @@ declare class MediaKeySystemAccess {
 /*---------- entries-api ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - File
+//   - HTMLInputElement
+//   - DataTransferItem
 
 type FileSystemFlags = {
   create: boolean,
@@ -3705,8 +3705,8 @@ declare class FileSystemFileEntry extends FileSystemEntry {
 /*---------- event-timing ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Performance
+//   - PerformanceObserverInit
 
 type EventCounts = Map<string, number>;
 
@@ -3739,7 +3739,7 @@ declare class EyeDropper {
 /*---------- fedcm ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CredentialRequestOptions
 
 type IdentityCredentialRequestOptionsContext =
   | 'signin'
@@ -3866,9 +3866,9 @@ declare class IdentityProvider {
 /*---------- fenced-frame ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - Window
+//   - GlobalEventHandlers
 
 type ReportEventType = FenceEvent | string;
 
@@ -3919,7 +3919,7 @@ declare class HTMLFencedFrameElement extends HTMLElement {
 /*---------- fetch ----------*/
 
 // Contributes to:
-//   - undefined
+//   - WindowOrWorkerGlobalScope
 
 type BodyInit = ReadableStream | XMLHttpRequestBodyInit;
 
@@ -4081,8 +4081,8 @@ declare class mixin$Body {
 /*---------- fido ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - AuthenticationExtensionsClientInputs
+//   - AuthenticationExtensionsClientOutputs
 
 type HMACGetSecretInput = {
   salt1: ArrayBuffer,
@@ -4097,9 +4097,9 @@ type HMACGetSecretOutput = {
 /*---------- file-system-access ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - FileSystemHandle
+//   - Window
+//   - DataTransferItem
 
 type StartInDirectory = WellKnownDirectory | FileSystemHandle;
 
@@ -4154,7 +4154,7 @@ type SaveFilePickerOptions = {
 /*---------- FileAPI ----------*/
 
 // Contributes to:
-//   - undefined
+//   - URL
 
 type BlobPart = BufferSource | Blob | string;
 
@@ -4535,7 +4535,7 @@ declare class mixin$SVGFilterPrimitiveStandardAttributes {
 /*---------- font-metrics-api ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Document
 
 declare class Baseline {
   +name: string;
@@ -4567,7 +4567,7 @@ declare class FontMetrics {
 /*---------- fs ----------*/
 
 // Contributes to:
-//   - undefined
+//   - StorageManager
 
 type FileSystemWriteChunkType = BufferSource | Blob | string | WriteParams;
 
@@ -4662,9 +4662,9 @@ declare class FileSystemWritableFileStream extends WritableStream {
 /*---------- fullscreen ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Element
+//   - Document
+//   - DocumentOrShadowRoot
 
 type FullscreenNavigationUI = 'auto' | 'show' | 'hide';
 
@@ -4676,8 +4676,8 @@ type FullscreenOptions = {
 /*---------- gamepad-extensions ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Gamepad
+//   - GamepadHapticActuator
 
 type GamepadHand = '' | 'left' | 'right';
 
@@ -4695,8 +4695,8 @@ declare class GamepadPose {
 /*---------- gamepad ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - WindowEventHandlers
 
 type GamepadHapticEffectType = 'dual-rumble' | 'trigger-rumble';
 
@@ -4831,7 +4831,7 @@ declare class GeolocationSensor extends Sensor {
 /*---------- geolocation ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type PositionOptions = {
   enableHighAccuracy: boolean,
@@ -5145,7 +5145,7 @@ declare class DOMRectReadOnly {
 /*---------- get-installed-related-apps ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type RelatedApplication = {
   id: string,
@@ -5180,7 +5180,7 @@ declare class Gyroscope extends Sensor {
 /*---------- hr-time ----------*/
 
 // Contributes to:
-//   - undefined
+//   - WindowOrWorkerGlobalScope
 
 type DOMHighResTimeStamp = number;
 
@@ -5215,50 +5215,50 @@ declare class Performance extends EventTarget {
 /*---------- html-media-capture ----------*/
 
 // Contributes to:
-//   - undefined
+//   - HTMLInputElement
 
 /*---------- html ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Document
+//   - DocumentOrShadowRoot
+//   - Navigator
+//   - Element
+//   - ShadowRoot
+//   - Range
+//   - NavigatorID
+//   - HTMLAnchorElement
+//   - HTMLAreaElement
+//   - HTMLBodyElement
+//   - HTMLBRElement
+//   - HTMLTableCaptionElement
+//   - HTMLTableColElement
+//   - HTMLDivElement
+//   - HTMLDListElement
+//   - HTMLEmbedElement
+//   - HTMLHeadingElement
+//   - HTMLHRElement
+//   - HTMLHtmlElement
+//   - HTMLIFrameElement
+//   - HTMLImageElement
+//   - HTMLInputElement
+//   - HTMLLegendElement
+//   - HTMLLIElement
+//   - HTMLLinkElement
+//   - HTMLMenuElement
+//   - HTMLMetaElement
+//   - HTMLObjectElement
+//   - HTMLOListElement
+//   - HTMLParagraphElement
+//   - HTMLPreElement
+//   - HTMLStyleElement
+//   - HTMLScriptElement
+//   - HTMLTableElement
+//   - HTMLTableSectionElement
+//   - HTMLTableCellElement
+//   - HTMLTableRowElement
+//   - HTMLUListElement
+//   - Window
 
 type CanvasImageSource =
   | HTMLOrSVGImageElement
@@ -8314,10 +8314,10 @@ declare class IdleDetector extends EventTarget {
 /*---------- image-capture ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - MediaTrackSupportedConstraints
+//   - MediaTrackCapabilities
+//   - MediaTrackConstraintSet
+//   - MediaTrackSettings
 
 type ConstrainPoint2D = Array<Point2D> | ConstrainPoint2DParameters;
 
@@ -8380,7 +8380,7 @@ type ImageResource = {
 /*---------- IndexedDB ----------*/
 
 // Contributes to:
-//   - undefined
+//   - WindowOrWorkerGlobalScope
 
 type IDBCursorDirection = 'next' | 'nextunique' | 'prev' | 'prevunique';
 
@@ -8563,7 +8563,7 @@ declare class IDBVersionChangeEvent extends Event {
 /*---------- ink-enhancement ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type InkPresenterParam = {
   presentationArea: Element | null,
@@ -8589,8 +8589,8 @@ declare class Ink {
 /*---------- input-device-capabilities ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - UIEvent
+//   - UIEventInit
 
 type InputDeviceCapabilitiesInit = {
   firesTouchEvents: boolean,
@@ -8607,8 +8607,8 @@ declare class InputDeviceCapabilities {
 /*---------- input-events ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - InputEvent
+//   - InputEventInit
 
 /*---------- intersection-observer ----------*/
 
@@ -8686,7 +8686,7 @@ declare class InterventionReportBody extends ReportBody {
 /*---------- is-input-pending ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type IsInputPendingOptions = {
   includeContinuous: boolean,
@@ -8741,7 +8741,7 @@ declare class Profiler extends EventTarget {
 /*---------- keyboard-lock ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 declare class Keyboard extends EventTarget {
   onlayoutchange: EventHandler;
@@ -8754,7 +8754,7 @@ declare class Keyboard extends EventTarget {
 /*---------- keyboard-map ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Keyboard
 
 type KeyboardLayoutMap = Map<string, string>;
 
@@ -8793,7 +8793,7 @@ declare class LayoutShiftAttribution {
 /*---------- local-font-access ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 type QueryOptions = {
   postscriptNames: Array<string>,
@@ -8811,7 +8811,7 @@ declare class FontData {
 /*---------- login-status ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type LoginStatus = 'logged-in' | 'logged-out';
 
@@ -8928,7 +8928,7 @@ declare class UncalibratedMagnetometer extends Sensor {
 /*---------- managed-configuration ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 declare class NavigatorManagedData extends EventTarget {
   onmanagedconfigurationchange: EventHandler;
@@ -8944,7 +8944,7 @@ declare class NavigatorManagedData extends EventTarget {
 /*---------- manifest-incubations ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 type AppBannerPromptOutcome = 'accepted' | 'dismissed';
 
@@ -8970,8 +8970,8 @@ declare class MathMLElement
 /*---------- media-capabilities ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - WorkerNavigator
 
 type ColorGamut = 'srgb' | 'p3' | 'rec2020';
 
@@ -9065,7 +9065,7 @@ declare class MediaCapabilities {
 /*---------- media-playback-quality ----------*/
 
 // Contributes to:
-//   - undefined
+//   - HTMLVideoElement
 
 declare class VideoPlaybackQuality {
   +corruptedVideoFrames: number;
@@ -9077,9 +9077,9 @@ declare class VideoPlaybackQuality {
 /*---------- media-source ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - AudioTrack
+//   - VideoTrack
+//   - TextTrack
 
 type AppendMode = 'segments' | 'sequence';
 
@@ -9194,8 +9194,8 @@ type MockMicrophoneConfiguration = {
 /*---------- mediacapture-fromelement ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - HTMLMediaElement
+//   - HTMLCanvasElement
 
 declare class CanvasCaptureMediaStreamTrack extends MediaStreamTrack {
   +canvas: HTMLCanvasElement;
@@ -9206,8 +9206,8 @@ declare class CanvasCaptureMediaStreamTrack extends MediaStreamTrack {
 /*---------- mediacapture-handle-actions ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - MediaDevices
+//   - MediaStreamTrack
 
 type CaptureAction = 'next' | 'previous' | 'first' | 'last';
 
@@ -9237,8 +9237,8 @@ declare class CropTarget {
 /*---------- mediacapture-streams ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - MediaDevices
 
 type ConstrainBoolean = boolean | ConstrainBooleanParameters;
 
@@ -9571,7 +9571,7 @@ declare class OverconstrainedError extends DOMException {
 /*---------- mediacapture-surface-control ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CaptureController
 
 /*---------- mediacapture-transform ----------*/
 
@@ -9597,12 +9597,12 @@ declare class VideoTrackGenerator {
 /*---------- mediacapture-viewport ----------*/
 
 // Contributes to:
-//   - undefined
+//   - MediaDevices
 
 /*---------- mediaqueries-5 ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 declare class PreferenceManager {
   +colorScheme: PreferenceObject;
@@ -9625,7 +9625,7 @@ declare class PreferenceObject extends EventTarget {
 /*---------- mediasession ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type MediaSessionAction =
   | 'play'
@@ -9774,8 +9774,8 @@ declare class HTMLModelElement extends HTMLElement {}
 /*---------- mst-content-hint ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - MediaStreamTrack
+//   - RTCRtpSendParameters
 
 type RTCDegradationPreference =
   | 'maintain-framerate'
@@ -9785,7 +9785,7 @@ type RTCDegradationPreference =
 /*---------- navigation-timing ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Performance
 
 type NavigationTimingType =
   | 'navigate'
@@ -9887,8 +9887,8 @@ declare class mixin$NavigatorNetworkInformation {
 /*---------- notifications ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - ServiceWorkerRegistration
+//   - ServiceWorkerGlobalScope
 
 type NotificationDirection = 'auto' | 'ltr' | 'rtl';
 
@@ -9972,7 +9972,7 @@ declare class NotificationEvent extends ExtendableEvent {
 /*---------- observable ----------*/
 
 // Contributes to:
-//   - undefined
+//   - EventTarget
 
 type ObservableInspectorUnion =
   | ObservableSubscriptionCallback
@@ -10061,7 +10061,7 @@ declare class Subscriber {
 /*---------- orientation-event ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 type DeviceMotionEventAccelerationInit = {
   x: number | null,
@@ -10153,8 +10153,8 @@ declare class RelativeOrientationSensor extends OrientationSensor {
 /*---------- page-lifecycle ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Document
+//   - Client
 
 type ClientLifecycleState = 'active' | 'frozen';
 
@@ -10172,8 +10172,8 @@ declare class mixin$PaintTimingMixin {
 /*---------- payment-handler ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - ServiceWorkerRegistration
+//   - ServiceWorkerGlobalScope
 
 type PaymentDelegation =
   | 'shippingAddress'
@@ -10430,7 +10430,7 @@ declare class PaymentResponse extends EventTarget {
 /*---------- performance-measure-memory ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Performance
 
 type MemoryAttribution = {
   container: MemoryAttributionContainer,
@@ -10457,7 +10457,7 @@ type MemoryMeasurement = {
 /*---------- performance-timeline ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Performance
 
 type PerformanceEntryList = Array<PerformanceEntry>;
 
@@ -10508,8 +10508,8 @@ declare class PerformanceObserverEntryList {
 /*---------- periodic-background-sync ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - ServiceWorkerGlobalScope
+//   - ServiceWorkerRegistration
 
 type BackgroundSyncOptions = {
   minInterval: number,
@@ -10535,8 +10535,8 @@ declare class PeriodicSyncManager {
 /*---------- permissions-policy ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Document
+//   - HTMLIFrameElement
 
 declare class PermissionsPolicy {
   allowedFeatures(): Array<string>;
@@ -10560,18 +10560,18 @@ declare class PermissionsPolicyViolationReportBody extends ReportBody {
 /*---------- permissions-request ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Permissions
 
 /*---------- permissions-revoke ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Permissions
 
 /*---------- permissions ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - WorkerNavigator
 
 type PermissionState = 'granted' | 'denied' | 'prompt';
 
@@ -10599,9 +10599,9 @@ declare class PermissionStatus extends EventTarget {
 /*---------- picture-in-picture ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - HTMLVideoElement
+//   - Document
+//   - DocumentOrShadowRoot
 
 type PictureInPictureEventInit = {
   ...EventInit,
@@ -10623,9 +10623,9 @@ declare class PictureInPictureWindow extends EventTarget {
 /*---------- pointerevents ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Element
+//   - GlobalEventHandlers
+//   - Navigator
 
 type PointerEventInit = {
   ...MouseEventInit,
@@ -10670,11 +10670,11 @@ declare class PointerEvent extends MouseEvent {
 /*---------- pointerlock ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Element
+//   - Document
+//   - DocumentOrShadowRoot
+//   - MouseEvent
+//   - MouseEventInit
 
 type PointerLockOptions = {
   unadjustedMovement: boolean,
@@ -10683,8 +10683,8 @@ type PointerLockOptions = {
 /*---------- portals ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Window
+//   - WindowEventHandlers
 
 type PortalActivateEventInit = {
   ...EventInit,
@@ -10726,8 +10726,8 @@ declare class PortalHost extends EventTarget {
 /*---------- ppa ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - PrivateAttribution
 
 type PrivateAttributionLogic = 'last-touch';
 
@@ -10778,19 +10778,19 @@ type PrivateAttributionAggregationServices = Map<
 /*---------- prefer-current-tab ----------*/
 
 // Contributes to:
-//   - undefined
+//   - MediaStreamConstraints
 
 /*---------- prerendering-revamped ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Document
+//   - PerformanceNavigationTiming
 
 /*---------- presentation-api ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - Presentation
 
 type PresentationConnectionCloseReason = 'error' | 'closed' | 'wentaway';
 
@@ -10902,13 +10902,13 @@ declare class PrivateAggregation {
 /*---------- private-click-measurement ----------*/
 
 // Contributes to:
-//   - undefined
+//   - HTMLAnchorElement
 
 /*---------- private-network-access ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - RequestInit
+//   - Request
 
 type IPAddressSpace = 'public' | 'private' | 'local';
 
@@ -10930,8 +10930,8 @@ declare class ProximitySensor extends Sensor {
 /*---------- push-api ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - ServiceWorkerRegistration
+//   - ServiceWorkerGlobalScope
 
 type PushMessageDataInit = BufferSource | string;
 
@@ -11016,8 +11016,8 @@ declare class PushSubscriptionOptions {
 /*---------- raw-camera-access ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - XRView
+//   - XRWebGLBinding
 
 declare class XRCamera {
   +height: number;
@@ -11027,7 +11027,7 @@ declare class XRCamera {
 /*---------- real-world-meshing ----------*/
 
 // Contributes to:
-//   - undefined
+//   - XRFrame
 
 declare class XRMesh {
   +indices: Uint32Array;
@@ -11055,7 +11055,7 @@ type ReferrerPolicy =
 /*---------- remote-playback ----------*/
 
 // Contributes to:
-//   - undefined
+//   - HTMLMediaElement
 
 type RemotePlaybackState = 'connecting' | 'connected' | 'disconnected';
 
@@ -11119,7 +11119,7 @@ declare class ReportingObserver {
 /*---------- requestidlecallback ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 type IdleRequestOptions = {
   timeout: number,
@@ -11136,7 +11136,7 @@ declare class IdleDeadline {
 /*---------- requestStorageAccessFor ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Document
 
 type TopLevelStorageAccessPermissionDescriptor = {
   ...PermissionDescriptor,
@@ -11183,7 +11183,7 @@ declare class ResizeObserverSize {
 /*---------- resource-timing ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Performance
 
 type RenderBlockingStatusType = 'blocking' | 'non-blocking';
 
@@ -11219,7 +11219,7 @@ declare class PerformanceResourceTiming extends PerformanceEntry {
 /*---------- saa-non-cookie-storage ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Document
 
 type SameSiteCookiesType = 'all' | 'none';
 
@@ -11331,7 +11331,7 @@ declare class mixin$NetworkInformationSaveData {
 /*---------- scheduling-apis ----------*/
 
 // Contributes to:
-//   - undefined
+//   - WindowOrWorkerGlobalScope
 
 type TaskPriority = 'user-blocking' | 'user-visible' | 'background';
 
@@ -11389,11 +11389,11 @@ declare class TaskSignal extends AbortSignal {
 /*---------- screen-capture ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - MediaDevices
+//   - MediaTrackSupportedConstraints
+//   - MediaTrackConstraintSet
+//   - MediaTrackSettings
+//   - MediaTrackCapabilities
 
 type CaptureStartFocusBehavior =
   | 'focus-capturing-application'
@@ -11441,7 +11441,7 @@ declare class CaptureController extends EventTarget {
 /*---------- screen-orientation ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Screen
 
 type OrientationLockType =
   | 'any'
@@ -11471,7 +11471,7 @@ declare class ScreenOrientation extends EventTarget {
 /*---------- screen-wake-lock ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type WakeLockType = 'screen';
 
@@ -11520,15 +11520,15 @@ declare class ViewTimeline extends ScrollTimeline {
 /*---------- scroll-to-text-fragment ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Document
 
 declare class FragmentDirective {}
 
 /*---------- secure-payment-confirmation ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - PaymentRequest
+//   - AuthenticationExtensionsClientInputs
 
 type SecurePaymentConfirmationAvailability =
   | 'available'
@@ -11583,9 +11583,9 @@ type SecurePaymentConfirmationRequest = {
 /*---------- selection-api ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Document
+//   - Window
+//   - GlobalEventHandlers
 
 type GetComposedRangesOptions = {
   shadowRoots: Array<ShadowRoot>,
@@ -11628,8 +11628,8 @@ declare class Selection {
 /*---------- serial ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - WorkerNavigator
 
 type FlowControlType = 'none' | 'hardware';
 
@@ -11700,7 +11700,7 @@ declare class SerialPort extends EventTarget {
 /*---------- server-timing ----------*/
 
 // Contributes to:
-//   - undefined
+//   - PerformanceResourceTiming
 
 declare class PerformanceServerTiming {
   +description: string;
@@ -11713,9 +11713,9 @@ declare class PerformanceServerTiming {
 /*---------- service-workers ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - WorkerNavigator
+//   - WindowOrWorkerGlobalScope
 
 type RouterSource = RouterSourceDict | RouterSourceEnum;
 
@@ -12050,8 +12050,8 @@ declare class FaceDetector {
 /*---------- shared-storage ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Window
+//   - RequestInit
 
 type SharedStorageResponse = string | FencedFrameConfig;
 
@@ -12192,7 +12192,7 @@ declare class mixin$HTMLSharedStorageWritableElementUtils {
 /*---------- speech-api ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 type AvailabilityStatus =
   | 'unavailable'
@@ -12394,7 +12394,7 @@ declare class SpeechSynthesisVoice {
 /*---------- storage-access ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Document
 
 /*---------- storage-buckets ----------*/
 
@@ -12704,7 +12704,7 @@ declare class mixin$ReadableStreamGenericReader {
 /*---------- svg-animations ----------*/
 
 // Contributes to:
-//   - undefined
+//   - SVGSVGElement
 
 declare class SVGAnimateElement extends SVGAnimationElement {}
 
@@ -12774,8 +12774,8 @@ declare class mixin$SVGPathData {
 /*---------- SVG ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Document
+//   - SVGAElement
 
 type SVGBoundingBoxOptions = {
   clipped: boolean,
@@ -13373,7 +13373,7 @@ declare class TextDetector {
 /*---------- touch-events ----------*/
 
 // Contributes to:
-//   - undefined
+//   - GlobalEventHandlers
 
 type TouchType = 'direct' | 'stylus';
 
@@ -13442,92 +13442,13 @@ declare class TouchList {
   item(index: number): Touch | null;
 }
 
-/*---------- translation-api ----------*/
-
-type LanguageDetectionResult = {
-  confidence: number,
-  detectedLanguage: string,
-};
-
-type LanguageDetectorCreateCoreOptions = {
-  expectedInputLanguages: Array<string>,
-};
-
-type LanguageDetectorCreateOptions = {
-  ...LanguageDetectorCreateCoreOptions,
-  monitor: CreateMonitorCallback,
-  signal: AbortSignal,
-};
-
-type LanguageDetectorDetectOptions = {
-  signal: AbortSignal,
-};
-
-type TranslatorCreateCoreOptions = {
-  sourceLanguage: string,
-  targetLanguage: string,
-};
-
-type TranslatorCreateOptions = {
-  ...TranslatorCreateCoreOptions,
-  monitor: CreateMonitorCallback,
-  signal: AbortSignal,
-};
-
-type TranslatorTranslateOptions = {
-  signal: AbortSignal,
-};
-
-declare class LanguageDetector {
-  +expectedInputLanguages: $ReadOnlyArray<string> | null;
-  +inputQuota: number;
-
-  static availability(
-    options?: LanguageDetectorCreateCoreOptions,
-  ): Promise<Availability>;
-  static create(
-    options?: LanguageDetectorCreateOptions,
-  ): Promise<LanguageDetector>;
-  detect(
-    input: string,
-    options?: LanguageDetectorDetectOptions,
-  ): Promise<Array<LanguageDetectionResult>>;
-  measureInputUsage(
-    input: string,
-    options?: LanguageDetectorDetectOptions,
-  ): Promise<number>;
-}
-
-declare class Translator {
-  +inputQuota: number;
-  +sourceLanguage: string;
-  +targetLanguage: string;
-
-  static availability(
-    options: TranslatorCreateCoreOptions,
-  ): Promise<Availability>;
-  static create(options: TranslatorCreateOptions): Promise<Translator>;
-  measureInputUsage(
-    input: string,
-    options?: TranslatorTranslateOptions,
-  ): Promise<number>;
-  translate(
-    input: string,
-    options?: TranslatorTranslateOptions,
-  ): Promise<string>;
-  translateStreaming(
-    input: string,
-    options?: TranslatorTranslateOptions,
-  ): ReadableStream;
-}
-
 /*---------- trust-token-api ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - RequestInit
+//   - HTMLIFrameElement
+//   - XMLHttpRequest
+//   - Document
 
 type OperationType =
   | 'token-request'
@@ -13548,7 +13469,7 @@ type PrivateToken = {
 /*---------- trusted-types ----------*/
 
 // Contributes to:
-//   - undefined
+//   - WindowOrWorkerGlobalScope
 
 type TrustedType = TrustedHTML | TrustedScript | TrustedScriptURL;
 
@@ -13621,9 +13542,9 @@ declare class TrustedTypePolicyFactory {
 /*---------- turtledove ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - RequestInit
+//   - HTMLIFrameElement
 
 type PreviousWin = Array<PreviousWinElement>;
 
@@ -14004,12 +13925,12 @@ declare class mixin$NavigatorUA {
 /*---------- uievents ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - UIEvent
+//   - MouseEvent
+//   - KeyboardEvent
+//   - CompositionEvent
+//   - UIEventInit
+//   - KeyboardEventInit
 
 type CompositionEventInit = {
   ...UIEventInit,
@@ -14347,7 +14268,7 @@ declare class URLPattern {
 /*---------- user-timing ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Performance
 
 type PerformanceMarkOptions = {
   detail: any,
@@ -14374,14 +14295,14 @@ declare class PerformanceMeasure extends PerformanceEntry {
 /*---------- vibration ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type VibratePattern = number | Array<number>;
 
 /*---------- video-rvfc ----------*/
 
 // Contributes to:
-//   - undefined
+//   - HTMLVideoElement
 
 type VideoFrameCallbackMetadata = {
   captureTime: number,
@@ -14404,8 +14325,8 @@ type VideoFrameRequestCallback = (
 /*---------- virtual-keyboard ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - ElementContentEditable
 
 declare class VirtualKeyboard extends EventTarget {
   +boundingRect: DOMRect;
@@ -14586,20 +14507,20 @@ declare class Table {
 /*---------- wasm-web-api ----------*/
 
 // Contributes to:
-//   - undefined
+//   - WebAssembly
 
 /*---------- web-animations-2 ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - AnimationTimeline
+//   - Animation
+//   - AnimationEffect
+//   - EffectTiming
+//   - OptionalEffectTiming
+//   - ComputedEffectTiming
+//   - KeyframeEffect
+//   - KeyframeEffectOptions
+//   - KeyframeAnimationOptions
 
 type AnimationTriggerType = 'once' | 'repeat' | 'alternate' | 'state';
 
@@ -14690,8 +14611,8 @@ declare class SequenceEffect extends GroupEffect {
 /*---------- web-animations ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Document
+//   - DocumentOrShadowRoot
 
 type AnimationPlayState = 'idle' | 'running' | 'paused' | 'finished';
 
@@ -14873,7 +14794,7 @@ declare class mixin$Animatable {
 /*---------- web-app-launch ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Window
 
 type LaunchConsumer = (params: LaunchParams) => any;
 
@@ -14889,7 +14810,7 @@ declare class LaunchQueue {
 /*---------- web-bluetooth-scanning ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Bluetooth
 
 type BluetoothLEScanOptions = {
   acceptAllAdvertisements: boolean,
@@ -14945,7 +14866,7 @@ declare class BluetoothServiceDataFilter {
 /*---------- web-bluetooth ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type BluetoothCharacteristicUUID = string | number;
 
@@ -15307,7 +15228,7 @@ declare class NDEFRecord {
 /*---------- web-otp ----------*/
 
 // Contributes to:
-//   - undefined
+//   - CredentialRequestOptions
 
 type OTPCredentialTransportType = 'sms';
 
@@ -15322,7 +15243,7 @@ declare class OTPCredential extends Credential {
 /*---------- web-share ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type ShareData = {
   files: Array<File>,
@@ -16018,13 +15939,13 @@ declare class WaveShaperNode extends AudioNode {
 /*---------- webauthn ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - CredentialCreationOptions
+//   - CredentialRequestOptions
+//   - PublicKeyCredential
+//   - AuthenticationExtensionsClientInputs
+//   - AuthenticationExtensionsClientInputsJSON
+//   - AuthenticationExtensionsClientOutputs
+//   - AuthenticationExtensionsClientOutputsJSON
 
 type Base64URLString = string;
 
@@ -16864,7 +16785,7 @@ type Ed448Params = {
 /*---------- webcrypto ----------*/
 
 // Contributes to:
-//   - undefined
+//   - WindowOrWorkerGlobalScope
 
 type AlgorithmIdentifier = Object | string;
 
@@ -17548,6 +17469,304 @@ declare class WebGLTexture extends WebGLObject {}
 declare class WebGLUniformLocation {}
 
 declare class mixin$WebGLRenderingContextBase {
+  static +ACTIVE_ATTRIBUTES: 0x8b89;
+  static +ACTIVE_TEXTURE: 0x84e0;
+  static +ACTIVE_UNIFORMS: 0x8b86;
+  static +ALIASED_LINE_WIDTH_RANGE: 0x846e;
+  static +ALIASED_POINT_SIZE_RANGE: 0x846d;
+  static +ALPHA: 0x1906;
+  static +ALPHA_BITS: 0x0d55;
+  static +ALWAYS: 0x0207;
+  static +ARRAY_BUFFER: 0x8892;
+  static +ARRAY_BUFFER_BINDING: 0x8894;
+  static +ATTACHED_SHADERS: 0x8b85;
+  static +BACK: 0x0405;
+  static +BLEND: 0x0be2;
+  static +BLEND_COLOR: 0x8005;
+  static +BLEND_DST_ALPHA: 0x80ca;
+  static +BLEND_DST_RGB: 0x80c8;
+  static +BLEND_EQUATION: 0x8009;
+  static +BLEND_EQUATION_ALPHA: 0x883d;
+  static +BLEND_EQUATION_RGB: 0x8009;
+  static +BLEND_SRC_ALPHA: 0x80cb;
+  static +BLEND_SRC_RGB: 0x80c9;
+  static +BLUE_BITS: 0x0d54;
+  static +BOOL: 0x8b56;
+  static +BOOL_VEC2: 0x8b57;
+  static +BOOL_VEC3: 0x8b58;
+  static +BOOL_VEC4: 0x8b59;
+  static +BROWSER_DEFAULT_WEBGL: 0x9244;
+  static +BUFFER_SIZE: 0x8764;
+  static +BUFFER_USAGE: 0x8765;
+  static +BYTE: 0x1400;
+  static +CCW: 0x0901;
+  static +CLAMP_TO_EDGE: 0x812f;
+  static +COLOR_ATTACHMENT0: 0x8ce0;
+  static +COLOR_BUFFER_BIT: 0x00004000;
+  static +COLOR_CLEAR_VALUE: 0x0c22;
+  static +COLOR_WRITEMASK: 0x0c23;
+  static +COMPILE_STATUS: 0x8b81;
+  static +COMPRESSED_TEXTURE_FORMATS: 0x86a3;
+  static +CONSTANT_ALPHA: 0x8003;
+  static +CONSTANT_COLOR: 0x8001;
+  static +CONTEXT_LOST_WEBGL: 0x9242;
+  static +CULL_FACE: 0x0b44;
+  static +CULL_FACE_MODE: 0x0b45;
+  static +CURRENT_PROGRAM: 0x8b8d;
+  static +CURRENT_VERTEX_ATTRIB: 0x8626;
+  static +CW: 0x0900;
+  static +DECR: 0x1e03;
+  static +DECR_WRAP: 0x8508;
+  static +DELETE_STATUS: 0x8b80;
+  static +DEPTH_ATTACHMENT: 0x8d00;
+  static +DEPTH_BITS: 0x0d56;
+  static +DEPTH_BUFFER_BIT: 0x00000100;
+  static +DEPTH_CLEAR_VALUE: 0x0b73;
+  static +DEPTH_COMPONENT: 0x1902;
+  static +DEPTH_COMPONENT16: 0x81a5;
+  static +DEPTH_FUNC: 0x0b74;
+  static +DEPTH_RANGE: 0x0b70;
+  static +DEPTH_STENCIL: 0x84f9;
+  static +DEPTH_STENCIL_ATTACHMENT: 0x821a;
+  static +DEPTH_TEST: 0x0b71;
+  static +DEPTH_WRITEMASK: 0x0b72;
+  static +DITHER: 0x0bd0;
+  static +DONT_CARE: 0x1100;
+  static +DST_ALPHA: 0x0304;
+  static +DST_COLOR: 0x0306;
+  static +DYNAMIC_DRAW: 0x88e8;
+  static +ELEMENT_ARRAY_BUFFER: 0x8893;
+  static +ELEMENT_ARRAY_BUFFER_BINDING: 0x8895;
+  static +EQUAL: 0x0202;
+  static +FASTEST: 0x1101;
+  static +FLOAT: 0x1406;
+  static +FLOAT_MAT2: 0x8b5a;
+  static +FLOAT_MAT3: 0x8b5b;
+  static +FLOAT_MAT4: 0x8b5c;
+  static +FLOAT_VEC2: 0x8b50;
+  static +FLOAT_VEC3: 0x8b51;
+  static +FLOAT_VEC4: 0x8b52;
+  static +FRAGMENT_SHADER: 0x8b30;
+  static +FRAMEBUFFER: 0x8d40;
+  static +FRAMEBUFFER_ATTACHMENT_OBJECT_NAME: 0x8cd1;
+  static +FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE: 0x8cd0;
+  static +FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE: 0x8cd3;
+  static +FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL: 0x8cd2;
+  static +FRAMEBUFFER_BINDING: 0x8ca6;
+  static +FRAMEBUFFER_COMPLETE: 0x8cd5;
+  static +FRAMEBUFFER_INCOMPLETE_ATTACHMENT: 0x8cd6;
+  static +FRAMEBUFFER_INCOMPLETE_DIMENSIONS: 0x8cd9;
+  static +FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT: 0x8cd7;
+  static +FRAMEBUFFER_UNSUPPORTED: 0x8cdd;
+  static +FRONT: 0x0404;
+  static +FRONT_AND_BACK: 0x0408;
+  static +FRONT_FACE: 0x0b46;
+  static +FUNC_ADD: 0x8006;
+  static +FUNC_REVERSE_SUBTRACT: 0x800b;
+  static +FUNC_SUBTRACT: 0x800a;
+  static +GENERATE_MIPMAP_HINT: 0x8192;
+  static +GEQUAL: 0x0206;
+  static +GREATER: 0x0204;
+  static +GREEN_BITS: 0x0d53;
+  static +HIGH_FLOAT: 0x8df2;
+  static +HIGH_INT: 0x8df5;
+  static +IMPLEMENTATION_COLOR_READ_FORMAT: 0x8b9b;
+  static +IMPLEMENTATION_COLOR_READ_TYPE: 0x8b9a;
+  static +INCR: 0x1e02;
+  static +INCR_WRAP: 0x8507;
+  static +INT: 0x1404;
+  static +INT_VEC2: 0x8b53;
+  static +INT_VEC3: 0x8b54;
+  static +INT_VEC4: 0x8b55;
+  static +INVALID_ENUM: 0x0500;
+  static +INVALID_FRAMEBUFFER_OPERATION: 0x0506;
+  static +INVALID_OPERATION: 0x0502;
+  static +INVALID_VALUE: 0x0501;
+  static +INVERT: 0x150a;
+  static +KEEP: 0x1e00;
+  static +LEQUAL: 0x0203;
+  static +LESS: 0x0201;
+  static +LINE_LOOP: 0x0002;
+  static +LINE_STRIP: 0x0003;
+  static +LINE_WIDTH: 0x0b21;
+  static +LINEAR: 0x2601;
+  static +LINEAR_MIPMAP_LINEAR: 0x2703;
+  static +LINEAR_MIPMAP_NEAREST: 0x2701;
+  static +LINES: 0x0001;
+  static +LINK_STATUS: 0x8b82;
+  static +LOW_FLOAT: 0x8df0;
+  static +LOW_INT: 0x8df3;
+  static +LUMINANCE: 0x1909;
+  static +LUMINANCE_ALPHA: 0x190a;
+  static +MAX_COMBINED_TEXTURE_IMAGE_UNITS: 0x8b4d;
+  static +MAX_CUBE_MAP_TEXTURE_SIZE: 0x851c;
+  static +MAX_FRAGMENT_UNIFORM_VECTORS: 0x8dfd;
+  static +MAX_RENDERBUFFER_SIZE: 0x84e8;
+  static +MAX_TEXTURE_IMAGE_UNITS: 0x8872;
+  static +MAX_TEXTURE_SIZE: 0x0d33;
+  static +MAX_VARYING_VECTORS: 0x8dfc;
+  static +MAX_VERTEX_ATTRIBS: 0x8869;
+  static +MAX_VERTEX_TEXTURE_IMAGE_UNITS: 0x8b4c;
+  static +MAX_VERTEX_UNIFORM_VECTORS: 0x8dfb;
+  static +MAX_VIEWPORT_DIMS: 0x0d3a;
+  static +MEDIUM_FLOAT: 0x8df1;
+  static +MEDIUM_INT: 0x8df4;
+  static +MIRRORED_REPEAT: 0x8370;
+  static +NEAREST: 0x2600;
+  static +NEAREST_MIPMAP_LINEAR: 0x2702;
+  static +NEAREST_MIPMAP_NEAREST: 0x2700;
+  static +NEVER: 0x0200;
+  static +NICEST: 0x1102;
+  static +NO_ERROR: 0;
+  static +NONE: 0;
+  static +NOTEQUAL: 0x0205;
+  static +ONE: 1;
+  static +ONE_MINUS_CONSTANT_ALPHA: 0x8004;
+  static +ONE_MINUS_CONSTANT_COLOR: 0x8002;
+  static +ONE_MINUS_DST_ALPHA: 0x0305;
+  static +ONE_MINUS_DST_COLOR: 0x0307;
+  static +ONE_MINUS_SRC_ALPHA: 0x0303;
+  static +ONE_MINUS_SRC_COLOR: 0x0301;
+  static +OUT_OF_MEMORY: 0x0505;
+  static +PACK_ALIGNMENT: 0x0d05;
+  static +POINTS: 0x0000;
+  static +POLYGON_OFFSET_FACTOR: 0x8038;
+  static +POLYGON_OFFSET_FILL: 0x8037;
+  static +POLYGON_OFFSET_UNITS: 0x2a00;
+  static +RED_BITS: 0x0d52;
+  static +RENDERBUFFER: 0x8d41;
+  static +RENDERBUFFER_ALPHA_SIZE: 0x8d53;
+  static +RENDERBUFFER_BINDING: 0x8ca7;
+  static +RENDERBUFFER_BLUE_SIZE: 0x8d52;
+  static +RENDERBUFFER_DEPTH_SIZE: 0x8d54;
+  static +RENDERBUFFER_GREEN_SIZE: 0x8d51;
+  static +RENDERBUFFER_HEIGHT: 0x8d43;
+  static +RENDERBUFFER_INTERNAL_FORMAT: 0x8d44;
+  static +RENDERBUFFER_RED_SIZE: 0x8d50;
+  static +RENDERBUFFER_STENCIL_SIZE: 0x8d55;
+  static +RENDERBUFFER_WIDTH: 0x8d42;
+  static +RENDERER: 0x1f01;
+  static +REPEAT: 0x2901;
+  static +REPLACE: 0x1e01;
+  static +RGB: 0x1907;
+  static +RGB5_A1: 0x8057;
+  static +RGB565: 0x8d62;
+  static +RGBA: 0x1908;
+  static +RGBA4: 0x8056;
+  static +RGBA8: 0x8058;
+  static +SAMPLE_ALPHA_TO_COVERAGE: 0x809e;
+  static +SAMPLE_BUFFERS: 0x80a8;
+  static +SAMPLE_COVERAGE: 0x80a0;
+  static +SAMPLE_COVERAGE_INVERT: 0x80ab;
+  static +SAMPLE_COVERAGE_VALUE: 0x80aa;
+  static +SAMPLER_2D: 0x8b5e;
+  static +SAMPLER_CUBE: 0x8b60;
+  static +SAMPLES: 0x80a9;
+  static +SCISSOR_BOX: 0x0c10;
+  static +SCISSOR_TEST: 0x0c11;
+  static +SHADER_TYPE: 0x8b4f;
+  static +SHADING_LANGUAGE_VERSION: 0x8b8c;
+  static +SHORT: 0x1402;
+  static +SRC_ALPHA: 0x0302;
+  static +SRC_ALPHA_SATURATE: 0x0308;
+  static +SRC_COLOR: 0x0300;
+  static +STATIC_DRAW: 0x88e4;
+  static +STENCIL_ATTACHMENT: 0x8d20;
+  static +STENCIL_BACK_FAIL: 0x8801;
+  static +STENCIL_BACK_FUNC: 0x8800;
+  static +STENCIL_BACK_PASS_DEPTH_FAIL: 0x8802;
+  static +STENCIL_BACK_PASS_DEPTH_PASS: 0x8803;
+  static +STENCIL_BACK_REF: 0x8ca3;
+  static +STENCIL_BACK_VALUE_MASK: 0x8ca4;
+  static +STENCIL_BACK_WRITEMASK: 0x8ca5;
+  static +STENCIL_BITS: 0x0d57;
+  static +STENCIL_BUFFER_BIT: 0x00000400;
+  static +STENCIL_CLEAR_VALUE: 0x0b91;
+  static +STENCIL_FAIL: 0x0b94;
+  static +STENCIL_FUNC: 0x0b92;
+  static +STENCIL_INDEX8: 0x8d48;
+  static +STENCIL_PASS_DEPTH_FAIL: 0x0b95;
+  static +STENCIL_PASS_DEPTH_PASS: 0x0b96;
+  static +STENCIL_REF: 0x0b97;
+  static +STENCIL_TEST: 0x0b90;
+  static +STENCIL_VALUE_MASK: 0x0b93;
+  static +STENCIL_WRITEMASK: 0x0b98;
+  static +STREAM_DRAW: 0x88e0;
+  static +SUBPIXEL_BITS: 0x0d50;
+  static +TEXTURE: 0x1702;
+  static +TEXTURE_2D: 0x0de1;
+  static +TEXTURE_BINDING_2D: 0x8069;
+  static +TEXTURE_BINDING_CUBE_MAP: 0x8514;
+  static +TEXTURE_CUBE_MAP: 0x8513;
+  static +TEXTURE_CUBE_MAP_NEGATIVE_X: 0x8516;
+  static +TEXTURE_CUBE_MAP_NEGATIVE_Y: 0x8518;
+  static +TEXTURE_CUBE_MAP_NEGATIVE_Z: 0x851a;
+  static +TEXTURE_CUBE_MAP_POSITIVE_X: 0x8515;
+  static +TEXTURE_CUBE_MAP_POSITIVE_Y: 0x8517;
+  static +TEXTURE_CUBE_MAP_POSITIVE_Z: 0x8519;
+  static +TEXTURE_MAG_FILTER: 0x2800;
+  static +TEXTURE_MIN_FILTER: 0x2801;
+  static +TEXTURE_WRAP_S: 0x2802;
+  static +TEXTURE_WRAP_T: 0x2803;
+  static +TEXTURE0: 0x84c0;
+  static +TEXTURE1: 0x84c1;
+  static +TEXTURE10: 0x84ca;
+  static +TEXTURE11: 0x84cb;
+  static +TEXTURE12: 0x84cc;
+  static +TEXTURE13: 0x84cd;
+  static +TEXTURE14: 0x84ce;
+  static +TEXTURE15: 0x84cf;
+  static +TEXTURE16: 0x84d0;
+  static +TEXTURE17: 0x84d1;
+  static +TEXTURE18: 0x84d2;
+  static +TEXTURE19: 0x84d3;
+  static +TEXTURE2: 0x84c2;
+  static +TEXTURE20: 0x84d4;
+  static +TEXTURE21: 0x84d5;
+  static +TEXTURE22: 0x84d6;
+  static +TEXTURE23: 0x84d7;
+  static +TEXTURE24: 0x84d8;
+  static +TEXTURE25: 0x84d9;
+  static +TEXTURE26: 0x84da;
+  static +TEXTURE27: 0x84db;
+  static +TEXTURE28: 0x84dc;
+  static +TEXTURE29: 0x84dd;
+  static +TEXTURE3: 0x84c3;
+  static +TEXTURE30: 0x84de;
+  static +TEXTURE31: 0x84df;
+  static +TEXTURE4: 0x84c4;
+  static +TEXTURE5: 0x84c5;
+  static +TEXTURE6: 0x84c6;
+  static +TEXTURE7: 0x84c7;
+  static +TEXTURE8: 0x84c8;
+  static +TEXTURE9: 0x84c9;
+  static +TRIANGLE_FAN: 0x0006;
+  static +TRIANGLE_STRIP: 0x0005;
+  static +TRIANGLES: 0x0004;
+  static +UNPACK_ALIGNMENT: 0x0cf5;
+  static +UNPACK_COLORSPACE_CONVERSION_WEBGL: 0x9243;
+  static +UNPACK_FLIP_Y_WEBGL: 0x9240;
+  static +UNPACK_PREMULTIPLY_ALPHA_WEBGL: 0x9241;
+  static +UNSIGNED_BYTE: 0x1401;
+  static +UNSIGNED_INT: 0x1405;
+  static +UNSIGNED_SHORT: 0x1403;
+  static +UNSIGNED_SHORT_4_4_4_4: 0x8033;
+  static +UNSIGNED_SHORT_5_5_5_1: 0x8034;
+  static +UNSIGNED_SHORT_5_6_5: 0x8363;
+  static +VALIDATE_STATUS: 0x8b83;
+  static +VENDOR: 0x1f00;
+  static +VERSION: 0x1f02;
+  static +VERTEX_ATTRIB_ARRAY_BUFFER_BINDING: 0x889f;
+  static +VERTEX_ATTRIB_ARRAY_ENABLED: 0x8622;
+  static +VERTEX_ATTRIB_ARRAY_NORMALIZED: 0x886a;
+  static +VERTEX_ATTRIB_ARRAY_POINTER: 0x8645;
+  static +VERTEX_ATTRIB_ARRAY_SIZE: 0x8623;
+  static +VERTEX_ATTRIB_ARRAY_STRIDE: 0x8624;
+  static +VERTEX_ATTRIB_ARRAY_TYPE: 0x8625;
+  static +VERTEX_SHADER: 0x8b31;
+  static +VIEWPORT: 0x0ba2;
+  static +ZERO: 0;
+
   +canvas: HTMLCanvasElement | OffscreenCanvas;
   drawingBufferColorSpace: PredefinedColorSpace;
   +drawingBufferFormat: GLenum;
@@ -18495,6 +18714,269 @@ declare class WebGLTransformFeedback extends WebGLObject {}
 declare class WebGLVertexArrayObject extends WebGLObject {}
 
 declare class mixin$WebGL2RenderingContextBase {
+  static +ACTIVE_UNIFORM_BLOCKS: 0x8a36;
+  static +ALREADY_SIGNALED: 0x911a;
+  static +ANY_SAMPLES_PASSED: 0x8c2f;
+  static +ANY_SAMPLES_PASSED_CONSERVATIVE: 0x8d6a;
+  static +COLOR: 0x1800;
+  static +COLOR_ATTACHMENT1: 0x8ce1;
+  static +COLOR_ATTACHMENT10: 0x8cea;
+  static +COLOR_ATTACHMENT11: 0x8ceb;
+  static +COLOR_ATTACHMENT12: 0x8cec;
+  static +COLOR_ATTACHMENT13: 0x8ced;
+  static +COLOR_ATTACHMENT14: 0x8cee;
+  static +COLOR_ATTACHMENT15: 0x8cef;
+  static +COLOR_ATTACHMENT2: 0x8ce2;
+  static +COLOR_ATTACHMENT3: 0x8ce3;
+  static +COLOR_ATTACHMENT4: 0x8ce4;
+  static +COLOR_ATTACHMENT5: 0x8ce5;
+  static +COLOR_ATTACHMENT6: 0x8ce6;
+  static +COLOR_ATTACHMENT7: 0x8ce7;
+  static +COLOR_ATTACHMENT8: 0x8ce8;
+  static +COLOR_ATTACHMENT9: 0x8ce9;
+  static +COMPARE_REF_TO_TEXTURE: 0x884e;
+  static +CONDITION_SATISFIED: 0x911c;
+  static +COPY_READ_BUFFER: 0x8f36;
+  static +COPY_READ_BUFFER_BINDING: 0x8f36;
+  static +COPY_WRITE_BUFFER: 0x8f37;
+  static +COPY_WRITE_BUFFER_BINDING: 0x8f37;
+  static +CURRENT_QUERY: 0x8865;
+  static +DEPTH: 0x1801;
+  static +DEPTH_COMPONENT24: 0x81a6;
+  static +DEPTH_COMPONENT32F: 0x8cac;
+  static +DEPTH24_STENCIL8: 0x88f0;
+  static +DEPTH32F_STENCIL8: 0x8cad;
+  static +DRAW_BUFFER0: 0x8825;
+  static +DRAW_BUFFER1: 0x8826;
+  static +DRAW_BUFFER10: 0x882f;
+  static +DRAW_BUFFER11: 0x8830;
+  static +DRAW_BUFFER12: 0x8831;
+  static +DRAW_BUFFER13: 0x8832;
+  static +DRAW_BUFFER14: 0x8833;
+  static +DRAW_BUFFER15: 0x8834;
+  static +DRAW_BUFFER2: 0x8827;
+  static +DRAW_BUFFER3: 0x8828;
+  static +DRAW_BUFFER4: 0x8829;
+  static +DRAW_BUFFER5: 0x882a;
+  static +DRAW_BUFFER6: 0x882b;
+  static +DRAW_BUFFER7: 0x882c;
+  static +DRAW_BUFFER8: 0x882d;
+  static +DRAW_BUFFER9: 0x882e;
+  static +DRAW_FRAMEBUFFER: 0x8ca9;
+  static +DRAW_FRAMEBUFFER_BINDING: 0x8ca6;
+  static +DYNAMIC_COPY: 0x88ea;
+  static +DYNAMIC_READ: 0x88e9;
+  static +FLOAT_32_UNSIGNED_INT_24_8_REV: 0x8dad;
+  static +FLOAT_MAT2x3: 0x8b65;
+  static +FLOAT_MAT2x4: 0x8b66;
+  static +FLOAT_MAT3x2: 0x8b67;
+  static +FLOAT_MAT3x4: 0x8b68;
+  static +FLOAT_MAT4x2: 0x8b69;
+  static +FLOAT_MAT4x3: 0x8b6a;
+  static +FRAGMENT_SHADER_DERIVATIVE_HINT: 0x8b8b;
+  static +FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE: 0x8215;
+  static +FRAMEBUFFER_ATTACHMENT_BLUE_SIZE: 0x8214;
+  static +FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING: 0x8210;
+  static +FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE: 0x8211;
+  static +FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE: 0x8216;
+  static +FRAMEBUFFER_ATTACHMENT_GREEN_SIZE: 0x8213;
+  static +FRAMEBUFFER_ATTACHMENT_RED_SIZE: 0x8212;
+  static +FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE: 0x8217;
+  static +FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER: 0x8cd4;
+  static +FRAMEBUFFER_DEFAULT: 0x8218;
+  static +FRAMEBUFFER_INCOMPLETE_MULTISAMPLE: 0x8d56;
+  static +HALF_FLOAT: 0x140b;
+  static +INT_2_10_10_10_REV: 0x8d9f;
+  static +INT_SAMPLER_2D: 0x8dca;
+  static +INT_SAMPLER_2D_ARRAY: 0x8dcf;
+  static +INT_SAMPLER_3D: 0x8dcb;
+  static +INT_SAMPLER_CUBE: 0x8dcc;
+  static +INTERLEAVED_ATTRIBS: 0x8c8c;
+  static +INVALID_INDEX: 0xffffffff;
+  static +MAX: 0x8008;
+  static +MAX_3D_TEXTURE_SIZE: 0x8073;
+  static +MAX_ARRAY_TEXTURE_LAYERS: 0x88ff;
+  static +MAX_CLIENT_WAIT_TIMEOUT_WEBGL: 0x9247;
+  static +MAX_COLOR_ATTACHMENTS: 0x8cdf;
+  static +MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS: 0x8a33;
+  static +MAX_COMBINED_UNIFORM_BLOCKS: 0x8a2e;
+  static +MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS: 0x8a31;
+  static +MAX_DRAW_BUFFERS: 0x8824;
+  static +MAX_ELEMENT_INDEX: 0x8d6b;
+  static +MAX_ELEMENTS_INDICES: 0x80e9;
+  static +MAX_ELEMENTS_VERTICES: 0x80e8;
+  static +MAX_FRAGMENT_INPUT_COMPONENTS: 0x9125;
+  static +MAX_FRAGMENT_UNIFORM_BLOCKS: 0x8a2d;
+  static +MAX_FRAGMENT_UNIFORM_COMPONENTS: 0x8b49;
+  static +MAX_PROGRAM_TEXEL_OFFSET: 0x8905;
+  static +MAX_SAMPLES: 0x8d57;
+  static +MAX_SERVER_WAIT_TIMEOUT: 0x9111;
+  static +MAX_TEXTURE_LOD_BIAS: 0x84fd;
+  static +MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS: 0x8c8a;
+  static +MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS: 0x8c8b;
+  static +MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS: 0x8c80;
+  static +MAX_UNIFORM_BLOCK_SIZE: 0x8a30;
+  static +MAX_UNIFORM_BUFFER_BINDINGS: 0x8a2f;
+  static +MAX_VARYING_COMPONENTS: 0x8b4b;
+  static +MAX_VERTEX_OUTPUT_COMPONENTS: 0x9122;
+  static +MAX_VERTEX_UNIFORM_BLOCKS: 0x8a2b;
+  static +MAX_VERTEX_UNIFORM_COMPONENTS: 0x8b4a;
+  static +MIN: 0x8007;
+  static +MIN_PROGRAM_TEXEL_OFFSET: 0x8904;
+  static +OBJECT_TYPE: 0x9112;
+  static +PACK_ROW_LENGTH: 0x0d02;
+  static +PACK_SKIP_PIXELS: 0x0d04;
+  static +PACK_SKIP_ROWS: 0x0d03;
+  static +PIXEL_PACK_BUFFER: 0x88eb;
+  static +PIXEL_PACK_BUFFER_BINDING: 0x88ed;
+  static +PIXEL_UNPACK_BUFFER: 0x88ec;
+  static +PIXEL_UNPACK_BUFFER_BINDING: 0x88ef;
+  static +QUERY_RESULT: 0x8866;
+  static +QUERY_RESULT_AVAILABLE: 0x8867;
+  static +R11F_G11F_B10F: 0x8c3a;
+  static +R16F: 0x822d;
+  static +R16I: 0x8233;
+  static +R16UI: 0x8234;
+  static +R32F: 0x822e;
+  static +R32I: 0x8235;
+  static +R32UI: 0x8236;
+  static +R8: 0x8229;
+  static +R8_SNORM: 0x8f94;
+  static +R8I: 0x8231;
+  static +R8UI: 0x8232;
+  static +RASTERIZER_DISCARD: 0x8c89;
+  static +READ_BUFFER: 0x0c02;
+  static +READ_FRAMEBUFFER: 0x8ca8;
+  static +READ_FRAMEBUFFER_BINDING: 0x8caa;
+  static +RED: 0x1903;
+  static +RED_INTEGER: 0x8d94;
+  static +RENDERBUFFER_SAMPLES: 0x8cab;
+  static +RG: 0x8227;
+  static +RG_INTEGER: 0x8228;
+  static +RG16F: 0x822f;
+  static +RG16I: 0x8239;
+  static +RG16UI: 0x823a;
+  static +RG32F: 0x8230;
+  static +RG32I: 0x823b;
+  static +RG32UI: 0x823c;
+  static +RG8: 0x822b;
+  static +RG8_SNORM: 0x8f95;
+  static +RG8I: 0x8237;
+  static +RG8UI: 0x8238;
+  static +RGB_INTEGER: 0x8d98;
+  static +RGB10_A2: 0x8059;
+  static +RGB10_A2UI: 0x906f;
+  static +RGB16F: 0x881b;
+  static +RGB16I: 0x8d89;
+  static +RGB16UI: 0x8d77;
+  static +RGB32F: 0x8815;
+  static +RGB32I: 0x8d83;
+  static +RGB32UI: 0x8d71;
+  static +RGB8: 0x8051;
+  static +RGB8_SNORM: 0x8f96;
+  static +RGB8I: 0x8d8f;
+  static +RGB8UI: 0x8d7d;
+  static +RGB9_E5: 0x8c3d;
+  static +RGBA_INTEGER: 0x8d99;
+  static +RGBA16F: 0x881a;
+  static +RGBA16I: 0x8d88;
+  static +RGBA16UI: 0x8d76;
+  static +RGBA32F: 0x8814;
+  static +RGBA32I: 0x8d82;
+  static +RGBA32UI: 0x8d70;
+  static +RGBA8_SNORM: 0x8f97;
+  static +RGBA8I: 0x8d8e;
+  static +RGBA8UI: 0x8d7c;
+  static +SAMPLER_2D_ARRAY: 0x8dc1;
+  static +SAMPLER_2D_ARRAY_SHADOW: 0x8dc4;
+  static +SAMPLER_2D_SHADOW: 0x8b62;
+  static +SAMPLER_3D: 0x8b5f;
+  static +SAMPLER_BINDING: 0x8919;
+  static +SAMPLER_CUBE_SHADOW: 0x8dc5;
+  static +SEPARATE_ATTRIBS: 0x8c8d;
+  static +SIGNALED: 0x9119;
+  static +SIGNED_NORMALIZED: 0x8f9c;
+  static +SRGB: 0x8c40;
+  static +SRGB8: 0x8c41;
+  static +SRGB8_ALPHA8: 0x8c43;
+  static +STATIC_COPY: 0x88e6;
+  static +STATIC_READ: 0x88e5;
+  static +STENCIL: 0x1802;
+  static +STREAM_COPY: 0x88e2;
+  static +STREAM_READ: 0x88e1;
+  static +SYNC_CONDITION: 0x9113;
+  static +SYNC_FENCE: 0x9116;
+  static +SYNC_FLAGS: 0x9115;
+  static +SYNC_FLUSH_COMMANDS_BIT: 0x00000001;
+  static +SYNC_GPU_COMMANDS_COMPLETE: 0x9117;
+  static +SYNC_STATUS: 0x9114;
+  static +TEXTURE_2D_ARRAY: 0x8c1a;
+  static +TEXTURE_3D: 0x806f;
+  static +TEXTURE_BASE_LEVEL: 0x813c;
+  static +TEXTURE_BINDING_2D_ARRAY: 0x8c1d;
+  static +TEXTURE_BINDING_3D: 0x806a;
+  static +TEXTURE_COMPARE_FUNC: 0x884d;
+  static +TEXTURE_COMPARE_MODE: 0x884c;
+  static +TEXTURE_IMMUTABLE_FORMAT: 0x912f;
+  static +TEXTURE_IMMUTABLE_LEVELS: 0x82df;
+  static +TEXTURE_MAX_LEVEL: 0x813d;
+  static +TEXTURE_MAX_LOD: 0x813b;
+  static +TEXTURE_MIN_LOD: 0x813a;
+  static +TEXTURE_WRAP_R: 0x8072;
+  static +TIMEOUT_EXPIRED: 0x911b;
+  static +TIMEOUT_IGNORED: -1;
+  static +TRANSFORM_FEEDBACK: 0x8e22;
+  static +TRANSFORM_FEEDBACK_ACTIVE: 0x8e24;
+  static +TRANSFORM_FEEDBACK_BINDING: 0x8e25;
+  static +TRANSFORM_FEEDBACK_BUFFER: 0x8c8e;
+  static +TRANSFORM_FEEDBACK_BUFFER_BINDING: 0x8c8f;
+  static +TRANSFORM_FEEDBACK_BUFFER_MODE: 0x8c7f;
+  static +TRANSFORM_FEEDBACK_BUFFER_SIZE: 0x8c85;
+  static +TRANSFORM_FEEDBACK_BUFFER_START: 0x8c84;
+  static +TRANSFORM_FEEDBACK_PAUSED: 0x8e23;
+  static +TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN: 0x8c88;
+  static +TRANSFORM_FEEDBACK_VARYINGS: 0x8c83;
+  static +UNIFORM_ARRAY_STRIDE: 0x8a3c;
+  static +UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES: 0x8a43;
+  static +UNIFORM_BLOCK_ACTIVE_UNIFORMS: 0x8a42;
+  static +UNIFORM_BLOCK_BINDING: 0x8a3f;
+  static +UNIFORM_BLOCK_DATA_SIZE: 0x8a40;
+  static +UNIFORM_BLOCK_INDEX: 0x8a3a;
+  static +UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER: 0x8a46;
+  static +UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER: 0x8a44;
+  static +UNIFORM_BUFFER: 0x8a11;
+  static +UNIFORM_BUFFER_BINDING: 0x8a28;
+  static +UNIFORM_BUFFER_OFFSET_ALIGNMENT: 0x8a34;
+  static +UNIFORM_BUFFER_SIZE: 0x8a2a;
+  static +UNIFORM_BUFFER_START: 0x8a29;
+  static +UNIFORM_IS_ROW_MAJOR: 0x8a3e;
+  static +UNIFORM_MATRIX_STRIDE: 0x8a3d;
+  static +UNIFORM_OFFSET: 0x8a3b;
+  static +UNIFORM_SIZE: 0x8a38;
+  static +UNIFORM_TYPE: 0x8a37;
+  static +UNPACK_IMAGE_HEIGHT: 0x806e;
+  static +UNPACK_ROW_LENGTH: 0x0cf2;
+  static +UNPACK_SKIP_IMAGES: 0x806d;
+  static +UNPACK_SKIP_PIXELS: 0x0cf4;
+  static +UNPACK_SKIP_ROWS: 0x0cf3;
+  static +UNSIGNALED: 0x9118;
+  static +UNSIGNED_INT_10F_11F_11F_REV: 0x8c3b;
+  static +UNSIGNED_INT_2_10_10_10_REV: 0x8368;
+  static +UNSIGNED_INT_24_8: 0x84fa;
+  static +UNSIGNED_INT_5_9_9_9_REV: 0x8c3e;
+  static +UNSIGNED_INT_SAMPLER_2D: 0x8dd2;
+  static +UNSIGNED_INT_SAMPLER_2D_ARRAY: 0x8dd7;
+  static +UNSIGNED_INT_SAMPLER_3D: 0x8dd3;
+  static +UNSIGNED_INT_SAMPLER_CUBE: 0x8dd4;
+  static +UNSIGNED_INT_VEC2: 0x8dc6;
+  static +UNSIGNED_INT_VEC3: 0x8dc7;
+  static +UNSIGNED_INT_VEC4: 0x8dc8;
+  static +UNSIGNED_NORMALIZED: 0x8c17;
+  static +VERTEX_ARRAY_BINDING: 0x85b5;
+  static +VERTEX_ATTRIB_ARRAY_DIVISOR: 0x88fe;
+  static +VERTEX_ATTRIB_ARRAY_INTEGER: 0x88fd;
+  static +WAIT_FAILED: 0x911d;
+
   beginQuery(target: GLenum, query: WebGLQuery): void;
   beginTransformFeedback(primitiveMode: GLenum): void;
   bindBufferBase(
@@ -19227,7 +19709,7 @@ declare class mixin$WebGL2RenderingContextOverloads {
 /*---------- webgpu ----------*/
 
 // Contributes to:
-//   - undefined
+//   - GPUDevice
 
 type GPUBindingResource =
   | GPUSampler
@@ -20438,8 +20920,8 @@ declare class mixin$NavigatorGPU {
 /*---------- webhid ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - WorkerNavigator
 
 type HIDUnitSystem =
   | 'none'
@@ -20623,7 +21105,7 @@ declare class DOMException {
 /*---------- webmidi ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type MIDIPortConnectionState = 'open' | 'closed' | 'pending';
 
@@ -20700,8 +21182,8 @@ declare class MIDIPort extends EventTarget {
 /*---------- webnn ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - MLGraphBuilder
+//   - MLOpSupportLimits
 
 type MLDataTypeList = Array<MLOperandDataType>;
 
@@ -21534,9 +22016,9 @@ declare class mixin$NavigatorML {
 /*---------- webrtc-encoded-transform ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - RTCRtpSender
+//   - RTCRtpReceiver
+//   - DedicatedWorkerGlobalScope
 
 type CryptoKeyID = SmallCryptoKeyID | bigint;
 
@@ -21668,8 +22150,8 @@ declare class SFrameTransformErrorEvent extends Event {
 /*---------- webrtc-ice ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - RTCIceParameters
+//   - RTCIceTransport
 
 type RTCIceGatherOptions = {
   gatherPolicy: RTCIceTransportPolicy,
@@ -21679,12 +22161,12 @@ type RTCIceGatherOptions = {
 /*---------- webrtc-identity ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - RTCPeerConnection
+//   - RTCConfiguration
+//   - RTCError
+//   - RTCErrorInit
+//   - MediaStreamConstraints
+//   - MediaStreamTrack
 
 type RTCErrorDetailTypeIdp =
   | 'idp-bad-script-failure'
@@ -21751,9 +22233,9 @@ declare class RTCIdentityProviderRegistrar {
 /*---------- webrtc-priority ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - RTCRtpEncodingParameters
+//   - RTCDataChannel
+//   - RTCDataChannelInit
 
 type RTCPriorityType = 'very-low' | 'low' | 'medium' | 'high';
 
@@ -22064,14 +22546,14 @@ type RTCVideoSourceStats = {
 /*---------- webrtc-svc ----------*/
 
 // Contributes to:
-//   - undefined
+//   - RTCRtpEncodingParameters
 
 /*---------- webrtc ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - RTCOfferOptions
+//   - RTCPeerConnection
+//   - RTCRtpSender
 
 type RTCBundlePolicy = 'balanced' | 'max-compat' | 'max-bundle';
 
@@ -22890,8 +23372,8 @@ declare class WebTransportWriter extends WritableStreamDefaultWriter {
 /*---------- webusb ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - WorkerNavigator
 
 type USBDirection = 'in' | 'out';
 
@@ -23162,8 +23644,8 @@ declare class VTTRegion {
 /*---------- webxr-ar-module ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - XRSession
+//   - XRView
 
 type XREnvironmentBlendMode = 'opaque' | 'alpha-blend' | 'additive';
 
@@ -23172,10 +23654,10 @@ type XRInteractionMode = 'screen-space' | 'world-space';
 /*---------- webxr-depth-sensing ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
-//   - undefined
+//   - XRSessionInit
+//   - XRSession
+//   - XRFrame
+//   - XRWebGLBinding
 
 type XRDepthDataFormat = 'luminance-alpha' | 'float32' | 'unsigned-short';
 
@@ -23212,9 +23694,9 @@ declare class XRWebGLDepthInformation extends XRDepthInformation {
 /*---------- webxr-dom-overlays ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - GlobalEventHandlers
+//   - XRSessionInit
+//   - XRSession
 
 type XRDOMOverlayType = 'screen' | 'floating' | 'head-locked';
 
@@ -23229,13 +23711,13 @@ type XRDOMOverlayState = {
 /*---------- webxr-gamepads-module ----------*/
 
 // Contributes to:
-//   - undefined
+//   - XRInputSource
 
 /*---------- webxr-hand-input ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - XRInputSource
+//   - XRFrame
 
 type XRHandJoint =
   | 'wrist'
@@ -23283,8 +23765,8 @@ declare class XRJointSpace extends XRSpace {
 /*---------- webxr-hit-test ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - XRSession
+//   - XRFrame
 
 type XRHitTestTrackableType = 'point' | 'plane' | 'mesh';
 
@@ -23337,9 +23819,9 @@ declare class XRTransientInputHitTestSource {
 /*---------- webxr-lighting-estimation ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - XRSession
+//   - XRFrame
+//   - XRWebGLBinding
 
 type XRReflectionFormat = 'srgba8' | 'rgba16f';
 
@@ -23361,8 +23843,8 @@ declare class XRLightProbe extends EventTarget {
 /*---------- webxr-plane-detection ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
+//   - XRFrame
+//   - XRSession
 
 type XRPlaneOrientation = 'horizontal' | 'vertical';
 
@@ -23379,9 +23861,9 @@ type XRPlaneSet = Set<XRPlane>;
 /*---------- webxr ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Navigator
+//   - WebGLContextAttributes
+//   - WebGLRenderingContextBase
 
 type XRWebGLRenderingContext = WebGLRenderingContext | WebGL2RenderingContext;
 
@@ -23690,7 +24172,7 @@ declare class mixin$XRViewGeometry {
 /*---------- webxrlayers ----------*/
 
 // Contributes to:
-//   - undefined
+//   - XRRenderState
 
 type XRLayerLayout =
   | 'default'
@@ -23910,7 +24392,7 @@ declare class XRWebGLSubImage extends XRSubImage {
 /*---------- window-controls-overlay ----------*/
 
 // Contributes to:
-//   - undefined
+//   - Navigator
 
 type WindowControlsOverlayGeometryChangeEventInit = {
   ...EventInit,
@@ -23938,9 +24420,9 @@ declare class WindowControlsOverlayGeometryChangeEvent extends Event {
 /*---------- window-management ----------*/
 
 // Contributes to:
-//   - undefined
-//   - undefined
-//   - undefined
+//   - Screen
+//   - Window
+//   - FullscreenOptions
 
 declare class ScreenDetailed extends Screen {
   +availLeft: number;

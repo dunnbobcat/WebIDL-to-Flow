@@ -106,7 +106,7 @@ async function generateSingleFlowDefinition(
     if (partials.length > 0) {
       lib += '// Contributes to:\n';
       for (const partial of new Set(partials)) {
-        lib += `//   - ${partial.name}\n`;
+        lib += `//   - ${partial}\n`;
       }
       lib += '\n';
     }
