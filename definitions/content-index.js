@@ -14,9 +14,9 @@ type ContentIndexEventInit = {
 };
 
 declare class ContentIndex {
-  add(description: ContentDescription): void;
-  delete(id: string): void;
-  getAll(): Array<ContentDescription>;
+  add(description: ContentDescription): Promise<void>;
+  delete(id: string): Promise<void>;
+  getAll(): Promise<Array<ContentDescription>>;
 }
 
 declare class ContentIndexEvent extends ExtendableEvent {
@@ -25,10 +25,10 @@ declare class ContentIndexEvent extends ExtendableEvent {
   constructor(type: string, init: ContentIndexEventInit): void;
 }
 
-/* partial */ interface ServiceWorkerGlobalScope {
+/* partial */ declare class ServiceWorkerGlobalScope {
   oncontentdelete: EventHandler;
 }
 
-/* partial */ interface ServiceWorkerRegistration {
+/* partial */ declare class ServiceWorkerRegistration {
   +index: ContentIndex;
 }

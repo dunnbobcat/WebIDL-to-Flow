@@ -322,11 +322,13 @@ declare class AudioDecoder extends EventTarget {
 
   constructor(init: AudioDecoderInit): void;
 
-  static isConfigSupported(config: AudioDecoderConfig): AudioDecoderSupport;
+  static isConfigSupported(
+    config: AudioDecoderConfig,
+  ): Promise<AudioDecoderSupport>;
   close(): void;
   configure(config: AudioDecoderConfig): void;
   decode(chunk: EncodedAudioChunk): void;
-  flush(): void;
+  flush(): Promise<void>;
   reset(): void;
 }
 
@@ -337,11 +339,13 @@ declare class AudioEncoder extends EventTarget {
 
   constructor(init: AudioEncoderInit): void;
 
-  static isConfigSupported(config: AudioEncoderConfig): AudioEncoderSupport;
+  static isConfigSupported(
+    config: AudioEncoderConfig,
+  ): Promise<AudioEncoderSupport>;
   close(): void;
   configure(config: AudioEncoderConfig): void;
   encode(data: AudioData): void;
-  flush(): void;
+  flush(): Promise<void>;
   reset(): void;
 }
 
@@ -369,15 +373,15 @@ declare class EncodedVideoChunk {
 
 declare class ImageDecoder {
   +complete: boolean;
-  +completed: void;
+  +completed: Promise<void>;
   +tracks: ImageTrackList;
   +type: string;
 
   constructor(init: ImageDecoderInit): void;
 
-  static isTypeSupported(type: string): boolean;
+  static isTypeSupported(type: string): Promise<boolean>;
   close(): void;
-  decode(options?: ImageDecodeOptions): ImageDecodeResult;
+  decode(options?: ImageDecodeOptions): Promise<ImageDecodeResult>;
   reset(): void;
 }
 
@@ -390,7 +394,7 @@ declare class ImageTrack {
 
 declare class ImageTrackList {
   +length: number;
-  +ready: void;
+  +ready: Promise<void>;
   +selectedIndex: number;
   +selectedTrack: ImageTrack | null;
 
@@ -415,11 +419,13 @@ declare class VideoDecoder extends EventTarget {
 
   constructor(init: VideoDecoderInit): void;
 
-  static isConfigSupported(config: VideoDecoderConfig): VideoDecoderSupport;
+  static isConfigSupported(
+    config: VideoDecoderConfig,
+  ): Promise<VideoDecoderSupport>;
   close(): void;
   configure(config: VideoDecoderConfig): void;
   decode(chunk: EncodedVideoChunk): void;
-  flush(): void;
+  flush(): Promise<void>;
   reset(): void;
 }
 
@@ -430,11 +436,13 @@ declare class VideoEncoder extends EventTarget {
 
   constructor(init: VideoEncoderInit): void;
 
-  static isConfigSupported(config: VideoEncoderConfig): VideoEncoderSupport;
+  static isConfigSupported(
+    config: VideoEncoderConfig,
+  ): Promise<VideoEncoderSupport>;
   close(): void;
   configure(config: VideoEncoderConfig): void;
   encode(frame: VideoFrame, options?: VideoEncoderEncodeOptions): void;
-  flush(): void;
+  flush(): Promise<void>;
   reset(): void;
 }
 
@@ -461,6 +469,6 @@ declare class VideoFrame {
   copyTo(
     destination: AllowSharedBufferSource,
     options?: VideoFrameCopyToOptions,
-  ): Array<PlaneLayout>;
+  ): Promise<Array<PlaneLayout>>;
   metadata(): VideoFrameMetadata;
 }

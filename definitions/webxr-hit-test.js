@@ -19,7 +19,7 @@ type XRTransientInputHitTestOptionsInit = {
   profile: string,
 };
 
-/* partial */ interface XRFrame {
+/* partial */ declare class XRFrame {
   getHitTestResults(hitTestSource: XRHitTestSource): Array<XRHitTestResult>;
   getHitTestResultsForTransientInput(
     hitTestSource: XRTransientInputHitTestSource,
@@ -43,16 +43,16 @@ declare class XRRay {
   constructor(transform: XRRigidTransform): void;
 }
 
-/* partial */ interface XRSession {
-  requestHitTestSource(options: XRHitTestOptionsInit): XRHitTestSource;
+/* partial */ declare class XRSession {
+  requestHitTestSource(options: XRHitTestOptionsInit): Promise<XRHitTestSource>;
   requestHitTestSourceForTransientInput(
     options: XRTransientInputHitTestOptionsInit,
-  ): XRTransientInputHitTestSource;
+  ): Promise<XRTransientInputHitTestSource>;
 }
 
 declare class XRTransientInputHitTestResult {
   +inputSource: XRInputSource;
-  +results: XRHitTestResult;
+  +results: $ReadOnlyArray<XRHitTestResult>;
 }
 
 declare class XRTransientInputHitTestSource {

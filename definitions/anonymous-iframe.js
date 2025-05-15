@@ -1,7 +1,7 @@
-/* partial */ interface HTMLIFrameElement {
+/* partial */ declare class HTMLIFrameElement {
   credentialless: boolean;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +credentialless: boolean;
 }

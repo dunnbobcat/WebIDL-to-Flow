@@ -1,8 +1,8 @@
 declare class BrowserCaptureMediaStreamTrack extends MediaStreamTrack {
   clone(): BrowserCaptureMediaStreamTrack;
-  cropTo(cropTarget: CropTarget | null): void;
+  cropTo(cropTarget: CropTarget | null): Promise<void>;
 }
 
 declare class CropTarget {
-  static fromElement(element: Element): CropTarget;
+  static fromElement(element: Element): Promise<CropTarget>;
 }

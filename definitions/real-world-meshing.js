@@ -1,4 +1,4 @@
-/* partial */ interface XRFrame {
+/* partial */ declare class XRFrame {
   +detectedMeshes: XRMeshSet;
 }
 
@@ -7,7 +7,7 @@ declare class XRMesh {
   +lastChangedTime: number;
   +meshSpace: XRSpace;
   +semanticLabel: string | null;
-  +vertices: Float32Array;
+  +vertices: $ReadOnlyArray<Float32Array>;
 }
 
 type XRMeshSet = Set<XRMesh>;

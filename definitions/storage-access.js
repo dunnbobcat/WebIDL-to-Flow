@@ -1,4 +1,4 @@
-/* partial */ interface Document {
-  hasStorageAccess(): boolean;
-  requestStorageAccess(): void;
+/* partial */ declare class Document {
+  hasStorageAccess(): Promise<boolean>;
+  requestStorageAccess(): Promise<void>;
 }

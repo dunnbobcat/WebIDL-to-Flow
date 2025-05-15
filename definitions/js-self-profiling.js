@@ -35,5 +35,5 @@ declare class Profiler extends EventTarget {
 
   constructor(options: ProfilerInitOptions): void;
 
-  stop(): ProfilerTrace;
+  stop(): Promise<ProfilerTrace>;
 }

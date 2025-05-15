@@ -9,18 +9,18 @@ declare class StorageBucket {
   +indexedDB: IDBFactory;
   +name: string;
 
-  estimate(): StorageEstimate;
-  expires(): number | null;
-  getDirectory(): FileSystemDirectoryHandle;
-  persist(): boolean;
-  persisted(): boolean;
-  setExpires(expires: number): void;
+  estimate(): Promise<StorageEstimate>;
+  expires(): Promise<number | null>;
+  getDirectory(): Promise<FileSystemDirectoryHandle>;
+  persist(): Promise<boolean>;
+  persisted(): Promise<boolean>;
+  setExpires(expires: number): Promise<void>;
 }
 
 declare class StorageBucketManager {
-  delete(name: string): void;
-  keys(): Array<string>;
-  open(name: string, options?: StorageBucketOptions): StorageBucket;
+  delete(name: string): Promise<void>;
+  keys(): Promise<Array<string>>;
+  open(name: string, options?: StorageBucketOptions): Promise<StorageBucket>;
 }
 
 declare class mixin$NavigatorStorageBuckets {

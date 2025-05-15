@@ -113,7 +113,7 @@ declare class CSSStyleSheet extends StyleSheet {
   replaceSync(text: string): void;
 }
 
-/* partial */ interface CSSStyleSheet {
+/* partial */ declare class CSSStyleSheet {
   +rules: CSSRuleList;
 
   addRule(selector?: string, style?: string, index?: number): number;
@@ -145,7 +145,7 @@ declare class StyleSheetList {
   item(index: number): CSSStyleSheet | null;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   getComputedStyle(
     elt: Element,
     pseudoElt?: string | null,

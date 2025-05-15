@@ -2,7 +2,7 @@
   screen: ScreenDetailed,
 };
 
-/* partial */ interface Screen {
+/* partial */ declare class Screen {
   +isExtended: boolean;
   onchange: EventHandler;
 }
@@ -22,9 +22,9 @@ declare class ScreenDetails extends EventTarget {
   +currentScreen: ScreenDetailed;
   oncurrentscreenchange: EventHandler;
   onscreenschange: EventHandler;
-  +screens: ScreenDetailed;
+  +screens: $ReadOnlyArray<ScreenDetailed>;
 }
 
-/* partial */ interface Window {
-  getScreenDetails(): ScreenDetails;
+/* partial */ declare class Window {
+  getScreenDetails(): Promise<ScreenDetails>;
 }

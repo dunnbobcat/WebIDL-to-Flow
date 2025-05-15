@@ -56,7 +56,7 @@ type MediaSessionActionDetails = {
 type MediaSessionActionHandler = (details: MediaSessionActionDetails) => void;
 
 declare class ChapterInformation {
-  +artwork: MediaImage;
+  +artwork: $ReadOnlyArray<MediaImage>;
   +startTime: number;
   +title: string;
 }
@@ -64,8 +64,8 @@ declare class ChapterInformation {
 declare class MediaMetadata {
   album: string;
   artist: string;
-  artwork: Object;
-  +chapterInfo: ChapterInformation;
+  artwork: $ReadOnlyArray<Object>;
+  +chapterInfo: $ReadOnlyArray<ChapterInformation>;
   title: string;
 
   constructor(init?: MediaMetadataInit): void;
@@ -79,10 +79,10 @@ declare class MediaSession {
     action: MediaSessionAction,
     handler: MediaSessionActionHandler | null,
   ): void;
-  setCameraActive(active: boolean): void;
-  setMicrophoneActive(active: boolean): void;
+  setCameraActive(active: boolean): Promise<void>;
+  setMicrophoneActive(active: boolean): Promise<void>;
   setPositionState(state?: MediaPositionState): void;
-  setScreenshareActive(active: boolean): void;
+  setScreenshareActive(active: boolean): Promise<void>;
 }
 
 /* partial */ declare class Navigator {

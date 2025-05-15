@@ -125,9 +125,11 @@ declare class PaymentRequest extends EventTarget {
     options?: PaymentOptions,
   ): void;
 
-  abort(): void;
-  canMakePayment(): boolean;
-  show(detailsPromise?: PaymentDetailsUpdate): PaymentResponse;
+  abort(): Promise<void>;
+  canMakePayment(): Promise<boolean>;
+  show(
+    detailsPromise?: Promise<PaymentDetailsUpdate>,
+  ): Promise<PaymentResponse>;
 }
 
 declare class PaymentRequestUpdateEvent extends Event {
@@ -136,7 +138,7 @@ declare class PaymentRequestUpdateEvent extends Event {
     eventInitDict?: PaymentRequestUpdateEventInit,
   ): void;
 
-  updateWith(detailsPromise: PaymentDetailsUpdate): void;
+  updateWith(detailsPromise: Promise<PaymentDetailsUpdate>): void;
 }
 
 declare class PaymentResponse extends EventTarget {
@@ -150,7 +152,10 @@ declare class PaymentResponse extends EventTarget {
   +shippingAddress: ContactAddress | null;
   +shippingOption: string | null;
 
-  complete(result?: PaymentComplete, details?: PaymentCompleteDetails): void;
-  retry(errorFields?: PaymentValidationErrors): void;
+  complete(
+    result?: PaymentComplete,
+    details?: PaymentCompleteDetails,
+  ): Promise<void>;
+  retry(errorFields?: PaymentValidationErrors): Promise<void>;
   toJSON(): Object;
 }

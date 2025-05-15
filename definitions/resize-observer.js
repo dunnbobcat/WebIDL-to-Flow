@@ -21,10 +21,10 @@ declare class ResizeObserver {
 }
 
 declare class ResizeObserverEntry {
-  +borderBoxSize: ResizeObserverSize;
-  +contentBoxSize: ResizeObserverSize;
+  +borderBoxSize: $ReadOnlyArray<ResizeObserverSize>;
+  +contentBoxSize: $ReadOnlyArray<ResizeObserverSize>;
   +contentRect: DOMRectReadOnly;
-  +devicePixelContentBoxSize: ResizeObserverSize;
+  +devicePixelContentBoxSize: $ReadOnlyArray<ResizeObserverSize>;
   +target: Element;
 }
 

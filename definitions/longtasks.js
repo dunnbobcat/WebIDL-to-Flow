@@ -1,5 +1,5 @@
 declare class PerformanceLongTaskTiming extends PerformanceEntry {
-  +attribution: TaskAttributionTiming;
+  +attribution: $ReadOnlyArray<TaskAttributionTiming>;
   +duration: number;
   +entryType: string;
   +name: string;

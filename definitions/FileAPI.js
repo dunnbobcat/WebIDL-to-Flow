@@ -19,11 +19,11 @@ declare class Blob {
 
   constructor(blobParts?: Array<BlobPart>, options?: BlobPropertyBag): void;
 
-  arrayBuffer(): ArrayBuffer;
-  bytes(): Uint8Array;
+  arrayBuffer(): Promise<ArrayBuffer>;
+  bytes(): Promise<Uint8Array>;
   slice(start?: number, end?: number, contentType?: string): Blob;
   stream(): ReadableStream;
-  text(): string;
+  text(): Promise<string>;
 }
 
 declare class File extends Blob {

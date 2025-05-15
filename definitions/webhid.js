@@ -79,8 +79,8 @@ declare class HID extends EventTarget {
   onconnect: EventHandler;
   ondisconnect: EventHandler;
 
-  getDevices(): Array<HIDDevice>;
-  requestDevice(options: HIDDeviceRequestOptions): Array<HIDDevice>;
+  getDevices(): Promise<Array<HIDDevice>>;
+  requestDevice(options: HIDDeviceRequestOptions): Promise<Array<HIDDevice>>;
 }
 
 declare class HIDConnectionEvent extends Event {
@@ -90,19 +90,19 @@ declare class HIDConnectionEvent extends Event {
 }
 
 declare class HIDDevice extends EventTarget {
-  +collections: HIDCollectionInfo;
+  +collections: $ReadOnlyArray<HIDCollectionInfo>;
   oninputreport: EventHandler;
   +opened: boolean;
   +productId: number;
   +productName: string;
   +vendorId: number;
 
-  close(): void;
-  forget(): void;
-  open(): void;
-  receiveFeatureReport(reportId: number): DataView;
-  sendFeatureReport(reportId: number, data: BufferSource): void;
-  sendReport(reportId: number, data: BufferSource): void;
+  close(): Promise<void>;
+  forget(): Promise<void>;
+  open(): Promise<void>;
+  receiveFeatureReport(reportId: number): Promise<DataView>;
+  sendFeatureReport(reportId: number, data: BufferSource): Promise<void>;
+  sendReport(reportId: number, data: BufferSource): Promise<void>;
 }
 
 declare class HIDInputReportEvent extends Event {
@@ -113,7 +113,7 @@ declare class HIDInputReportEvent extends Event {
   constructor(type: string, eventInitDict: HIDInputReportEventInit): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +hid: HID;
 }
 

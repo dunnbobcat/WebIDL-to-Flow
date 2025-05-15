@@ -1,9 +1,9 @@
-type ViewTransitionUpdateCallback = () => any;
+type ViewTransitionUpdateCallback = () => Promise<any>;
 
 declare class ViewTransition {
-  +finished: void;
-  +ready: void;
-  +updateCallbackDone: void;
+  +finished: Promise<void>;
+  +ready: Promise<void>;
+  +updateCallbackDone: Promise<void>;
 
   skipTransition(): void;
 }

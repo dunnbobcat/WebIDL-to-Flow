@@ -94,7 +94,7 @@ declare class CaretPosition {
   scrollTo(x: number, y: number): void;
 }
 
-/* partial */ interface HTMLElement {
+/* partial */ declare class HTMLElement {
   +offsetHeight: number;
   +offsetLeft: number;
   +offsetParent: Element | null;
@@ -102,7 +102,7 @@ declare class CaretPosition {
   +offsetWidth: number;
 }
 
-/* partial */ interface HTMLImageElement {
+/* partial */ declare class HTMLImageElement {
   +x: number;
   +y: number;
 }
@@ -123,7 +123,7 @@ declare class MediaQueryListEvent extends Event {
   constructor(type: string, eventInitDict?: MediaQueryListEventInit): void;
 }
 
-/* partial */ interface MouseEvent {
+/* partial */ declare class MouseEvent {
   +offsetX: number;
   +offsetY: number;
   +pageX: number;
@@ -132,7 +132,7 @@ declare class MediaQueryListEvent extends Event {
   +y: number;
 }
 
-/* partial */ interface Range {
+/* partial */ declare class Range {
   getBoundingClientRect(): DOMRect;
   getClientRects(): DOMRectList;
 }
@@ -159,7 +159,7 @@ declare class VisualViewport extends EventTarget {
   +width: number;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +devicePixelRatio: number;
   +innerHeight: number;
   +innerWidth: number;

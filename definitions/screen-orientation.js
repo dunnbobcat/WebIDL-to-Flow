@@ -14,7 +14,7 @@ type OrientationType =
   | 'landscape-primary'
   | 'landscape-secondary';
 
-/* partial */ interface Screen {
+/* partial */ declare class Screen {
   +orientation: ScreenOrientation;
 }
 
@@ -23,6 +23,6 @@ declare class ScreenOrientation extends EventTarget {
   onchange: EventHandler;
   +type: OrientationType;
 
-  lock(orientation: OrientationLockType): void;
+  lock(orientation: OrientationLockType): Promise<void>;
   unlock(): void;
 }

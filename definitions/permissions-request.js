@@ -1,3 +1,3 @@
-/* partial */ interface Permissions {
-  request(permissionDesc: Object): PermissionStatus;
+/* partial */ declare class Permissions {
+  request(permissionDesc: Object): Promise<PermissionStatus>;
 }

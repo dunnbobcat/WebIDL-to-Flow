@@ -355,7 +355,7 @@ declare class ForDebuggingOnly {
   reportAdAuctionWin(url: string): void;
 }
 
-/* partial */ interface HTMLIFrameElement {
+/* partial */ declare class HTMLIFrameElement {
   adAuctionHeaders: boolean;
 }
 
@@ -390,44 +390,44 @@ declare class InterestGroupScriptRunnerGlobalScope {
   +protectedAudience: ProtectedAudienceUtilities;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   joinAdInterestGroup(group: AuctionAdInterestGroup): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   leaveAdInterestGroup(group?: AuctionAdInterestGroupKey): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   clearOriginJoinedAdInterestGroups(
     owner: string,
     interestGroupsToKeep?: Array<string>,
   ): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +deprecatedRunAdAuctionEnforcesKAnonymity: boolean;
 
   runAdAuction(config: AuctionAdConfig): string | FencedFrameConfig | null;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   canLoadAdAuctionFencedFrame(): boolean;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   getInterestGroupAdAuctionData(config?: AdAuctionDataConfig): AdAuctionData;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   createAuctionNonce(): string;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   updateAdInterestGroups(): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +protectedAudience: ProtectedAudience;
 }
 

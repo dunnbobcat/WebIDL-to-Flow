@@ -1,5 +1,5 @@
 type VibratePattern = number | Array<number>;
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   vibrate(pattern: VibratePattern): boolean;
 }

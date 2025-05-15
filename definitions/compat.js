@@ -1,8 +1,8 @@
-/* partial */ interface HTMLBodyElement {
+/* partial */ declare class HTMLBodyElement {
   onorientationchange: EventHandler;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   onorientationchange: EventHandler;
   +orientation: number;
 }

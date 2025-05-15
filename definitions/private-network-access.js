@@ -8,6 +8,6 @@ type PrivateNetworkAccessPermissionDescriptor = {
   targetAddressSpace: IPAddressSpace,
 };
 
-/* partial */ interface Request {
+/* partial */ declare class Request {
   +targetAddressSpace: IPAddressSpace;
 }

@@ -40,7 +40,7 @@ type SharedStorageWorkletOptions = {
 type RunFunctionForSharedStorageSelectURLOperation = (
   urls: Array<string>,
   data?: any,
-) => number;
+) => Promise<number>;
 
 declare class SharedStorage {
   +worklet: SharedStorageWorklet;
@@ -51,27 +51,37 @@ declare class SharedStorage {
     key: string,
     value: string,
     options?: SharedStorageModifierMethodOptions,
-  ): any;
+  ): Promise<any>;
   batchUpdate(
     methods: Array<SharedStorageModifierMethod>,
     options?: SharedStorageModifierMethodOptions,
-  ): any;
-  clear(options?: SharedStorageModifierMethodOptions): any;
+  ): Promise<any>;
+  clear(options?: SharedStorageModifierMethodOptions): Promise<any>;
   createWorklet(
     moduleURL: string,
     options?: SharedStorageWorkletOptions,
-  ): SharedStorageWorklet;
-  delete(key: string, options?: SharedStorageModifierMethodOptions): any;
-  get(key: string): string;
-  length(): number;
-  remainingBudget(): number;
-  run(name: string, options?: SharedStorageRunOperationMethodOptions): any;
+  ): Promise<SharedStorageWorklet>;
+  delete(
+    key: string,
+    options?: SharedStorageModifierMethodOptions,
+  ): Promise<any>;
+  get(key: string): Promise<string>;
+  length(): Promise<number>;
+  remainingBudget(): Promise<number>;
+  run(
+    name: string,
+    options?: SharedStorageRunOperationMethodOptions,
+  ): Promise<any>;
   selectURL(
     name: string,
     urls: Array<SharedStorageUrlWithMetadata>,
     options?: SharedStorageRunOperationMethodOptions,
-  ): SharedStorageResponse;
-  set(key: string, value: string, options?: SharedStorageSetMethodOptions): any;
+  ): Promise<SharedStorageResponse>;
+  set(
+    key: string,
+    value: string,
+    options?: SharedStorageSetMethodOptions,
+  ): Promise<any>;
 }
 
 declare class SharedStorageAppendMethod extends SharedStorageModifierMethod {
@@ -101,12 +111,15 @@ declare class SharedStorageSetMethod extends SharedStorageModifierMethod {
 }
 
 declare class SharedStorageWorklet extends Worklet {
-  run(name: string, options?: SharedStorageRunOperationMethodOptions): any;
+  run(
+    name: string,
+    options?: SharedStorageRunOperationMethodOptions,
+  ): Promise<any>;
   selectURL(
     name: string,
     urls: Array<SharedStorageUrlWithMetadata>,
     options?: SharedStorageRunOperationMethodOptions,
-  ): SharedStorageResponse;
+  ): Promise<SharedStorageResponse>;
 }
 
 declare class SharedStorageWorkletGlobalScope extends WorkletGlobalScope {
@@ -114,13 +127,13 @@ declare class SharedStorageWorkletGlobalScope extends WorkletGlobalScope {
   +privateAggregation: PrivateAggregation;
   +sharedStorage: SharedStorage;
 
-  interestGroups(): Array<StorageInterestGroup>;
+  interestGroups(): Promise<Array<StorageInterestGroup>>;
   register(name: string, operationCtor: Function): void;
 }
 
 declare class SharedStorageWorkletNavigator mixins mixin$NavigatorLocks {}
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +sharedStorage: SharedStorage | null;
 }
 

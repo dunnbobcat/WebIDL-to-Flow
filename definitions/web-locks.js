@@ -18,7 +18,7 @@ type LockOptions = {
   steal: boolean,
 };
 
-type LockGrantedCallback = (lock: Lock | null) => any;
+type LockGrantedCallback = (lock: Lock | null) => Promise<any>;
 
 declare class Lock {
   +mode: LockMode;
@@ -26,13 +26,13 @@ declare class Lock {
 }
 
 declare class LockManager {
-  query(): LockManagerSnapshot;
-  request(name: string, callback: LockGrantedCallback): any;
+  query(): Promise<LockManagerSnapshot>;
+  request(name: string, callback: LockGrantedCallback): Promise<any>;
   request(
     name: string,
     options: LockOptions,
     callback: LockGrantedCallback,
-  ): any;
+  ): Promise<any>;
 }
 
 declare class mixin$NavigatorLocks {

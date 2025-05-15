@@ -60,7 +60,7 @@ type MediaKeySystemMediaCapability = {
   onencrypted: EventHandler;
   onwaitingforkey: EventHandler;
 
-  setMediaKeys(mediaKeys: MediaKeys | null): void;
+  setMediaKeys(mediaKeys: MediaKeys | null): Promise<void>;
 }
 
 declare class MediaEncryptedEvent extends Event {
@@ -79,23 +79,23 @@ declare class MediaKeyMessageEvent extends Event {
 
 declare class MediaKeys {
   createSession(sessionType?: MediaKeySessionType): MediaKeySession;
-  getStatusForPolicy(policy?: MediaKeysPolicy): MediaKeyStatus;
-  setServerCertificate(serverCertificate: BufferSource): boolean;
+  getStatusForPolicy(policy?: MediaKeysPolicy): Promise<MediaKeyStatus>;
+  setServerCertificate(serverCertificate: BufferSource): Promise<boolean>;
 }
 
 declare class MediaKeySession extends EventTarget {
-  +closed: MediaKeySessionClosedReason;
+  +closed: Promise<MediaKeySessionClosedReason>;
   +expiration: number;
   +keyStatuses: MediaKeyStatusMap;
   onkeystatuseschange: EventHandler;
   onmessage: EventHandler;
   +sessionId: string;
 
-  close(): void;
-  generateRequest(initDataType: string, initData: BufferSource): void;
-  load(sessionId: string): boolean;
-  remove(): void;
-  update(response: BufferSource): void;
+  close(): Promise<void>;
+  generateRequest(initDataType: string, initData: BufferSource): Promise<void>;
+  load(sessionId: string): Promise<boolean>;
+  remove(): Promise<void>;
+  update(response: BufferSource): Promise<void>;
 }
 
 declare class MediaKeyStatusMap {
@@ -110,7 +110,7 @@ declare class MediaKeyStatusMap {
 declare class MediaKeySystemAccess {
   +keySystem: string;
 
-  createMediaKeys(): MediaKeys;
+  createMediaKeys(): Promise<MediaKeys>;
   getConfiguration(): MediaKeySystemConfiguration;
 }
 
@@ -118,5 +118,5 @@ declare class MediaKeySystemAccess {
   requestMediaKeySystemAccess(
     keySystem: string,
     supportedConfigurations: Array<MediaKeySystemConfiguration>,
-  ): MediaKeySystemAccess;
+  ): Promise<MediaKeySystemAccess>;
 }

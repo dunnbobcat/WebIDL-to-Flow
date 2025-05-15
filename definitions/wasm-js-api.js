@@ -44,15 +44,15 @@ type WebAssemblyInstantiatedSource = {
 };
 
 declare namespace WebAssembly {
-  declare function compile(bytes: BufferSource): Module;
+  declare function compile(bytes: BufferSource): Promise<Module>;
   declare function instantiate(
     bytes: BufferSource,
     importObject?: Object,
-  ): WebAssemblyInstantiatedSource;
+  ): Promise<WebAssemblyInstantiatedSource>;
   declare function instantiate(
     moduleObject: Module,
     importObject?: Object,
-  ): Instance;
+  ): Promise<Instance>;
   declare function validate(bytes: BufferSource): boolean;
 }
 

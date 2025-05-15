@@ -15,7 +15,7 @@ type PresentationConnectionCloseEventInit = {
   reason: PresentationConnectionCloseReason,
 };
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +presentation: Presentation;
 }
 
@@ -24,11 +24,11 @@ declare class Presentation {
   +receiver: PresentationReceiver | null;
 }
 
-/* partial */ interface Presentation {
+/* partial */ declare class Presentation {
   defaultRequest: PresentationRequest | null;
 }
 
-/* partial */ interface Presentation {
+/* partial */ declare class Presentation {
   +receiver: PresentationReceiver | null;
 }
 
@@ -75,12 +75,12 @@ declare class PresentationConnectionCloseEvent extends Event {
 }
 
 declare class PresentationConnectionList extends EventTarget {
-  +connections: PresentationConnection;
+  +connections: $ReadOnlyArray<PresentationConnection>;
   onconnectionavailable: EventHandler;
 }
 
 declare class PresentationReceiver {
-  +connectionList: PresentationConnectionList;
+  +connectionList: Promise<PresentationConnectionList>;
 }
 
 declare class PresentationRequest extends EventTarget {
@@ -89,7 +89,7 @@ declare class PresentationRequest extends EventTarget {
   constructor(url: string): void;
   constructor(urls: Array<string>): void;
 
-  getAvailability(): PresentationAvailability;
-  reconnect(presentationId: string): PresentationConnection;
-  start(): PresentationConnection;
+  getAvailability(): Promise<PresentationAvailability>;
+  reconnect(presentationId: string): Promise<PresentationConnection>;
+  start(): Promise<PresentationConnection>;
 }

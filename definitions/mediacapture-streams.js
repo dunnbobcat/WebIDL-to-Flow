@@ -162,8 +162,8 @@ type ULongRange = {
 };
 
 declare class DeviceChangeEvent extends Event {
-  +devices: MediaDeviceInfo;
-  +userInsertedDevices: MediaDeviceInfo;
+  +devices: $ReadOnlyArray<MediaDeviceInfo>;
+  +userInsertedDevices: $ReadOnlyArray<MediaDeviceInfo>;
 
   constructor(type: string, eventInitDict?: DeviceChangeEventInit): void;
 }
@@ -184,14 +184,14 @@ declare class MediaDeviceInfo {
 declare class MediaDevices extends EventTarget {
   ondevicechange: EventHandler;
 
-  enumerateDevices(): Array<MediaDeviceInfo>;
+  enumerateDevices(): Promise<Array<MediaDeviceInfo>>;
   getSupportedConstraints(): MediaTrackSupportedConstraints;
-  getUserMedia(constraints?: MediaStreamConstraints): MediaStream;
+  getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
 }
 
-/* partial */ interface MediaDevices {
+/* partial */ declare class MediaDevices {
   getSupportedConstraints(): MediaTrackSupportedConstraints;
-  getUserMedia(constraints?: MediaStreamConstraints): MediaStream;
+  getUserMedia(constraints?: MediaStreamConstraints): Promise<MediaStream>;
 }
 
 declare class MediaStream extends EventTarget {
@@ -224,7 +224,7 @@ declare class MediaStreamTrack extends EventTarget {
   onunmute: EventHandler;
   +readyState: MediaStreamTrackState;
 
-  applyConstraints(constraints?: MediaTrackConstraints): void;
+  applyConstraints(constraints?: MediaTrackConstraints): Promise<void>;
   clone(): MediaStreamTrack;
   getCapabilities(): MediaTrackCapabilities;
   getConstraints(): MediaTrackConstraints;
@@ -238,7 +238,7 @@ declare class MediaStreamTrackEvent extends Event {
   constructor(type: string, eventInitDict: MediaStreamTrackEventInit): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +mediaDevices: MediaDevices;
 }
 

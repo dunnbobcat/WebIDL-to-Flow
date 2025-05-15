@@ -26,5 +26,5 @@ declare class GeolocationSensor extends Sensor {
 
   constructor(options?: GeolocationSensorOptions): void;
 
-  static read(readOptions?: ReadOptions): GeolocationSensorReading;
+  static read(readOptions?: ReadOptions): Promise<GeolocationSensorReading>;
 }

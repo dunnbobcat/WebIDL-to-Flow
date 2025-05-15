@@ -9,6 +9,6 @@ declare class BatteryManager extends EventTarget {
   onlevelchange: EventHandler;
 }
 
-/* partial */ interface Navigator {
-  getBattery(): BatteryManager;
+/* partial */ declare class Navigator {
+  getBattery(): Promise<BatteryManager>;
 }

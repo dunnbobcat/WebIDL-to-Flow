@@ -32,7 +32,7 @@ declare class DeviceMotionEvent extends Event {
 
   constructor(type: string, eventInitDict?: DeviceMotionEventInit): void;
 
-  static requestPermission(): PermissionState;
+  static requestPermission(): Promise<PermissionState>;
 }
 
 declare class DeviceMotionEventAcceleration {
@@ -55,17 +55,17 @@ declare class DeviceOrientationEvent extends Event {
 
   constructor(type: string, eventInitDict?: DeviceOrientationEventInit): void;
 
-  static requestPermission(absolute?: boolean): PermissionState;
+  static requestPermission(absolute?: boolean): Promise<PermissionState>;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   ondeviceorientation: EventHandler;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   ondeviceorientationabsolute: EventHandler;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   ondevicemotion: EventHandler;
 }

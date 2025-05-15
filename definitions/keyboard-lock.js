@@ -1,8 +1,8 @@
 declare class Keyboard extends EventTarget {
-  lock(keyCodes?: Array<string>): void;
+  lock(keyCodes?: Array<string>): Promise<void>;
   unlock(): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +keyboard: Keyboard;
 }

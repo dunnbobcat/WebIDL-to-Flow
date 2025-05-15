@@ -1,10 +1,10 @@
 type ClientLifecycleState = 'active' | 'frozen';
 
-/* partial */ interface Client {
+/* partial */ declare class Client {
   +lifecycleState: ClientLifecycleState;
 }
 
-/* partial */ interface Document {
+/* partial */ declare class Document {
   onfreeze: EventHandler;
   onresume: EventHandler;
   +wasDiscarded: boolean;

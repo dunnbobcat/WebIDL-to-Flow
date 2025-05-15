@@ -2,6 +2,6 @@ type TopLevelStorageAccessPermissionDescriptor = {
   requestedOrigin: string,
 };
 
-/* partial */ interface Document {
-  requestStorageAccessFor(requestedOrigin: string): void;
+/* partial */ declare class Document {
+  requestStorageAccessFor(requestedOrigin: string): Promise<void>;
 }

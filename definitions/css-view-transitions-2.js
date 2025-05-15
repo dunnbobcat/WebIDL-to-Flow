@@ -5,10 +5,10 @@ type StartViewTransitionOptions = {
 
 declare class CSSViewTransitionRule extends CSSRule {
   +navigation: string;
-  +types: string;
+  +types: $ReadOnlyArray<string>;
 }
 
-/* partial */ interface Document {
+/* partial */ declare class Document {
   startViewTransition(
     callbackOptions?: ViewTransitionUpdateCallback | StartViewTransitionOptions,
   ): ViewTransition;

@@ -9,5 +9,5 @@ type ColorSelectionResult = {
 declare class EyeDropper {
   constructor(): void;
 
-  open(options?: ColorSelectionOptions): ColorSelectionResult;
+  open(options?: ColorSelectionOptions): Promise<ColorSelectionResult>;
 }

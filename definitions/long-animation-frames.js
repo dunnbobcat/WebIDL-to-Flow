@@ -23,7 +23,7 @@ declare class PerformanceLongAnimationFrameTiming
   +firstUIEventTimestamp: number;
   +name: string;
   +renderStart: number;
-  +scripts: PerformanceScriptTiming;
+  +scripts: $ReadOnlyArray<PerformanceScriptTiming>;
   +startTime: number;
   +styleAndLayoutStart: number;
 

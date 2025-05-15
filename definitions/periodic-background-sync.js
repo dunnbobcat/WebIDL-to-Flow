@@ -13,12 +13,12 @@ declare class PeriodicSyncEvent extends ExtendableEvent {
 }
 
 declare class PeriodicSyncManager {
-  getTags(): Array<string>;
-  register(tag: string, options?: BackgroundSyncOptions): void;
-  unregister(tag: string): void;
+  getTags(): Promise<Array<string>>;
+  register(tag: string, options?: BackgroundSyncOptions): Promise<void>;
+  unregister(tag: string): Promise<void>;
 }
 
-/* partial */ interface ServiceWorkerGlobalScope {
+/* partial */ declare class ServiceWorkerGlobalScope {
   onperiodicsync: EventHandler;
 }
 

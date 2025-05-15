@@ -9,14 +9,14 @@ type CaptureHandleConfig = {
   permittedOrigins: Array<string>,
 };
 
-/* partial */ interface MediaDevices {
+/* partial */ declare class MediaDevices {
   setCaptureHandleConfig(config?: CaptureHandleConfig): void;
 }
 
-/* partial */ interface MediaStreamTrack {
+/* partial */ declare class MediaStreamTrack {
   getCaptureHandle(): CaptureHandle | null;
 }
 
-/* partial */ interface MediaStreamTrack {
+/* partial */ declare class MediaStreamTrack {
   oncapturehandlechange: EventHandler;
 }

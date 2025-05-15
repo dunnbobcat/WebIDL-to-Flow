@@ -1,4 +1,4 @@
-/* partial */ interface HTMLVideoElement {
+/* partial */ declare class HTMLVideoElement {
   getVideoPlaybackQuality(): VideoPlaybackQuality;
 }
 

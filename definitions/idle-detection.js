@@ -14,6 +14,6 @@ declare class IdleDetector extends EventTarget {
 
   constructor(): void;
 
-  static requestPermission(): PermissionState;
-  start(options?: IdleOptions): void;
+  static requestPermission(): Promise<PermissionState>;
+  start(options?: IdleOptions): Promise<void>;
 }

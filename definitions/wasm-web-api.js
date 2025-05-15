@@ -1,7 +1,7 @@
 /* partial */ declare namespace WebAssembly {
-  declare function compileStreaming(source: Response): Module;
+  declare function compileStreaming(source: Promise<Response>): Promise<Module>;
   declare function instantiateStreaming(
-    source: Response,
+    source: Promise<Response>,
     importObject?: Object,
-  ): WebAssemblyInstantiatedSource;
+  ): Promise<WebAssemblyInstantiatedSource>;
 }

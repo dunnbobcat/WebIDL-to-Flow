@@ -4,10 +4,10 @@ declare class CanvasCaptureMediaStreamTrack extends MediaStreamTrack {
   requestFrame(): void;
 }
 
-/* partial */ interface HTMLCanvasElement {
+/* partial */ declare class HTMLCanvasElement {
   captureStream(frameRequestRate?: number): MediaStream;
 }
 
-/* partial */ interface HTMLMediaElement {
+/* partial */ declare class HTMLMediaElement {
   captureStream(): MediaStream;
 }

@@ -7,6 +7,6 @@ type RTCDegradationPreference =
   degradationPreference: RTCDegradationPreference,
 };
 
-/* partial */ interface MediaStreamTrack {
+/* partial */ declare class MediaStreamTrack {
   contentHint: string;
 }

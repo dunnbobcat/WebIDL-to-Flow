@@ -95,7 +95,7 @@ type OptionalEffectTiming = {
 
 declare class Animation extends EventTarget {
   effect: AnimationEffect | null;
-  +finished: Animation;
+  +finished: Promise<Animation>;
   id: string;
   oncancel: EventHandler;
   onfinish: EventHandler;
@@ -103,7 +103,7 @@ declare class Animation extends EventTarget {
   +pending: boolean;
   playbackRate: number;
   +playState: AnimationPlayState;
-  +ready: Animation;
+  +ready: Promise<Animation>;
   +replaceState: AnimationReplaceState;
   timeline: AnimationTimeline | null;
 
@@ -130,7 +130,7 @@ declare class AnimationEffect {
 
 declare class AnimationTimeline {}
 
-/* partial */ interface Document {
+/* partial */ declare class Document {
   +timeline: DocumentTimeline;
 }
 

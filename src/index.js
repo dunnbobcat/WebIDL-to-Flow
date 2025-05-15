@@ -11,6 +11,8 @@ import {coalesceIDLs} from './coalesce.js';
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
 import idl from '@webref/idl';
+import pull from './pull.js';
+import {WEB_SPECS} from './envs.js';
 
 const __dirname = dirname(
   // $FlowExpectedError
@@ -77,20 +79,18 @@ async function generateSingleFlowDefinition(
   const outputDir = [...thisDir, 'coalesced'].join('/');
   const dir = await createOutputDirectory(outputDir);
 
+  const parsedFiles = await idl.parseAll();
   const idls = [];
-  for (const input of inputs) {
-    const file = `${idlDir}/${input}.idl`;
 
-    try {
-      process.stdout.write(`Reading IDL file: ${file}...\n`);
-      const idl = await parseIDLFile(file);
-      idls.push(idl);
-    } catch (e) {
-      process.stderr.write(
-        `Failed to parse ${file}:\n${e.message}\n\n${e.stack}\n`,
-      );
+  for (const input of inputs) {
+    const idl = parsedFiles[input];
+    if (idl == null) {
+      process.stderr.write(`Failed to find IDL for ${input}\n`);
       continue;
     }
+
+    process.stdout.write(`Adding IDL file: ${input}...\n`);
+    idls.push(idl);
   }
 
   const combinedIDL = await coalesceIDLs(idls);
@@ -132,42 +132,7 @@ async function main(): Promise<void> {
       return await generateFlowDefinitions(args[1]);
 
     case 'web':
-      return await generateSingleFlowDefinition(
-        [
-          'CSSOM',
-          'CSSViewTransitions',
-          'DOM',
-          'Encoding',
-          'Fetch',
-          'FileAPI',
-          'FilterEffects',
-          'Fullscreen',
-          'Geometry',
-          'HighResolutionTime',
-          'HTML',
-          'MathMLCore',
-          'MediaCaptureAndStreams',
-          'MediaSource',
-          'Notifications',
-          'ReferrerPolicy',
-          'Streams',
-          'SVG',
-          'SVGAnimation',
-          'TrustedTypes',
-          'UIEvents',
-          'URL',
-          'URLPattern',
-          'Vibration',
-          'WebAnimations',
-          'WebCodecs',
-          'WebGL',
-          'WebGL2',
-          'WebGPU',
-          'WebIDL',
-          'XHR',
-        ],
-        'web',
-      );
+      return await generateSingleFlowDefinition(WEB_SPECS, 'web');
 
     case 'prettify':
       return await prettifyIDLs();

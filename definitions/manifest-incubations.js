@@ -7,10 +7,10 @@ type PromptResponseObject = {
 declare class BeforeInstallPromptEvent extends Event {
   constructor(type: string, eventInitDict?: EventInit): void;
 
-  prompt(): PromptResponseObject;
+  prompt(): Promise<PromptResponseObject>;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   onappinstalled: EventHandler;
   onbeforeinstallprompt: EventHandler;
 }

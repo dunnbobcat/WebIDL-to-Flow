@@ -1,5 +1,5 @@
 /* partial */ declare class PerformanceResourceTiming {
-  +serverTiming: PerformanceServerTiming;
+  +serverTiming: $ReadOnlyArray<PerformanceServerTiming>;
 }
 
 declare class PerformanceServerTiming {

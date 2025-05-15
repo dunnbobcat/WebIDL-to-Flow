@@ -25,7 +25,7 @@ declare class SVGMPathElement extends SVGElement mixins mixin$SVGURIReference {}
 
 declare class SVGSetElement extends SVGAnimationElement {}
 
-/* partial */ interface SVGSVGElement {
+/* partial */ declare class SVGSVGElement {
   animationsPaused(): boolean;
   getCurrentTime(): number;
   pauseAnimations(): void;

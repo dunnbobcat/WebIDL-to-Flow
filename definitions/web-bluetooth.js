@@ -87,9 +87,9 @@ declare class Bluetooth
   onavailabilitychanged: EventHandler;
   +referringDevice: BluetoothDevice | null;
 
-  getAvailability(): boolean;
-  getDevices(): Array<BluetoothDevice>;
-  requestDevice(options?: RequestDeviceOptions): BluetoothDevice;
+  getAvailability(): Promise<boolean>;
+  getDevices(): Promise<Array<BluetoothDevice>>;
+  requestDevice(options?: RequestDeviceOptions): Promise<BluetoothDevice>;
 }
 
 declare class BluetoothAdvertisingEvent extends Event {
@@ -100,7 +100,7 @@ declare class BluetoothAdvertisingEvent extends Event {
   +rssi: number | null;
   +serviceData: BluetoothServiceDataMap;
   +txPower: number | null;
-  +uuids: UUID;
+  +uuids: $ReadOnlyArray<UUID>;
 
   constructor(type: string, init: BluetoothAdvertisingEventInit): void;
 }
@@ -129,14 +129,14 @@ declare class BluetoothDevice
   +name: string | null;
   +watchingAdvertisements: boolean;
 
-  forget(): void;
-  watchAdvertisements(options?: WatchAdvertisementsOptions): void;
+  forget(): Promise<void>;
+  watchAdvertisements(options?: WatchAdvertisementsOptions): Promise<void>;
 }
 
 type BluetoothManufacturerDataMap = Map<number, DataView>;
 
 declare class BluetoothPermissionResult extends PermissionStatus {
-  devices: BluetoothDevice;
+  devices: $ReadOnlyArray<BluetoothDevice>;
 }
 
 declare class BluetoothRemoteGATTCharacteristic
@@ -150,16 +150,16 @@ declare class BluetoothRemoteGATTCharacteristic
 
   getDescriptor(
     descriptor: BluetoothDescriptorUUID,
-  ): BluetoothRemoteGATTDescriptor;
+  ): Promise<BluetoothRemoteGATTDescriptor>;
   getDescriptors(
     descriptor?: BluetoothDescriptorUUID,
-  ): Array<BluetoothRemoteGATTDescriptor>;
-  readValue(): DataView;
-  startNotifications(): BluetoothRemoteGATTCharacteristic;
-  stopNotifications(): BluetoothRemoteGATTCharacteristic;
-  writeValue(value: BufferSource): void;
-  writeValueWithoutResponse(value: BufferSource): void;
-  writeValueWithResponse(value: BufferSource): void;
+  ): Promise<Array<BluetoothRemoteGATTDescriptor>>;
+  readValue(): Promise<DataView>;
+  startNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
+  stopNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
+  writeValue(value: BufferSource): Promise<void>;
+  writeValueWithoutResponse(value: BufferSource): Promise<void>;
+  writeValueWithResponse(value: BufferSource): Promise<void>;
 }
 
 declare class BluetoothRemoteGATTDescriptor {
@@ -167,20 +167,22 @@ declare class BluetoothRemoteGATTDescriptor {
   +uuid: UUID;
   +value: DataView | null;
 
-  readValue(): DataView;
-  writeValue(value: BufferSource): void;
+  readValue(): Promise<DataView>;
+  writeValue(value: BufferSource): Promise<void>;
 }
 
 declare class BluetoothRemoteGATTServer {
   +connected: boolean;
   +device: BluetoothDevice;
 
-  connect(): BluetoothRemoteGATTServer;
+  connect(): Promise<BluetoothRemoteGATTServer>;
   disconnect(): void;
-  getPrimaryService(service: BluetoothServiceUUID): BluetoothRemoteGATTService;
+  getPrimaryService(
+    service: BluetoothServiceUUID,
+  ): Promise<BluetoothRemoteGATTService>;
   getPrimaryServices(
     service?: BluetoothServiceUUID,
-  ): Array<BluetoothRemoteGATTService>;
+  ): Promise<Array<BluetoothRemoteGATTService>>;
 }
 
 declare class BluetoothRemoteGATTService
@@ -193,14 +195,16 @@ declare class BluetoothRemoteGATTService
 
   getCharacteristic(
     characteristic: BluetoothCharacteristicUUID,
-  ): BluetoothRemoteGATTCharacteristic;
+  ): Promise<BluetoothRemoteGATTCharacteristic>;
   getCharacteristics(
     characteristic?: BluetoothCharacteristicUUID,
-  ): Array<BluetoothRemoteGATTCharacteristic>;
-  getIncludedService(service: BluetoothServiceUUID): BluetoothRemoteGATTService;
+  ): Promise<Array<BluetoothRemoteGATTCharacteristic>>;
+  getIncludedService(
+    service: BluetoothServiceUUID,
+  ): Promise<BluetoothRemoteGATTService>;
   getIncludedServices(
     service?: BluetoothServiceUUID,
-  ): Array<BluetoothRemoteGATTService>;
+  ): Promise<Array<BluetoothRemoteGATTService>>;
 }
 
 type BluetoothServiceDataMap = Map<UUID, DataView>;
@@ -212,7 +216,7 @@ declare class BluetoothUUID {
   static getService(name: string | number): UUID;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +bluetooth: Bluetooth;
 }
 

@@ -211,7 +211,7 @@ declare class XRQuadLayer extends XRCompositionLayer {
 }
 
 /* partial */ declare class XRRenderState {
-  +layers: XRLayer;
+  +layers: $ReadOnlyArray<XRLayer>;
 }
 
 declare class XRSubImage {

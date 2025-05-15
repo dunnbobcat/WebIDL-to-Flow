@@ -63,10 +63,10 @@ declare class MIDIPort extends EventTarget {
   +type: MIDIPortType;
   +version: string | null;
 
-  close(): MIDIPort;
-  open(): MIDIPort;
+  close(): Promise<MIDIPort>;
+  open(): Promise<MIDIPort>;
 }
 
-/* partial */ interface Navigator {
-  requestMIDIAccess(options?: MIDIOptions): MIDIAccess;
+/* partial */ declare class Navigator {
+  requestMIDIAccess(options?: MIDIOptions): Promise<MIDIAccess>;
 }

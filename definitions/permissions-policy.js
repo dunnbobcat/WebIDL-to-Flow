@@ -1,8 +1,8 @@
-/* partial */ interface Document {
+/* partial */ declare class Document {
   +permissionsPolicy: PermissionsPolicy;
 }
 
-/* partial */ interface HTMLIFrameElement {
+/* partial */ declare class HTMLIFrameElement {
   +permissionsPolicy: PermissionsPolicy;
 }
 

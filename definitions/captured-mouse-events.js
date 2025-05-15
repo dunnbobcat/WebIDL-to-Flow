@@ -3,7 +3,7 @@ type CapturedMouseEventInit = {
   surfaceY: number,
 };
 
-/* partial */ interface CaptureController {
+/* partial */ declare class CaptureController {
   oncapturedmousechange: EventHandler;
 }
 

@@ -1,3 +1,3 @@
-/* partial */ interface XRInputSource {
+/* partial */ declare class XRInputSource {
   +gamepad: Gamepad | null;
 }

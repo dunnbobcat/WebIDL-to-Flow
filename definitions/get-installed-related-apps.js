@@ -6,5 +6,5 @@ type RelatedApplication = {
 };
 
 /* partial */ declare class Navigator {
-  getInstalledRelatedApps(): Array<RelatedApplication>;
+  getInstalledRelatedApps(): Promise<Array<RelatedApplication>>;
 }

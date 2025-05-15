@@ -10,7 +10,7 @@ declare class IdleDeadline {
   timeRemaining(): number;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   cancelIdleCallback(handle: number): void;
   requestIdleCallback(
     callback: IdleRequestCallback,

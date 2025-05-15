@@ -11,7 +11,7 @@ declare class AbsoluteOrientationSensor extends OrientationSensor {
 }
 
 declare class OrientationSensor extends Sensor {
-  +quaternion: number | null;
+  +quaternion: $ReadOnlyArray<number> | null;
 
   populateMatrix(targetMatrix: RotationMatrixType): void;
 }

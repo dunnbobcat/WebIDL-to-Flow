@@ -7,5 +7,5 @@ type DetectedText = {
 declare class TextDetector {
   constructor(): void;
 
-  detect(image: ImageBitmapSource): Array<DetectedText>;
+  detect(image: ImageBitmapSource): Promise<Array<DetectedText>>;
 }

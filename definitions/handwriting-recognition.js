@@ -53,7 +53,7 @@ type HandwritingSegment = {
 declare class HandwritingDrawing {
   addStroke(stroke: HandwritingStroke): void;
   clear(): void;
-  getPrediction(): Array<HandwritingPrediction>;
+  getPrediction(): Promise<Array<HandwritingPrediction>>;
   getStrokes(): Array<HandwritingStroke>;
   removeStroke(stroke: HandwritingStroke): void;
 }
@@ -71,14 +71,14 @@ declare class HandwritingStroke {
   getPoints(): Array<HandwritingPoint>;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   queryHandwritingRecognizer(
     constraint: HandwritingModelConstraint,
-  ): HandwritingRecognizerQueryResult | null;
+  ): Promise<HandwritingRecognizerQueryResult | null>;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   createHandwritingRecognizer(
     constraint: HandwritingModelConstraint,
-  ): HandwritingRecognizer;
+  ): Promise<HandwritingRecognizer>;
 }

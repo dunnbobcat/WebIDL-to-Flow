@@ -138,6 +138,10 @@ function convertIDLType(production: IDLProduction): string {
 
   let orNull = production.nullable ? ' | null' : '';
 
+  if (generic != null && generic.length > 0) {
+    console.log(generic, production);
+  }
+
   let type;
   if (typeof idlType === 'string') {
     type = convertPrimitiveType(idlType);
@@ -150,8 +154,25 @@ function convertIDLType(production: IDLProduction): string {
     );
   }
 
-  if (generic === 'sequence') {
-    return `Array<${type}>${orNull}`;
+  switch (generic) {
+    case 'sequence':
+      return `Array<${type}>${orNull}`;
+
+    case 'Promise':
+      return `Promise<${type}>${orNull}`;
+
+    case 'FrozenArray':
+      return `$ReadOnlyArray<${type}>${orNull}`;
+
+    case null:
+    case '':
+      break;
+
+    default:
+      return productionError(
+        `Unhandled generic type ${generic} in production ${production.name}`,
+        production,
+      );
   }
 
   return `${type}${orNull}`;
@@ -193,6 +214,10 @@ function convertInterface(
   mixinConsts: ?Array<IDLProduction>,
 ): string {
   const {extAttrs, inheritance, name} = production;
+  if (name === 'NotRestoredReasons') {
+    debugger;
+  }
+
   let {members} = production;
   if (
     members.length > 0 &&
@@ -215,12 +240,11 @@ function convertInterface(
   const hasMixins = mixins != null && mixins.length > 0;
   const isExposed =
     extAttrs != null && extAttrs.some((attr) => attr.name === 'Exposed');
-  const hasConsts = members.some((member) => member.type === 'const');
 
   const partial = production.partial ? '/* partial */ ' : '';
-  const declare = hasMixins || isExposed || hasConsts ? 'declare ' : '';
+  const declare = hasMixins || isExposed || partial ? 'declare ' : '';
   const classOrInterface =
-    hasMixins || isExposed || hasConsts ? 'class' : 'interface';
+    hasMixins || isExposed || partial ? 'class' : 'interface';
   const extendsDecl = inheritance != null ? `extends ${inheritance} ` : '';
   const mixinDecl =
     mixins != null && mixins.length > 0
@@ -272,12 +296,12 @@ function convertIterable(production: IDLProduction): string {
 }
 
 function convertAttribute(production: IDLProduction): string {
-  const {idlType, readonly} = production;
-  let {name} = production;
-  const plus = readonly ? '+' : '';
+  const {idlType, name, readonly} = production;
   if (name.includes('-')) {
-    name = `'${name}'`;
+    return '';
   }
+
+  const plus = readonly ? '+' : '';
   return `${plus}${name}: ${convertIDLType(idlType)};\n`;
 }
 

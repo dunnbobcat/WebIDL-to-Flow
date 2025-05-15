@@ -1,6 +1,6 @@
 type XRPlaneOrientation = 'horizontal' | 'vertical';
 
-/* partial */ interface XRFrame {
+/* partial */ declare class XRFrame {
   +detectedPlanes: XRPlaneSet;
 }
 
@@ -8,12 +8,12 @@ declare class XRPlane {
   +lastChangedTime: number;
   +orientation: XRPlaneOrientation | null;
   +planeSpace: XRSpace;
-  +polygon: DOMPointReadOnly;
+  +polygon: $ReadOnlyArray<DOMPointReadOnly>;
   +semanticLabel: string | null;
 }
 
 type XRPlaneSet = Set<XRPlane>;
 
-/* partial */ interface XRSession {
-  initiateRoomCapture(): void;
+/* partial */ declare class XRSession {
+  initiateRoomCapture(): Promise<void>;
 }

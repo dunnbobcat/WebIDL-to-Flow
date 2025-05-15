@@ -2,7 +2,7 @@ type GetComposedRangesOptions = {
   shadowRoots: Array<ShadowRoot>,
 };
 
-/* partial */ interface Document {
+/* partial */ declare class Document {
   getSelection(): Selection | null;
 }
 
@@ -40,7 +40,7 @@ declare class Selection {
   toString(): string;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   getSelection(): Selection | null;
 }
 

@@ -4,9 +4,9 @@ type StorageEstimate = {
 };
 
 declare class StorageManager {
-  estimate(): StorageEstimate;
-  persist(): boolean;
-  persisted(): boolean;
+  estimate(): Promise<StorageEstimate>;
+  persist(): Promise<boolean>;
+  persisted(): Promise<boolean>;
 }
 
 declare class mixin$NavigatorStorage {

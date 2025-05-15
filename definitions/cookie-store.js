@@ -46,8 +46,8 @@ type ExtendableCookieChangeEventInit = {
 };
 
 declare class CookieChangeEvent extends Event {
-  +changed: CookieListItem;
-  +deleted: CookieListItem;
+  +changed: $ReadOnlyArray<CookieListItem>;
+  +deleted: $ReadOnlyArray<CookieListItem>;
 
   constructor(type: string, eventInitDict?: CookieChangeEventInit): void;
 }
@@ -55,25 +55,25 @@ declare class CookieChangeEvent extends Event {
 declare class CookieStore extends EventTarget {
   onchange: EventHandler;
 
-  delete(name: string): void;
-  delete(options: CookieStoreDeleteOptions): void;
-  get(name: string): CookieListItem | null;
-  get(options?: CookieStoreGetOptions): CookieListItem | null;
-  getAll(name: string): CookieList;
-  getAll(options?: CookieStoreGetOptions): CookieList;
-  set(name: string, value: string): void;
-  set(options: CookieInit): void;
+  delete(name: string): Promise<void>;
+  delete(options: CookieStoreDeleteOptions): Promise<void>;
+  get(name: string): Promise<CookieListItem | null>;
+  get(options?: CookieStoreGetOptions): Promise<CookieListItem | null>;
+  getAll(name: string): Promise<CookieList>;
+  getAll(options?: CookieStoreGetOptions): Promise<CookieList>;
+  set(name: string, value: string): Promise<void>;
+  set(options: CookieInit): Promise<void>;
 }
 
 declare class CookieStoreManager {
-  getSubscriptions(): Array<CookieStoreGetOptions>;
-  subscribe(subscriptions: Array<CookieStoreGetOptions>): void;
-  unsubscribe(subscriptions: Array<CookieStoreGetOptions>): void;
+  getSubscriptions(): Promise<Array<CookieStoreGetOptions>>;
+  subscribe(subscriptions: Array<CookieStoreGetOptions>): Promise<void>;
+  unsubscribe(subscriptions: Array<CookieStoreGetOptions>): Promise<void>;
 }
 
 declare class ExtendableCookieChangeEvent extends ExtendableEvent {
-  +changed: CookieListItem;
-  +deleted: CookieListItem;
+  +changed: $ReadOnlyArray<CookieListItem>;
+  +deleted: $ReadOnlyArray<CookieListItem>;
 
   constructor(
     type: string,
@@ -81,7 +81,7 @@ declare class ExtendableCookieChangeEvent extends ExtendableEvent {
   ): void;
 }
 
-/* partial */ interface ServiceWorkerGlobalScope {
+/* partial */ declare class ServiceWorkerGlobalScope {
   +cookieStore: CookieStore;
   oncookiechange: EventHandler;
 }
@@ -90,6 +90,6 @@ declare class ExtendableCookieChangeEvent extends ExtendableEvent {
   +cookies: CookieStoreManager;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +cookieStore: CookieStore;
 }

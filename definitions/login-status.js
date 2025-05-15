@@ -1,9 +1,9 @@
 type LoginStatus = 'logged-in' | 'logged-out';
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +login: NavigatorLogin;
 }
 
 declare class NavigatorLogin {
-  setStatus(status: LoginStatus): void;
+  setStatus(status: LoginStatus): Promise<void>;
 }

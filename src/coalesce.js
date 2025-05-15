@@ -10,8 +10,6 @@ export async function coalesceIDLs(
   idls: $ReadOnlyArray<IDLTree>,
 ): Promise<IDLTree> {
   const idl = idls.flat(1);
-  debugger;
-
   const groups = group(idl, (production) => production.type);
 
   // Merge interface mixins
@@ -58,6 +56,27 @@ export async function coalesceIDLs(
     wholeInterface.members = [...wholeInterface.members, ...members];
   }
 
+  // Merge namespaces
+  const allNamespaces = groups['namespace'] ?? [];
+  const [partialNamespaces, wholeNamespaces] = partition(
+    allNamespaces,
+    (namespace) => namespace.partial,
+  );
+
+  const namespaces = wholeNamespaces;
+  const namespacesByName = pull(wholeNamespaces, (int) => int.name);
+  for (const partialNamespace of partialNamespaces) {
+    const {members, name} = partialNamespace;
+    const wholeNamespace = namespacesByName[name];
+    if (wholeNamespace == null) {
+      process.stderr.write(`No root found for partial Namespace ${name}\n`);
+      namespaces.push(partialNamespace);
+      continue;
+    }
+
+    wholeNamespace.members = [...wholeNamespace.members, ...members];
+  }
+
   // Merge dictionaries
   const allDictionaries = groups['dictionary'] ?? [];
   const [partialDictionaries, wholeDictionaries] = partition(
@@ -96,36 +115,15 @@ export async function coalesceIDLs(
     wholeDictionary.members = [...wholeDictionary.members, ...root.members];
   }
 
-  // const
-
-  // for (const type in groups) {
-  //   const currGroup = groups[type];
-  //   const [partial, whole] = partition(currGroup, (member) => member.partial);
-  //   console.log({type, partial, whole});
-  // }
-  // merge partial interface mixins
-
-  // merge partial interfaces
-
-  // expand extended dictionaries
-
   return [
-    ...wholeInterfaces,
-    ...wholeDictionaries,
-    ...wholeInterfaceMixins,
+    ...interfaceMixins,
+    ...interfaces,
+    ...dictionaries,
+    ...namespaces,
     ...(groups['callback'] ?? []),
     ...(groups['callback interface'] ?? []),
     ...(groups['enum'] ?? []),
     ...(groups['includes'] ?? []),
-    ...(groups['namespace'] ?? []),
     ...(groups['typedef'] ?? []),
   ];
-
-  // return idl;
-  // return [
-  //   ...groups['interface'],
-  //   ...groups['interface'],
-  //   ...groups['interface'],
-  //   ...groups['interface'],
-  // ];
 }

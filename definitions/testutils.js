@@ -1,3 +1,3 @@
 declare namespace TestUtils {
-  declare function gc(): void;
+  declare function gc(): Promise<void>;
 }

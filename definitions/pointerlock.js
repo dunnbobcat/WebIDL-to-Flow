@@ -7,18 +7,18 @@ type PointerLockOptions = {
   unadjustedMovement: boolean,
 };
 
-/* partial */ interface Document {
+/* partial */ declare class Document {
   onpointerlockchange: EventHandler;
   onpointerlockerror: EventHandler;
 
   exitPointerLock(): void;
 }
 
-/* partial */ interface Element {
-  requestPointerLock(options?: PointerLockOptions): void;
+/* partial */ declare class Element {
+  requestPointerLock(options?: PointerLockOptions): Promise<void>;
 }
 
-/* partial */ interface MouseEvent {
+/* partial */ declare class MouseEvent {
   +movementX: number;
   +movementY: number;
 }

@@ -1,3 +1,3 @@
-/* partial */ interface Permissions {
-  revoke(permissionDesc: Object): PermissionStatus;
+/* partial */ declare class Permissions {
+  revoke(permissionDesc: Object): Promise<PermissionStatus>;
 }

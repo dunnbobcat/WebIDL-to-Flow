@@ -28,11 +28,11 @@ declare class XRDepthInformation mixins mixin$XRViewGeometry {
   +width: number;
 }
 
-/* partial */ interface XRFrame {
+/* partial */ declare class XRFrame {
   getDepthInformation(view: XRView): XRCPUDepthInformation | null;
 }
 
-/* partial */ interface XRSession {
+/* partial */ declare class XRSession {
   +depthActive: boolean | null;
   +depthDataFormat: XRDepthDataFormat;
   +depthType: XRDepthType | null;
@@ -42,7 +42,7 @@ declare class XRDepthInformation mixins mixin$XRViewGeometry {
   resumeDepthSensing(): void;
 }
 
-/* partial */ interface XRWebGLBinding {
+/* partial */ declare class XRWebGLBinding {
   getDepthInformation(view: XRView): XRWebGLDepthInformation | null;
 }
 

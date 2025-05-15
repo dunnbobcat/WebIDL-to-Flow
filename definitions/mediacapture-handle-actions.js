@@ -10,13 +10,13 @@ declare class CaptureActionEvent extends Event {
   constructor(init?: CaptureActionEventInit): void;
 }
 
-/* partial */ interface MediaDevices {
+/* partial */ declare class MediaDevices {
   oncaptureaction: EventHandler;
 
   setSupportedCaptureActions(actions: Array<string>): void;
 }
 
-/* partial */ interface MediaStreamTrack {
+/* partial */ declare class MediaStreamTrack {
   getSupportedCaptureActions(): Array<string>;
-  sendCaptureAction(action: CaptureAction): void;
+  sendCaptureAction(action: CaptureAction): Promise<void>;
 }

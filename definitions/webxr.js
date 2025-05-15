@@ -80,12 +80,12 @@ type XRWebGLLayerInit = {
 
 type XRFrameRequestCallback = (time: number, frame: XRFrame) => void;
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +xr: XRSystem;
 }
 
 declare class XRBoundedReferenceSpace extends XRReferenceSpace {
-  +boundsGeometry: DOMPointReadOnly;
+  +boundsGeometry: $ReadOnlyArray<DOMPointReadOnly>;
 }
 
 declare class XRFrame {
@@ -99,7 +99,7 @@ declare class XRFrame {
 declare class XRInputSource {
   +gripSpace: XRSpace | null;
   +handedness: XRHandedness;
-  +profiles: string;
+  +profiles: $ReadOnlyArray<string>;
   +skipRendering: boolean;
   +targetRayMode: XRTargetRayMode;
   +targetRaySpace: XRSpace;
@@ -121,8 +121,8 @@ declare class XRInputSourceEvent extends Event {
 }
 
 declare class XRInputSourcesChangeEvent extends Event {
-  +added: XRInputSource;
-  +removed: XRInputSource;
+  +added: $ReadOnlyArray<XRInputSource>;
+  +removed: $ReadOnlyArray<XRInputSource>;
   +session: XRSession;
 
   constructor(type: string, eventInitDict: XRInputSourcesChangeEventInit): void;
@@ -131,7 +131,7 @@ declare class XRInputSourcesChangeEvent extends Event {
 declare class XRLayer extends EventTarget {}
 
 declare class XRPermissionStatus extends PermissionStatus {
-  granted: string;
+  granted: $ReadOnlyArray<string>;
 }
 
 declare class XRPose {
@@ -172,7 +172,7 @@ declare class XRRigidTransform {
 }
 
 declare class XRSession extends EventTarget {
-  +enabledFeatures: string;
+  +enabledFeatures: $ReadOnlyArray<string>;
   +frameRate: number | null;
   +inputSources: XRInputSourceArray;
   +isSystemKeyboardSupported: boolean;
@@ -192,11 +192,11 @@ declare class XRSession extends EventTarget {
   +visibilityState: XRVisibilityState;
 
   cancelAnimationFrame(handle: number): void;
-  end(): void;
+  end(): Promise<void>;
   requestAnimationFrame(callback: XRFrameRequestCallback): number;
-  requestReferenceSpace(type: XRReferenceSpaceType): XRReferenceSpace;
+  requestReferenceSpace(type: XRReferenceSpaceType): Promise<XRReferenceSpace>;
   updateRenderState(state?: XRRenderStateInit): void;
-  updateTargetFrameRate(rate: number): void;
+  updateTargetFrameRate(rate: number): Promise<void>;
 }
 
 declare class XRSessionEvent extends Event {
@@ -210,8 +210,11 @@ declare class XRSpace extends EventTarget {}
 declare class XRSystem extends EventTarget {
   ondevicechange: EventHandler;
 
-  isSessionSupported(mode: XRSessionMode): boolean;
-  requestSession(mode: XRSessionMode, options?: XRSessionInit): XRSession;
+  isSessionSupported(mode: XRSessionMode): Promise<boolean>;
+  requestSession(
+    mode: XRSessionMode,
+    options?: XRSessionInit,
+  ): Promise<XRSession>;
 }
 
 declare class XRView mixins mixin$XRViewGeometry {
@@ -222,7 +225,7 @@ declare class XRView mixins mixin$XRViewGeometry {
 }
 
 declare class XRViewerPose extends XRPose {
-  +views: XRView;
+  +views: $ReadOnlyArray<XRView>;
 }
 
 declare class XRViewport {
@@ -251,7 +254,7 @@ declare class XRWebGLLayer extends XRLayer {
 }
 
 /* partial */ declare class mixin$WebGLRenderingContextBase {
-  makeXRCompatible(): void;
+  makeXRCompatible(): Promise<void>;
 }
 
 declare class mixin$XRViewGeometry {

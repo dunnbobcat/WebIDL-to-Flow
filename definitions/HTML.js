@@ -277,8 +277,8 @@ type NavigationReloadOptions = {
 };
 
 type NavigationResult = {
-  committed: NavigationHistoryEntry,
-  finished: NavigationHistoryEntry,
+  committed: Promise<NavigationHistoryEntry>,
+  finished: Promise<NavigationHistoryEntry>,
 };
 
 type NavigationUpdateCurrentEntryOptions = {
@@ -380,7 +380,7 @@ type FrameRequestCallback = (time: number) => void;
 
 type FunctionStringCallback = (data: string) => void;
 
-type NavigationInterceptHandler = () => void;
+type NavigationInterceptHandler = () => Promise<void>;
 
 type OnBeforeUnloadEventHandlerNonNull = (event: Event) => string | null;
 
@@ -490,7 +490,7 @@ declare class CustomElementRegistry {
   getName(constructor_: CustomElementConstructor): string | null;
   initialize(root: Node): void;
   upgrade(root: Node): void;
-  whenDefined(name: string): CustomElementConstructor;
+  whenDefined(name: string): Promise<CustomElementConstructor>;
 }
 
 type CustomStateSet = Set<string>;
@@ -500,7 +500,7 @@ declare class DataTransfer {
   effectAllowed: string;
   +files: FileList;
   +items: DataTransferItemList;
-  +types: string;
+  +types: $ReadOnlyArray<string>;
 
   constructor(): void;
 
@@ -624,7 +624,7 @@ declare class DragEvent extends MouseEvent {
   constructor(type: string, eventInitDict?: DragEventInit): void;
 }
 
-/* partial */ interface Element {
+/* partial */ declare class Element {
   innerHTML: TrustedHTML | string;
   outerHTML: TrustedHTML | string;
 
@@ -816,7 +816,7 @@ declare class HTMLBRElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLBRElement {
+/* partial */ declare class HTMLBRElement {
   clear: string;
 }
 
@@ -904,7 +904,7 @@ declare class HTMLDivElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLDivElement {
+/* partial */ declare class HTMLDivElement {
   align: string;
 }
 
@@ -914,7 +914,7 @@ declare class HTMLDListElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLDListElement {
+/* partial */ declare class HTMLDListElement {
   compact: boolean;
 }
 
@@ -964,7 +964,7 @@ declare class HTMLEmbedElement extends HTMLElement {
   getSVGDocument(): Document | null;
 }
 
-/* partial */ interface HTMLEmbedElement {
+/* partial */ declare class HTMLEmbedElement {
   align: string;
   name: string;
 }
@@ -1059,7 +1059,7 @@ declare class HTMLHeadingElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLHeadingElement {
+/* partial */ declare class HTMLHeadingElement {
   align: string;
 }
 
@@ -1073,7 +1073,7 @@ declare class HTMLHRElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLHRElement {
+/* partial */ declare class HTMLHRElement {
   align: string;
   color: string;
   noShade: boolean;
@@ -1087,7 +1087,7 @@ declare class HTMLHtmlElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLHtmlElement {
+/* partial */ declare class HTMLHtmlElement {
   version: string;
 }
 
@@ -1116,7 +1116,7 @@ declare class HTMLIFrameElement extends HTMLElement {
   getSVGDocument(): Document | null;
 }
 
-/* partial */ interface HTMLIFrameElement {
+/* partial */ declare class HTMLIFrameElement {
   align: string;
   frameBorder: string;
   longDesc: string;
@@ -1153,10 +1153,10 @@ declare class HTMLImageElement extends HTMLElement {
 
   constructor(): void;
 
-  decode(): void;
+  decode(): Promise<void>;
 }
 
-/* partial */ interface HTMLImageElement {
+/* partial */ declare class HTMLImageElement {
   align: string;
   border: string;
   hspace: number;
@@ -1259,7 +1259,7 @@ declare class HTMLLegendElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLLegendElement {
+/* partial */ declare class HTMLLegendElement {
   align: string;
 }
 
@@ -1270,7 +1270,7 @@ declare class HTMLLIElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLLIElement {
+/* partial */ declare class HTMLLIElement {
   type: string;
 }
 
@@ -1380,7 +1380,7 @@ declare class HTMLMediaElement extends HTMLElement {
   getStartDate(): Object;
   load(): void;
   pause(): void;
-  play(): void;
+  play(): Promise<void>;
 }
 
 declare class HTMLMenuElement extends HTMLElement {
@@ -1389,7 +1389,7 @@ declare class HTMLMenuElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLMenuElement {
+/* partial */ declare class HTMLMenuElement {
   compact: boolean;
 }
 
@@ -1403,7 +1403,7 @@ declare class HTMLMetaElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLMetaElement {
+/* partial */ declare class HTMLMetaElement {
   scheme: string;
 }
 
@@ -1458,7 +1458,7 @@ declare class HTMLObjectElement extends HTMLElement {
   setCustomValidity(error: string): void;
 }
 
-/* partial */ interface HTMLObjectElement {
+/* partial */ declare class HTMLObjectElement {
   align: string;
   archive: string;
   border: string;
@@ -1481,7 +1481,7 @@ declare class HTMLOListElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLOListElement {
+/* partial */ declare class HTMLOListElement {
   compact: boolean;
 }
 
@@ -1542,7 +1542,7 @@ declare class HTMLParagraphElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLParagraphElement {
+/* partial */ declare class HTMLParagraphElement {
   align: string;
 }
 
@@ -1565,7 +1565,7 @@ declare class HTMLPreElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLPreElement {
+/* partial */ declare class HTMLPreElement {
   width: number;
 }
 
@@ -1605,7 +1605,7 @@ declare class HTMLScriptElement extends HTMLElement {
   static supports(type: string): boolean;
 }
 
-/* partial */ interface HTMLScriptElement {
+/* partial */ declare class HTMLScriptElement {
   charset: string;
   event: string;
   htmlFor: string;
@@ -1692,7 +1692,7 @@ declare class HTMLTableCaptionElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLTableCaptionElement {
+/* partial */ declare class HTMLTableCaptionElement {
   align: string;
 }
 
@@ -1716,7 +1716,7 @@ declare class HTMLTableCellElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLTableCellElement {
+/* partial */ declare class HTMLTableCellElement {
   align: string;
   axis: string;
   bgColor: string;
@@ -1739,7 +1739,7 @@ declare class HTMLTableColElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLTableColElement {
+/* partial */ declare class HTMLTableColElement {
   align: string;
   ch: string;
   chOff: string;
@@ -1776,7 +1776,7 @@ declare class HTMLTableElement extends HTMLElement {
   insertRow(index?: number): HTMLTableRowElement;
 }
 
-/* partial */ interface HTMLTableElement {
+/* partial */ declare class HTMLTableElement {
   align: string;
   bgColor: string;
   border: string;
@@ -1804,7 +1804,7 @@ declare class HTMLTableRowElement extends HTMLElement {
   insertCell(index?: number): HTMLTableCellElement;
 }
 
-/* partial */ interface HTMLTableRowElement {
+/* partial */ declare class HTMLTableRowElement {
   align: string;
   bgColor: string;
   ch: string;
@@ -1825,7 +1825,7 @@ declare class HTMLTableSectionElement extends HTMLElement {
   insertRow(index?: number): HTMLTableRowElement;
 }
 
-/* partial */ interface HTMLTableSectionElement {
+/* partial */ declare class HTMLTableSectionElement {
   align: string;
   ch: string;
   chOff: string;
@@ -1921,7 +1921,7 @@ declare class HTMLUListElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface HTMLUListElement {
+/* partial */ declare class HTMLUListElement {
   compact: boolean;
   type: string;
 }
@@ -2006,7 +2006,7 @@ declare class MessageEvent extends Event {
   +data: any;
   +lastEventId: string;
   +origin: string;
-  +ports: MessagePort;
+  +ports: $ReadOnlyArray<MessagePort>;
   +source: MessageEventSource | null;
 
   constructor(type: string, eventInitDict?: MessageEventInit): void;
@@ -2123,7 +2123,7 @@ declare class NavigationHistoryEntry extends EventTarget {
 }
 
 declare class NavigationTransition {
-  +finished: void;
+  +finished: Promise<void>;
   +from: NavigationHistoryEntry;
   +navigationType: NavigationType;
 }
@@ -2161,10 +2161,10 @@ declare class NotRestoredReasonDetails {
 }
 
 declare class NotRestoredReasons {
-  +children: NotRestoredReasons | null;
+  +children: $ReadOnlyArray<NotRestoredReasons> | null;
   +id: string | null;
   +name: string | null;
-  +reasons: NotRestoredReasonDetails | null;
+  +reasons: $ReadOnlyArray<NotRestoredReasonDetails> | null;
   +src: string | null;
   +url: string | null;
 
@@ -2179,7 +2179,7 @@ declare class OffscreenCanvas extends EventTarget {
 
   constructor(width: number, height: number): void;
 
-  convertToBlob(options?: ImageEncodeOptions): Blob;
+  convertToBlob(options?: ImageEncodeOptions): Promise<Blob>;
   getContext(
     contextId: OffscreenRenderingContextId,
     options?: any,
@@ -2270,11 +2270,11 @@ declare class RadioNodeList extends NodeList {
   value: string;
 }
 
-/* partial */ interface Range {
+/* partial */ declare class Range {
   createContextualFragment(string: TrustedHTML | string): DocumentFragment;
 }
 
-/* partial */ interface ShadowRoot {
+/* partial */ declare class ShadowRoot {
   innerHTML: TrustedHTML | string;
 
   getHTML(options?: GetHTMLOptions): string;
@@ -2580,7 +2580,7 @@ declare class WorkerNavigator
     mixin$NavigatorConcurrentHardware {}
 
 declare class Worklet {
-  addModule(moduleURL: string, options?: WorkletOptions): void;
+  addModule(moduleURL: string, options?: WorkletOptions): Promise<void>;
 }
 
 declare class WorkletGlobalScope {}
@@ -2988,7 +2988,7 @@ declare class mixin$NavigatorID {
 
 declare class mixin$NavigatorLanguage {
   +language: string;
-  +languages: string;
+  +languages: $ReadOnlyArray<string>;
 }
 
 declare class mixin$NavigatorOnLine {
@@ -3045,7 +3045,7 @@ declare class mixin$WindowOrWorkerGlobalScope {
   createImageBitmap(
     image: ImageBitmapSource,
     options?: ImageBitmapOptions,
-  ): ImageBitmap;
+  ): Promise<ImageBitmap>;
   createImageBitmap(
     image: ImageBitmapSource,
     sx: number,
@@ -3053,7 +3053,7 @@ declare class mixin$WindowOrWorkerGlobalScope {
     sw: number,
     sh: number,
     options?: ImageBitmapOptions,
-  ): ImageBitmap;
+  ): Promise<ImageBitmap>;
   queueMicrotask(callback: VoidFunction): void;
   reportError(e: any): void;
   setInterval(handler: TimerHandler, timeout?: number, arguments_: any): number;

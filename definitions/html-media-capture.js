@@ -1,3 +1,3 @@
-/* partial */ interface HTMLInputElement {
+/* partial */ declare class HTMLInputElement {
   capture: string;
 }

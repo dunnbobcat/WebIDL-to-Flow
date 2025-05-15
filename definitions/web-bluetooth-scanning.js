@@ -10,8 +10,8 @@ type BluetoothLEScanPermissionDescriptor = {
   keepRepeatedDevices: boolean,
 };
 
-/* partial */ interface Bluetooth {
-  requestLEScan(options?: BluetoothLEScanOptions): BluetoothLEScan;
+/* partial */ declare class Bluetooth {
+  requestLEScan(options?: BluetoothLEScanOptions): Promise<BluetoothLEScan>;
 }
 
 declare class BluetoothDataFilter {
@@ -24,7 +24,7 @@ declare class BluetoothDataFilter {
 declare class BluetoothLEScan {
   +acceptAllAdvertisements: boolean;
   +active: boolean;
-  +filters: BluetoothLEScanFilter;
+  +filters: $ReadOnlyArray<BluetoothLEScanFilter>;
   +keepRepeatedDevices: boolean;
 
   stop(): void;
@@ -35,13 +35,13 @@ declare class BluetoothLEScanFilter {
   +name: string | null;
   +namePrefix: string | null;
   +serviceData: BluetoothServiceDataFilter;
-  +services: UUID;
+  +services: $ReadOnlyArray<UUID>;
 
   constructor(init?: BluetoothLEScanFilterInit): void;
 }
 
 declare class BluetoothLEScanPermissionResult extends PermissionStatus {
-  scans: BluetoothLEScan;
+  scans: $ReadOnlyArray<BluetoothLEScan>;
 }
 
 declare class BluetoothManufacturerDataFilter {

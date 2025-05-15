@@ -8,9 +8,9 @@ declare class FontData {
   +postscriptName: string;
   +style: string;
 
-  blob(): Blob;
+  blob(): Promise<Blob>;
 }
 
-/* partial */ interface Window {
-  queryLocalFonts(options?: QueryOptions): Array<FontData>;
+/* partial */ declare class Window {
+  queryLocalFonts(options?: QueryOptions): Promise<Array<FontData>>;
 }

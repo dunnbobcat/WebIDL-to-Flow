@@ -16,7 +16,7 @@ type SpatialNavigationSearchOptions = {
   container: Node | null,
 };
 
-/* partial */ interface Element {
+/* partial */ declare class Element {
   focusableAreas(option?: FocusableAreasOption): Array<Node>;
   getSpatialNavigationContainer(): Node;
   spatialNavigationSearch(
@@ -32,6 +32,6 @@ declare class NavigationEvent extends UIEvent {
   constructor(type: string, eventInitDict?: NavigationEventInit): void;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   navigate(dir: SpatialNavigationDirection): void;
 }

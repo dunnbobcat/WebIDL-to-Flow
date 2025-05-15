@@ -127,7 +127,7 @@ declare class GroupEffect {
   prepend(effects: AnimationEffect): void;
 }
 
-/* partial */ interface KeyframeEffect {
+/* partial */ declare class KeyframeEffect {
   iterationComposite: IterationCompositeOperation;
 }
 

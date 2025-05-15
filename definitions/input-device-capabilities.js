@@ -14,6 +14,6 @@ declare class InputDeviceCapabilities {
   constructor(deviceInitDict?: InputDeviceCapabilitiesInit): void;
 }
 
-/* partial */ interface UIEvent {
+/* partial */ declare class UIEvent {
   +sourceCapabilities: InputDeviceCapabilities | null;
 }

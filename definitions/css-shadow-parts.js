@@ -1,3 +1,3 @@
-/* partial */ interface Element {
+/* partial */ declare class Element {
   +part: DOMTokenList;
 }

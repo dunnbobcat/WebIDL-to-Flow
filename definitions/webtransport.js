@@ -79,14 +79,14 @@ type WebTransportSendStreamStats = {
 declare class WebTransport {
   anticipatedConcurrentIncomingBidirectionalStreams: number | null;
   anticipatedConcurrentIncomingUnidirectionalStreams: number | null;
-  +closed: WebTransportCloseInfo;
+  +closed: Promise<WebTransportCloseInfo>;
   +congestionControl: WebTransportCongestionControl;
   +datagrams: WebTransportDatagramDuplexStream;
-  +draining: void;
+  +draining: Promise<void>;
   +incomingBidirectionalStreams: ReadableStream;
   +incomingUnidirectionalStreams: ReadableStream;
   +protocol: string;
-  +ready: void;
+  +ready: Promise<void>;
   +reliability: WebTransportReliabilityMode;
   +supportsReliableOnly: boolean;
 
@@ -95,12 +95,12 @@ declare class WebTransport {
   close(closeInfo?: WebTransportCloseInfo): void;
   createBidirectionalStream(
     options?: WebTransportSendStreamOptions,
-  ): WebTransportBidirectionalStream;
+  ): Promise<WebTransportBidirectionalStream>;
   createSendGroup(): WebTransportSendGroup;
   createUnidirectionalStream(
     options?: WebTransportSendStreamOptions,
-  ): WebTransportSendStream;
-  getStats(): WebTransportConnectionStats;
+  ): Promise<WebTransportSendStream>;
+  getStats(): Promise<WebTransportConnectionStats>;
 }
 
 declare class WebTransportBidirectionalStream {
@@ -134,21 +134,21 @@ declare class WebTransportError extends DOMException {
 }
 
 declare class WebTransportReceiveStream extends ReadableStream {
-  getStats(): WebTransportReceiveStreamStats;
+  getStats(): Promise<WebTransportReceiveStreamStats>;
 }
 
 declare class WebTransportSendGroup {
-  getStats(): WebTransportSendStreamStats;
+  getStats(): Promise<WebTransportSendStreamStats>;
 }
 
 declare class WebTransportSendStream extends WritableStream {
   sendGroup: WebTransportSendGroup | null;
   sendOrder: number;
 
-  getStats(): WebTransportSendStreamStats;
+  getStats(): Promise<WebTransportSendStreamStats>;
   getWriter(): WebTransportWriter;
 }
 
 declare class WebTransportWriter extends WritableStreamDefaultWriter {
-  atomicWrite(chunk?: any): void;
+  atomicWrite(chunk?: any): Promise<void>;
 }

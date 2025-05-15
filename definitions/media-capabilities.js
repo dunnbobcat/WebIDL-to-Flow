@@ -87,10 +87,10 @@ type VideoConfiguration = {
 declare class MediaCapabilities {
   decodingInfo(
     configuration: MediaDecodingConfiguration,
-  ): MediaCapabilitiesDecodingInfo;
+  ): Promise<MediaCapabilitiesDecodingInfo>;
   encodingInfo(
     configuration: MediaEncodingConfiguration,
-  ): MediaCapabilitiesEncodingInfo;
+  ): Promise<MediaCapabilitiesEncodingInfo>;
 }
 
 /* partial */ declare class Navigator {

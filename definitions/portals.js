@@ -14,7 +14,7 @@ declare class HTMLPortalElement extends HTMLElement {
 
   constructor(): void;
 
-  activate(options?: PortalActivateOptions): void;
+  activate(options?: PortalActivateOptions): Promise<void>;
   postMessage(message: any, options?: StructuredSerializeOptions): void;
 }
 
@@ -33,7 +33,7 @@ declare class PortalHost extends EventTarget {
   postMessage(message: any, options?: StructuredSerializeOptions): void;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +portalHost: PortalHost | null;
 }
 

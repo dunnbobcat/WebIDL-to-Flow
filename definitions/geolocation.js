@@ -50,6 +50,6 @@ declare class GeolocationPositionError {
   +message: string;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +geolocation: Geolocation;
 }

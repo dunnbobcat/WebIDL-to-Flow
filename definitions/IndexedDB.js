@@ -72,7 +72,7 @@ declare class IDBDatabase extends EventTarget {
 
 declare class IDBFactory {
   cmp(first: any, second: any): number;
-  databases(): Array<IDBDatabaseInfo>;
+  databases(): Promise<Array<IDBDatabaseInfo>>;
   deleteDatabase(name: string): IDBOpenDBRequest;
   open(name: string, version?: number): IDBOpenDBRequest;
 }

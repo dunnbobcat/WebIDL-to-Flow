@@ -16,7 +16,7 @@ type PerformanceObserverCallback = (
   options?: PerformanceObserverCallbackOptions,
 ) => void;
 
-/* partial */ interface Performance {
+/* partial */ declare class Performance {
   getEntries(): PerformanceEntryList;
   getEntriesByName(name: string, type?: string): PerformanceEntryList;
   getEntriesByType(type: string): PerformanceEntryList;
@@ -34,7 +34,7 @@ declare class PerformanceEntry {
 }
 
 declare class PerformanceObserver {
-  +supportedEntryTypes: string;
+  +supportedEntryTypes: $ReadOnlyArray<string>;
 
   constructor(callback: PerformanceObserverCallback): void;
 

@@ -28,7 +28,7 @@ declare class IntersectionObserver {
   +root: Element | Document | null;
   +rootMargin: string;
   +scrollMargin: string;
-  +thresholds: number;
+  +thresholds: $ReadOnlyArray<number>;
   +trackVisibility: boolean;
 
   constructor(

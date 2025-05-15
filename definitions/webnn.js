@@ -1053,7 +1053,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   argMax(
     input: MLOperand,
     axis: number,
@@ -1066,7 +1066,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   batchNormalization(
     input: MLOperand,
     mean: MLOperand,
@@ -1075,7 +1075,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   cast(
     input: MLOperand,
     type: MLOperandDataType,
@@ -1083,11 +1083,11 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   clamp(input: MLOperand, options?: MLClampOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   concat(
     inputs: Array<MLOperand>,
     axis: number,
@@ -1095,7 +1095,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   conv2d(
     input: MLOperand,
     filter: MLOperand,
@@ -1103,7 +1103,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   convTranspose2d(
     input: MLOperand,
     filter: MLOperand,
@@ -1111,7 +1111,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   cumulativeSum(
     input: MLOperand,
     axis: number,
@@ -1119,7 +1119,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   add(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
   div(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
   max(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
@@ -1129,7 +1129,7 @@ declare class MLGraphBuilder {
   sub(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   equal(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
   greater(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
   greaterOrEqual(
@@ -1158,7 +1158,7 @@ declare class MLGraphBuilder {
   notEqual(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   abs(input: MLOperand, options?: MLOperatorOptions): MLOperand;
   ceil(input: MLOperand, options?: MLOperatorOptions): MLOperand;
   cos(input: MLOperand, options?: MLOperatorOptions): MLOperand;
@@ -1175,7 +1175,7 @@ declare class MLGraphBuilder {
   tan(input: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   dequantizeLinear(
     input: MLOperand,
     scale: MLOperand,
@@ -1184,7 +1184,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   quantizeLinear(
     input: MLOperand,
     scale: MLOperand,
@@ -1193,11 +1193,11 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   elu(input: MLOperand, options?: MLEluOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   expand(
     input: MLOperand,
     newShape: Array<number>,
@@ -1205,7 +1205,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   gather(
     input: MLOperand,
     indices: MLOperand,
@@ -1213,7 +1213,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   gatherElements(
     input: MLOperand,
     indices: MLOperand,
@@ -1221,7 +1221,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   gatherND(
     input: MLOperand,
     indices: MLOperand,
@@ -1229,15 +1229,15 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   gelu(input: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   gemm(a: MLOperand, b: MLOperand, options?: MLGemmOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   gru(
     input: MLOperand,
     weight: MLOperand,
@@ -1248,7 +1248,7 @@ declare class MLGraphBuilder {
   ): Array<MLOperand>;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   gruCell(
     input: MLOperand,
     weight: MLOperand,
@@ -1259,37 +1259,37 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   hardSigmoid(input: MLOperand, options?: MLHardSigmoidOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   hardSwish(input: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   instanceNormalization(
     input: MLOperand,
     options?: MLInstanceNormalizationOptions,
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   layerNormalization(
     input: MLOperand,
     options?: MLLayerNormalizationOptions,
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   leakyRelu(input: MLOperand, options?: MLLeakyReluOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   linear(input: MLOperand, options?: MLLinearOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   lstm(
     input: MLOperand,
     weight: MLOperand,
@@ -1300,7 +1300,7 @@ declare class MLGraphBuilder {
   ): Array<MLOperand>;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   lstmCell(
     input: MLOperand,
     weight: MLOperand,
@@ -1312,11 +1312,11 @@ declare class MLGraphBuilder {
   ): Array<MLOperand>;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   matmul(a: MLOperand, b: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   pad(
     input: MLOperand,
     beginningPadding: Array<number>,
@@ -1325,13 +1325,13 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   averagePool2d(input: MLOperand, options?: MLPool2dOptions): MLOperand;
   l2Pool2d(input: MLOperand, options?: MLPool2dOptions): MLOperand;
   maxPool2d(input: MLOperand, options?: MLPool2dOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   prelu(
     input: MLOperand,
     slope: MLOperand,
@@ -1339,7 +1339,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   reduceL1(input: MLOperand, options?: MLReduceOptions): MLOperand;
   reduceL2(input: MLOperand, options?: MLReduceOptions): MLOperand;
   reduceLogSum(input: MLOperand, options?: MLReduceOptions): MLOperand;
@@ -1352,15 +1352,15 @@ declare class MLGraphBuilder {
   reduceSumSquare(input: MLOperand, options?: MLReduceOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   relu(input: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   resample2d(input: MLOperand, options?: MLResample2dOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   reshape(
     input: MLOperand,
     newShape: Array<number>,
@@ -1368,11 +1368,11 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   reverse(input: MLOperand, options?: MLReverseOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   scatterElements(
     input: MLOperand,
     indices: MLOperand,
@@ -1381,7 +1381,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   scatterND(
     input: MLOperand,
     indices: MLOperand,
@@ -1390,11 +1390,11 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   sigmoid(input: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   slice(
     input: MLOperand,
     starts: Array<number>,
@@ -1403,7 +1403,7 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   softmax(
     input: MLOperand,
     axis: number,
@@ -1411,15 +1411,15 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   softplus(input: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   softsign(input: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   split(
     input: MLOperand,
     splits: number | Array<number>,
@@ -1427,11 +1427,11 @@ declare class MLGraphBuilder {
   ): Array<MLOperand>;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   tanh(input: MLOperand, options?: MLOperatorOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   tile(
     input: MLOperand,
     repetitions: Array<number>,
@@ -1439,15 +1439,15 @@ declare class MLGraphBuilder {
   ): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   transpose(input: MLOperand, options?: MLTransposeOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   triangular(input: MLOperand, options?: MLTriangularOptions): MLOperand;
 }
 
-/* partial */ interface MLGraphBuilder {
+/* partial */ declare class MLGraphBuilder {
   where(
     condition: MLOperand,
     trueValue: MLOperand,

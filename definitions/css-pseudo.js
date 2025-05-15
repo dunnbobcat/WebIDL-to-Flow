@@ -6,6 +6,6 @@ declare class CSSPseudoElement extends EventTarget {
   pseudo(type: string): CSSPseudoElement | null;
 }
 
-/* partial */ interface Element {
+/* partial */ declare class Element {
   pseudo(type: string): CSSPseudoElement | null;
 }

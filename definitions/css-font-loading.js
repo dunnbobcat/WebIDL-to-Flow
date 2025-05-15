@@ -27,7 +27,7 @@ declare class FontFace {
   +features: FontFaceFeatures;
   featureSettings: string;
   lineGapOverride: string;
-  +loaded: FontFace;
+  +loaded: Promise<FontFace>;
   +palettes: FontFacePalettes;
   +status: FontFaceLoadStatus;
   stretch: string;
@@ -43,10 +43,10 @@ declare class FontFace {
     descriptors?: FontFaceDescriptors,
   ): void;
 
-  load(): FontFace;
+  load(): Promise<FontFace>;
 }
 
-/* partial */ interface FontFace {
+/* partial */ declare class FontFace {
   +features: FontFaceFeatures;
   +palettes: FontFacePalettes;
   +variations: FontFaceVariations;
@@ -76,18 +76,18 @@ declare class FontFaceSet extends EventTarget {
   onloading: EventHandler;
   onloadingdone: EventHandler;
   onloadingerror: EventHandler;
-  +ready: FontFaceSet;
+  +ready: Promise<FontFaceSet>;
   +status: FontFaceSetLoadStatus;
 
   add(font: FontFace): FontFaceSet;
   check(font: string, text?: string): boolean;
   clear(): void;
   delete(font: FontFace): boolean;
-  load(font: string, text?: string): Array<FontFace>;
+  load(font: string, text?: string): Promise<Array<FontFace>>;
 }
 
 declare class FontFaceSetLoadEvent extends Event {
-  +fontfaces: FontFace;
+  +fontfaces: $ReadOnlyArray<FontFace>;
 
   constructor(type: string, eventInitDict?: FontFaceSetLoadEventInit): void;
 }

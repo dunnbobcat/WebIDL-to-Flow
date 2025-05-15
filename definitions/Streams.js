@@ -75,11 +75,11 @@ type UnderlyingSource = {
 
 type QueuingStrategySize = (chunk: any) => number;
 
-type TransformerCancelCallback = (reason: any) => void;
+type TransformerCancelCallback = (reason: any) => Promise<void>;
 
 type TransformerFlushCallback = (
   controller: TransformStreamDefaultController,
-) => void;
+) => Promise<void>;
 
 type TransformerStartCallback = (
   controller: TransformStreamDefaultController,
@@ -88,11 +88,11 @@ type TransformerStartCallback = (
 type TransformerTransformCallback = (
   chunk: any,
   controller: TransformStreamDefaultController,
-) => void;
+) => Promise<void>;
 
-type UnderlyingSinkAbortCallback = (reason?: any) => void;
+type UnderlyingSinkAbortCallback = (reason?: any) => Promise<void>;
 
-type UnderlyingSinkCloseCallback = () => void;
+type UnderlyingSinkCloseCallback = () => Promise<void>;
 
 type UnderlyingSinkStartCallback = (
   controller: WritableStreamDefaultController,
@@ -101,13 +101,13 @@ type UnderlyingSinkStartCallback = (
 type UnderlyingSinkWriteCallback = (
   chunk: any,
   controller: WritableStreamDefaultController,
-) => void;
+) => Promise<void>;
 
-type UnderlyingSourceCancelCallback = (reason?: any) => void;
+type UnderlyingSourceCancelCallback = (reason?: any) => Promise<void>;
 
 type UnderlyingSourcePullCallback = (
   controller: ReadableStreamController,
-) => void;
+) => Promise<void>;
 
 type UnderlyingSourceStartCallback = (
   controller: ReadableStreamController,
@@ -144,13 +144,16 @@ declare class ReadableStream {
   @@iterator(): Iterator<any>;
 
   static from(asyncIterable: any): ReadableStream;
-  cancel(reason?: any): void;
+  cancel(reason?: any): Promise<void>;
   getReader(options?: ReadableStreamGetReaderOptions): ReadableStreamReader;
   pipeThrough(
     transform: ReadableWritablePair,
     options?: StreamPipeOptions,
   ): ReadableStream;
-  pipeTo(destination: WritableStream, options?: StreamPipeOptions): void;
+  pipeTo(
+    destination: WritableStream,
+    options?: StreamPipeOptions,
+  ): Promise<void>;
   tee(): Array<ReadableStream>;
 }
 
@@ -162,7 +165,7 @@ declare class ReadableStreamBYOBReader
   read(
     view: ArrayBufferView,
     options?: ReadableStreamBYOBReaderReadOptions,
-  ): ReadableStreamReadResult;
+  ): Promise<ReadableStreamReadResult>;
   releaseLock(): void;
 }
 
@@ -186,7 +189,7 @@ declare class ReadableStreamDefaultReader
 {
   constructor(stream: ReadableStream): void;
 
-  read(): ReadableStreamReadResult;
+  read(): Promise<ReadableStreamReadResult>;
   releaseLock(): void;
 }
 
@@ -214,8 +217,8 @@ declare class WritableStream {
 
   constructor(underlyingSink?: Object, strategy?: QueuingStrategy): void;
 
-  abort(reason?: any): void;
-  close(): void;
+  abort(reason?: any): Promise<void>;
+  close(): Promise<void>;
   getWriter(): WritableStreamDefaultWriter;
 }
 
@@ -226,16 +229,16 @@ declare class WritableStreamDefaultController {
 }
 
 declare class WritableStreamDefaultWriter {
-  +closed: void;
+  +closed: Promise<void>;
   +desiredSize: number | null;
-  +ready: void;
+  +ready: Promise<void>;
 
   constructor(stream: WritableStream): void;
 
-  abort(reason?: any): void;
-  close(): void;
+  abort(reason?: any): Promise<void>;
+  close(): Promise<void>;
   releaseLock(): void;
-  write(chunk?: any): void;
+  write(chunk?: any): Promise<void>;
 }
 
 declare class mixin$GenericTransformStream {
@@ -244,7 +247,7 @@ declare class mixin$GenericTransformStream {
 }
 
 declare class mixin$ReadableStreamGenericReader {
-  +closed: void;
+  +closed: Promise<void>;
 
-  cancel(reason?: any): void;
+  cancel(reason?: any): Promise<void>;
 }

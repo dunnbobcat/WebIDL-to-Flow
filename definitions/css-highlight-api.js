@@ -23,7 +23,7 @@ declare class HighlightRegistry {
   ): Array<Highlight>;
 }
 
-/* partial */ interface HighlightRegistry {
+/* partial */ declare class HighlightRegistry {
   highlightsFromPoint(
     x: number,
     y: number,

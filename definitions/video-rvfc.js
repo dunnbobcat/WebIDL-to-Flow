@@ -16,7 +16,7 @@ type VideoFrameRequestCallback = (
   metadata: VideoFrameCallbackMetadata,
 ) => void;
 
-/* partial */ interface HTMLVideoElement {
+/* partial */ declare class HTMLVideoElement {
   cancelVideoFrameCallback(handle: number): void;
   requestVideoFrameCallback(callback: VideoFrameRequestCallback): number;
 }

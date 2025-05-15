@@ -50,22 +50,22 @@ type PaymentRequestEventInit = {
 declare class CanMakePaymentEvent extends ExtendableEvent {
   constructor(type: string): void;
 
-  respondWith(canMakePaymentResponse: boolean): void;
+  respondWith(canMakePaymentResponse: Promise<boolean>): void;
 }
 
 declare class PaymentManager {
   userHint: string;
 
-  enableDelegations(delegations: Array<PaymentDelegation>): void;
+  enableDelegations(delegations: Array<PaymentDelegation>): Promise<void>;
 }
 
 declare class PaymentRequestEvent extends ExtendableEvent {
-  +methodData: PaymentMethodData;
-  +modifiers: PaymentDetailsModifier;
+  +methodData: $ReadOnlyArray<PaymentMethodData>;
+  +modifiers: $ReadOnlyArray<PaymentDetailsModifier>;
   +paymentOptions: Object | null;
   +paymentRequestId: string;
   +paymentRequestOrigin: string;
-  +shippingOptions: PaymentShippingOption | null;
+  +shippingOptions: $ReadOnlyArray<PaymentShippingOption> | null;
   +topOrigin: string;
   +total: Object;
 
@@ -74,25 +74,25 @@ declare class PaymentRequestEvent extends ExtendableEvent {
   changePaymentMethod(
     methodName: string,
     methodDetails?: Object | null,
-  ): PaymentRequestDetailsUpdate | null;
+  ): Promise<PaymentRequestDetailsUpdate | null>;
   changeShippingAddress(
     shippingAddress?: AddressInit,
-  ): PaymentRequestDetailsUpdate | null;
+  ): Promise<PaymentRequestDetailsUpdate | null>;
   changeShippingOption(
     shippingOption: string,
-  ): PaymentRequestDetailsUpdate | null;
-  openWindow(url: string): WindowClient | null;
-  respondWith(handlerResponsePromise: PaymentHandlerResponse): void;
+  ): Promise<PaymentRequestDetailsUpdate | null>;
+  openWindow(url: string): Promise<WindowClient | null>;
+  respondWith(handlerResponsePromise: Promise<PaymentHandlerResponse>): void;
 }
 
-/* partial */ interface ServiceWorkerGlobalScope {
+/* partial */ declare class ServiceWorkerGlobalScope {
   oncanmakepayment: EventHandler;
 }
 
-/* partial */ interface ServiceWorkerGlobalScope {
+/* partial */ declare class ServiceWorkerGlobalScope {
   onpaymentrequest: EventHandler;
 }
 
-/* partial */ interface ServiceWorkerRegistration {
+/* partial */ declare class ServiceWorkerRegistration {
   +paymentManager: PaymentManager;
 }

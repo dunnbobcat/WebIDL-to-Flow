@@ -1,15 +1,15 @@
-/* partial */ interface CaptureController {
+/* partial */ declare class CaptureController {
   onzoomlevelchange: EventHandler;
   +zoomLevel: number | null;
 
-  decreaseZoomLevel(): void;
+  decreaseZoomLevel(): Promise<void>;
   getSupportedZoomLevels(): Array<number>;
-  increaseZoomLevel(): void;
-  resetZoomLevel(): void;
+  increaseZoomLevel(): Promise<void>;
+  resetZoomLevel(): Promise<void>;
 }
 
-/* partial */ interface CaptureController {
+/* partial */ declare class CaptureController {
   constructor(): void;
 
-  forwardWheel(element: HTMLElement | null): void;
+  forwardWheel(element: HTMLElement | null): Promise<void>;
 }

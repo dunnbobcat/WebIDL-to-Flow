@@ -3,5 +3,5 @@ declare class CSSLayerBlockRule extends CSSGroupingRule {
 }
 
 declare class CSSLayerStatementRule extends CSSRule {
-  +nameList: string;
+  +nameList: $ReadOnlyArray<string>;
 }

@@ -37,28 +37,28 @@ declare class FileSystemDirectoryHandle extends FileSystemHandle {
   getDirectoryHandle(
     name: string,
     options?: FileSystemGetDirectoryOptions,
-  ): FileSystemDirectoryHandle;
+  ): Promise<FileSystemDirectoryHandle>;
   getFileHandle(
     name: string,
     options?: FileSystemGetFileOptions,
-  ): FileSystemFileHandle;
-  removeEntry(name: string, options?: FileSystemRemoveOptions): void;
-  resolve(possibleDescendant: FileSystemHandle): Array<string> | null;
+  ): Promise<FileSystemFileHandle>;
+  removeEntry(name: string, options?: FileSystemRemoveOptions): Promise<void>;
+  resolve(possibleDescendant: FileSystemHandle): Promise<Array<string> | null>;
 }
 
 declare class FileSystemFileHandle extends FileSystemHandle {
-  createSyncAccessHandle(): FileSystemSyncAccessHandle;
+  createSyncAccessHandle(): Promise<FileSystemSyncAccessHandle>;
   createWritable(
     options?: FileSystemCreateWritableOptions,
-  ): FileSystemWritableFileStream;
-  getFile(): File;
+  ): Promise<FileSystemWritableFileStream>;
+  getFile(): Promise<File>;
 }
 
 declare class FileSystemHandle {
   +kind: FileSystemHandleKind;
   +name: string;
 
-  isSameEntry(other: FileSystemHandle): boolean;
+  isSameEntry(other: FileSystemHandle): Promise<boolean>;
 }
 
 declare class FileSystemSyncAccessHandle {
@@ -77,11 +77,11 @@ declare class FileSystemSyncAccessHandle {
 }
 
 declare class FileSystemWritableFileStream extends WritableStream {
-  seek(position: number): void;
-  truncate(size: number): void;
-  write(data: FileSystemWriteChunkType): void;
+  seek(position: number): Promise<void>;
+  truncate(size: number): Promise<void>;
+  write(data: FileSystemWriteChunkType): Promise<void>;
 }
 
-/* partial */ interface StorageManager {
-  getDirectory(): FileSystemDirectoryHandle;
+/* partial */ declare class StorageManager {
+  getDirectory(): Promise<FileSystemDirectoryHandle>;
 }

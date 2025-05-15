@@ -3,7 +3,7 @@ declare class Baseline {
   +value: number;
 }
 
-/* partial */ interface Document {
+/* partial */ declare class Document {
   measureElement(element: Element): FontMetrics;
   measureText(text: string, styleMap: StylePropertyMapReadOnly): FontMetrics;
 }
@@ -14,8 +14,8 @@ declare class Font {
 }
 
 declare class FontMetrics {
-  +advances: number;
-  +baselines: Baseline;
+  +advances: $ReadOnlyArray<number>;
+  +baselines: $ReadOnlyArray<Baseline>;
   +boundingBoxAscent: number;
   +boundingBoxDescent: number;
   +boundingBoxLeft: number;
@@ -25,7 +25,7 @@ declare class FontMetrics {
   +emHeightDescent: number;
   +fontBoundingBoxAscent: number;
   +fontBoundingBoxDescent: number;
-  +fonts: Font;
+  +fonts: $ReadOnlyArray<Font>;
   +height: number;
   +width: number;
 }

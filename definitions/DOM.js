@@ -562,7 +562,7 @@ declare class TreeWalker {
   previousSibling(): Node | null;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +event: Event | void;
 }
 

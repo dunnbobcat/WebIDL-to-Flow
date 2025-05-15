@@ -49,8 +49,8 @@ declare class Serial extends EventTarget {
   onconnect: EventHandler;
   ondisconnect: EventHandler;
 
-  getPorts(): Array<SerialPort>;
-  requestPort(options?: SerialPortRequestOptions): SerialPort;
+  getPorts(): Promise<Array<SerialPort>>;
+  requestPort(options?: SerialPortRequestOptions): Promise<SerialPort>;
 }
 
 declare class SerialPort extends EventTarget {
@@ -60,12 +60,12 @@ declare class SerialPort extends EventTarget {
   +readable: ReadableStream;
   +writable: WritableStream;
 
-  close(): void;
-  forget(): void;
+  close(): Promise<void>;
+  forget(): Promise<void>;
   getInfo(): SerialPortInfo;
-  getSignals(): SerialInputSignals;
-  open(options: SerialOptions): void;
-  setSignals(signals?: SerialOutputSignals): void;
+  getSignals(): Promise<SerialInputSignals>;
+  open(options: SerialOptions): Promise<void>;
+  setSignals(signals?: SerialOutputSignals): Promise<void>;
 }
 
 /* partial */ declare class WorkerNavigator {

@@ -1,7 +1,7 @@
 /* partial */ declare class BrowserCaptureMediaStreamTrack {
-  restrictTo(RestrictionTarget: RestrictionTarget | null): void;
+  restrictTo(RestrictionTarget: RestrictionTarget | null): Promise<void>;
 }
 
 declare class RestrictionTarget {
-  static fromElement(element: Element): RestrictionTarget;
+  static fromElement(element: Element): Promise<RestrictionTarget>;
 }

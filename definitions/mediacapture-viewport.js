@@ -1,3 +1,3 @@
-/* partial */ interface MediaDevices {
-  getViewportMedia(options?: DisplayMediaStreamOptions): MediaStream;
+/* partial */ declare class MediaDevices {
+  getViewportMedia(options?: DisplayMediaStreamOptions): Promise<MediaStream>;
 }

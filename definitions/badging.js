@@ -1,4 +1,4 @@
 declare class mixin$NavigatorBadge {
-  clearAppBadge(): void;
-  setAppBadge(contents?: number): void;
+  clearAppBadge(): Promise<void>;
+  setAppBadge(contents?: number): Promise<void>;
 }

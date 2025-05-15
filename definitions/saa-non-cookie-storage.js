@@ -20,8 +20,8 @@ type StorageAccessTypes = {
   SharedWorker: boolean,
 };
 
-/* partial */ interface Document {
-  hasUnpartitionedCookieAccess(): boolean;
+/* partial */ declare class Document {
+  hasUnpartitionedCookieAccess(): Promise<boolean>;
 }
 
 declare class StorageAccessHandle {
@@ -33,8 +33,8 @@ declare class StorageAccessHandle {
 
   BroadcastChannel(name: string): BroadcastChannel;
   createObjectURL(obj: Blob | MediaSource): string;
-  estimate(): StorageEstimate;
-  getDirectory(): FileSystemDirectoryHandle;
+  estimate(): Promise<StorageEstimate>;
+  getDirectory(): Promise<FileSystemDirectoryHandle>;
   revokeObjectURL(url: string): void;
   SharedWorker(
     scriptURL: string,

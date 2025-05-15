@@ -1,4 +1,4 @@
-/* partial */ interface Document {
+/* partial */ declare class Document {
   +namedFlows: NamedFlowMap;
 }
 

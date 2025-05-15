@@ -2,26 +2,26 @@ declare class XRAnchor {
   +anchorSpace: XRSpace;
 
   delete(): void;
-  requestPersistentHandle(): string;
+  requestPersistentHandle(): Promise<string>;
 }
 
 type XRAnchorSet = Set<XRAnchor>;
 
-/* partial */ interface XRFrame {
-  createAnchor(pose: XRRigidTransform, space: XRSpace): XRAnchor;
+/* partial */ declare class XRFrame {
+  createAnchor(pose: XRRigidTransform, space: XRSpace): Promise<XRAnchor>;
 }
 
-/* partial */ interface XRFrame {
+/* partial */ declare class XRFrame {
   +trackedAnchors: XRAnchorSet;
 }
 
-/* partial */ interface XRHitTestResult {
-  createAnchor(): XRAnchor;
+/* partial */ declare class XRHitTestResult {
+  createAnchor(): Promise<XRAnchor>;
 }
 
-/* partial */ interface XRSession {
-  +persistentAnchors: string;
+/* partial */ declare class XRSession {
+  +persistentAnchors: $ReadOnlyArray<string>;
 
-  deletePersistentAnchor(uuid: string): void;
-  restorePersistentAnchor(uuid: string): XRAnchor;
+  deletePersistentAnchor(uuid: string): Promise<void>;
+  restorePersistentAnchor(uuid: string): Promise<XRAnchor>;
 }

@@ -1,7 +1,7 @@
 declare class Viewport {
-  +segments: DOMRect | null;
+  +segments: $ReadOnlyArray<DOMRect> | null;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +viewport: Viewport;
 }

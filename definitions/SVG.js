@@ -5,7 +5,7 @@ type SVGBoundingBoxOptions = {
   stroke: boolean,
 };
 
-/* partial */ interface Document {
+/* partial */ declare class Document {
   +rootElement: SVGSVGElement | null;
 }
 

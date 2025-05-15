@@ -13,9 +13,9 @@ declare class PreferenceManager {
 declare class PreferenceObject extends EventTarget {
   onchange: EventHandler;
   +override: string | null;
-  +validValues: string;
+  +validValues: $ReadOnlyArray<string>;
   +value: string;
 
   clearOverride(): void;
-  requestOverride(value: string | null): void;
+  requestOverride(value: string | null): Promise<void>;
 }

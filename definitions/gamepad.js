@@ -25,14 +25,14 @@ type GamepadTouch = {
 };
 
 declare class Gamepad {
-  +axes: number;
-  +buttons: GamepadButton;
+  +axes: $ReadOnlyArray<number>;
+  +buttons: $ReadOnlyArray<GamepadButton>;
   +connected: boolean;
   +id: string;
   +index: number;
   +mapping: GamepadMappingType;
   +timestamp: number;
-  +touches: GamepadTouch;
+  +touches: $ReadOnlyArray<GamepadTouch>;
   +vibrationActuator: GamepadHapticActuator;
 }
 
@@ -49,13 +49,13 @@ declare class GamepadEvent extends Event {
 }
 
 declare class GamepadHapticActuator {
-  +effects: GamepadHapticEffectType;
+  +effects: $ReadOnlyArray<GamepadHapticEffectType>;
 
   playEffect(
     type: GamepadHapticEffectType,
     params?: GamepadEffectParameters,
-  ): GamepadHapticsResult;
-  reset(): GamepadHapticsResult;
+  ): Promise<GamepadHapticsResult>;
+  reset(): Promise<GamepadHapticsResult>;
 }
 
 /* partial */ declare class Navigator {

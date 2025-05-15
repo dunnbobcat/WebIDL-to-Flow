@@ -5,7 +5,7 @@ type ShareData = {
   url: string,
 };
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   canShare(data?: ShareData): boolean;
-  share(data?: ShareData): void;
+  share(data?: ShareData): Promise<void>;
 }

@@ -3,10 +3,10 @@ declare class XRCamera {
   +width: number;
 }
 
-/* partial */ interface XRView {
+/* partial */ declare class XRView {
   +camera: XRCamera | null;
 }
 
-/* partial */ interface XRWebGLBinding {
+/* partial */ declare class XRWebGLBinding {
   getCameraImage(camera: XRCamera): WebGLTexture | null;
 }

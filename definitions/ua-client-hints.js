@@ -24,11 +24,11 @@ type UALowEntropyJSON = {
 };
 
 declare class NavigatorUAData {
-  +brands: NavigatorUABrandVersion;
+  +brands: $ReadOnlyArray<NavigatorUABrandVersion>;
   +mobile: boolean;
   +platform: string;
 
-  getHighEntropyValues(hints: Array<string>): UADataValues;
+  getHighEntropyValues(hints: Array<string>): Promise<UADataValues>;
   toJSON(): UALowEntropyJSON;
 }
 

@@ -45,8 +45,8 @@ type ExtendableMessageEventInit = {
 
 type FetchEventInit = {
   clientId: string,
-  handled: void,
-  preloadResponse: any,
+  handled: Promise<void>,
+  preloadResponse: Promise<any>,
   replacesClientId: string,
   request: Request,
   resultingClientId: string,
@@ -90,24 +90,33 @@ type RouterSourceDict = {
 };
 
 declare class Cache {
-  add(request: RequestInfo): void;
-  addAll(requests: Array<RequestInfo>): void;
-  delete(request: RequestInfo, options?: CacheQueryOptions): boolean;
-  keys(request?: RequestInfo, options?: CacheQueryOptions): Request;
-  match(request: RequestInfo, options?: CacheQueryOptions): Response | void;
-  matchAll(request?: RequestInfo, options?: CacheQueryOptions): Response;
-  put(request: RequestInfo, response: Response): void;
+  add(request: RequestInfo): Promise<void>;
+  addAll(requests: Array<RequestInfo>): Promise<void>;
+  delete(request: RequestInfo, options?: CacheQueryOptions): Promise<boolean>;
+  keys(
+    request?: RequestInfo,
+    options?: CacheQueryOptions,
+  ): Promise<$ReadOnlyArray<Request>>;
+  match(
+    request: RequestInfo,
+    options?: CacheQueryOptions,
+  ): Promise<Response | void>;
+  matchAll(
+    request?: RequestInfo,
+    options?: CacheQueryOptions,
+  ): Promise<$ReadOnlyArray<Response>>;
+  put(request: RequestInfo, response: Response): Promise<void>;
 }
 
 declare class CacheStorage {
-  delete(cacheName: string): boolean;
-  has(cacheName: string): boolean;
-  keys(): Array<string>;
+  delete(cacheName: string): Promise<boolean>;
+  has(cacheName: string): Promise<boolean>;
+  keys(): Promise<Array<string>>;
   match(
     request: RequestInfo,
     options?: MultiCacheQueryOptions,
-  ): Response | void;
-  open(cacheName: string): Cache;
+  ): Promise<Response | void>;
+  open(cacheName: string): Promise<Cache>;
 }
 
 declare class Client {
@@ -121,23 +130,23 @@ declare class Client {
 }
 
 declare class Clients {
-  claim(): void;
-  get(id: string): Client | void;
-  matchAll(options?: ClientQueryOptions): Client;
-  openWindow(url: string): WindowClient | null;
+  claim(): Promise<void>;
+  get(id: string): Promise<Client | void>;
+  matchAll(options?: ClientQueryOptions): Promise<$ReadOnlyArray<Client>>;
+  openWindow(url: string): Promise<WindowClient | null>;
 }
 
 declare class ExtendableEvent extends Event {
   constructor(type: string, eventInitDict?: ExtendableEventInit): void;
 
-  waitUntil(f: any): void;
+  waitUntil(f: Promise<any>): void;
 }
 
 declare class ExtendableMessageEvent extends ExtendableEvent {
   +data: any;
   +lastEventId: string;
   +origin: string;
-  +ports: MessagePort;
+  +ports: $ReadOnlyArray<MessagePort>;
   +source: Client | ServiceWorker | MessagePort | null;
 
   constructor(type: string, eventInitDict?: ExtendableMessageEventInit): void;
@@ -145,31 +154,31 @@ declare class ExtendableMessageEvent extends ExtendableEvent {
 
 declare class FetchEvent extends ExtendableEvent {
   +clientId: string;
-  +handled: void;
-  +preloadResponse: any;
+  +handled: Promise<void>;
+  +preloadResponse: Promise<any>;
   +replacesClientId: string;
   +request: Request;
   +resultingClientId: string;
 
   constructor(type: string, eventInitDict: FetchEventInit): void;
 
-  respondWith(r: Response): void;
+  respondWith(r: Promise<Response>): void;
 }
 
 declare class InstallEvent extends ExtendableEvent {
   constructor(type: string, eventInitDict?: ExtendableEventInit): void;
 
-  addRoutes(rules: RouterRule | Array<RouterRule>): void;
+  addRoutes(rules: RouterRule | Array<RouterRule>): Promise<void>;
 }
 
 declare class NavigationPreloadManager {
-  disable(): void;
-  enable(): void;
-  getState(): NavigationPreloadState;
-  setHeaderValue(value: string): void;
+  disable(): Promise<void>;
+  enable(): Promise<void>;
+  getState(): Promise<NavigationPreloadState>;
+  setHeaderValue(value: string): Promise<void>;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +serviceWorker: ServiceWorkerContainer;
 }
 
@@ -187,14 +196,16 @@ declare class ServiceWorkerContainer extends EventTarget {
   oncontrollerchange: EventHandler;
   onmessage: EventHandler;
   onmessageerror: EventHandler;
-  +ready: ServiceWorkerRegistration;
+  +ready: Promise<ServiceWorkerRegistration>;
 
-  getRegistration(clientURL?: string): ServiceWorkerRegistration | void;
-  getRegistrations(): ServiceWorkerRegistration;
+  getRegistration(
+    clientURL?: string,
+  ): Promise<ServiceWorkerRegistration | void>;
+  getRegistrations(): Promise<$ReadOnlyArray<ServiceWorkerRegistration>>;
   register(
     scriptURL: TrustedScriptURL | string,
     options?: RegistrationOptions,
-  ): ServiceWorkerRegistration;
+  ): Promise<ServiceWorkerRegistration>;
   startMessages(): void;
 }
 
@@ -208,7 +219,7 @@ declare class ServiceWorkerGlobalScope extends WorkerGlobalScope {
   +registration: ServiceWorkerRegistration;
   +serviceWorker: ServiceWorker;
 
-  skipWaiting(): void;
+  skipWaiting(): Promise<void>;
 }
 
 declare class ServiceWorkerRegistration extends EventTarget {
@@ -220,20 +231,20 @@ declare class ServiceWorkerRegistration extends EventTarget {
   +updateViaCache: ServiceWorkerUpdateViaCache;
   +waiting: ServiceWorker | null;
 
-  unregister(): boolean;
-  update(): ServiceWorkerRegistration;
+  unregister(): Promise<boolean>;
+  update(): Promise<ServiceWorkerRegistration>;
 }
 
 declare class WindowClient extends Client {
-  +ancestorOrigins: string;
+  +ancestorOrigins: $ReadOnlyArray<string>;
   +focused: boolean;
   +visibilityState: DocumentVisibilityState;
 
-  focus(): WindowClient;
-  navigate(url: string): WindowClient | null;
+  focus(): Promise<WindowClient>;
+  navigate(url: string): Promise<WindowClient | null>;
 }
 
-/* partial */ interface WorkerNavigator {
+/* partial */ declare class WorkerNavigator {
   +serviceWorker: ServiceWorkerContainer;
 }
 

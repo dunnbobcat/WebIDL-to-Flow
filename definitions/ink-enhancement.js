@@ -14,7 +14,9 @@ declare class DelegatedInkTrailPresenter {
 }
 
 declare class Ink {
-  requestPresenter(param?: InkPresenterParam): DelegatedInkTrailPresenter;
+  requestPresenter(
+    param?: InkPresenterParam,
+  ): Promise<DelegatedInkTrailPresenter>;
 }
 
 /* partial */ declare class Navigator {

@@ -7,7 +7,7 @@ type AttributionReportingRequestOptions = {
   attributionReporting: AttributionReportingRequestOptions,
 };
 
-/* partial */ interface XMLHttpRequest {
+/* partial */ declare class XMLHttpRequest {
   setAttributionReporting(options: AttributionReportingRequestOptions): void;
 }
 

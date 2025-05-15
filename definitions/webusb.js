@@ -63,13 +63,13 @@ declare class USB extends EventTarget {
   onconnect: EventHandler;
   ondisconnect: EventHandler;
 
-  getDevices(): Array<USBDevice>;
-  requestDevice(options: USBDeviceRequestOptions): USBDevice;
+  getDevices(): Promise<Array<USBDevice>>;
+  requestDevice(options: USBDeviceRequestOptions): Promise<USBDevice>;
 }
 
 declare class USBAlternateInterface {
   +alternateSetting: number;
-  +endpoints: USBEndpoint;
+  +endpoints: $ReadOnlyArray<USBEndpoint>;
   +interfaceClass: number;
   +interfaceName: string | null;
   +interfaceProtocol: number;
@@ -81,7 +81,7 @@ declare class USBAlternateInterface {
 declare class USBConfiguration {
   +configurationName: string | null;
   +configurationValue: number;
-  +interfaces: USBInterface;
+  +interfaces: $ReadOnlyArray<USBInterface>;
 
   constructor(device: USBDevice, configurationValue: number): void;
 }
@@ -94,7 +94,7 @@ declare class USBConnectionEvent extends Event {
 
 declare class USBDevice {
   +configuration: USBConfiguration | null;
-  +configurations: USBConfiguration;
+  +configurations: $ReadOnlyArray<USBConfiguration>;
   +deviceClass: number;
   +deviceProtocol: number;
   +deviceSubclass: number;
@@ -111,37 +111,43 @@ declare class USBDevice {
   +usbVersionSubminor: number;
   +vendorId: number;
 
-  claimInterface(interfaceNumber: number): void;
-  clearHalt(direction: USBDirection, endpointNumber: number): void;
-  close(): void;
+  claimInterface(interfaceNumber: number): Promise<void>;
+  clearHalt(direction: USBDirection, endpointNumber: number): Promise<void>;
+  close(): Promise<void>;
   controlTransferIn(
     setup: USBControlTransferParameters,
     length: number,
-  ): USBInTransferResult;
+  ): Promise<USBInTransferResult>;
   controlTransferOut(
     setup: USBControlTransferParameters,
     data?: BufferSource,
-  ): USBOutTransferResult;
-  forget(): void;
+  ): Promise<USBOutTransferResult>;
+  forget(): Promise<void>;
   isochronousTransferIn(
     endpointNumber: number,
     packetLengths: Array<number>,
-  ): USBIsochronousInTransferResult;
+  ): Promise<USBIsochronousInTransferResult>;
   isochronousTransferOut(
     endpointNumber: number,
     data: BufferSource,
     packetLengths: Array<number>,
-  ): USBIsochronousOutTransferResult;
-  open(): void;
-  releaseInterface(interfaceNumber: number): void;
-  reset(): void;
+  ): Promise<USBIsochronousOutTransferResult>;
+  open(): Promise<void>;
+  releaseInterface(interfaceNumber: number): Promise<void>;
+  reset(): Promise<void>;
   selectAlternateInterface(
     interfaceNumber: number,
     alternateSetting: number,
-  ): void;
-  selectConfiguration(configurationValue: number): void;
-  transferIn(endpointNumber: number, length: number): USBInTransferResult;
-  transferOut(endpointNumber: number, data: BufferSource): USBOutTransferResult;
+  ): Promise<void>;
+  selectConfiguration(configurationValue: number): Promise<void>;
+  transferIn(
+    endpointNumber: number,
+    length: number,
+  ): Promise<USBInTransferResult>;
+  transferOut(
+    endpointNumber: number,
+    data: BufferSource,
+  ): Promise<USBOutTransferResult>;
 }
 
 declare class USBEndpoint {
@@ -159,7 +165,7 @@ declare class USBEndpoint {
 
 declare class USBInterface {
   +alternate: USBAlternateInterface;
-  +alternates: USBAlternateInterface;
+  +alternates: $ReadOnlyArray<USBAlternateInterface>;
   +claimed: boolean;
   +interfaceNumber: number;
 
@@ -182,7 +188,7 @@ declare class USBIsochronousInTransferPacket {
 
 declare class USBIsochronousInTransferResult {
   +data: DataView | null;
-  +packets: USBIsochronousInTransferPacket;
+  +packets: $ReadOnlyArray<USBIsochronousInTransferPacket>;
 
   constructor(
     packets: Array<USBIsochronousInTransferPacket>,
@@ -198,7 +204,7 @@ declare class USBIsochronousOutTransferPacket {
 }
 
 declare class USBIsochronousOutTransferResult {
-  +packets: USBIsochronousOutTransferPacket;
+  +packets: $ReadOnlyArray<USBIsochronousOutTransferPacket>;
 
   constructor(packets: Array<USBIsochronousOutTransferPacket>): void;
 }
@@ -211,7 +217,7 @@ declare class USBOutTransferResult {
 }
 
 declare class USBPermissionResult extends PermissionStatus {
-  devices: USBDevice;
+  devices: $ReadOnlyArray<USBDevice>;
 }
 
 /* partial */ declare class WorkerNavigator {

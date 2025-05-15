@@ -50,19 +50,19 @@ type GenerateAssertionCallback = (
   contents: string,
   origin: string,
   options: RTCIdentityProviderOptions,
-) => RTCIdentityAssertionResult;
+) => Promise<RTCIdentityAssertionResult>;
 
 type ValidateAssertionCallback = (
   assertion: string,
   origin: string,
-) => RTCIdentityValidationResult;
+) => Promise<RTCIdentityValidationResult>;
 
-/* partial */ interface MediaStreamTrack {
+/* partial */ declare class MediaStreamTrack {
   +isolated: boolean;
   onisolationchange: EventHandler;
 }
 
-/* partial */ interface RTCError {
+/* partial */ declare class RTCError {
   +httpRequestStatusCode: number | null;
 }
 
@@ -81,12 +81,12 @@ declare class RTCIdentityProviderRegistrar {
   register(idp: RTCIdentityProvider): void;
 }
 
-/* partial */ interface RTCPeerConnection {
+/* partial */ declare class RTCPeerConnection {
   +idpErrorInfo: string | null;
   +idpLoginUrl: string | null;
-  +peerIdentity: RTCIdentityAssertion;
+  +peerIdentity: Promise<RTCIdentityAssertion>;
 
-  getIdentityAssertion(): string;
+  getIdentityAssertion(): Promise<string>;
   setIdentityProvider(
     provider: string,
     options?: RTCIdentityProviderOptions,

@@ -43,7 +43,7 @@ type SubscribeCallback = (subscriber: Subscriber) => void;
 
 type Visitor = (value: any, index: number) => void;
 
-/* partial */ interface EventTarget {
+/* partial */ declare class EventTarget {
   when(type: string, options?: ObservableEventListenerOptions): Observable;
 }
 
@@ -53,23 +53,27 @@ declare class Observable {
   static from(value: any): Observable;
   catch(callback: CatchCallback): Observable;
   drop(amount: number): Observable;
-  every(predicate: Predicate, options?: SubscribeOptions): boolean;
+  every(predicate: Predicate, options?: SubscribeOptions): Promise<boolean>;
   filter(predicate: Predicate): Observable;
   finally(callback: VoidFunction): Observable;
-  find(predicate: Predicate, options?: SubscribeOptions): any;
-  first(options?: SubscribeOptions): any;
+  find(predicate: Predicate, options?: SubscribeOptions): Promise<any>;
+  first(options?: SubscribeOptions): Promise<any>;
   flatMap(mapper: Mapper): Observable;
-  forEach(callback: Visitor, options?: SubscribeOptions): void;
+  forEach(callback: Visitor, options?: SubscribeOptions): Promise<void>;
   inspect(inspectorUnion?: ObservableInspectorUnion): Observable;
-  last(options?: SubscribeOptions): any;
+  last(options?: SubscribeOptions): Promise<any>;
   map(mapper: Mapper): Observable;
-  reduce(reducer: Reducer, initialValue?: any, options?: SubscribeOptions): any;
-  some(predicate: Predicate, options?: SubscribeOptions): boolean;
+  reduce(
+    reducer: Reducer,
+    initialValue?: any,
+    options?: SubscribeOptions,
+  ): Promise<any>;
+  some(predicate: Predicate, options?: SubscribeOptions): Promise<boolean>;
   subscribe(observer?: ObserverUnion, options?: SubscribeOptions): void;
   switchMap(mapper: Mapper): Observable;
   take(amount: number): Observable;
   takeUntil(value: any): Observable;
-  toArray(options?: SubscribeOptions): Array<any>;
+  toArray(options?: SubscribeOptions): Promise<Array<any>>;
 }
 
 declare class Subscriber {

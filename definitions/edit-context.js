@@ -66,7 +66,7 @@ declare class EditContext extends EventTarget {
   updateText(rangeStart: number, rangeEnd: number, text: string): void;
 }
 
-/* partial */ interface HTMLElement {
+/* partial */ declare class HTMLElement {
   editContext: EditContext | null;
 }
 

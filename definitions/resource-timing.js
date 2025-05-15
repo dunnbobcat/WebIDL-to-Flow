@@ -1,6 +1,6 @@
 type RenderBlockingStatusType = 'blocking' | 'non-blocking';
 
-/* partial */ interface Performance {
+/* partial */ declare class Performance {
   onresourcetimingbufferfull: EventHandler;
 
   clearResourceTimings(): void;

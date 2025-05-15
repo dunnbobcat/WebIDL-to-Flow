@@ -58,7 +58,7 @@ type SFrameTransformOptions = {
   role: SFrameTransformRole,
 };
 
-/* partial */ interface DedicatedWorkerGlobalScope {
+/* partial */ declare class DedicatedWorkerGlobalScope {
   onrtctransform: EventHandler;
 }
 
@@ -91,7 +91,7 @@ declare class RTCEncodedVideoFrame {
   getMetadata(): RTCEncodedVideoFrameMetadata;
 }
 
-/* partial */ interface RTCRtpReceiver {
+/* partial */ declare class RTCRtpReceiver {
   transform: RTCRtpTransform | null;
 }
 
@@ -105,16 +105,16 @@ declare class RTCRtpScriptTransformer extends EventTarget {
   +readable: ReadableStream;
   +writable: WritableStream;
 
-  generateKeyFrame(rid?: string): number;
-  sendKeyFrameRequest(): void;
+  generateKeyFrame(rid?: string): Promise<number>;
+  sendKeyFrameRequest(): Promise<void>;
 }
 
-/* partial */ interface RTCRtpSender {
+/* partial */ declare class RTCRtpSender {
   transform: RTCRtpTransform | null;
 }
 
-/* partial */ interface RTCRtpSender {
-  generateKeyFrame(rids?: Array<string>): void;
+/* partial */ declare class RTCRtpSender {
+  generateKeyFrame(rids?: Array<string>): Promise<void>;
 }
 
 declare class RTCTransformEvent extends Event {
@@ -129,7 +129,7 @@ declare class SFrameTransform
 
   constructor(options?: SFrameTransformOptions): void;
 
-  setEncryptionKey(key: CryptoKey, keyID?: CryptoKeyID): void;
+  setEncryptionKey(key: CryptoKey, keyID?: CryptoKeyID): Promise<void>;
 }
 
 declare class SFrameTransformErrorEvent extends Event {

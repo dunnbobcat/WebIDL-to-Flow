@@ -1,4 +1,4 @@
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +managed: NavigatorManagedData;
 }
 

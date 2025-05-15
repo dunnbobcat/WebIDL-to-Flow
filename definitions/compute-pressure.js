@@ -12,12 +12,15 @@ type PressureUpdateCallback = (
 ) => void;
 
 declare class PressureObserver {
-  +knownSources: PressureSource;
+  +knownSources: $ReadOnlyArray<PressureSource>;
 
   constructor(callback: PressureUpdateCallback): void;
 
   disconnect(): void;
-  observe(source: PressureSource, options?: PressureObserverOptions): void;
+  observe(
+    source: PressureSource,
+    options?: PressureObserverOptions,
+  ): Promise<void>;
   takeRecords(): Array<PressureRecord>;
   unobserve(source: PressureSource): void;
 }

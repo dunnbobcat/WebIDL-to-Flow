@@ -271,7 +271,7 @@ declare class CSSSkewY extends CSSTransformComponent {ay: CSSNumericValue;
 constructor(ay: CSSNumericValue): void;
 }
 
-/* partial */ interface CSSStyleRule {+styleMap: StylePropertyMap;
+/* partial */ declare class CSSStyleRule {+styleMap: StylePropertyMap;
 }
 
 declare class CSSStyleValue {static parse(property: string, cssText: string): CSSStyleValue;
@@ -326,7 +326,7 @@ variable: string;
 constructor(variable: string, fallback?: CSSUnparsedValue | null): void;
 }
 
-/* partial */ interface Element {computedStyleMap(): StylePropertyMapReadOnly;
+/* partial */ declare class Element {computedStyleMap(): StylePropertyMapReadOnly;
 }
 
 declare class StylePropertyMap extends StylePropertyMapReadOnly {append(property: string, values: CSSStyleValue | string): void;

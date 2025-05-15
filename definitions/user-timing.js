@@ -10,7 +10,7 @@ type PerformanceMeasureOptions = {
   start: string | number,
 };
 
-/* partial */ interface Performance {
+/* partial */ declare class Performance {
   clearMarks(markName?: string): void;
   clearMeasures(measureName?: string): void;
   mark(markName: string, markOptions?: PerformanceMarkOptions): PerformanceMark;

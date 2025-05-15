@@ -9,6 +9,6 @@ type RTCPriorityType = 'very-low' | 'low' | 'medium' | 'high';
   priority: RTCPriorityType,
 };
 
-/* partial */ interface RTCDataChannel {
+/* partial */ declare class RTCDataChannel {
   +priority: RTCPriorityType;
 }

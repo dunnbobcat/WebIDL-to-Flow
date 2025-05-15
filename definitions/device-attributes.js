@@ -1,7 +1,7 @@
-/* partial */ interface NavigatorManagedData {
-  getAnnotatedAssetId(): string;
-  getAnnotatedLocation(): string;
-  getDirectoryId(): string;
-  getHostname(): string;
-  getSerialNumber(): string;
+/* partial */ declare class NavigatorManagedData {
+  getAnnotatedAssetId(): Promise<string>;
+  getAnnotatedLocation(): Promise<string>;
+  getDirectoryId(): Promise<string>;
+  getHostname(): Promise<string>;
+  getSerialNumber(): Promise<string>;
 }

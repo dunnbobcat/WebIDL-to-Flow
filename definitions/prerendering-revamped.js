@@ -1,8 +1,8 @@
-/* partial */ interface Document {
+/* partial */ declare class Document {
   onprerenderingchange: EventHandler;
   +prerendering: boolean;
 }
 
-/* partial */ interface PerformanceNavigationTiming {
+/* partial */ declare class PerformanceNavigationTiming {
   +activationStart: number;
 }

@@ -46,6 +46,6 @@ declare class ClipboardItem {
   getType(type: string): Blob;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +clipboard: Clipboard;
 }

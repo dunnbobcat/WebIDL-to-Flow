@@ -34,14 +34,14 @@ declare class BackgroundFetchManager {
     id: string,
     requests: RequestInfo | Array<RequestInfo>,
     options?: BackgroundFetchOptions,
-  ): BackgroundFetchRegistration;
-  get(id: string): BackgroundFetchRegistration | null;
-  getIds(): Array<string>;
+  ): Promise<BackgroundFetchRegistration>;
+  get(id: string): Promise<BackgroundFetchRegistration | null>;
+  getIds(): Promise<Array<string>>;
 }
 
 declare class BackgroundFetchRecord {
   +request: Request;
-  +responseReady: Response;
+  +responseReady: Promise<Response>;
 }
 
 declare class BackgroundFetchRegistration extends EventTarget {
@@ -55,30 +55,30 @@ declare class BackgroundFetchRegistration extends EventTarget {
   +uploaded: number;
   +uploadTotal: number;
 
-  abort(): boolean;
+  abort(): Promise<boolean>;
   match(
     request: RequestInfo,
     options?: CacheQueryOptions,
-  ): BackgroundFetchRecord;
+  ): Promise<BackgroundFetchRecord>;
   matchAll(
     request?: RequestInfo,
     options?: CacheQueryOptions,
-  ): Array<BackgroundFetchRecord>;
+  ): Promise<Array<BackgroundFetchRecord>>;
 }
 
 declare class BackgroundFetchUpdateUIEvent extends BackgroundFetchEvent {
   constructor(type: string, init: BackgroundFetchEventInit): void;
 
-  updateUI(options?: BackgroundFetchUIOptions): void;
+  updateUI(options?: BackgroundFetchUIOptions): Promise<void>;
 }
 
-/* partial */ interface ServiceWorkerGlobalScope {
+/* partial */ declare class ServiceWorkerGlobalScope {
   onbackgroundfetchabort: EventHandler;
   onbackgroundfetchclick: EventHandler;
   onbackgroundfetchfail: EventHandler;
   onbackgroundfetchsuccess: EventHandler;
 }
 
-/* partial */ interface ServiceWorkerRegistration {
+/* partial */ declare class ServiceWorkerRegistration {
   +backgroundFetch: BackgroundFetchManager;
 }

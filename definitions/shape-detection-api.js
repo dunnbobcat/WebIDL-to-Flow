@@ -45,12 +45,12 @@ type Landmark = {
 declare class BarcodeDetector {
   constructor(barcodeDetectorOptions?: BarcodeDetectorOptions): void;
 
-  static getSupportedFormats(): Array<BarcodeFormat>;
-  detect(image: ImageBitmapSource): Array<DetectedBarcode>;
+  static getSupportedFormats(): Promise<Array<BarcodeFormat>>;
+  detect(image: ImageBitmapSource): Promise<Array<DetectedBarcode>>;
 }
 
 declare class FaceDetector {
   constructor(faceDetectorOptions?: FaceDetectorOptions): void;
 
-  detect(image: ImageBitmapSource): Array<DetectedFace>;
+  detect(image: ImageBitmapSource): Promise<Array<DetectedFace>>;
 }

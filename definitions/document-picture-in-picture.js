@@ -13,7 +13,7 @@ declare class DocumentPictureInPicture extends EventTarget {
   onenter: EventHandler;
   +window: Window;
 
-  requestWindow(options?: DocumentPictureInPictureOptions): Window;
+  requestWindow(options?: DocumentPictureInPictureOptions): Promise<Window>;
 }
 
 declare class DocumentPictureInPictureEvent extends Event {

@@ -15,7 +15,7 @@ declare class SVGPathElement
 
 declare class SVGPathSegment {
   type: string;
-  values: number;
+  values: $ReadOnlyArray<number>;
 }
 
 declare class mixin$SVGPathData {

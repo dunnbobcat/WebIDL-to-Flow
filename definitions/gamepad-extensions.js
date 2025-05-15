@@ -1,13 +1,13 @@
 type GamepadHand = '' | 'left' | 'right';
 
-/* partial */ interface Gamepad {
+/* partial */ declare class Gamepad {
   +hand: GamepadHand;
-  +hapticActuators: GamepadHapticActuator;
+  +hapticActuators: $ReadOnlyArray<GamepadHapticActuator>;
   +pose: GamepadPose | null;
 }
 
 /* partial */ declare class GamepadHapticActuator {
-  pulse(value: number, duration: number): boolean;
+  pulse(value: number, duration: number): Promise<boolean>;
 }
 
 declare class GamepadPose {

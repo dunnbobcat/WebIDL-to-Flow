@@ -66,15 +66,15 @@ declare class Credential {
   +id: string;
   +type: string;
 
-  static isConditionalMediationAvailable(): boolean;
-  static willRequestConditionalCreation(): void;
+  static isConditionalMediationAvailable(): Promise<boolean>;
+  static willRequestConditionalCreation(): Promise<void>;
 }
 
 declare class CredentialsContainer {
-  create(options?: CredentialCreationOptions): Credential | null;
-  get(options?: CredentialRequestOptions): Credential | null;
-  preventSilentAccess(): void;
-  store(credential: Credential): void;
+  create(options?: CredentialCreationOptions): Promise<Credential | null>;
+  get(options?: CredentialRequestOptions): Promise<Credential | null>;
+  preventSilentAccess(): Promise<void>;
+  store(credential: Credential): Promise<void>;
 }
 
 declare class FederatedCredential
@@ -87,7 +87,7 @@ declare class FederatedCredential
   constructor(data: FederatedCredentialInit): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +credentials: CredentialsContainer;
 }
 

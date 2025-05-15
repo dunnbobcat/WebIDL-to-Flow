@@ -44,7 +44,7 @@ declare class HTMLFencedFrameElement extends HTMLElement {
   constructor(): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   adAuctionComponents(numAdComponents: number): Array<string>;
   deprecatedReplaceInURN(
     urnOrConfig: UrnOrConfig,
@@ -53,7 +53,7 @@ declare class HTMLFencedFrameElement extends HTMLElement {
   deprecatedURNtoURL(urnOrConfig: UrnOrConfig, send_reports?: boolean): string;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +fence: Fence | null;
 }
 

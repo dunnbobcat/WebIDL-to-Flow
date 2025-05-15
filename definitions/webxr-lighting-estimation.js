@@ -4,7 +4,7 @@ type XRLightProbeInit = {
   reflectionFormat: XRReflectionFormat,
 };
 
-/* partial */ interface XRFrame {
+/* partial */ declare class XRFrame {
   getLightEstimate(lightProbe: XRLightProbe): XRLightEstimate | null;
 }
 
@@ -19,12 +19,12 @@ declare class XRLightProbe extends EventTarget {
   +probeSpace: XRSpace;
 }
 
-/* partial */ interface XRSession {
+/* partial */ declare class XRSession {
   +preferredReflectionFormat: XRReflectionFormat;
 
-  requestLightProbe(options?: XRLightProbeInit): XRLightProbe;
+  requestLightProbe(options?: XRLightProbeInit): Promise<XRLightProbe>;
 }
 
-/* partial */ interface XRWebGLBinding {
+/* partial */ declare class XRWebGLBinding {
   getReflectionCubeMap(lightProbe: XRLightProbe): WebGLTexture | null;
 }

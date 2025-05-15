@@ -47,7 +47,7 @@ type LayoutOptions = {
 }
 
 declare class BreakToken {
-  +childBreakTokens: ChildBreakToken;
+  +childBreakTokens: $ReadOnlyArray<ChildBreakToken>;
   +data: any;
 }
 
@@ -71,11 +71,11 @@ declare class IntrinsicSizes {
 declare class LayoutChild {
   +styleMap: StylePropertyMapReadOnly;
 
-  intrinsicSizes(): IntrinsicSizes;
+  intrinsicSizes(): Promise<IntrinsicSizes>;
   layoutNextFragment(
     constraints: LayoutConstraintsOptions,
     breakToken: ChildBreakToken,
-  ): LayoutFragment;
+  ): Promise<LayoutFragment>;
 }
 
 declare class LayoutConstraints {

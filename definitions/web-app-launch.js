@@ -1,7 +1,7 @@
 type LaunchConsumer = (params: LaunchParams) => any;
 
 declare class LaunchParams {
-  +files: FileSystemHandle;
+  +files: $ReadOnlyArray<FileSystemHandle>;
   +targetURL: string | null;
 }
 
@@ -9,6 +9,6 @@ declare class LaunchQueue {
   setConsumer(consumer: LaunchConsumer): void;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +launchQueue: LaunchQueue;
 }

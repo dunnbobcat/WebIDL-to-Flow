@@ -12,7 +12,7 @@ type XRDOMOverlayState = {
   domOverlay: XRDOMOverlayInit | null,
 };
 
-/* partial */ interface XRSession {
+/* partial */ declare class XRSession {
   +domOverlayState: XRDOMOverlayState | null;
 }
 

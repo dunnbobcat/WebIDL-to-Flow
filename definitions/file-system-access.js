@@ -53,7 +53,7 @@ type SaveFilePickerOptions = {
   types: Array<FilePickerAcceptType>,
 };
 
-/* partial */ interface DataTransferItem {
+/* partial */ declare class DataTransferItem {
   getAsFileSystemHandle(): FileSystemHandle | null;
 }
 
@@ -66,7 +66,7 @@ type SaveFilePickerOptions = {
   ): PermissionState;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   showDirectoryPicker(
     options?: DirectoryPickerOptions,
   ): FileSystemDirectoryHandle;

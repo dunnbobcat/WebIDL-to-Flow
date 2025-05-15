@@ -1,7 +1,7 @@
 declare class LayoutShift extends PerformanceEntry {
   +hadRecentInput: boolean;
   +lastInputTime: number;
-  +sources: LayoutShiftAttribution;
+  +sources: $ReadOnlyArray<LayoutShiftAttribution>;
   +value: number;
 
   toJSON(): Object;

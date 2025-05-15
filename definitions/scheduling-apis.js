@@ -24,8 +24,8 @@ declare class Scheduler {
   postTask(
     callback: SchedulerPostTaskCallback,
     options?: SchedulerPostTaskOptions,
-  ): any;
-  yield(): void;
+  ): Promise<any>;
+  yield(): Promise<void>;
 }
 
 declare class TaskController extends AbortController {

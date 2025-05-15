@@ -11,11 +11,11 @@ type FileSystemEntriesCallback = (entries: Array<FileSystemEntry>) => void;
 
 type FileSystemEntryCallback = (entry: FileSystemEntry) => void;
 
-/* partial */ interface DataTransferItem {
+/* partial */ declare class DataTransferItem {
   webkitGetAsEntry(): FileSystemEntry | null;
 }
 
-/* partial */ interface File {
+/* partial */ declare class File {
   +webkitRelativePath: string;
 }
 
@@ -64,7 +64,7 @@ declare class FileSystemFileEntry extends FileSystemEntry {
   file(successCallback: FileCallback, errorCallback?: ErrorCallback): void;
 }
 
-/* partial */ interface HTMLInputElement {
+/* partial */ declare class HTMLInputElement {
   webkitdirectory: boolean;
-  +webkitEntries: FileSystemEntry;
+  +webkitEntries: $ReadOnlyArray<FileSystemEntry>;
 }

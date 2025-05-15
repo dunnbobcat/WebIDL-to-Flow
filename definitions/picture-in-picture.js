@@ -2,18 +2,18 @@ type PictureInPictureEventInit = {
   pictureInPictureWindow: PictureInPictureWindow,
 };
 
-/* partial */ interface Document {
+/* partial */ declare class Document {
   +pictureInPictureEnabled: boolean;
 
-  exitPictureInPicture(): void;
+  exitPictureInPicture(): Promise<void>;
 }
 
-/* partial */ interface HTMLVideoElement {
+/* partial */ declare class HTMLVideoElement {
   disablePictureInPicture: boolean;
   onenterpictureinpicture: EventHandler;
   onleavepictureinpicture: EventHandler;
 
-  requestPictureInPicture(): PictureInPictureWindow;
+  requestPictureInPicture(): Promise<PictureInPictureWindow>;
 }
 
 declare class PictureInPictureEvent extends Event {

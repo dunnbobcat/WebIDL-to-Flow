@@ -14,7 +14,7 @@ type PermissionSetParameters = {
 }
 
 declare class Permissions {
-  query(permissionDesc: Object): PermissionStatus;
+  query(permissionDesc: Object): Promise<PermissionStatus>;
 }
 
 declare class PermissionStatus extends EventTarget {

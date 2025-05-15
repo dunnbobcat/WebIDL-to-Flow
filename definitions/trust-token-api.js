@@ -18,15 +18,15 @@ type PrivateToken = {
   privateToken: PrivateToken,
 };
 
-/* partial */ interface Document {
-  hasPrivateToken(issuer: string): boolean;
-  hasRedemptionRecord(issuer: string): boolean;
+/* partial */ declare class Document {
+  hasPrivateToken(issuer: string): Promise<boolean>;
+  hasRedemptionRecord(issuer: string): Promise<boolean>;
 }
 
-/* partial */ interface HTMLIFrameElement {
+/* partial */ declare class HTMLIFrameElement {
   privateToken: string;
 }
 
-/* partial */ interface XMLHttpRequest {
+/* partial */ declare class XMLHttpRequest {
   setPrivateToken(privateToken: PrivateToken): void;
 }

@@ -1,7 +1,7 @@
-/* partial */ interface Keyboard {
+/* partial */ declare class Keyboard {
   onlayoutchange: EventHandler;
 
-  getLayoutMap(): KeyboardLayoutMap;
+  getLayoutMap(): Promise<KeyboardLayoutMap>;
 }
 
 type KeyboardLayoutMap = Map<string, string>;

@@ -1,3 +1,3 @@
-/* partial */ interface HTMLAnchorElement {
+/* partial */ declare class HTMLAnchorElement {
   attributionSourceId: number;
 }

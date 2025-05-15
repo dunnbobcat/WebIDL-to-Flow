@@ -39,7 +39,7 @@ type NotificationPermissionCallback = (
 ) => void;
 
 declare class Notification extends EventTarget {
-  +actions: NotificationAction;
+  +actions: $ReadOnlyArray<NotificationAction>;
   +badge: string;
   +body: string;
   +data: any;
@@ -59,13 +59,13 @@ declare class Notification extends EventTarget {
   +tag: string;
   +timestamp: EpochTimeStamp;
   +title: string;
-  +vibrate: number;
+  +vibrate: $ReadOnlyArray<number>;
 
   constructor(title: string, options?: NotificationOptions): void;
 
   static requestPermission(
     deprecatedCallback?: NotificationPermissionCallback,
-  ): NotificationPermission;
+  ): Promise<NotificationPermission>;
   close(): void;
 }
 
@@ -76,12 +76,14 @@ declare class NotificationEvent extends ExtendableEvent {
   constructor(type: string, eventInitDict: NotificationEventInit): void;
 }
 
-/* partial */ interface ServiceWorkerGlobalScope {
+/* partial */ declare class ServiceWorkerGlobalScope {
   onnotificationclick: EventHandler;
   onnotificationclose: EventHandler;
 }
 
-/* partial */ interface ServiceWorkerRegistration {
-  getNotifications(filter?: GetNotificationOptions): Array<Notification>;
-  showNotification(title: string, options?: NotificationOptions): void;
+/* partial */ declare class ServiceWorkerRegistration {
+  getNotifications(
+    filter?: GetNotificationOptions,
+  ): Promise<Array<Notification>>;
+  showNotification(title: string, options?: NotificationOptions): Promise<void>;
 }

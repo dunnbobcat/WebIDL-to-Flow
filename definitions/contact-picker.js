@@ -13,7 +13,7 @@ type ContactsSelectOptions = {
 };
 
 declare class ContactAddress {
-  +addressLine: string;
+  +addressLine: $ReadOnlyArray<string>;
   +city: string;
   +country: string;
   +dependentLocality: string;
@@ -28,11 +28,11 @@ declare class ContactAddress {
 }
 
 declare class ContactsManager {
-  getProperties(): Array<ContactProperty>;
+  getProperties(): Promise<Array<ContactProperty>>;
   select(
     properties: Array<ContactProperty>,
     options?: ContactsSelectOptions,
-  ): Array<ContactInfo>;
+  ): Promise<Array<ContactInfo>>;
 }
 
 /* partial */ declare class Navigator {

@@ -2,7 +2,7 @@ type IsInputPendingOptions = {
   includeContinuous: boolean,
 };
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +scheduling: Scheduling;
 }
 

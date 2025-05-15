@@ -3,7 +3,7 @@
   targetRanges: Array<StaticRange>,
 };
 
-/* partial */ interface InputEvent {
+/* partial */ declare class InputEvent {
   +dataTransfer: DataTransfer | null;
 
   getTargetRanges(): Array<StaticRange>;

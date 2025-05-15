@@ -16,13 +16,13 @@ type PointerEventInit = {
   width: number,
 };
 
-/* partial */ interface Element {
+/* partial */ declare class Element {
   hasPointerCapture(pointerId: number): boolean;
   releasePointerCapture(pointerId: number): void;
   setPointerCapture(pointerId: number): void;
 }
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +maxTouchPoints: number;
 }
 

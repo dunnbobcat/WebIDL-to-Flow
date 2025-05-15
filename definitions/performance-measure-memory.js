@@ -20,6 +20,6 @@ type MemoryMeasurement = {
   bytes: number,
 };
 
-/* partial */ interface Performance {
-  measureUserAgentSpecificMemory(): MemoryMeasurement;
+/* partial */ declare class Performance {
+  measureUserAgentSpecificMemory(): Promise<MemoryMeasurement>;
 }

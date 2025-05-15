@@ -30,7 +30,7 @@ type PrivateAttributionImpressionOptions = {
   lifetimeDays: number,
 };
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +privateAttribution: PrivateAttribution;
 }
 
@@ -39,7 +39,7 @@ declare class PrivateAttribution {
 
   measureConversion(
     options: PrivateAttributionConversionOptions,
-  ): PrivateAttributionConversionResult;
+  ): Promise<PrivateAttributionConversionResult>;
   saveImpression(options: PrivateAttributionImpressionOptions): void;
 }
 
@@ -50,7 +50,7 @@ declare class PrivateAttribution {
 /* partial */ declare class PrivateAttribution {
   measureConversion(
     options: PrivateAttributionConversionOptions,
-  ): PrivateAttributionConversionResult;
+  ): Promise<PrivateAttributionConversionResult>;
 }
 
 type PrivateAttributionAggregationServices = Map<

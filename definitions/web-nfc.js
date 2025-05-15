@@ -32,7 +32,7 @@ type NDEFWriteOptions = {
 };
 
 declare class NDEFMessage {
-  +records: NDEFRecord;
+  +records: $ReadOnlyArray<NDEFRecord>;
 
   constructor(messageInit: NDEFMessageInit): void;
 }
@@ -43,9 +43,9 @@ declare class NDEFReader extends EventTarget {
 
   constructor(): void;
 
-  makeReadOnly(options?: NDEFMakeReadOnlyOptions): void;
-  scan(options?: NDEFScanOptions): void;
-  write(message: NDEFMessageSource, options?: NDEFWriteOptions): void;
+  makeReadOnly(options?: NDEFMakeReadOnlyOptions): Promise<void>;
+  scan(options?: NDEFScanOptions): Promise<void>;
+  write(message: NDEFMessageSource, options?: NDEFWriteOptions): Promise<void>;
 }
 
 declare class NDEFReadingEvent extends Event {

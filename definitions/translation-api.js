@@ -34,21 +34,23 @@ type TranslatorTranslateOptions = {
 };
 
 declare class LanguageDetector mixins mixin$DestroyableModel {
-  +expectedInputLanguages: string | null;
+  +expectedInputLanguages: $ReadOnlyArray<string> | null;
   +inputQuota: number;
 
   static availability(
     options?: LanguageDetectorCreateCoreOptions,
-  ): Availability;
-  static create(options?: LanguageDetectorCreateOptions): LanguageDetector;
+  ): Promise<Availability>;
+  static create(
+    options?: LanguageDetectorCreateOptions,
+  ): Promise<LanguageDetector>;
   detect(
     input: string,
     options?: LanguageDetectorDetectOptions,
-  ): Array<LanguageDetectionResult>;
+  ): Promise<Array<LanguageDetectionResult>>;
   measureInputUsage(
     input: string,
     options?: LanguageDetectorDetectOptions,
-  ): number;
+  ): Promise<number>;
 }
 
 declare class Translator mixins mixin$DestroyableModel {
@@ -56,13 +58,18 @@ declare class Translator mixins mixin$DestroyableModel {
   +sourceLanguage: string;
   +targetLanguage: string;
 
-  static availability(options: TranslatorCreateCoreOptions): Availability;
-  static create(options: TranslatorCreateOptions): Translator;
+  static availability(
+    options: TranslatorCreateCoreOptions,
+  ): Promise<Availability>;
+  static create(options: TranslatorCreateOptions): Promise<Translator>;
   measureInputUsage(
     input: string,
     options?: TranslatorTranslateOptions,
-  ): number;
-  translate(input: string, options?: TranslatorTranslateOptions): string;
+  ): Promise<number>;
+  translate(
+    input: string,
+    options?: TranslatorTranslateOptions,
+  ): Promise<string>;
   translateStreaming(
     input: string,
     options?: TranslatorTranslateOptions,

@@ -3,11 +3,11 @@ type SyncEventInit = {
   tag: string,
 };
 
-/* partial */ interface ServiceWorkerGlobalScope {
+/* partial */ declare class ServiceWorkerGlobalScope {
   onsync: EventHandler;
 }
 
-/* partial */ interface ServiceWorkerRegistration {
+/* partial */ declare class ServiceWorkerRegistration {
   +sync: SyncManager;
 }
 
@@ -19,6 +19,6 @@ declare class SyncEvent extends ExtendableEvent {
 }
 
 declare class SyncManager {
-  getTags(): Array<string>;
-  register(tag: string): void;
+  getTags(): Promise<Array<string>>;
+  register(tag: string): Promise<void>;
 }

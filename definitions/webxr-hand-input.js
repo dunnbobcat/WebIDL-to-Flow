@@ -25,7 +25,7 @@ type XRHandJoint =
   | 'pinky-finger-phalanx-distal'
   | 'pinky-finger-tip';
 
-/* partial */ interface XRFrame {
+/* partial */ declare class XRFrame {
   fillJointRadii(
     jointSpaces: Array<XRJointSpace>,
     radii: Float32Array,
@@ -46,7 +46,7 @@ declare class XRHand {
   get(key: XRHandJoint): XRJointSpace;
 }
 
-/* partial */ interface XRInputSource {
+/* partial */ declare class XRInputSource {
   +hand: XRHand | null;
 }
 

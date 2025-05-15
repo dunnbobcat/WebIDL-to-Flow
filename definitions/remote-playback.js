@@ -2,7 +2,7 @@ type RemotePlaybackState = 'connecting' | 'connected' | 'disconnected';
 
 type RemotePlaybackAvailabilityCallback = (available: boolean) => void;
 
-/* partial */ interface HTMLMediaElement {
+/* partial */ declare class HTMLMediaElement {
   disableRemotePlayback: boolean;
   +remote: RemotePlayback;
 }
@@ -13,7 +13,9 @@ declare class RemotePlayback extends EventTarget {
   ondisconnect: EventHandler;
   +state: RemotePlaybackState;
 
-  cancelWatchAvailability(id?: number): void;
-  prompt(): void;
-  watchAvailability(callback: RemotePlaybackAvailabilityCallback): number;
+  cancelWatchAvailability(id?: number): Promise<void>;
+  prompt(): Promise<void>;
+  watchAvailability(
+    callback: RemotePlaybackAvailabilityCallback,
+  ): Promise<number>;
 }

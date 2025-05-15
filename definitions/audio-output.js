@@ -2,12 +2,12 @@ type AudioOutputOptions = {
   deviceId: string,
 };
 
-/* partial */ interface HTMLMediaElement {
+/* partial */ declare class HTMLMediaElement {
   +sinkId: string;
 
-  setSinkId(sinkId: string): void;
+  setSinkId(sinkId: string): Promise<void>;
 }
 
-/* partial */ interface MediaDevices {
-  selectAudioOutput(options?: AudioOutputOptions): MediaDeviceInfo;
+/* partial */ declare class MediaDevices {
+  selectAudioOutput(options?: AudioOutputOptions): Promise<MediaDeviceInfo>;
 }

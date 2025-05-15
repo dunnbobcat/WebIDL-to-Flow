@@ -62,6 +62,6 @@ declare class CaptureController extends EventTarget {
   setFocusBehavior(focusBehavior: CaptureStartFocusBehavior): void;
 }
 
-/* partial */ interface MediaDevices {
-  getDisplayMedia(options?: DisplayMediaStreamOptions): MediaStream;
+/* partial */ declare class MediaDevices {
+  getDisplayMedia(options?: DisplayMediaStreamOptions): Promise<MediaStream>;
 }

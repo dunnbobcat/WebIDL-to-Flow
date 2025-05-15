@@ -210,43 +210,49 @@ declare class SubtleCrypto {
     algorithm: AlgorithmIdentifier,
     key: CryptoKey,
     data: BufferSource,
-  ): ArrayBuffer;
+  ): Promise<ArrayBuffer>;
   deriveBits(
     algorithm: AlgorithmIdentifier,
     baseKey: CryptoKey,
     length?: number | null,
-  ): ArrayBuffer;
+  ): Promise<ArrayBuffer>;
   deriveKey(
     algorithm: AlgorithmIdentifier,
     baseKey: CryptoKey,
     derivedKeyType: AlgorithmIdentifier,
     extractable: boolean,
     keyUsages: Array<KeyUsage>,
-  ): CryptoKey;
-  digest(algorithm: AlgorithmIdentifier, data: BufferSource): ArrayBuffer;
+  ): Promise<CryptoKey>;
+  digest(
+    algorithm: AlgorithmIdentifier,
+    data: BufferSource,
+  ): Promise<ArrayBuffer>;
   encrypt(
     algorithm: AlgorithmIdentifier,
     key: CryptoKey,
     data: BufferSource,
-  ): ArrayBuffer;
-  exportKey(format: KeyFormat, key: CryptoKey): ArrayBuffer | JsonWebKey;
+  ): Promise<ArrayBuffer>;
+  exportKey(
+    format: KeyFormat,
+    key: CryptoKey,
+  ): Promise<ArrayBuffer | JsonWebKey>;
   generateKey(
     algorithm: AlgorithmIdentifier,
     extractable: boolean,
     keyUsages: Array<KeyUsage>,
-  ): CryptoKey | CryptoKeyPair;
+  ): Promise<CryptoKey | CryptoKeyPair>;
   importKey(
     format: KeyFormat,
     keyData: BufferSource | JsonWebKey,
     algorithm: AlgorithmIdentifier,
     extractable: boolean,
     keyUsages: Array<KeyUsage>,
-  ): CryptoKey;
+  ): Promise<CryptoKey>;
   sign(
     algorithm: AlgorithmIdentifier,
     key: CryptoKey,
     data: BufferSource,
-  ): ArrayBuffer;
+  ): Promise<ArrayBuffer>;
   unwrapKey(
     format: KeyFormat,
     wrappedKey: BufferSource,
@@ -255,19 +261,19 @@ declare class SubtleCrypto {
     unwrappedKeyAlgorithm: AlgorithmIdentifier,
     extractable: boolean,
     keyUsages: Array<KeyUsage>,
-  ): CryptoKey;
+  ): Promise<CryptoKey>;
   verify(
     algorithm: AlgorithmIdentifier,
     key: CryptoKey,
     signature: BufferSource,
     data: BufferSource,
-  ): boolean;
+  ): Promise<boolean>;
   wrapKey(
     format: KeyFormat,
     key: CryptoKey,
     wrappingKey: CryptoKey,
     wrapAlgorithm: AlgorithmIdentifier,
-  ): ArrayBuffer;
+  ): Promise<ArrayBuffer>;
 }
 
 /* partial */ declare class mixin$WindowOrWorkerGlobalScope {

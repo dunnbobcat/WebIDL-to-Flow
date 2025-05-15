@@ -107,8 +107,8 @@ declare class CreateMonitor extends EventTarget {
 }
 
 declare class Rewriter mixins mixin$DestroyableModel {
-  +expectedContextLanguages: string | null;
-  +expectedInputLanguages: string | null;
+  +expectedContextLanguages: $ReadOnlyArray<string> | null;
+  +expectedInputLanguages: $ReadOnlyArray<string> | null;
   +format: RewriterFormat;
   +inputQuota: number;
   +length: RewriterLength;
@@ -116,10 +116,15 @@ declare class Rewriter mixins mixin$DestroyableModel {
   +sharedContext: string;
   +tone: RewriterTone;
 
-  static availability(options?: RewriterCreateCoreOptions): Availability;
-  static create(options?: RewriterCreateOptions): Rewriter;
-  measureInputUsage(input: string, options?: RewriterRewriteOptions): number;
-  rewrite(input: string, options?: RewriterRewriteOptions): string;
+  static availability(
+    options?: RewriterCreateCoreOptions,
+  ): Promise<Availability>;
+  static create(options?: RewriterCreateOptions): Promise<Rewriter>;
+  measureInputUsage(
+    input: string,
+    options?: RewriterRewriteOptions,
+  ): Promise<number>;
+  rewrite(input: string, options?: RewriterRewriteOptions): Promise<string>;
   rewriteStreaming(
     input: string,
     options?: RewriterRewriteOptions,
@@ -127,8 +132,8 @@ declare class Rewriter mixins mixin$DestroyableModel {
 }
 
 declare class Summarizer mixins mixin$DestroyableModel {
-  +expectedContextLanguages: string | null;
-  +expectedInputLanguages: string | null;
+  +expectedContextLanguages: $ReadOnlyArray<string> | null;
+  +expectedInputLanguages: $ReadOnlyArray<string> | null;
   +format: SummarizerFormat;
   +inputQuota: number;
   +length: SummarizerLength;
@@ -136,13 +141,18 @@ declare class Summarizer mixins mixin$DestroyableModel {
   +sharedContext: string;
   +type: SummarizerType;
 
-  static availability(options?: SummarizerCreateCoreOptions): Availability;
-  static create(options?: SummarizerCreateOptions): Summarizer;
+  static availability(
+    options?: SummarizerCreateCoreOptions,
+  ): Promise<Availability>;
+  static create(options?: SummarizerCreateOptions): Promise<Summarizer>;
   measureInputUsage(
     input: string,
     options?: SummarizerSummarizeOptions,
-  ): number;
-  summarize(input: string, options?: SummarizerSummarizeOptions): string;
+  ): Promise<number>;
+  summarize(
+    input: string,
+    options?: SummarizerSummarizeOptions,
+  ): Promise<string>;
   summarizeStreaming(
     input: string,
     options?: SummarizerSummarizeOptions,
@@ -150,8 +160,8 @@ declare class Summarizer mixins mixin$DestroyableModel {
 }
 
 declare class Writer mixins mixin$DestroyableModel {
-  +expectedContextLanguages: string | null;
-  +expectedInputLanguages: string | null;
+  +expectedContextLanguages: $ReadOnlyArray<string> | null;
+  +expectedInputLanguages: $ReadOnlyArray<string> | null;
   +format: WriterFormat;
   +inputQuota: number;
   +length: WriterLength;
@@ -159,10 +169,13 @@ declare class Writer mixins mixin$DestroyableModel {
   +sharedContext: string;
   +tone: WriterTone;
 
-  static availability(options?: WriterCreateCoreOptions): Availability;
-  static create(options?: WriterCreateOptions): Writer;
-  measureInputUsage(input: string, options?: WriterWriteOptions): number;
-  write(input: string, options?: WriterWriteOptions): string;
+  static availability(options?: WriterCreateCoreOptions): Promise<Availability>;
+  static create(options?: WriterCreateOptions): Promise<Writer>;
+  measureInputUsage(
+    input: string,
+    options?: WriterWriteOptions,
+  ): Promise<number>;
+  write(input: string, options?: WriterWriteOptions): Promise<string>;
   writeStreaming(input: string, options?: WriterWriteOptions): ReadableStream;
 }
 

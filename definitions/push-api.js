@@ -78,6 +78,6 @@ declare class PushSubscriptionOptions {
   onpushsubscriptionchange: EventHandler;
 }
 
-/* partial */ interface ServiceWorkerRegistration {
+/* partial */ declare class ServiceWorkerRegistration {
   +pushManager: PushManager;
 }

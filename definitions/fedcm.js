@@ -113,11 +113,15 @@ declare class IdentityCredential extends Credential {
   +isAutoSelected: boolean;
   +token: string | null;
 
-  static disconnect(options: IdentityCredentialDisconnectOptions): void;
+  static disconnect(
+    options: IdentityCredentialDisconnectOptions,
+  ): Promise<void>;
 }
 
 declare class IdentityProvider {
   static close(): void;
-  static getUserInfo(config: IdentityProviderConfig): Array<IdentityUserInfo>;
+  static getUserInfo(
+    config: IdentityProviderConfig,
+  ): Promise<Array<IdentityUserInfo>>;
   static resolve(token: string, options?: IdentityResolveOptions): void;
 }

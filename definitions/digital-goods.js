@@ -20,12 +20,12 @@ type PurchaseDetails = {
 };
 
 declare class DigitalGoodsService {
-  consume(purchaseToken: string): void;
-  getDetails(itemIds: Array<string>): Array<ItemDetails>;
-  listPurchaseHistory(): Array<PurchaseDetails>;
-  listPurchases(): Array<PurchaseDetails>;
+  consume(purchaseToken: string): Promise<void>;
+  getDetails(itemIds: Array<string>): Promise<Array<ItemDetails>>;
+  listPurchaseHistory(): Promise<Array<PurchaseDetails>>;
+  listPurchases(): Promise<Array<PurchaseDetails>>;
 }
 
-/* partial */ interface Window {
-  getDigitalGoodsService(serviceProvider: string): DigitalGoodsService;
+/* partial */ declare class Window {
+  getDigitalGoodsService(serviceProvider: string): Promise<DigitalGoodsService>;
 }

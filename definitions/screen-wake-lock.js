@@ -1,11 +1,11 @@
 type WakeLockType = 'screen';
 
-/* partial */ interface Navigator {
+/* partial */ declare class Navigator {
   +wakeLock: WakeLock;
 }
 
 declare class WakeLock {
-  request(type?: WakeLockType): WakeLockSentinel;
+  request(type?: WakeLockType): Promise<WakeLockSentinel>;
 }
 
 declare class WakeLockSentinel extends EventTarget {
@@ -13,5 +13,5 @@ declare class WakeLockSentinel extends EventTarget {
   +released: boolean;
   +type: WakeLockType;
 
-  release(): void;
+  release(): Promise<void>;
 }

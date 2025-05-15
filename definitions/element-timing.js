@@ -1,4 +1,4 @@
-/* partial */ interface Element {
+/* partial */ declare class Element {
   elementTiming: string;
 }
 

@@ -149,7 +149,7 @@ declare class CompositionEvent extends UIEvent {
   ): void;
 }
 
-/* partial */ interface CompositionEvent {
+/* partial */ declare class CompositionEvent {
   initCompositionEvent(
     typeArg: string,
     bubblesArg?: boolean,
@@ -208,7 +208,7 @@ declare class KeyboardEvent extends UIEvent {
   ): void;
 }
 
-/* partial */ interface KeyboardEvent {
+/* partial */ declare class KeyboardEvent {
   initKeyboardEvent(
     typeArg: string,
     bubblesArg?: boolean,
@@ -223,7 +223,7 @@ declare class KeyboardEvent extends UIEvent {
   ): void;
 }
 
-/* partial */ interface KeyboardEvent {
+/* partial */ declare class KeyboardEvent {
   +charCode: number;
   +keyCode: number;
 }
@@ -265,7 +265,7 @@ declare class MouseEvent extends UIEvent {
   ): void;
 }
 
-/* partial */ interface MouseEvent {
+/* partial */ declare class MouseEvent {
   initMouseEvent(
     typeArg: string,
     bubblesArg?: boolean,
@@ -313,7 +313,7 @@ declare class UIEvent extends Event {
   ): void;
 }
 
-/* partial */ interface UIEvent {
+/* partial */ declare class UIEvent {
   initUIEvent(
     typeArg: string,
     bubblesArg?: boolean,
@@ -323,7 +323,7 @@ declare class UIEvent extends Event {
   ): void;
 }
 
-/* partial */ interface UIEvent {
+/* partial */ declare class UIEvent {
   +which: number;
 }
 

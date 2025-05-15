@@ -81,8 +81,8 @@ declare class SpeechRecognition extends EventTarget {
 
   constructor(): void;
 
-  static availableOnDevice(lang: string): AvailabilityStatus;
-  static installOnDevice(lang: string): boolean;
+  static availableOnDevice(lang: string): Promise<AvailabilityStatus>;
+  static installOnDevice(lang: string): Promise<boolean>;
   abort(): void;
   start(): void;
   start(audioTrack: MediaStreamTrack): void;
@@ -196,6 +196,6 @@ declare class SpeechSynthesisVoice {
   +voiceURI: string;
 }
 
-/* partial */ interface Window {
+/* partial */ declare class Window {
   +speechSynthesis: SpeechSynthesis;
 }
