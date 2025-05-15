@@ -427,10 +427,7 @@ function convertTopLevelProduction(
   }
 }
 
-export async function convertIDLToLibrary(
-  idl: IDLTree,
-  includeFlowFlag?: boolean,
-): Promise<string> {
+export async function convertIDLToLibrary(idl: IDLTree): Promise<string> {
   const sorted = idl.toSorted(compareProductions);
   const interfaceMixins = ({}: {[string]: Array<string>});
   const mixinConsts = ({}: {[string]: Array<IDLProduction>});
@@ -459,10 +456,6 @@ export async function convertIDLToLibrary(
   const lines = sorted.map((production) =>
     convertTopLevelProduction(production, interfaceMixins, mixinConsts),
   );
-
-  if (includeFlowFlag === true) {
-    lines.unshift('// @flow', '');
-  }
 
   return lines.join('\n');
 }

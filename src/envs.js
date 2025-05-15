@@ -21,7 +21,6 @@ export const WEB_SPECS = [
   'compression',
   'compute-pressure',
   'console',
-  'contact-picker',
   'content-index',
   'cookie-store',
   'crash-reporting',

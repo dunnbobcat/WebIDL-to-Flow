@@ -7,7 +7,7 @@ import path from 'path';
 import readline from 'readline';
 import * as webidl2 from 'webidl2';
 import {convertIDLToLibrary} from './converter.js';
-import {mergePartialSpecs} from './coalesce.js';
+import {mergePartialSpecs, mergePartialSpecsMulti} from './coalesce.js';
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
 import idl from '@webref/idl';
@@ -80,7 +80,7 @@ async function generateSingleFlowDefinition(
   const dir = await createOutputDirectory(outputDir);
 
   const parsedFiles = await idl.parseAll();
-  const idls = [];
+  let idls = ({}: {[string]: IDLTree});
 
   for (const input of inputs) {
     const idl = parsedFiles[input];
@@ -90,11 +90,18 @@ async function generateSingleFlowDefinition(
     }
 
     process.stdout.write(`Adding IDL file: ${input}...\n`);
-    idls.push(idl);
+    idls[input] = idl;
   }
 
-  const combinedIDL = await mergePartialSpecs(idls.flat(1));
-  const lib = await convertIDLToLibrary(combinedIDL, true);
+  idls = await mergePartialSpecsMulti(idls);
+  let lib = '// @flow\n\n';
+  for (const name in idls) {
+    const idl = idls[name];
+    lib += `/*---------- ${name} ----------*/\n\n`;
+    lib += await convertIDLToLibrary(idl);
+    lib += '\n';
+  }
+
   const name = path.basename(outputFile, '.js');
   await fs.promises.writeFile(`${dir}/${name}.js`, lib);
 }

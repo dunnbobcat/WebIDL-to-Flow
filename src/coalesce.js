@@ -6,6 +6,18 @@ import group from './group.js';
 import partition from './partition.js';
 import pull from './pull.js';
 
+type Groups = {
+  'interface mixin': IDLTree,
+  interface: IDLTree,
+  namespace: IDLTree,
+  dictionary: IDLTree,
+  callback: IDLTree,
+  'callback interface': IDLTree,
+  enum: IDLTree,
+  includes: IDLTree,
+  typedef: IDLTree,
+};
+
 export async function mergePartialSpecs(idl: IDLTree): Promise<IDLTree> {
   const groups = group(idl, (production) => production.type);
 
@@ -124,4 +136,44 @@ export async function mergePartialSpecs(idl: IDLTree): Promise<IDLTree> {
     ...(groups['includes'] ?? []),
     ...(groups['typedef'] ?? []),
   ];
+}
+
+export async function mergePartialSpecsMulti(idls: {
+  [string]: IDLTree,
+}): Promise<{[string]: IDLTree}> {
+  const LOOKUP = {};
+  for (const name in idls) {
+    for (const production of idls[name]) {
+      const {partial, name} = production;
+      if (partial || name == null) {
+        continue;
+      }
+
+      LOOKUP[name] = production;
+    }
+  }
+
+  const processedIDLs = ({}: {[string]: IDLTree});
+  for (const name in idls) {
+    const idl = idls[name];
+    const processedIDL = [];
+    for (const production of idl) {
+      const {partial, name} = production;
+
+      if (!partial) {
+        processedIDL.push(production);
+        continue;
+      }
+
+      const root = LOOKUP[name];
+      if (root == null) {
+        process.stderr.write(`No root found for production ${name}`);
+        continue;
+      }
+    }
+
+    processedIDLs[name] = processedIDL;
+  }
+
+  return processedIDLs;
 }
